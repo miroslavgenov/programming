@@ -1,0 +1,18 @@
+CPP      = g++.exe
+OBJ      = main.o
+LINKOBJ  = main.o
+BIN      = Project1.exe
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	g++ $(LINKOBJ) -o $(BIN) 
+
+main.o: main.cpp
+	g++ -c main.cpp -o main.o

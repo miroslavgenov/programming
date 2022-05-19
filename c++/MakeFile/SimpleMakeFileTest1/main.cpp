@@ -3,5 +3,5 @@ using std::cout;
 using std::endl;
 
 int main(){//////
-	cout<<"Firstd"<<endl;	
+	cout<<"Sirstd"<<endl;	
 }
