@@ -4,8 +4,9 @@
 
 class Student{
   private:
-    char student_first_name[20];
+    
   public:
+    char student_first_name[20];
     Student(){
       strcpy(student_first_name,"Ivan");
     }
