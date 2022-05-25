@@ -19,17 +19,28 @@ const int get_menu_size(vector<T> source_menu){
     return source_menu.size();
 }
 
+/**
+ * @brief Get the menu item by index number
+ * 
+ * @tparam T the type of data stored in the vector
+ * @param source_menu Container whose valus will be accesed by the `MENU_INDEX`
+ * @param MENU_INDEX Integer which will be used to access the `source_menu` index
+ * @return T the values stored in the container `source_menu`
+ */
 template <typename T>
 T get_menu_item_by_index(vector<T> source_menu,const int MENU_INDEX){
+    /* TODO :    Check if the index is out of range and return exception. */
     return source_menu[MENU_INDEX];
 }
 
 /**
- * @brief Show menu in a vector
+ * @brief Shows numbered the value in the vector 
  * 
- * @param src_menu Container whose values are printed
+ * @tparam T the type of data stored in the vector
+ * @param src_menu Container whose value will be printed
  */
-void show_menu(vector<string> src_menu){
+template <typename T>
+void show_menu(vector<T> src_menu){
     
     for(int i=0;i<get_menu_size(src_menu);i++){
         cout<<(i+1)<<"."<<get_menu_item_by_index(src_menu,i)<<endl;
