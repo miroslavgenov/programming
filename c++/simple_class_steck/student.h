@@ -10,12 +10,12 @@ class Student{
     public:
         Student();
         Student(std::string);
-		std::string get_name()const;
+		~Student();
+        std::string get_name()const;
 		void set_next_student(Student *);
 		void set_prev_student(Student *);
 		Student* get_next_student()const;
 		Student* get_prev_student()const;
-
 };
 
 

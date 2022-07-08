@@ -7,6 +7,8 @@ Student::Student(std::string _name):name(_name){
 Student::Student():Student("Default"){
 }
 
+Student::~Student(){delete next; delete prev; }
+
 std::string Student::get_name()const{
 	return name;
 }
