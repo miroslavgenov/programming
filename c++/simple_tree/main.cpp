@@ -84,6 +84,8 @@ node & search(node *r , int x){
 	
 }
 
+
+
 void remove(node* root,int x){
 	// need to be fixed
 	node * r= &search(root,x);
