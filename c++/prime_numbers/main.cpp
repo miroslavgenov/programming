@@ -27,6 +27,7 @@ class MyException{
 		std::string what()const;
 		int get_error_number()const;
 		std::string get_error_message()const;
+		//#TODO: add ostream operator overload to print the error
 };
 
 MyException::MyException(int _error_number,std::string _error_message):error_number(_error_number),error_message(_error_message){
