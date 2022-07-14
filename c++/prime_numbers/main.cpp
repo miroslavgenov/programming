@@ -10,9 +10,11 @@ bool is_number_valid_and_greater(int *);
 
 int main(){
 	
-	int *number=new int(11);
-	std::cout<<is_number_prime(number);
-
+	// int *number=new int(11);
+	// std::cout<<is_number_prime(number);
+	for(int i=0;i<5;i++){
+		std::cout<<i<<std::endl;
+	}
 }
 
 
