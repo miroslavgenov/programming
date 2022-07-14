@@ -1,15 +1,5 @@
+#include "perfect_number.h"
 #include <iostream>
-using namespace std;
-
-bool is_number_acceptable(int *);
-bool is_two_numbers_equal(int ,int);
-bool is_number_perfect(int *);
-void set_perfect_number_dividers_list(int [],int);
-int get_sum_of_perfect_number_dividers_list(int [],int);
-void print_perfect_nuber_dividers_list(int []);
-
-int perfect_number_dividers_list_size=0;
-
 
 void set_perfect_number_dividers_size(int val){
 	perfect_number_dividers_list_size=val;
@@ -19,19 +9,9 @@ int get_perfect_number_dividers_size(){
 	return perfect_number_dividers_list_size;
 }
 
-int main(){
-	int* number=new int(6);
-
-	cout<<is_number_perfect(number);
-	
-	
-}
-
-
-
 void print_perfect_nuber_dividers_list(int arr[],int size){
 	for(int i=0;i<size+1;i++){
-		cout<<arr[i]<<" ";
+		std::cout<<arr[i]<<" ";
 	}
 }
 
@@ -55,7 +35,7 @@ int get_sum_of_perfect_number_dividers_list(int arr[],int size){
 }
 
 bool is_number_acceptable(int *number_source){
-	if(*number_source<6 || number_source==nullptr)return false;
+	if(*number_source<6 || number_source==nullptr || sizeof(*number_source)!=4)return false;
 	return true;
 }
 
@@ -78,40 +58,4 @@ bool is_number_perfect(int *number_perfect){
 	return false;
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
