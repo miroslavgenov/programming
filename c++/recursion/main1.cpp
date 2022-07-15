@@ -81,25 +81,75 @@ void ex4(int n,int c=0){
 	ex4(n,++c);
 	cout<<c<<" ";
 	if(c==1){
-		c=0;
-		cout<<c<<" ";
+		
+		cout<<(c=0)<<" ";
 	}
+}
+int gcd_div(int n1,int n2,int i=1,int prev=0){
+    if(i>n2) return prev;
+    if(n1%i==0 && n2%i==0)
+        prev=i;
+    gcd_div(n1,n2,++i,prev);
+
+}
+
+int gcd_sub(int n1,int n2){
+	if(n1==n2) return n2;
+	if(n1>n2) gcd_sub(n1-n2,n2);
+	else gcd_sub(n1,n2-n1);
+}
+
+int dividor(int n1,int n2){
+	while(n1!=n2)
+		if(n1>n2) n1-=n2;
+		else n2-=n1;
+	return n2;
 }
 
 int main(){
-    //cout<<calculate1(0,2)<<endl;
-    //reverse_msg();
-    //cout<<"!!!"<<factorial(5);
-//    fib(5);
-	// fib_rec(10);
-//    ::number_fix=5;
-//	exer1(5);
-	int num=5;
-//	ex2(num);
-ex3(num);
-//ex4(5);
+    cout<<gcd_sub(36,16);
+    
+	
+	
+	
+	
+    
+    
+	
+	
+	
+	
+    
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
