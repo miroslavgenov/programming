@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--definira kodirovka-->
+		<meta charset="utf-8">
+
+		<!--adaptirane na tova kakvo da se pokaje kato razmer na ekrana-->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		
+		<!--author-->
+		<meta name="author" content="Miroslav Genov 331 SI 13">
+		
+		<!--klychovi dymi-->
+		<meta name="keywords" content="FOOD,EAT,APPLE">
+		
+		<!--vunshen fail za css-->
+		<link rel="stylesheet" href="../style.css">
+
+		<link rel="icon" href="../icon/brandicon.png">
+
+		<title>BIG'O | CONTACT PAGE</title>	
+	</head>
+
+	<body id="bodyBrand">
+		<!--za centrirane na sudurjanieto-->
+		<div id="bodyWrapper">
+			
+			<!-- HEADEAR -->
+			<!--obosobena zaglavnachast-->
+			<header>
+				<nav id="bodyDivHeaderNav"> 
+<!--otsotitelna vruzka--><a class="headerNavBar" href="../about/about.html">About</a>
+<!--absolutna vruzka vruzka-->	<a class="headerNavBar" id="bodyDivHeaderNavALogoImage" href="../home.html">BIG'O</a> 
+<!--otnositelna vruzka--><a class="headerNavBar" href="../facts/facts.html#prop">Facts</a>
+					
+</nav>
+			</header>
+			<!-- END HEADER -->
+
+
+
+    <main id="bodyWrapperContact">
+
+        
+
+       
+
+        
+        <form id="formContact" action="" method="post">
+            
+
+            <fieldset>
+                <h1 id="h1Contact">CONTACT</h1>
+        <p id="pContactInfo">
+            Our phones are working from 10h to 17h.
+            You can call us here <span id="spanContactPhone">+359 1823 986 719</span> or 
+            send email <span id="spanContactEmail">bigo@bigo.com</span>
+        </p>
+            
+
+            <p id="pFormSection">
+                
+                <select class="selectContact" name="ChooseServicePosiion" id="">
+                    <option class="optionDefault" value="1" selected="selected" disabled>--SERVICE--</option>
+                    <option value="2">MARKETING</option>
+                    <option value="3">ADVERTISMENT</option>
+                    <option value="4">TRACK</option>
+                    <option value="5">INFORMATION</option>
+                </select>
+
+                
+                <select class="selectContact" name="ChooseCountry" id="">
+                    <option class="optionDefault    " value="1" selected="selected" disabled>--COUNTRY--</option>
+                    <option value="2">UK</option>
+                    <option value="3">US</option>
+                    <option value="4">FRANCE</option>
+                    <option value="4">INTALY</option>
+                    <option value="5">GERMANY</option>
+                    <option value="6">BULGARIA</option>
+                </select>
+                
+            </p>
+            
+            <p id="pFormName" class="pFormNameEmail">
+                <label class="labelContact" for="name">Name:</label>
+                <input type="text" maxlength="30" size="30" name="name" class="inputText">
+            </p>
+            
+            <p class="pFormNameEmail">
+                <label class="labelContact" for="email">Email:</label>
+                <input type="text" maxlength="100" size="30" name="email" class="inputText">
+            </p>
+            
+            <p class="pFormNameEmail">
+                <textarea name="message" id=""  rows="8" placeholder="Enter your message here ..."></textarea>
+            </p>
+            
+            <p id="pSendButton" class="pFormNameEmail">
+                <input type="submit" id="mySub" value="SEND">
+            </p>
+        </fieldset>
+        </form>
+    </main>
+
+</body>
+</html>

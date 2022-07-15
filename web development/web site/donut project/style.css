@@ -1,0 +1,1112 @@
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+
+/*  BODY */
+body{
+	background-color: #3BCEDB;
+	font-family: Tahoma;	
+	margin: 0;
+}
+/* end BODY */
+
+
+/*  body#bodyBrand, body Contact, body Stores*/
+body#bodyBrand,#bodyContact,#bodyStores{
+	background-color: white;
+}
+/* EMD body Brand, body Contact, body Stores */
+
+
+
+/* divAbout,divBrand,divStores */
+div#divAbout,div#divBrand,div#divStores{
+	height: 791px;
+}
+/* EMD divAbout,divBrand,divStores */
+
+
+
+/* textAbout , textStores , textBrand */
+.textAbout ,.textStores ,.BrandText {	
+	padding-left: 100px;
+}
+/* END  textAbout , textStores , textBrand*/
+
+
+
+
+
+
+
+/*----------------  HEADER AND NAV  ----------------*/
+	/*-------- HEADER --------*/
+	/*sticky nav menu bar s headera*/
+		header{
+			
+			width: 100%;
+			border-bottom: 1px solid #eee;
+
+			text-align:center;
+			word-spacing:100px;
+			
+			
+			/* pravi celiq header sticky za da
+			stoi prez cqloto vereme na ekrana */
+			position: -webkit-sticky;
+			position: sticky;
+			top: 0;
+			z-index: 2;
+			
+			/**/
+			
+			/*duljina na header za da moje da pobere logoto*/
+			height:90px;
+			/**/
+			background-color:white;	
+			
+			
+			
+		}
+	/*-------- END HEADER --------*/
+
+	
+
+	/*-------- NAV + TEXTXT --------*/
+	/* NAV */
+	/*otmestvane ot header s 50px*/
+		nav#bodyDivHeaderNav{
+			
+			/* shte imesti nav s 25px ot header */
+			padding-top:25px;	
+			
+			
+		}
+
+
+		a.headerNavBar{
+			text-decoration: none;
+			color: black;
+			
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 13pt;
+		}
+
+		a.headerNavBar:hover{
+			border-bottom: 3px solid black;
+		}
+
+		a#headerNavBarActive{
+			border-bottom: 3px dashed black;
+		}
+
+		/* A */
+		/* za logoto ot nav  */
+		a#bodyDivHeaderNavALogoImage{
+			/* relative za da moga da premestwq sus 30px */
+			position:relative;
+			top:30px;
+			font-weight: bold;
+			
+			
+		}
+	/*-------- END NAV + TEXTXT --------*/
+
+/*----------------  END HEADER AND NAV  ----------------*/
+
+
+
+
+
+
+
+
+
+/*---------------- MAIN ----------------*/
+	
+	/*--------1 DIV PRODUCT --------*/
+	/*konteiner koito e s golemina na ekrana za da izglejda dobre*/
+		div#bodyDivMainDivProductPackage{
+			/* povdiga top ili namalq top za da se sinhro
+			nizirat logoto i boxa */
+			margin-top:80px;
+			
+			height:770px;
+		}
+		/*-------- END DIV --------*/
+
+			/*---- IMG PRODUCT PACKAGE ----*/
+			/*centralizirano izobrajenie na producta*/
+			img#ImgMainContentProductPackage{
+				display:block;
+				margin-left:auto;
+				margin-right:auto;
+				width: 40%;
+				
+			}
+			/*---- IMG PRODUCT PACKAGE ----*/
+	
+		/*--------1 DIV PRODUCT --------*/
+
+
+	/*--------2  DIV PRODUCT MORE + ARTICLE + SECTION+H4+H1+P+IMG --------*/
+			
+			div#bodyDivMainDivMainProduct{
+				height: 790px;
+				
+			}
+			/*-------- ARTICLE --------*/
+			article#articleBodyMainDivMainProductArticle{
+				padding-top:10px;
+				padding-left: 100px;
+			}
+			/*--------H4--------*/
+				h4#h4BodyMainDivMainProductArticle{
+					/* promenq se poziciqta na h4 */
+					position: absolute;
+					
+					
+				}
+			/*--------H4 --------*/
+
+			/*----SECTION ----*/
+				section#sectionMainDivProductArticle{
+					/* tyk se promenq poziciqta na seciqta
+						tq sudurja h1 i p 
+					*/
+					padding-top: 10px;
+				}
+
+					/*--END OF SECTION --*/
+
+						h1#h1BodyMainDivMainProductArticleSection{
+							font-size: 30px;
+							position: absolute;
+						}
+
+						p#pBodyMainDivMainProductArticleSection{
+							width: 320px;
+							padding-top: 70px;
+						}
+					
+			/*--END OF SECTION + H1 + P --*/
+
+			/*-------- END ARTICLE --------*/
+
+			/*---- IMG ----*/
+			img#ImgMainDivMainProduct{
+				width:27%;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			/*---- END OF IMG ----*/
+
+
+	/*--------2 END DIV PRODUCT MOVE + ARTICLE + SECTION+H4+H1+P+IMG --------*/
+
+
+	/*  DIV TEXT IMG END OF PRODUCT */
+		/*---- DIV ---- */
+		div#divMainEndOfProduct{
+			height: 770px;
+			/* background-color: lightblue; */
+		}
+		/*----END DIV----END */
+		
+		/*---- P ----*/
+		p#pDivEndOfProduct{
+			position: absolute;
+			padding-top: 100px;
+			padding-left: 100px;
+			width: 250px;
+		}
+		/*----END P----*/
+
+		/*----IMG ---- */
+		img#imgDivEndOfProduct{
+			position: absolute;
+			right: 10px;
+			width: 60%;
+			padding-top: 200px;
+		}
+		/*----END IMG---- */
+		
+		/* END DIV TEXT IMG END OF PRODUCT */
+		
+		
+		
+		/*---------------- END MAIN ----------------*/
+		
+		
+		
+		
+		
+/*---------------- FOOTER HOME  ----------------*/
+	footer#myFooter{
+		z-index: 0;
+		height: 791px;
+		background-color: white;
+		/*shte centralizira vsichko*/
+		text-align: center; 
+	}
+
+	p#pcopyRightFooter{
+		
+		color: #aaa;
+		font-size: 15px;
+		font-family: sans-serif;
+		padding: 30px;
+		margin-top: 0;
+		box-shadow: 0 0 15px 4px rgba(0, 0, 0,0.09 );
+		
+	}
+
+
+	span{
+		color: black;
+	}
+
+	span#spanBigO{
+		color: black;
+		font-weight: bold;
+	}
+	#spanContactPhone,#spanContactEmail{
+		
+		color: #aaa;
+		border-bottom: 1px solid #aaa;
+	}
+
+
+	nav#navContact{
+		padding-top: 300px;
+	}
+
+	nav.navFooter{
+		word-spacing: 50px;
+		padding-top: 50px;
+
+	}
+
+
+	a.aFootreSocialIconsLink{
+		text-decoration: none;
+	}
+
+
+
+
+/*----------------END FOOTER HOME ----------------*/
+
+
+
+
+
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+/* ....................................................................................... */
+
+
+
+
+
+
+
+
+
+
+
+
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+
+
+
+
+ /*****----------ABOUT PAGE ---------- *****/ 
+
+
+
+
+/* pAboutProducts */
+p#pAboutProducts{
+	width: 20%;
+}
+/* EMD pAboutProducts */
+
+
+/* imgWheat */
+img#imgWheat{
+	
+	position: absolute;
+	display:block;
+	margin-left: 39%;
+	margin-top: -100px;
+	width: 5%;
+}
+/* EMD imgWheat */
+
+
+
+/* imgDonutSlice */
+img#imgDonutSlice{
+	position: absolute;
+	display:block;
+	margin-left:50%;	
+	width: 20%;
+}
+/* EMD imgDonutSlice */
+
+
+/* imgAbout */
+img.imgAbout{
+	padding-top: 6%;
+}
+/* end imgAbout */
+
+
+
+/* imgStevialeaf */
+img#imgStevialeaf{
+	
+	position: absolute;
+	display:block;
+	margin-left: 74%;
+	width: 17%;
+}
+/* end imgStevialeaf */
+
+
+
+
+/* h4Wheat */
+h4#h4Wheat{
+	position: absolute;
+	margin-top: 28%;
+	margin-left: 41.5%;
+}
+/* end h4Wheat */
+
+
+/* h4Stevia */
+h4#h4Stevia{
+	position: absolute;
+	margin-top: 24%;
+	margin-left: 76%;
+}
+/* end h4Stevia */
+
+
+ /*****---------- END ABOUT PAGE ---------- *****/ 
+
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+/* ***************************************************************************************** */
+
+
+
+
+
+
+
+
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/******************** !!!!!!!! PRODUCT PAGE ******************** !!!!!!!!*/
+
+
+
+
+
+
+
+
+div#divProduct{
+	height: 900px;
+	
+}
+
+
+p#intr{
+	text-align: center;
+}
+
+
+/* TABLE */
+table{
+	color: white;
+	 position: absolute;
+	margin-right: 50%;
+	margin-left:44.2%;
+	margin-top: 25%;
+	
+	font-family: sans-serif;
+	z-index: 1;
+	padding: 8px;
+	
+	border: 2px solid #aaa;
+	box-shadow: 0 0 15px 4px rgba(255, 255, 255, 0.01);
+	
+}
+
+/* end TABLE */
+
+th{
+
+	font-size: 14pt;
+	padding-bottom: 15px;
+}
+
+
+
+
+th#Nutrition{
+	text-align: left;
+	
+}
+
+
+
+
+td#tdServindSize{
+	font-size: 10pt;
+}
+
+
+
+td.metrics{
+	text-align: right;
+}
+
+#line{
+	border-top: 3px dashed #aaa;
+}
+
+
+/* imgBackProduct */
+img#imgBackProduct{
+	position: absolute;
+	margin-left:30%;
+	width: 40%;
+	z-index: 0;
+	margin-top: 7%;
+	
+	
+}
+
+/* end imgBackProduct */
+
+
+
+
+
+
+/******************** !!!!!!!! END OF PRODUCT PAGE ******************** !!!!!!!!*/
+
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+/* BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+
+
+
+
+
+
+
+
+
+
+
+
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+
+
+/******----------*** HTML CONTACT***----------******/
+
+/*----------------CONTACT----------------*/
+
+/*shte izmesti vsichko na doly tova e obvivkata na vsichko*/
+#bodyWrapperContact{
+	margin-left:180px;
+	margin-right:auto;
+	width:80%;
+	/* margin-top: 20px; */
+	/* font-size: 60px; */
+}
+
+
+/* FORM */
+/* form#formContact{} */
+
+
+
+/*FIELDSET */
+/* podravnqvane */
+fieldset{
+	border: 0;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+
+/* H1 FIELD SET */
+h1#h1Contact{
+	font-size: 45pt;
+	font-weight: bolder;
+	
+	/* polzvam go malko kato padding */
+	 /* line-height:0; */
+	
+	padding-top:35px;
+	
+	font-family:sans-serif;
+	
+	
+	
+	
+	/*za da izglejda kato raztegnat nadoly*/
+	transform: scale(1,2); 
+	z-index: 0;
+	position: absolute;
+}
+
+
+/* P CONTACT MESSAGE KOGA RABOTI TELEFONITE telefonen nomer */
+p#pContactInfo{
+	font-weight: bold;
+	font-size: 11pt;
+	width: 350px;
+	position: absolute;
+	z-index: 0;
+	padding-top:65px;
+	padding-left:305px;
+
+
+	font-family: sans-serif;
+	text-transform: uppercase;
+	/* letter-spacing: -1px; */
+
+}
+
+
+
+
+/*izmestvame cqlata select elementi*/
+p#pFormSection{
+	word-spacing: 25px;
+	position: absolute;
+	padding-top:120px;
+	padding-left: 305px;
+}
+
+/* SELECT SERVICE COUNTRY */
+select.selectContact{
+	/*razshirqvane na ramkata na select optionsa*/
+	/* padding:5px; */
+
+
+	width: 180px; 
+	font-size: 20px;
+	text-align: center;
+	color: #aaa;
+
+	border: dashed 3px black;
+
+	font-family: sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+
+	outline: none;
+
+	
+}
+
+
+
+
+/* SECTION OPTIONS */
+option{	
+	color: black;
+	font-family: sans-serif;
+	font-weight: bold;
+	
+}
+
+
+/* Default value koeto da ne moje da se 
+selectira a da pokazva kakvo moje
+da se izbira */
+option.optionDefault{
+	color: gray;
+}
+
+
+/* NAME */
+/*shte izmesti NAME EMAIL TEXTFIELDA BUTTON*/
+p.pFormNameEmail{	
+	margin-top: 30px;
+}
+
+
+/* EMAIL */
+/* shte izmesti EMAIL  */
+p#pFormName{
+	padding-top: 200px;
+}
+
+
+/* INPUT NAME EMAIL */
+input.inputText{
+
+	
+	/* shte premesti cqloto neshto ot labela na dqsno*/
+	margin-left: 10px;
+	
+	border: 0;
+	
+	font-size: 20pt;
+	font-weight: bold;
+	color: #aaa;
+	font-family: sans-serif;
+	text-transform:uppercase;
+}
+
+/* input.inputText:hover{
+	background-color: rgba(0, 0, 0, 0.02);	
+} */
+
+input.inputText:focus{
+	outline: none;
+	
+}
+
+
+/* LABELS NAME EMAIL */
+label.labelContact{
+	font-size:20pt;
+	font-family: sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	
+}
+
+
+
+/* textarea */
+textarea{
+
+	
+	border: dashed 4px #aaa;
+	font-size: 12pt;
+	outline: none;
+
+	width: 550px;
+
+	font-family: sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+
+	padding:10px;
+	
+	/*  promenq resiz-a na text-areata da ne moje po horizont za da ne skrie butona  */
+	resize: vertical; 
+
+}
+/* end textarea */
+
+/* P SEND BUTTON */
+#pSendButton{
+	position: absolute;
+	margin-left: 600px;
+	margin-top: -53px;
+}
+
+/* BUTTON SUBMIT EFFECTS */
+input[type=submit]#mySub{
+	appearance: none;
+	border: 0;
+	border-bottom: 3px dashed #aaa;
+	
+	
+	background-color: transparent;
+	font-size: 20pt;
+
+	font-family: sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+
+	cursor: pointer;
+	
+}
+
+input[type=submit]#mySub:hover{
+	border-bottom: 3px solid black;
+}
+
+/*----------------END CONTACT----------------*/
+
+
+
+/******----------***END HTML CONTACT***----------******/
+
+
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+/* &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/*--------------------------- BRAND ---------------------------*/
+
+
+
+
+
+ 
+/* h1#h1Brand{} */
+ 
+
+/* P brand */
+p#pBrand{
+	width: 400px;
+
+}
+/*END P brand */
+
+/*  */
+ul#ulBrand{
+	margin-left: 30px;
+	
+}
+/* END */
+
+/*  li Brand */
+.liBrand{
+	list-style-image: url(icon/listitemicon.png);
+	padding-top: 10px;
+}
+/* END li Brand */
+
+
+/*  A Brand*/
+.aBrand{
+	text-decoration: none;
+	color: #aaa;
+	border-bottom: 2px dashed #aaa;
+}
+/* END A Brand*/
+
+/*  */
+.aBrand:hover{
+	color: black;
+	border-bottom: 2px solid black;
+}
+/* END */
+
+
+/*  */
+img#imgBrand{
+	display:block;
+	margin-left:40%;
+	margin-right:auto;
+	width: 56%;
+	margin-top: -150px;
+	box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.3) ;
+}
+/* END */
+
+
+
+/*--------------------------- END  BRAND ---------------------------*/
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+/* !!!!!!!!!!!!!!!!!!!!!!! */
+
+
+
+
+
+
+
+
+
+
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+
+
+
+
+/* ------------------!!!!!STORE HTM------------------!!!!!L */
+
+
+
+
+
+
+/*  A Stores */
+a.aStores{
+	text-decoration: none;
+	color: #aaa;
+	border-bottom: 2px dashed #aaa;
+}
+/* END A Stores  */
+
+/* A Stores Hover */
+a.aStores:hover{
+	color: black;
+	border: 0;
+}
+/* END Stores Hover*/
+
+
+/*   P Stores*/
+p#pStores{
+	width: 400px;
+}
+/*END  P Stores */
+
+/*  UL STORES*/
+ul#ulStores{
+	margin-left: 30px;
+}
+/* END UL STORES*/
+
+/*  IFRAME STORES*/
+iframe#iframeStores{
+	box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.2);
+	display:block;
+	margin-left:30%;
+	margin-right:auto;
+	width: 65%;
+	margin-top: -100px;
+}
+/*END  IFRAME STORES*/
+
+/*------------------!!!!! END STORE HTML ------------------!!!!!*/
+
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+/*000000000000000000000000000000000000000000*/
+
+
+
+
+
+
+
+
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+
+/* LOCATIONS */
+
+
+
+#bodyIframeLocation{
+	margin: 0;
+	background-color: white;
+}
+
+
+#BurgasSlaveikov{
+	position: absolute;
+	margin-top: 140px;
+	margin-left: 135px;
+}
+
+
+img#imgMarkSlaveikov{
+	width: 6%;
+	position: absolute;
+	/* display: block; */
+  
+	margin-top: 140px;
+	margin-left: 135px;
+}
+
+img#imgMarkCentyr{
+	width: 6%;
+	position: absolute;
+	margin-top: 540px;
+	margin-left: 475px;
+	
+	}
+
+	img#imgMarkLazyr{
+	width: 6%;
+		position: absolute;
+	margin-top: 325px;
+	margin-left: 685px;
+	
+
+	}
+
+
+
+/* LOCATIONS HTML LOCATION Slaveikov */
+
+p#pSlaveikovLocation{
+position: absolute;
+margin-top: 100px;
+margin-left: 110px;
+border: 3px dashed black;
+padding: 50px;   
+box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+/* END LOCATIONS HTML LOCATION Slaveikov */
+
+
+
+
+
+/* LOCATIONS HTML LOCATION Centur */
+p#pCenturLocation{
+position: absolute;
+margin-top: 520px;
+margin-left: 455px;
+border: 3px dashed black;
+padding: 40px;
+box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+/* END LOCATIONS HTML LOCATION Centur */
+
+
+
+
+/* LOCATIONS HTML LOCATION Lazur */
+p#pLazyrLocation{
+position: absolute;
+margin-top: 290px;
+margin-left: 655px;
+border: 3px dashed black;
+padding: 50px;
+box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.3);
+}
+/* END LOCATIONS HTML LOCATION Lazur */
+
+
+
+/* END LOCATIONS  */
+
+
+
+
+
+
+
+
+
+
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
+/* 8888888888888888888888888888888888888888888888888888888888 */
