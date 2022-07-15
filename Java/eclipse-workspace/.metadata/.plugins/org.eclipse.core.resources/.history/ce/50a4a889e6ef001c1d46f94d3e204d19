@@ -1,0 +1,13 @@
+package abstractexample;
+
+public abstract class Animal {
+	String name;
+	Integer age;
+	public Animal(String name,Integer age) {
+		this.name=name;
+		this.age=age;
+	}
+	public Animal() {
+		this("Dox",1);
+	}
+}

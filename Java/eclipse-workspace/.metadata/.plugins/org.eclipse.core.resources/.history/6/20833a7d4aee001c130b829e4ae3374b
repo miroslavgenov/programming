@@ -1,0 +1,18 @@
+package programmer;
+
+public class Programmer extends Person implements Printable {
+	
+	private String programmingLanguage;
+	public Programmer(String programminLanguage,String name,Integer age) {
+		super(name,age);
+		this.programmingLanguage=programminLanguage;
+	}
+	
+	
+	@Override
+	public void printProgrammingLang(String name_of_langueage) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

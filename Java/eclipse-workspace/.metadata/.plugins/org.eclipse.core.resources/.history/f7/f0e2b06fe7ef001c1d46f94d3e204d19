@@ -1,0 +1,86 @@
+package abstractexample;
+
+public abstract class Animal {
+	private String aType;
+	private Integer age;
+	
+	public Animal(String aType,Integer age) {
+		this.aType=aType;
+		this.age=age;
+	}
+	
+	public abstract void showAnimalType(String n);
+	
+	public void showAge() {
+		System.out.println();
+	}
+}
+
+class Dog extends Animal{
+	
+	Dog(Integer age){
+		super("dog",age);
+	}
+	
+	@Override
+	public void showAnimalType(String n) {
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+package abstractexample;
+
+abstract class Animal{
+	String animalType;
+
+	/**
+	 * @param animalType
+	 */
+	public Animal(String animalType) {
+		
+		this.animalType = animalType;
+	}
+	public Animal() {	
+		this.animalType = "null";
+	}
+	public String getAnimalType() {
+		return animalType;
+	}
+	public void setAnimalType(String animalType) {
+		this.animalType = animalType;
+	}
+	public abstract void showAnimalType();
+	
+}
+
+class Dog extends Animal{
+
+	public Dog() {
+		super("dog");
+	}
+	
+	@Override
+	public void showAnimalType() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+
+public class UseAbstract {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

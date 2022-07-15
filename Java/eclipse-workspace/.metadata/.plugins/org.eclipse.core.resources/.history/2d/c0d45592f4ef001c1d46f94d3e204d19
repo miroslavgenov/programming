@@ -1,0 +1,99 @@
+package coparacopm;
+
+class Student implements Comparable<Student>{
+	String name;
+	Integer age;
+	Integer fn;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getFn() {
+		return fn;
+	}
+
+	public void setFn(Integer fn) {
+		this.fn = fn;
+	}
+
+	/**
+	 * @param name
+	 * @param age
+	 * @param fn
+	 */
+	public Student(String name, Integer age, Integer fn) {
+	
+		this.name = name;
+		this.age = age;
+		this.fn = fn;
+	}
+	public Student() {}
+
+	@Override
+	public int compareTo(Student o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}
+
+public class MainTest {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

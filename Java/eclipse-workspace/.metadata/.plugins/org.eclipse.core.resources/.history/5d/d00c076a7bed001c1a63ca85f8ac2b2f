@@ -1,0 +1,74 @@
+package example;
+
+
+
+public class ExampleTest {
+	public static void main(String[] args) {
+			Integer x = 5;
+			System.out.println(x);
+			Integer x1 = new Integer(5);
+			System.out.println(x1);
+			int j=10;
+			System.out.println(j);
+			int a = Integer(j);
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

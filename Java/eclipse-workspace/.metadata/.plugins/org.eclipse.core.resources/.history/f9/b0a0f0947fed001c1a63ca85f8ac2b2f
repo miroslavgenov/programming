@@ -1,0 +1,76 @@
+package example;
+
+
+class Person{
+	public void show_person() {System.out.println("Person: ");}
+}
+public class ExampleTest {
+	
+	//public final Integer a3=333; // error
+	public static final Integer NUMBER=333;
+	public void ShowName() {System.out.println("Hello");}
+	public static void main(String[] args) {
+		Person ivan = new Person();
+		ivan.show_person();
+		
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+package abstractexample;
+
+public abstract class Animal {
+	private String aType;
+	public Animal(String aType) {
+		this.aType=aType;
+	}
+	
+	public abstract void animalType(String n);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

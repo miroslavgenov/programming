@@ -1,0 +1,78 @@
+package testinterface;
+
+class Dog implements Speackable {
+
+	@Override
+	public void speack() {
+		// TODO Auto-generated method stub
+		System.out.println("Yaf");
+	}
+	
+	
+}
+
+public class Cat implements Speackable {
+
+	@Override
+	public void speack() {
+		// TODO Auto-generated method stub
+		System.out.println("Mew");
+	}
+	public static void main(String [] args) {
+		Cat c=new Cat();
+		c.speack();
+		Dog d = new Dog();
+		d.speack();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

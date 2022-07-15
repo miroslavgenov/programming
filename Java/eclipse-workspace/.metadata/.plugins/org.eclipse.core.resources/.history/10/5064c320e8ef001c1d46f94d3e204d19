@@ -1,0 +1,68 @@
+package abstractexample;
+
+abstract class Animal{
+	String animalType;
+
+	/**
+	 * @param animalType
+	 */
+	public Animal(String animalType) {
+		
+		this.animalType = animalType;
+	}
+public Animal() {
+		
+		this.animalType = "null";
+	}
+}
+
+public class UseAbstract {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

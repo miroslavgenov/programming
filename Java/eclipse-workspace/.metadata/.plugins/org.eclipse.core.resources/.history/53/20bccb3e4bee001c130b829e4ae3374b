@@ -1,0 +1,12 @@
+package programmer;
+import inheritance.*;
+
+public class Test {
+	public static void main(String [] args) {
+		Programmer p = new Programmer("Ivan",13,"Java");
+		p.printProgrammingLang(p.getLang());
+		
+		Student s = new Student(133,null );
+		System.out.println(s.toString());
+	}
+}

@@ -1,0 +1,45 @@
+package example;
+
+
+public class ExampleTest {
+	public static void main(String[] args) {
+			Integer x = 5;
+			System.out.println(x);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+}

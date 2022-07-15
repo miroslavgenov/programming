@@ -1,0 +1,70 @@
+package example;
+
+
+
+public class ExampleTest {
+	public static void main(String[] args) {
+			Integer a=5;
+			System.out.println(a);
+			System.out.println(Math.PI);
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+package testinterafece;
+
+interface Speakable{
+	abstract void speak();
+	abstract void show(String n);
+	default void showHello() {	System.out.println("Hello");}
+
+abstract class Animal implements Speakable{
+	private String name;
+	private Integer age;
+	
+	public Animal(String name, Integer age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+
+	@Override
+	public void show(String n) {
+		
+		
+	}
+	
+	
+	
+	
+}
+
+
+
+
+public class MainTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

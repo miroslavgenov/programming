@@ -1,0 +1,5 @@
+package testinterface;
+
+public interface Speackable {
+	public void speack();
+}
