@@ -1,5 +1,0 @@
-package programmer;
-
-public interface Printable {
-
-}
