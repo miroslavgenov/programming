@@ -1,5 +1,4 @@
 #include <iostream>
-#include <math.h>
 using namespace std;
 
 bool linear_search_sorted_desc_order(int array_numbers[],int SIZE_ARRAY,int searched_number,int step){
