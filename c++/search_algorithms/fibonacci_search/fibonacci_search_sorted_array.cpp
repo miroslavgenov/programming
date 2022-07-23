@@ -54,7 +54,7 @@ int find_first_greater_or_equal_number_to_arary_size_and_return_index(int array_
 void fib_find(int fm2,int fm1,int fm,int offset,int i,int arr[],int v){
 	cout<<"fm2: "<<fm2<<" fm1: "<<fm1<<" fm: "<<fm<<" offset: "<<offset<<" i:"<<i<<" v: "<<v<<endl;
 	int prev=0;
-	if(fm2>=0){
+	if(fm>1){
 		cout<<"arr[i]: "<<arr[i]<<endl;
 		if(arr[i]==v){
 			cout<<"arr[i]: "<<arr[i]<<" v: "<<v<<endl;
@@ -79,6 +79,9 @@ void fib_find(int fm2,int fm1,int fm,int offset,int i,int arr[],int v){
 //			cout<<"arr_fib_seq[fm2-1]: "<<::arr_fib_seq[fm2]<<endl;
 		}else if(arr[i]>v){
 			cout<<"arr[i]>v"<<endl;
+			//TODO 
+			
+
 		}
 	}else{
 		return;
