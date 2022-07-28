@@ -2,7 +2,7 @@ create table if not exists client(
     client_id integer not null primary key autoincrement,
     client_name nvarchar(50),
     client_card_id int,
-    boolean is_client_active default(0),
+    boolean is_client_active default(0) not null,
     foreign key(client_card_id)
     references card(card_id)
 );
@@ -12,7 +12,7 @@ create table if not exists card(
     card_client_id integer not null,
     card_date_from datetime,
     card_date_end datetime,
-    boolean is_card_active default(0),
+    boolean is_card_active default(0) not null,
     card_price integer default(30),
     card_day integer default(31),
     foreign key(card_client_id)
