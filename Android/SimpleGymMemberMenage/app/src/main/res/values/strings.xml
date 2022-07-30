@@ -1,3 +1,37 @@
 <resources>
-    <string name="app_name">SimpleGymMemberMenage</string>
+    <string name="app_name">Simple Gym Member Menage</string>
+
+<!--    shared preferences key-->
+    <string name="preference_file_key_card_price_default">com.miroslav.simplegymmembermenage.DefaultCardPrice</string>
+
+<!--    activity set defaults-->
+    <string name="set_default_activity_name">Set Defaults</string>
+
 </resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
