@@ -18,6 +18,7 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.miroslav.simpleGymMemberMenage.databinding.ActivitySetDefaultsBinding;
 
+
 public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingInterface ,SharedPrefsInitializer{
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
     AdView adView;

@@ -43,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/set_default_activity_card_price"
                 android:inputType="number"
-                android:drawableLeft="@drawable/ic_baseline_attach_money_24"
                 android:maxLines="1"
                 android:maxLength="4"
                 />
@@ -57,7 +56,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/linearLayoutMargin"
             android:layout_marginRight="@dimen/linearLayoutMargin"
-            android:text="SET" />
+            android:text="@string/button_set_text" />
 
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"

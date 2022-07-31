@@ -9,16 +9,94 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutMainMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainMenuActivity">
+        tools:context=".MainMenuActivity"
+        android:layout_marginTop="@dimen/relativeLayout_margin"
+        android:layout_marginLeft="@dimen/relativeLayout_margin"
+        android:layout_marginRight="@dimen/relativeLayout_margin"
+        >
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/linearLayoutHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Main Menu Activity" />
+            android:orientation="horizontal"
+            >
 
+            <ImageButton
+                android:id="@+id/imageButtonSearch"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#FFFFFF"
+                android:src="@drawable/ic_baseline_search_24" />
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextSearchClientId"
+                android:hint="@string/edit_text_search_text"
+                android:inputType="number"
+                android:maxLines="1"
+                android:maxLength="4"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutMainMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_below="@+id/linearLayoutHeader"
+            android:layout_above="@+id/linearLayoutFooter"
+            >
+            <Button
+                android:id="@+id/buttonAddClient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_add_client_text"
+                android:layout_marginBottom="@dimen/button_add_client_margin"
+            />
+            <Button
+                android:id="@+id/buttonAddCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_add_card_text"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_above="@+id/adView"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonActiveClients"
+                android:drawableTop="@drawable/ic_baseline_assignment_ind_24"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#AAF1F1F1"
+                android:text="@string/button_active_text"
+                />
+        </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
     </RelativeLayout>
 </layout>
 

@@ -14,6 +14,18 @@
         android:theme="@style/Theme.SimpleGymMemberMenage"
         tools:targetApi="31">
         <activity
+            android:name=".ClientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActiveClientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddClientActivity"
+            android:exported="false" />
+        <activity
             android:name=".SetDefaultsActivity"
             android:exported="false" />
         <activity
@@ -27,14 +39,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+        </activity> <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"
-        />
-
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
 </manifest>

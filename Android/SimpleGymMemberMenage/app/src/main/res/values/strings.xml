@@ -8,6 +8,11 @@
     <string name="set_default_activity_name">Set Defaults</string>
     <string name="set_default_activity_card_price">Card Price</string>
     <string name="incorrect_card_price">Incorrect Card Price</string>
+    <string name="button_set_text">SET</string>
+    <string name="button_active_text">ACTIVE</string>
+    <string name="edit_text_search_text">Search ID</string>
+    <string name="button_add_client_text">ADD CLIENT</string>
+    <string name="button_add_card_text">ADD CARD</string>
 
 
 </resources>
