@@ -1,24 +1,18 @@
-package com.miroslav.simplegymmembermenage;
+package com.miroslav.simpleGymMemberMenage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.miroslav.simplegymmembermenage.databinding.ActivityMainBinding;
-
-// user will set default value to card if the default value is zero
-// if default card price is not zero the will proceeed to main menu activity
-// else will proceed to set default activity to set the card price
+import com.miroslav.simpleGymMemberMenage.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements  MyActivityBindingInterface,SharedPrefsInitializer{
 
     ActivityMainBinding activityMainBinding ;
-
+    public static boolean isFinishSetActivity=false;
     MySharedPrefs mySharedPrefs;
 
     @Override
@@ -33,25 +27,24 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     private void main() {
 
         initializeSharedPrefs();
-        if(mySharedPrefs.isSharedPrefsFileExists()){
+        boolean isSharedPrefsExists = mySharedPrefs.isSharedPrefsFileExists();
 
-            if(mySharedPrefs.getCardPriceFromSharedPrefs()==Card.DEFAULT_CARD_PRICE){
-                startSetDefaultsActivity();
-                Intent intent= new Intent();
-                intent.setClass(this,MainMenuActivity.class);
-                startActivity(intent);
+        if(isSharedPrefsExists){
 
+            if(mySharedPrefs.getCardPriceFromSharedPrefs()!=0){
+
+                startMainMenuActivity();
+                finish();
             }else{
-
-                Log.d("GymMem"," card price HMMM ");
-                Intent intent= new Intent();
-                intent.setClass(this,MainMenuActivity.class);
-                startActivity(intent);
+                setDefaultCardPrice(0);
+                startSetDefaultsActivity();
+                finish();
             }
         }
         else{
             setDefaultCardPrice(0);
-            main();
+            startSetDefaultsActivity();
+            finish();
 
         }
 
@@ -61,26 +54,31 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
     }
 
-    private void startActivitySetDefaultsOrActivityMainMenu() {
-//        if(sfp.getCardPriceFromSharedPrefs()==Card.DEFAULT_CARD_PRICE){
-//            startSetDefaultsActivity();
-//        }else{
-//            startMainMenuActivity();
-//        }
-    }
-    @Override
-     public void initializeSharedPrefs() {
-        this.mySharedPrefs = mySharedPrefs = new MySharedPrefs(getApplicationContext(),getResources().getString(R.string.shared_prefs_file_key_card_price_default),Context.MODE_PRIVATE);
-    }
-
     private void startMainMenuActivity(){
-
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(),MainMenuActivity.class);
+        startActivity(intent);
     }
+
+    private void startActivitySetDefaultsOrActivityMainMenu() {
+    }
+
+
+    @Override
+    public void initializeSharedPrefs() {
+        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(),getResources().getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+    }
+
+
+
+
+
 
     private void setDefaultCardPrice(Integer defaultCardPrice) {
         mySharedPrefs.createOrAccessExistingSharedPreferences();
         mySharedPrefs.writeDefaultCardPriceToSharedPrefs(defaultCardPrice);
     }
+
 
     private void startSetDefaultsActivity() {
         Intent intent = new Intent();
@@ -105,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
 
 }
-
 
 
 

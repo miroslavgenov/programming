@@ -1,4 +1,4 @@
-package com.miroslav.simplegymmembermenage;
+package com.miroslav.simpleGymMemberMenage;
 
 import android.content.Context;
 import android.content.SharedPreferences;

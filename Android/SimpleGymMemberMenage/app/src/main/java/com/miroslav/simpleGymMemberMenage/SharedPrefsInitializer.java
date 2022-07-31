@@ -1,6 +1,5 @@
-package com.miroslav.simplegymmembermenage;
+package com.miroslav.simpleGymMemberMenage;
 
 public interface SharedPrefsInitializer {
     void initializeSharedPrefs();
-
 }

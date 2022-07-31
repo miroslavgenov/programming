@@ -1,4 +1,4 @@
-package com.miroslav.simplegymmembermenage;
+package com.miroslav.simpleGymMemberMenage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
