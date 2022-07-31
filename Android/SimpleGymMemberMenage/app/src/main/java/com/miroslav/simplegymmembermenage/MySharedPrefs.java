@@ -2,6 +2,7 @@ package com.miroslav.simplegymmembermenage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class MySharedPrefs {
     Context context;
@@ -17,6 +18,19 @@ public class MySharedPrefs {
 
     }
 
+    boolean isSharedPrefsFileExists(){
+        createOrAccessExistingSharedPreferences();
+        if(getSharedPreferences().contains(this.getSharedPrefKey())){
+            Log.d("GymMenage","exists");
+            return true;
+        }
+        else{
+            Log.d("GymMenage","doesn't exists");
+            return false;
+        }
+
+    }
+
     public void createOrAccessExistingSharedPreferences(){
         this.sharedPreferences = getContext().getSharedPreferences(getSharedPrefKey(), getContextModePrivate());
     }
@@ -24,6 +38,7 @@ public class MySharedPrefs {
     private int getContextModePrivate() {
         return this.getContext().MODE_PRIVATE;
     }
+
 
     public void writeDefaultCardPriceToSharedPrefs(Integer value){
         editor = getSharedPreferences().edit();
@@ -33,9 +48,7 @@ public class MySharedPrefs {
 
     //SET
     public void setCardPriceToSharedPrefs(Integer value){
-        editor = getSharedPreferences().edit();
-        editor.putInt(this.getSharedPrefKey(),value);
-        editor.apply();
+        writeDefaultCardPriceToSharedPrefs(value);
     }
 
 
@@ -49,7 +62,7 @@ public class MySharedPrefs {
     public String getSharedPrefKey(){return this.sharedPrefKey;}
 
     public Integer getCardPriceFromSharedPrefs(){
-        Integer value = getSharedPreferences().getInt(getContext().getString(R.string.preference_file_key_card_price_default),this.context.getResources().getInteger(R.integer.default_card_price));
+        Integer value = getSharedPreferences().getInt(getContext().getString(R.string.shared_prefs_file_key_card_price_default),this.context.getResources().getInteger(R.integer.default_card_price));
         return value;
     }
 }
