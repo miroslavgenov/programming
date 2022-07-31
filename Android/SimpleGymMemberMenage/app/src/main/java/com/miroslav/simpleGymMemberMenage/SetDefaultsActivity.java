@@ -68,6 +68,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         intent.setClass(getApplicationContext(),MainMenuActivity.class);
         startActivity(intent);
     }
+
     private void makeToastSetTextToErrorPriceSetGravityAndShow() {
         Toast toast;
         toast= Toast.makeText(getApplicationContext(),getApplicationContext().getString(R.string.incorrect_card_price),Toast.LENGTH_LONG);

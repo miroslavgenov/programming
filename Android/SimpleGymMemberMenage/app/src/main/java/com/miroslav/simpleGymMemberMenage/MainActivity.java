@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
         startActivity(intent);
     }
 
-    private void startActivitySetDefaultsOrActivityMainMenu() {
-    }
-
-
     @Override
     public void initializeSharedPrefs() {
         this.mySharedPrefs = new MySharedPrefs(getApplicationContext(),getResources().getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
