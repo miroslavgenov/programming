@@ -9,8 +9,16 @@
         <entry key="app/src/main/res/drawable/ic_baseline_assignment_ind_24.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.1475" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1475" />
+        <entry key="app/src/main/res/layout/activity_add_card.xml" value="0.1590678824721378" />
+        <entry key="app/src/main/res/layout/activity_add_client.xml" value="0.1590678824721378" />
         <entry key="app/src/main/res/layout/activity_client.xml" value="0.1590678824721378" />
-        <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_active_client.xml" value="0.1590678824721378" />
+        <entry key="app/src/main/res/layout/fragment_add_card.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_add_client.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_card.xml" value="0.1590678824721378" />
+        <entry key="app/src/main/res/layout/fragment_client.xml" value="0.1590678824721378" />
+        <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -4,4 +4,6 @@
     <dimen name="set_default_activity_name_size">40dp</dimen>
     <dimen name="linearLayoutMargin">20dp</dimen>
     <dimen name="button_add_client_margin">30dp</dimen>
+    <dimen name="button_main_menu_padding">12dp</dimen>
+    <dimen name="edit_text_h1_size">25sp</dimen>
 </resources>

@@ -14,18 +14,6 @@
         android:theme="@style/Theme.SimpleGymMemberMenage"
         tools:targetApi="31">
         <activity
-            android:name=".ClientActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ActiveClientActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddCardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddClientActivity"
-            android:exported="false" />
-        <activity
             android:name=".SetDefaultsActivity"
             android:exported="false" />
         <activity

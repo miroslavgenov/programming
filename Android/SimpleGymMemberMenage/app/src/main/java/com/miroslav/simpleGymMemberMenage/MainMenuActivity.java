@@ -35,44 +35,44 @@ public class MainMenuActivity extends AppCompatActivity implements MyActivityBin
         setActivityBinding(DataBindingUtil.setContentView(this,R.layout.activity_main_menu));
         loadAd();
         setInitialElementsFromXML(getActivityMainMenuBinding());
-        onButtonAddClientEvent();
-        onButtonAddCardEvent();
-        onButtonActiveClientEvent();
-        onImageButtonSearchClient();
+//        onButtonAddClientEvent();
+//        onButtonAddCardEvent();
+//        onButtonActiveClientEvent();
+//        onImageButtonSearchClient();
 
 
 
     }
 
-    private void onImageButtonSearchClient() {
-        executeOnImageButtonActiveClientEventListener();
-    }
-
-    private void executeOnImageButtonActiveClientEventListener() {
-        getImageButtonSearchClient().setOnClickListener(view -> {
-            //TODO do something
-        });
-    }
-
-    private void onButtonActiveClientEvent() {
-        executeOnButtonActiveClientEventListener();
-    }
-
-    private void executeOnButtonActiveClientEventListener() {
-        getButtonActiveClient().setOnClickListener(view->{
-            //TODO do something
-        });
-    }
-
-    private void onButtonAddCardEvent() {
-        executeOnButtonAddCardEventListener();
-    }
-
-    private void executeOnButtonAddCardEventListener() {
-        getButtonAddCard().setOnClickListener(view->{
-            //TODO do something
-        });
-    }
+//    private void onImageButtonSearchClient() {
+//        executeOnImageButtonActiveClientEventListener();
+//    }
+//
+//    private void executeOnImageButtonActiveClientEventListener() {
+//        getImageButtonSearchClient().setOnClickListener(view -> {
+//            //TODO do something
+//        });
+//    }
+//
+//    private void onButtonActiveClientEvent() {
+//        executeOnButtonActiveClientEventListener();
+//    }
+//
+//    private void executeOnButtonActiveClientEventListener() {
+//        getButtonActiveClient().setOnClickListener(view->{
+//            //TODO do something
+//        });
+//    }
+//
+//    private void onButtonAddCardEvent() {
+//        executeOnButtonAddCardEventListener();
+//    }
+//
+//    private void executeOnButtonAddCardEventListener() {
+//        getButtonAddCard().setOnClickListener(view->{
+//            //TODO do something
+//        });
+//    }
 
 
     private void loadAd(){
@@ -94,47 +94,45 @@ public class MainMenuActivity extends AppCompatActivity implements MyActivityBin
     //Events
 
 
-    void onButtonAddClientEvent(){
-        executeOnButtonAddClientEventListener();
-    }
-
-    private void executeOnButtonAddClientEventListener() {
-        getButtonAddClient().setOnClickListener(view->{
-            //TODO do something
-        });
-    }
+//    void onButtonAddClientEvent(){
+//        executeOnButtonAddClientEventListener();
+//    }
+//
+//    private void executeOnButtonAddClientEventListener() {
+//        getButtonAddClient().setOnClickListener(view->{
+//            //TODO do something
+//        });
+//    }
 
 
     //    SET
 
     private void setInitialElementsFromXML(ActivityMainMenuBinding binding) {
-        setImageButtonSearchClient(binding.imageButtonSearch);
-        setEditTextSearch(binding.editTextSearchClientId);
-        setButtonAddClient(binding.buttonAddClient);
-        setButtonAddCard(binding.buttonAddCard);
-        setButtonActiveClient(binding.buttonActiveClients);
+//        setImageButtonSearchClient(binding.imageButtonSearch);
+//        setEditTextSearch(binding.editTextSearchClientId);
+//        setButtonAddClient(binding.buttonAddClient);
+//        setButtonAddCard(binding.buttonAddCard);
+//        setButtonActiveClient(binding.buttonActiveClients);
     }
 
-    void setImageButtonSearchClient(ImageButton imageButton){
-        this.imageButtonSearchClient =imageButton;
-    }
+//    void setImageButtonSearchClient(ImageButton imageButton){
+//        this.imageButtonSearchClient =imageButton;
+//    }
+//
+//    void setEditTextSearch(EditText editText){
+//        this.editTextSearch=editText;
+//    }
+//
+//    void setButtonAddClient(Button button){
+//        this.buttonAddClient=button;
+//    }
+//
+//    void setButtonAddCard(Button button){
+//        this.buttonAddCard = button;
+//
+//    }
 
-    void setEditTextSearch(EditText editText){
-        this.editTextSearch=editText;
-    }
 
-    void setButtonAddClient(Button button){
-        this.buttonAddClient=button;
-    }
-
-    void setButtonAddCard(Button button){
-        this.buttonAddCard = button;
-
-    }
-
-    void setButtonActiveClient(Button button){
-        this.buttonActiveClient=button;
-    }
 
     void setAdView(AdView adView){
         this.adView = adView;
@@ -155,10 +153,10 @@ public class MainMenuActivity extends AppCompatActivity implements MyActivityBin
         return this.adView;
     }
 
-    ImageButton getImageButtonSearchClient(){return this.imageButtonSearchClient;}
-    EditText getEditTextSearch(){return this.editTextSearch;}
-    Button getButtonAddClient(){return this.buttonAddClient;}
-    Button getButtonAddCard(){return this.buttonAddCard;}
+//    ImageButton getImageButtonSearchClient(){return this.imageButtonSearchClient;}
+//    EditText getEditTextSearch(){return this.editTextSearch;}
+//    Button getButtonAddClient(){return this.buttonAddClient;}
+//    Button getButtonAddCard(){return this.buttonAddCard;}
     Button getButtonActiveClient(){return this.buttonActiveClient;}
 
 }
