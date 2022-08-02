@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Simple Gym Member Manage</string>
+
+    <!--    shared preferences key-->
+    <string name="shared_prefs_file_key_card_price_default">com.miroslav.simpleGymMemberManage.DefaultCardPrice</string>
+
+    <!--    activity set defaults-->
+    <string name="set_default_activity_name">Set Defaults</string>
+    <string name="set_default_activity_card_price">Card Price</string>
+    <string name="incorrect_card_price">Incorrect Card Price</string>
+    <string name="button_set_text">SET</string>
+    <string name="button_active_text">ACTIVE CLIENTS</string>
+    <string name="edit_text_search_text">Search ID</string>
+    <string name="button_add_client_text">ADD CLIENT</string>
+    <string name="button_add_card_text">ADD CARD</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Fragment Add Card -->
+    <string name="fragment_add_client_name_text">Add Client</string>
+    <string name="fragment_add_card_name_text">Add Card</string>
+    <string name="client_id_text">Client ID</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="add_text">ADD</string>
+    <string name="add_client_text">Add Client</string>
+    <string name="client_name_hint">Client Name</string>
+
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

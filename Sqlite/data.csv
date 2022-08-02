@@ -1,7 +1,0 @@
-card    client
-card    client
-CREATE TABLE client(id integer not null primary key autoincrement,
-name nvarchar(50) not null,
-card_id integer,
-foreign key(id)
-references card(client_id));
