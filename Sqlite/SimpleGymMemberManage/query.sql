@@ -42,3 +42,35 @@ update client set client_card_id=5 where client_id =1;
 select card_date_end  from card where card_client_id=1 and card_id=5;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,6 +20,7 @@ import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding
 import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 
 
+
 public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingInterface ,SharedPrefsInitializer{
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
     AdView adView;
@@ -38,7 +39,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     @Override
     protected void onDestroy() {
-        this.gymSqlQuery.closeGymDbHelper();
+//        this.gymSqlQuery.closeGymDbHelper();
         super.onDestroy();
     }
 
@@ -66,8 +67,8 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
                 mySharedPrefs.createOrAccessExistingSharedPreferences();
                 mySharedPrefs.writeDefaultCardPriceToSharedPrefs(getEditTextCardPriceNumber());
 
-                gymSqlQuery = new GymSqlQuery();
-                gymSqlQuery.createDataBase(getApplicationContext(),getEditTextCardPriceNumber());
+                this.gymSqlQuery = new GymSqlQuery();
+                this.gymSqlQuery.createDataBase(getApplicationContext(),getEditTextCardPriceNumber());
 
 
 

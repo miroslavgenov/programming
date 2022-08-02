@@ -26,6 +26,24 @@
         android:text="Clients"
         />
 
+        <ScrollView
+            android:id="@+id/scrollViewClients"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            >
+            <LinearLayout
+                android:id="@+id/linearLayoutInScrollViewClients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+
+            </LinearLayout>
+
+        </ScrollView>
+
 
 
     </LinearLayout>

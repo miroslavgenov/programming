@@ -16,12 +16,15 @@ import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddClientBinding;
-import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
+import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
+//import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 
 
 public class AddClientFragment extends Fragment {
     FragmentAddClientBinding fragmentAddClientBinding;
-    GymSqlQuery gymSqlQuery;
+//    GymSqlQuery gymSqlQuery;
+    ClientSqlQuery clientSqlQuery;
+    Integer clientId;
 
     @Nullable
     @Override
@@ -32,22 +35,29 @@ public class AddClientFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        gymSqlQuery.closeGymDbHelper();
+        clientSqlQuery.closeGymDbHelper();
         super.onDestroyView();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        gymSqlQuery = new GymSqlQuery();
-        gymSqlQuery.openDataBase(getActivity().getApplicationContext());
+        this.clientSqlQuery = new ClientSqlQuery();
+        this.clientSqlQuery.openDataBase(getActivity().getApplicationContext());
+
+        clientId = clientSqlQuery.getCountOfAllElements();
+        fragmentAddClientBinding.textViewClientIdNumber.setText(String.valueOf(clientId +1));
 
         fragmentAddClientBinding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if(!fragmentAddClientBinding.editTextClientName.getText().toString().isEmpty()) {
-                    gymSqlQuery.insertData(fragmentAddClientBinding.editTextClientName.getText().toString());
+
+                    clientSqlQuery.insertData(fragmentAddClientBinding.editTextClientName.getText().toString());
+                    clientId= clientSqlQuery.getCountOfAllElements();
+                    fragmentAddClientBinding.textViewClientIdNumber.setText(String.valueOf(clientId+1));
+
                     Toast toast =  Toast.makeText(getActivity(),"Client added",Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER,0,0);
 

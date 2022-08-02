@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentClientsBinding;
-import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
+import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
+//import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 
 import java.util.ArrayList;
 
@@ -27,16 +28,18 @@ import java.util.ArrayList;
  *
  */
 public class ClientsFragment extends Fragment {
-    GymSqlQuery gymSqlQuery;
+    ClientSqlQuery clientSqlQuery;
     FragmentClientsBinding fragmentClientsBinding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentClientsBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_clients, container, false);
-        gymSqlQuery= new GymSqlQuery();
-        gymSqlQuery.openDataBase(getActivity());
-         ArrayList<Client> clientArrayList = gymSqlQuery.readAllClients();
+
+        clientSqlQuery= new ClientSqlQuery();
+        clientSqlQuery.openDataBase(getActivity());
+
+         ArrayList<Client> clientArrayList = clientSqlQuery.readAllData();
 
          if(clientArrayList!=null){
         for(int i=0;i<clientArrayList.size();i++){
@@ -47,16 +50,13 @@ public class ClientsFragment extends Fragment {
          }
 
 
-
-
-
         return fragmentClientsBinding.getRoot();
 
     }
 
     @Override
     public void onDestroyView() {
-        gymSqlQuery.closeGymDbHelper();
+        clientSqlQuery.closeGymDbHelper();
         super.onDestroyView();
     }
 
@@ -70,7 +70,7 @@ public class ClientsFragment extends Fragment {
         );
 
         textView.setLayoutParams(params);
-        fragmentClientsBinding.linearLayoutContainer.addView(textView);
+        fragmentClientsBinding.linearLayoutInScrollViewClients.addView(textView);
     }
 
     @Override
