@@ -55,6 +55,16 @@ public class MainMenuFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_addClientFragment);
             }
         });
+
+        getImageButtonSearchClient().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getEditTextSearch().getText().toString().isEmpty()){
+                    Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_clientsFragment);
+                }
+            }
+        });
+
     }
 
 

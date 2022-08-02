@@ -17,6 +17,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding;
+import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 
 
 public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingInterface ,SharedPrefsInitializer{
@@ -25,19 +26,30 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     Button buttonSetDefault;
     EditText editTextCardPrice;
     MySharedPrefs mySharedPrefs;
+    GymSqlQuery gymSqlQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActivityBinding(DataBindingUtil.setContentView(this,R.layout.activity_set_defaults));
+
         main();
     }
 
+    @Override
+    protected void onDestroy() {
+        this.gymSqlQuery.closeGymDbHelper();
+        super.onDestroy();
+    }
+
     private void main() {
+
         loadAd();
         setButtonSet(this.getActivityBinding().buttonSetDefault);
         setEditTextCardPrice(getActivityBinding().editTextSetCardPrice);
+
         onButtonSetDefault();
+
     }
 
     // events
@@ -53,6 +65,12 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
                 initializeSharedPrefs();
                 mySharedPrefs.createOrAccessExistingSharedPreferences();
                 mySharedPrefs.writeDefaultCardPriceToSharedPrefs(getEditTextCardPriceNumber());
+
+                gymSqlQuery = new GymSqlQuery();
+                gymSqlQuery.createDataBase(getApplicationContext(),getEditTextCardPriceNumber());
+
+
+
                 finish();
                 startMainMenuActivity();
 

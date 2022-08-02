@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.AddClientFragment">
-    <TextView
-        android:id="@+id/textViewAddClientFragment"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/edit_text_h1_size"
-        android:textStyle="bold"
-        android:text="@string/add_client_text"
-        android:textAlignment="center"
-        android:layout_alignParentTop="true"
-        />
-    <EditText
-        android:id="@+id/editTextClientName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/client_name_hint"
-        android:layout_below="@+id/textViewAddClientFragment"
-        android:layout_marginTop="@dimen/button_add_client_margin"
-        android:maxLines="1"
-        android:lines="1"
-        android:singleLine="true"
-        android:maxLength="50"
-        android:inputType="textPersonName"
-        android:digits="abcdefghijklmnopqrstuvwxyz"
-        />
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextClientName"
-        android:layout_marginTop="@dimen/button_add_client_margin"
-        android:layout_marginRight="@dimen/button_add_client_margin"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_toStartOf="@+id/buttonAdd"
-        android:padding="@dimen/button_main_menu_padding"
-        android:text="@string/cancel_text"
-        />
+        android:layout_height="match_parent"
+        tools:context=".fragments.AddClientFragment">
+
+        <TextView
+            android:id="@+id/textViewAddClientFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/edit_text_h1_size"
+            android:textStyle="bold"
+            android:text="@string/add_client_text"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true" />
+
+        <EditText
+            android:id="@+id/editTextClientName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/client_name_hint"
+            android:layout_below="@+id/textViewAddClientFragment"
+            android:layout_marginTop="@dimen/button_add_client_margin"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"
+            android:maxLength="50"
+            android:inputType="textPersonName"
+            android:digits="abcdefghijklmnopqrstuvwxyz" />
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextClientName"
+            android:layout_marginTop="@dimen/button_add_client_margin"
+            android:layout_marginRight="@dimen/button_add_client_margin"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_toStartOf="@+id/buttonAdd"
+            android:padding="@dimen/button_main_menu_padding"
+            android:text="@string/cancel_text" />
 
         <Button
             android:id="@+id/buttonAdd"
@@ -49,10 +56,10 @@
             android:layout_below="@+id/editTextClientName"
             android:layout_alignParentEnd="true"
             android:text="@string/add_text"
-            android:padding="@dimen/button_main_menu_padding"
-            />
+            android:padding="@dimen/button_main_menu_padding" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
 
 
 

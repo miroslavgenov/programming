@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_activeClientFragment2"
             app:destination="@id/activeClientFragment2" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_clientsFragment"
+            app:destination="@id/clientsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
@@ -46,4 +49,9 @@
         android:name="com.miroslav.simpleGymMemberManage.fragments.ActiveClientFragment"
         android:label="fragment_active_client"
         tools:layout="@layout/fragment_active_client" />
+    <fragment
+        android:id="@+id/clientsFragment"
+        android:name="com.miroslav.simpleGymMemberManage.fragments.ClientsFragment"
+        android:label="fragment_clients"
+        tools:layout="@layout/fragment_clients" />
 </navigation>
