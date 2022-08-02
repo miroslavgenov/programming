@@ -42,6 +42,8 @@ public class MainMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // here you will need to execute operations like setEventListener and etc.
         super.onViewCreated(view, savedInstanceState);
+
+
         getButtonAddCard().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

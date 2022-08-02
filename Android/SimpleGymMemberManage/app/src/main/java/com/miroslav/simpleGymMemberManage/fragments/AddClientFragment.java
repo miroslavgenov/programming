@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.R;
@@ -24,7 +25,7 @@ public class AddClientFragment extends Fragment {
     FragmentAddClientBinding fragmentAddClientBinding;
 //    GymSqlQuery gymSqlQuery;
     ClientSqlQuery clientSqlQuery;
-    Integer clientId;
+    Integer clientIdForNextClient;
 
     @Nullable
     @Override
@@ -39,41 +40,83 @@ public class AddClientFragment extends Fragment {
         super.onDestroyView();
     }
 
+    void hello(){}
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        addClientLogic();
+
+    }
+
+    private void addClientLogic() {
+
+        initializeClientSqlQueryAndOpenDataBase();
+        prepareCurrentClientIdForNextClient();
+
+        onButtonClick(fragmentAddClientBinding.buttonAdd,this::addClient);
+        onButtonClick(fragmentAddClientBinding.buttonCancel,this::popFragmentBackStack);
+
+    }
+
+    void addClient(){
+        if(!this.isClientEditTextStringEmpty()) {
+            clientSqlQuery.insertData(fragmentAddClientBinding.editTextClientName.getText().toString());
+            prepareCurrentClientIdForNextClient();
+            makeToastLengthLongGravityCenter(getString(R.string.client_added_text));
+        }
+    }
+
+    void makeToastLengthLongGravityCenter(String message){
+        Toast toast =  Toast.makeText(getActivity(),message,Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+    }
+
+    private void prepareCurrentClientIdForNextClient() {
+        setCurrentClientIdForNextClient();
+        setTextViewClientIdNumberText(String.valueOf(clientIdForNextClient));
+    }
+
+    private void setCurrentClientIdForNextClient() {
+        setCurrentClientId(clientSqlQuery.getCountOfAllElements());
+        incrementClientIdForNextClientByOne();
+    }
+
+    private void setTextViewClientIdNumberText(String clientId) {
+        fragmentAddClientBinding.textViewClientIdNumber.setText(String.valueOf(clientId));
+    }
+
+    void incrementClientIdForNextClientByOne(){
+        this.clientIdForNextClient =this.clientIdForNextClient +1;
+    }
+
+    private void setCurrentClientId(Integer countOfAllElements) {
+        this.clientIdForNextClient =countOfAllElements;
+    }
+
+    private void initializeClientSqlQueryAndOpenDataBase() {
         this.clientSqlQuery = new ClientSqlQuery();
         this.clientSqlQuery.openDataBase(getActivity().getApplicationContext());
+    }
 
-        clientId = clientSqlQuery.getCountOfAllElements();
-        fragmentAddClientBinding.textViewClientIdNumber.setText(String.valueOf(clientId +1));
+    boolean isClientEditTextStringEmpty(){
+        return fragmentAddClientBinding.editTextClientName.getText().toString().isEmpty();
+    }
 
-        fragmentAddClientBinding.buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(!fragmentAddClientBinding.editTextClientName.getText().toString().isEmpty()) {
-
-                    clientSqlQuery.insertData(fragmentAddClientBinding.editTextClientName.getText().toString());
-                    clientId= clientSqlQuery.getCountOfAllElements();
-                    fragmentAddClientBinding.textViewClientIdNumber.setText(String.valueOf(clientId+1));
-
-                    Toast toast =  Toast.makeText(getActivity(),"Client added",Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER,0,0);
-
-                    toast.show();
-                }
-            }
-        });
-
-        fragmentAddClientBinding.buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
-            }
-        });
+    private void popFragmentBackStack(){
+        Navigation.findNavController(getButtonToPopFragment()).popBackStack();
+    }
 
 
+
+    private Button getButtonToPopFragment() {
+        return fragmentAddClientBinding.buttonCancel;
+    }
+
+    private void onButtonClick(Button button,MyButtonEventLogicInterface myButtonEventLogicInterface) {
+        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 }
 
