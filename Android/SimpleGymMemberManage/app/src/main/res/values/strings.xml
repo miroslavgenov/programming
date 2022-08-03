@@ -24,6 +24,7 @@
     <string name="add_client_text">Add Client</string>
     <string name="client_name_hint">Client Name</string>
     <string name="client_added_text">Client added</string>
+    <string name="client_text">Client</string>
 
 
 </resources>

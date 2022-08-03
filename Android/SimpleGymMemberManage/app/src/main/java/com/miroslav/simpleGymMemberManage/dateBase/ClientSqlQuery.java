@@ -59,7 +59,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
             int cardId = cursor.getInt(
                     cursor.getColumnIndexOrThrow(GymContract.ClientEntry.COLUMN_NAME_CLIENT_CARD_ID)
             );
-            clientArrayList.add(new Client(itemId,name,cardId==0?null:cardId));
+            clientArrayList.add(new Client(itemId,name,cardId));
 
 
 //            itemIds.add(name);
@@ -131,6 +131,24 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
     }
 
 
+    public Client getClientFromDataBase(Integer clientId) {
+        SQLiteDatabase database = super.gymDbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select * from client where client_id= " + clientId + ";", new String[]{});
+
+        if (cursor.moveToNext()) {
+            Integer clientIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_id"));
+            String clientName = cursor.getString(cursor.getColumnIndexOrThrow("client_name"));
+            Integer clientCardIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_card_id"));
+//            Log.d("MyGym",clientIndex+" "+clientName+" "+clientCardIndex);
+
+            return new Client(clientIndex, clientName, clientCardIndex);
+//            Log.d("MyGym",c.toString());
+        } else {
+            return null;
+        }
+
+
+    }
 }
 
 

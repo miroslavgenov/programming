@@ -63,6 +63,12 @@ public class MainMenuFragment extends Fragment {
             public void onClick(View view) {
                 if(getEditTextSearch().getText().toString().isEmpty()){
                     Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_clientsFragment);
+                }else{
+                    if(Integer.parseInt(editTextSearch.getText().toString())>0){
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("clientId",Integer.parseInt(editTextSearch.getText().toString()));
+                        Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_clientFragment,bundle);
+                    }
                 }
             }
         });

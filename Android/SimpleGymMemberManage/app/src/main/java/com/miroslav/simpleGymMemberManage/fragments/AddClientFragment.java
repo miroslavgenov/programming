@@ -48,6 +48,7 @@ public class AddClientFragment extends Fragment {
 
         addClientLogic();
 
+
     }
 
     private void addClientLogic() {
