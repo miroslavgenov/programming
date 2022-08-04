@@ -73,6 +73,14 @@ public class MainMenuFragment extends Fragment {
             }
         });
 
+        getButtonActiveClient().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_activeClientFragment2);
+            }
+        });
+
+
     }
 
 

@@ -1,5 +1,7 @@
 package com.miroslav.simpleGymMemberManage.actors;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ public class Card {
     Date card_date_end;
     Boolean card_active;
     Integer card_price;
-    Integer card_days;
+    Integer card_day;
 
 
 
@@ -20,6 +22,7 @@ public class Card {
         card_date_from= date;
         this.card_date_end = new Date(this.card_date_from.getYear(),this.card_date_from.getMonth(),this.card_date_from.getDate()+31);
     }
+
 
 
 
@@ -60,13 +63,21 @@ public class Card {
     public void setCard_price(Integer card_price) {
         this.card_price = card_price;
     }
-    public Integer getCard_days() {
-        return card_days;
+    public Integer getCard_day() {
+        return card_day;
     }
-    public void setCard_days(Integer card_days) {
-        this.card_days = card_days;
+    public void setCard_day(Integer card_day) {
+        this.card_day = card_day;
     }
+    public void setCardActive(String value){
 
+        if(Integer.parseInt(value)==1){
+            Log.d("MyGym","value == 1");
+            this.card_active=true;
+        }else{
+            this.card_active=false;
+        }
+    }
     public String getStringDateFromDateFromSimpleDateFormatterForDataBinding(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -93,6 +104,15 @@ public class Card {
         return "End "+simpleDateFormat.format(getCard_date_end());
     }
 
+    boolean isCardActive(){
+        Date dateCurrent = new Date();
+
+        if(this.card_date_end.getMonth()<dateCurrent.getMonth() || this.card_date_end.getDate()<dateCurrent.getDate()){
+            return false;
+        }return true;
+
+    }
+
     @Override
     public String toString() {
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -100,9 +120,9 @@ public class Card {
 //        String stringDateFrom = simpleDateFormat.format(card_date_from);
 //        String stringDateEnd = simpleDateFormat.format(card_date_end);
 
-        return "Card [card_id=" + card_id + ", card_client_id=" + card_client_id + ", card_date_from=" + this.getCard_date_from()
-                + ", card_date_end=" + this.getCard_date_end() + ", is_card_active=" + card_active + ", card_price="
-                + card_price + ", card_days=" + card_days + "]";
+        return "cardID: " + card_id + ", clientID: " + card_client_id + ", " + this.getStringDateFrom()
+                + " " + this.getStringDateEnd() + ", active: " + card_active + ", price:"
+                + card_price + ", days: " + card_day ;
     }
 }
 

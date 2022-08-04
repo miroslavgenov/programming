@@ -1,14 +1,16 @@
 package com.miroslav.simpleGymMemberManage.dateBase;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
     class CardSqlQueryException extends Exception{
@@ -28,7 +30,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
         Log.d("MyGym",card.toString()+"\n"+client.toString());
 
         card.setCard_client_id(client.getClient_id());
-        card.setCard_days(31);
+        card.setCard_day(31);
 
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
 
@@ -36,7 +38,10 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
         contentValues.put("card_date_from",card.getStringDateFrom());
         contentValues.put("card_date_end",card.getStringDateEnd());
         contentValues.put("card_client_id",card.getCard_client_id());
-        contentValues.put("card_active",true);
+        contentValues.put("card_active",1);
+        contentValues.put("card_day",card.getCard_day());
+        contentValues.put("card_price",card.getCard_price());
+
 
 
 
@@ -92,10 +97,69 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 //        db.close();
     }
 
+    public ArrayList<Card> getAllActiveCardsFromDataBase(){
+        SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        ArrayList<Card> cardArrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("select * from card where card_active=1;",new String[]{});
+
+        while(cursor.moveToNext()){
+            Integer card_id = cursor.getInt(cursor.getColumnIndexOrThrow("card_id"));
+            Integer card_client_id = cursor.getInt(cursor.getColumnIndexOrThrow("card_client_id"));
+            String card_date_from = cursor.getString(cursor.getColumnIndexOrThrow("card_date_from"));
+            String card_date_end = cursor.getString(cursor.getColumnIndexOrThrow("card_date_end"));
+            String card_active =  cursor.getString(cursor.getColumnIndexOrThrow("card_active"));
+            Integer card_price = cursor.getInt(cursor.getColumnIndexOrThrow("card_price"));
+            Integer card_day = cursor.getInt(cursor.getColumnIndexOrThrow("card_day"));
+
+            Log.d("MyGym",card_active);
+
+            ArrayList<String> arrayListDateElement  = new ArrayList<String>(
+                    Arrays.asList(card_date_from.split("-"))
+            );
+            Log.d("MyGym",arrayListDateElement.get(0)+" "+arrayListDateElement.get(1)+" "+ arrayListDateElement.get(2));
+
+            Card card = new Card(new Date(
+                    Integer.parseInt(arrayListDateElement.get(0))-1900,
+                   Integer.parseInt(arrayListDateElement.get(1)),
+                   Integer.parseInt(arrayListDateElement.get(2)))
+            );
+            card.setCard_id(card_id);
+            card.setCard_client_id(card_client_id);
+            card.setCardActive(card_active);
+            cardArrayList.add(card);
+
+
+
+
+//            Log.d("MyGym","cardID: "+  card_id +"  clientID: "+card_client_id+"  cardDateFrom: "+card_date_from+" cardDateEnd: "+card_date_end+
+//                     " cardActive: "+card_active+" cardPrice: "+card_price+" cardDay: "+card_day);
+//            cardArrayList.add(new Card(
+//                    card_id,card_client_id,card_date_from,card_date_end,
+//                    card_active,card_price,card_date_end
+//            ));
+
+        }
+//        for(int i=0;i<cardArrayList.size();i++){
+//            Log.d("MyGym",cardArrayList.get(i).toString());
+//        }
+//        if(cursor.getPosition()==0){
+//            return null;
+//        }
+
+        return cardArrayList;
+
+    }
 
     @Override
     public Integer getCountOfAllElements() {
-        return null;
+        SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select count(card_id) from card;",new String []{});
+        cursor.moveToNext();
+        Integer value = cursor.getInt(0);
+        db.close();
+        return value;
+
+        
     }
 }
 

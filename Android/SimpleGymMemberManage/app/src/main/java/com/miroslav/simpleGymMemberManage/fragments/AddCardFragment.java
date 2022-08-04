@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavAction;
+import androidx.navigation.NavGraph;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,7 +64,8 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
         initializeSharedPrefs();
 
 
-        Card card = new Card(new Date());
+        Card card = new Card(new Date(122,03,04));
+
         card.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
         fragmentAddCardBinding.setCard(card);
 
@@ -84,7 +88,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
                             Toast.makeText(getContext(),"Client can make card",Toast.LENGTH_LONG).show();
                             CardSqlQuery cardSqlQuery  = new CardSqlQuery();
                             cardSqlQuery.openDataBase(getContext());
-
+                            card.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
                             cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(card,client);
 
 
@@ -103,7 +107,12 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
             }
         });
 
-
+       fragmentAddCardBinding.buttonCancel.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Navigation.findNavController(view).popBackStack();
+           }
+       });
 
     }
 
