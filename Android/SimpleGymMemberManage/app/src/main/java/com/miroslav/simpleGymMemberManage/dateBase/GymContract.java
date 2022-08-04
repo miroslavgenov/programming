@@ -32,7 +32,7 @@ public final class GymContract {
         public static final String COLUMN_NAME_CARD_CLIENT_ID = "card_client_id";
         public  static final String COLUMN_NAME_CARD_DATE_FROM = "card_date_from";
         public  static final String COLUMN_NAME_CARD_DATE_END = "card_date_end";
-        public static final String COLUMN_NAME_IS_CARD_ACTIVE = "is_card_active";
+        public static final String COLUMN_NAME_CARD_ACTIVE = "card_active";
         public static final String COLUMN_NAME_CARD_PRICE = "card_price";
         public static final String COLUMN_NAME_CARD_DAYS = "card_days";
 

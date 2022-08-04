@@ -67,13 +67,27 @@ public class Card {
         this.card_days = card_days;
     }
 
-    public String getStringDateFromDateFromSimpleDateFormatter(){
+    public String getStringDateFromDateFromSimpleDateFormatterForDataBinding(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         return "From "+simpleDateFormat.format(getCard_date_from());
     }
 
-    public String getStringDateEndDateFromSimpleDateFormatter(){
+    public String getStringDateFrom(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        return simpleDateFormat.format(getCard_date_from());
+    }
+
+    public String getStringDateEnd(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        return "From "+simpleDateFormat.format(getCard_date_end());
+    }
+
+
+
+    public String getStringDateEndDateFromSimpleDateFormatterForDataBinding(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         return "End "+simpleDateFormat.format(getCard_date_end());

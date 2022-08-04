@@ -20,9 +20,12 @@ import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddCardBinding;
+import com.miroslav.simpleGymMemberManage.dateBase.CardSqlQuery;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,14 +68,30 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
         fragmentAddCardBinding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!fragmentAddCardBinding.editTextClientName.getText().toString().isEmpty() && Integer.parseInt(fragmentAddCardBinding.editTextClientName.getText().toString())>0){
-                    if(isClientIdExist(Integer.parseInt(fragmentAddCardBinding.editTextClientName.getText().toString()))){
+                if(!fragmentAddCardBinding.editTextClientID.getText().toString().isEmpty() && Integer.parseInt(fragmentAddCardBinding.editTextClientID.getText().toString())>0){
+                    if(isClientIdExist(Integer.parseInt(fragmentAddCardBinding.editTextClientID.getText().toString()))){
                         // check if client don't have card;
+
+
+                        client = clientSqlQuery.getClientFromDataBase(Integer.parseInt(fragmentAddCardBinding.editTextClientID.getText().toString()));
+
+
+
                         Log.d("MyGym",""+client.getClient_card_id());
+
                         if(client.getClient_card_id()==0){
                         //TODO insert card to client who don't have card
                             Toast.makeText(getContext(),"Client can make card",Toast.LENGTH_LONG).show();
+                            CardSqlQuery cardSqlQuery  = new CardSqlQuery();
+                            cardSqlQuery.openDataBase(getContext());
 
+                            cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(card,client);
+
+
+
+
+                        }else{
+                            Toast.makeText(getContext(),"Client have card",Toast.LENGTH_LONG).show();
                         }
 
 //                        Toast.makeText(getContext(),"Client exists",Toast.LENGTH_LONG).show();
@@ -91,7 +110,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
     public boolean isClientIdExist(Integer clientId) {
         clientSqlQuery = new ClientSqlQuery();
         clientSqlQuery.openDataBase(getContext());
-        client = clientSqlQuery.getClientFromDataBase(clientId);
+        Client client = clientSqlQuery.getClientFromDataBase(clientId);
         if(client!=null){
             clientSqlQuery.closeGymDbHelper();
             return true;

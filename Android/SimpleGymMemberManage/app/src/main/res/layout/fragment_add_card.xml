@@ -26,7 +26,7 @@
             android:text="@string/fragment_add_card_name_text" />
 
         <EditText
-            android:id="@+id/editTextClientName"
+            android:id="@+id/editTextClientID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewAddCardFragmentName"
@@ -44,9 +44,9 @@
             android:id="@+id/textViewCardFromDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/editTextClientName"
+            android:layout_below="@id/editTextClientID"
             android:layout_marginTop="@dimen/button_add_client_margin"
-            android:text='@{card.stringDateFromDateFromSimpleDateFormatter}'
+            android:text="@{card.stringDateFromDateFromSimpleDateFormatterForDataBinding}"
 
             android:gravity="right"
 
@@ -59,7 +59,7 @@
             android:id="@+id/textViewCardEndDate"
             android:layout_below="@+id/textViewCardFromDate"
             android:layout_marginTop="@dimen/button_add_client_margin"
-            android:text='@{card.stringDateEndDateFromSimpleDateFormatter}'
+            android:text="@{card.stringDateEndDateFromSimpleDateFormatterForDataBinding}"
             android:gravity="right"
             />
 
