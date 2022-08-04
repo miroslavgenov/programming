@@ -27,6 +27,11 @@ public class GymSqlQuery {
 
     public GymSqlQuery(){}
 
+
+    //TODO change createDataBase and openDataBase to createOrOpenDataBase(Context appContext,Integer defaultCardPrice)
+    // if default card price is not null then create the database else open the database
+    // and place it in the constructor
+
     public void createDataBase(Context appContext, Integer defaultCardPrice){
         //read from database and create
         gymDbHelper = new GymDbHelper(appContext,defaultCardPrice);
@@ -35,6 +40,8 @@ public class GymSqlQuery {
     public void openDataBase(Context appContext){
             gymDbHelper = new GymDbHelper(appContext);
     }
+
+
     public void closeGymDbHelper(){
         this.gymDbHelper.close();
     }

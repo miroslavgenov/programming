@@ -90,17 +90,17 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
      * This function inserts client into data base
      *
      * @param value client name
-     * @see GymSqlQueryInterface#insertData(String)
+     * @see GymSqlQueryInterface#insertData(T)
      */
     @Override
-    public void insertData(String value) {
+    public <T> void insertData(T value) {
 
 
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
 
         // create a new map of values , where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(GymContract.ClientEntry.COLUMN_NAME_CLIENT_NAME,value);
+        values.put(GymContract.ClientEntry.COLUMN_NAME_CLIENT_NAME,(String) value);
 
 
         long newRowId = db.insert(GymContract.ClientEntry.TABLE_NAME,null,values);

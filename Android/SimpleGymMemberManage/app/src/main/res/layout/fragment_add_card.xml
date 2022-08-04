@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="card"
+            type="com.miroslav.simpleGymMemberManage.actors.Card" />
     </data>
 
     <RelativeLayout
@@ -37,36 +39,46 @@
             android:inputType="number"
             android:digits="0123456789" />
 
-        <EditText
-            android:id="@+id/editTextCardFromDate"
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/textViewCardFromDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTextClientName"
             android:layout_marginTop="@dimen/button_add_client_margin"
+            android:text='@{card.stringDateFromDateFromSimpleDateFormatter}'
+
+            android:gravity="right"
 
             />
 
-        <EditText
+        <TextView
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editTextCardEndDate"
-            android:layout_below="@+id/editTextCardFromDate"
+            android:id="@+id/textViewCardEndDate"
+            android:layout_below="@+id/textViewCardFromDate"
             android:layout_marginTop="@dimen/button_add_client_margin"
-
+            android:text='@{card.stringDateEndDateFromSimpleDateFormatter}'
+            android:gravity="right"
             />
 
-        <EditText
+        <TextView
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editTextCardPrice"
-            android:layout_below="@id/editTextCardEndDate"
-            android:layout_marginTop="@dimen/button_add_client_margin" />
+            android:id="@+id/textViewCardPrice"
+            android:layout_below="@id/textViewCardEndDate"
+            android:layout_marginTop="@dimen/button_add_client_margin"
+            android:text="@{card.cardPriceAsString}"
+            android:gravity="right"
+            />
 
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextCardPrice"
+            android:layout_below="@+id/textViewCardPrice"
             android:layout_marginTop="@dimen/button_add_client_margin"
             android:layout_marginRight="@dimen/button_add_client_margin"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -79,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/button_add_client_margin"
-            android:layout_below="@+id/editTextCardPrice"
+            android:layout_below="@+id/textViewCardPrice"
             android:layout_alignParentEnd="true"
             android:text="@string/add_text"
             android:padding="@dimen/button_main_menu_padding" />

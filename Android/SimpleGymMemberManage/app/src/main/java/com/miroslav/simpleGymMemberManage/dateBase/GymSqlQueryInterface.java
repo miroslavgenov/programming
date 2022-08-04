@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface GymSqlQueryInterface {
 
     <T> ArrayList<T> readAllData();
-    void insertData(String value);
+    <T>void insertData(T value);
     Integer getCountOfAllElements();
 
 

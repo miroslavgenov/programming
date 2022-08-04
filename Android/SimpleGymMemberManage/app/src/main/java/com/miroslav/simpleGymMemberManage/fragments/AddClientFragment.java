@@ -23,7 +23,6 @@ import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 
 public class AddClientFragment extends Fragment {
     FragmentAddClientBinding fragmentAddClientBinding;
-//    GymSqlQuery gymSqlQuery;
     ClientSqlQuery clientSqlQuery;
     Integer clientIdForNextClient;
 
@@ -40,7 +39,7 @@ public class AddClientFragment extends Fragment {
         super.onDestroyView();
     }
 
-    void hello(){}
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -55,10 +54,14 @@ public class AddClientFragment extends Fragment {
 
         initializeClientSqlQueryAndOpenDataBase();
         prepareCurrentClientIdForNextClient();
+        addOnButtonClickListeners();
 
+
+    }
+
+    private void addOnButtonClickListeners() {
         onButtonClick(fragmentAddClientBinding.buttonAdd,this::addClient);
         onButtonClick(fragmentAddClientBinding.buttonCancel,this::popFragmentBackStack);
-
     }
 
     void addClient(){

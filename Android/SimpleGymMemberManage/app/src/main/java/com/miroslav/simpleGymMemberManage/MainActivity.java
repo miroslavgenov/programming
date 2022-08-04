@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.miroslav.simpleGymMemberManage.databinding.ActivityMainBinding;
 
 
@@ -14,40 +17,55 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
     ActivityMainBinding activityMainBinding;
     MySharedPrefs mySharedPrefs;
-
+    private static final int MAIN_ACTIVITY_LAYOUT_ID = R.layout.activity_main;
+    private AdView adView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setActivityBinding(DataBindingUtil.setContentView(this, R.layout.activity_main));
+        setActivityBinding(DataBindingUtil.setContentView(this, MAIN_ACTIVITY_LAYOUT_ID));
         main();
 }
     private void main() {
 
         initializeSharedPrefs();
-        boolean isSharedPrefsExists = mySharedPrefs.isSharedPrefsFileExists();
+        goToSetDefaultCardPriceOrGoToMainMenuActivity();
 
-        if (isSharedPrefsExists) {
-            if (mySharedPrefs.getCardPriceFromSharedPrefs() != 0) {
-                startMainMenuActivity();
-            } else {
-                setDefaultCardPrice(0);
-                startSetDefaultsActivity();
-            }
-        } else {
-            setDefaultCardPrice(0);
-            startSetDefaultsActivity();
-        }
         finish();
     }
 
+    private void goToSetDefaultCardPriceOrGoToMainMenuActivity() {
+        if (mySharedPrefs.isSharedPrefsFileExists()) {
+            setDefaultCardPriceOrStartMainMenuActivity();
+        } else {
+            setDefaultCardPrinceAndStartSetDefaultActivity();
+        }
+    }
+
+    private void setDefaultCardPriceOrStartMainMenuActivity() {
+        if (mySharedPrefs.getCardPriceFromSharedPrefs() != 0) {
+            startMainMenuActivity();
+        } else {
+            setDefaultCardPrinceAndStartSetDefaultActivity();
+        }
+    }
+
+    private void setDefaultCardPrinceAndStartSetDefaultActivity() {
+        setDefaultCardPrice(0);
+        startSetDefaultsActivity();
+    }
+
+    /**
+     * Function that starts <b>MainMenuActivity</b>
+     * @see MainMenuActivity
+     */
     private void startMainMenuActivity() {
-        Intent intent = new Intent();
-        intent.setClass(getApplicationContext(), MainMenuActivity.class);
+        Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
         startActivity(intent);
     }
+
 
     @Override
     public void initializeSharedPrefs() {
@@ -55,27 +73,57 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     }
 
     private void setDefaultCardPrice(Integer defaultCardPrice) {
-        mySharedPrefs.createOrAccessExistingSharedPreferences();
-        mySharedPrefs.writeDefaultCardPriceToSharedPrefs(defaultCardPrice);
+        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
     }
 
+    /**
+     * Function that starts <b>SetDefaultsActivity</b>
+     * @see SetDefaultsActivity
+     */
     private void startSetDefaultsActivity() {
-        Intent intent = new Intent();
-        intent.setClass(getApplicationContext(), SetDefaultsActivity.class);
+        Intent intent = new Intent(getApplicationContext(),SetDefaultsActivity.class);
         startActivity(intent);
+    }
+
+    //TODO: make adview at main activity
+    // LOAD ADD
+    private void loadAd(){
+
+//        setAdView(activityMainMenuBinding.adView);
+//        MobileAds.initialize(this, initializationStatus -> {
+//
+//        });
+//        addAdRequest();
+    }
+
+    private void addAdRequest() {
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        getAdView().loadAd(adRequest);
     }
 
     //SETTERS & GETTERS
     //SET
+
+    void setAdView(AdView adView){
+        this.adView = adView;
+    }
+    AdView getAdView(){
+        return this.adView;
+    }
+
     @Override
     public <T> void setActivityBinding(T DataBindingUtilContent) {
-        this.activityMainBinding = (ActivityMainBinding) DataBindingUtilContent;
+
+            this.activityMainBinding = (ActivityMainBinding) DataBindingUtilContent;
+
+
     }
 
     //GET
     final ActivityMainBinding getActivityMainBinding() {
         return this.activityMainBinding;
     }
+
 
 }
 

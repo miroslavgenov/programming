@@ -43,7 +43,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/set_default_activity_card_price"
                 android:inputType="number"
+                android:digits="0123456789"
                 android:maxLines="1"
+                android:singleLine="true"
                 android:maxLength="4"
                 />
         </LinearLayout>

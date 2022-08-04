@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+/**
+ * This class is used to store shared prefs
+ */
+
 public class MySharedPrefs {
     Context context;
     SharedPreferences sharedPreferences;
@@ -15,10 +19,21 @@ public class MySharedPrefs {
         this.context=sourceContext;
         this.sharedPrefKey =shared_pref_key;
         this.contextMode=contextMode;
+        createOrAccessExistingSharedPreferences();
 
     }
 
-    boolean isSharedPrefsFileExists(){
+    /**
+     * This function check if shared prefs file exists
+     * <p>
+     * The shared preferences file contains data about the card price
+     *
+     *
+     *
+     * @return true or false
+     * @see MySharedPrefs
+     */
+    public boolean isSharedPrefsFileExists(){
         createOrAccessExistingSharedPreferences();
         if(getSharedPreferences().contains(this.getSharedPrefKey())){
             Log.d("GymMenage","exists");
@@ -31,7 +46,7 @@ public class MySharedPrefs {
 
     }
 
-    public void createOrAccessExistingSharedPreferences(){
+    private void createOrAccessExistingSharedPreferences(){
         this.sharedPreferences = getContext().getSharedPreferences(getSharedPrefKey(), getContextModePrivate());
     }
 
@@ -40,15 +55,15 @@ public class MySharedPrefs {
     }
 
 
-    public void writeDefaultCardPriceToSharedPrefs(Integer value){
+    private void writeCardPriceToSharedPrefs(Integer value){
         editor = getSharedPreferences().edit();
         editor.putInt(this.sharedPrefKey,value);
         editor.apply();
     }
 
     //SET
-    public void setCardPriceToSharedPrefs(Integer value){
-        writeDefaultCardPriceToSharedPrefs(value);
+    public void setCardPriceAtSharedPrefs(Integer value){
+        writeCardPriceToSharedPrefs(value);
     }
 
 

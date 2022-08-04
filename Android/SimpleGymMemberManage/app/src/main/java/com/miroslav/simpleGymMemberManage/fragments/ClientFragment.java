@@ -29,9 +29,11 @@ public class ClientFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onDestroyView() {
 
-
-
+        super.onDestroyView();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +65,7 @@ public class ClientFragment extends Fragment {
             fragmentClientBinding.setClient(client);
 
         }
+        clientSqlQuery.closeGymDbHelper();
     }
 }
 

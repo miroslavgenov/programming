@@ -18,8 +18,10 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
+import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
 
 
+// TODO: make this activity Fragment
 
 public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingInterface ,SharedPrefsInitializer{
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
@@ -28,14 +30,16 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     EditText editTextCardPrice;
     MySharedPrefs mySharedPrefs;
     GymSqlQuery gymSqlQuery;
-
+    static Integer SET_DEFAULT_ACTIVITY_LAYOUT_ID = R.layout.activity_set_defaults;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setActivityBinding(DataBindingUtil.setContentView(this,R.layout.activity_set_defaults));
+        setActivityBinding(DataBindingUtil.setContentView(this,SET_DEFAULT_ACTIVITY_LAYOUT_ID));
 
         main();
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -49,26 +53,27 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         setButtonSet(this.getActivityBinding().buttonSetDefault);
         setEditTextCardPrice(getActivityBinding().editTextSetCardPrice);
 
-        onButtonSetDefault();
+        addOnButtonClickListeners();
+
 
     }
 
-    // events
-    private void onButtonSetDefault() {
-        executeOnButtonSetDefaultEventListener();
-    }
-
-    //event execution
-    private void executeOnButtonSetDefaultEventListener() {
-        this.getButtonSetDefault().setOnClickListener(view -> {
-
-            if(isEditTextStringCorrect()){
+    void addOnButtonClickListeners(){
+        onButtonClick(this.getButtonSetDefault(),
+                //TODO make this in the lambda function
+                ()->{
+            if(
+                    //TODO: MyEditTextController.isEditTextStringCorrect(editText)
+                    isEditTextStringCorrect()
+            ){
                 initializeSharedPrefs();
-                mySharedPrefs.createOrAccessExistingSharedPreferences();
-                mySharedPrefs.writeDefaultCardPriceToSharedPrefs(getEditTextCardPriceNumber());
+                mySharedPrefs.setCardPriceAtSharedPrefs(getEditTextCardPriceNumber());
 
-                this.gymSqlQuery = new GymSqlQuery();
-                this.gymSqlQuery.createDataBase(getApplicationContext(),getEditTextCardPriceNumber());
+
+                //TODO: change the GymSqlQuery constructor
+                gymSqlQuery = new GymSqlQuery();
+                //TODO this createDatabase is in the constructor of gymSqlQuery
+                gymSqlQuery.createDataBase(getApplicationContext(),getEditTextCardPriceNumber());
 
 
 
@@ -79,13 +84,19 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
             }else{
                 makeToastSetTextToErrorPriceSetGravityAndShow();
             }
-
-
         });
     }
+
+    // events
+    private void onButtonClick(Button button, MyButtonEventLogicInterface myButtonEventLogicInterface) {
+        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+
+    }
+
+
+
     private void startMainMenuActivity(){
-        Intent intent = new Intent();
-        intent.setClass(getApplicationContext(),MainMenuActivity.class);
+        Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
         startActivity(intent);
     }
 
@@ -153,7 +164,9 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     String getEditTextCardPriceString(){
         return String.valueOf(getEditTextCardPrice().getText());
     }
+
     Button getButtonSetDefault(){return  this.buttonSetDefault;}
+
     ActivitySetDefaultsBinding getActivityBinding() {
         return this.activitySetDefaultsBinding;
     }
