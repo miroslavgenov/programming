@@ -48,6 +48,7 @@
             android:layout_marginTop="@dimen/button_add_client_margin"
             android:text="@{card.stringDateFromDateFromSimpleDateFormatterForDataBinding}"
 
+
             android:gravity="right"
 
             />
@@ -64,21 +65,38 @@
             />
 
         <TextView
-            android:textStyle="bold"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewCardPrice"
-            android:layout_below="@id/textViewCardEndDate"
+            android:layout_below="@+id/textViewCardEndDate"
             android:layout_marginTop="@dimen/button_add_client_margin"
-            android:text="@{card.cardPriceAsString}"
+
+            android:textSize="30sp"
+            android:layout_toStartOf="@+id/editTextCardPrice"
+            android:layout_marginRight="@dimen/button_add_client_margin"
+            android:text="Price:" />
+
+
+        <EditText
+            android:id="@+id/editTextCardPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCardEndDate"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/button_add_client_margin"
+            android:maxLength="4"
+            android:inputType="number"
+            android:digits="0123456789"
             android:gravity="right"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@{card.cardPriceAsString}"
             />
 
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewCardPrice"
+            android:layout_below="@+id/editTextCardPrice"
             android:layout_marginTop="@dimen/button_add_client_margin"
             android:layout_marginRight="@dimen/button_add_client_margin"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -91,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/button_add_client_margin"
-            android:layout_below="@+id/textViewCardPrice"
+            android:layout_below="@+id/editTextCardPrice"
             android:layout_alignParentEnd="true"
             android:text="@string/add_text"
             android:padding="@dimen/button_main_menu_padding" />

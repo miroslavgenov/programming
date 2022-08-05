@@ -7,9 +7,9 @@ package com.miroslav.simpleGymMemberManage.actors;
  */
 public class Client {
 
-    Integer client_id;
+    int client_id;
     String client_name;
-    Integer client_card_id;
+    int client_card_id;
 
     /**
      *
@@ -17,7 +17,7 @@ public class Client {
      * @param client_name
      * @param client_card_id
      */
-    public Client(Integer client_id, String client_name, Integer client_card_id) {
+    public Client(int client_id, String client_name, int client_card_id) {
         this.client_id = client_id;
         this.client_name = client_name;
         this.client_card_id = client_card_id;
@@ -27,7 +27,7 @@ public class Client {
      *
      * @return
      */
-    public Integer getClient_id() {
+    public int getClient_id() {
         return client_id;
     }
 
@@ -36,7 +36,7 @@ public class Client {
      *
      * @param client_id
      */
-    public void setClient_id(Integer client_id) {
+    public void setClient_id(int client_id) {
         this.client_id = client_id;
     }
 
@@ -63,7 +63,7 @@ public class Client {
      *
      * @return
      */
-    public Integer getClient_card_id() {
+    public int getClient_card_id() {
         return client_card_id;
     }
 
@@ -72,7 +72,7 @@ public class Client {
      *
      * @param client_card_id
      */
-    public void setClient_card_id(Integer client_card_id) {
+    public void setClient_card_id(int client_card_id) {
         this.client_card_id = client_card_id;
     }
 

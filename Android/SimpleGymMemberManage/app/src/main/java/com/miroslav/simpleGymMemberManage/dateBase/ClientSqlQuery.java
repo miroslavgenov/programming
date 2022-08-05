@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 
 import java.util.ArrayList;
@@ -136,9 +137,9 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
         Cursor cursor = database.rawQuery("select * from client where client_id= " + clientId + ";", new String[]{});
 
         if (cursor.moveToNext()) {
-            Integer clientIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_id"));
+            int clientIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_id"));
             String clientName = cursor.getString(cursor.getColumnIndexOrThrow("client_name"));
-            Integer clientCardIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_card_id"));
+            int clientCardIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_card_id"));
 //            Log.d("MyGym",clientIndex+" "+clientName+" "+clientCardIndex);
 
             return new Client(clientIndex, clientName, clientCardIndex);
@@ -146,6 +147,23 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
         } else {
             return null;
         }
+
+
+    }
+
+    public void setClientCardIdToZero(Card card) {
+        SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
+        String selection = "client_id = ?";
+        String[] selectionArg ={String.valueOf(card.getCard_client_id())};
+
+        ContentValues newValues = new ContentValues();
+        newValues.put("client_card_id",0);
+
+        db.update(
+                "client",
+                newValues,selection,selectionArg
+        );
+        db.close();
 
 
     }

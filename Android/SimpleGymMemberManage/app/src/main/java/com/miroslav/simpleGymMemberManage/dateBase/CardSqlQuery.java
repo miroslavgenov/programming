@@ -11,6 +11,7 @@ import com.miroslav.simpleGymMemberManage.actors.Client;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
     class CardSqlQueryException extends Exception{
@@ -29,9 +30,6 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
     public void insertCardToDataBaseAndUpdateClientCardId(Card card,Client client){
         Log.d("MyGym",card.toString()+"\n"+client.toString());
 
-        card.setCard_client_id(client.getClient_id());
-        card.setCard_day(31);
-
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -42,32 +40,28 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
         contentValues.put("card_day",card.getCard_day());
         contentValues.put("card_price",card.getCard_price());
 
+        long newRowIdOfNewCard = db.insert(GymContract.CardEntry.TABLE_NAME,null,contentValues);
 
 
 
 
-
-
-        long newRowId = db.insert(GymContract.CardEntry.TABLE_NAME,null,contentValues);
-
-
-        // update client data
+        // UPDATE client_card_id data
         String selection = GymContract.ClientEntry.COLUMN_NAME_CLIENT_ID+"= ?";
         String [] selectionArg={String.valueOf(client.getClient_id())};
 
-        ContentValues clientCardIdValue=new ContentValues();
-        clientCardIdValue.put("client_card_id",newRowId);
+        ContentValues clientNewCardIdValue=new ContentValues();
+        clientNewCardIdValue.put("client_card_id",newRowIdOfNewCard);
 
 
         int rowAffected = db.update(GymContract.ClientEntry.TABLE_NAME,
-                clientCardIdValue,
+                clientNewCardIdValue,
                 selection,
                 selectionArg);
 
-        if(newRowId!=-1){
-            Log.d("MyGym","inserted rowId= "+ newRowId);
+        if(newRowIdOfNewCard!=-1){
+            Log.d("MyGym","inserted rowId= "+ newRowIdOfNewCard);
         }else {
-            Log.d("MyGym","insertion error = " +newRowId);
+            Log.d("MyGym","insertion error = " +newRowIdOfNewCard);
         }
 
 
@@ -99,63 +93,71 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
     public ArrayList<Card> getAllActiveCardsFromDataBase(){
         SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
-        ArrayList<Card> cardArrayList = new ArrayList<>();
-        Cursor cursor = db.rawQuery("select * from card where card_active=1;",new String[]{});
-        ArrayList<Card> inactiveCardArrayList= new ArrayList<>();
+        String[] projection ={
+                "card_id","card_client_id","card_active","card_date_from",
+                "card_date_end","card_price","card_day"
+        };
 
+        String selection = "card_active= ?";
+        String []selectionArg={"1"};
 
-        while(cursor.moveToNext()){
-            Integer card_id = cursor.getInt(cursor.getColumnIndexOrThrow("card_id"));
-            Integer card_client_id = cursor.getInt(cursor.getColumnIndexOrThrow("card_client_id"));
-            String card_date_from = cursor.getString(cursor.getColumnIndexOrThrow("card_date_from"));
-            String card_date_end = cursor.getString(cursor.getColumnIndexOrThrow("card_date_end"));
-            String card_active =  cursor.getString(cursor.getColumnIndexOrThrow("card_active"));
-            Integer card_price = cursor.getInt(cursor.getColumnIndexOrThrow("card_price"));
-            Integer card_day = cursor.getInt(cursor.getColumnIndexOrThrow("card_day"));
+        Cursor cursor = db.query(
+          "card",
+          projection,
+          selection,
+                selectionArg,
+                null,null,null
 
-            Log.d("MyGym",card_active);
+        );
 
-            ArrayList<String> arrayListDateElement  = new ArrayList<String>(
-                    Arrays.asList(card_date_from.split("-"))
-            );
-            Log.d("MyGym",arrayListDateElement.get(0)+" "+arrayListDateElement.get(1)+" "+ arrayListDateElement.get(2));
+        ArrayList<Card> items = new ArrayList<>();
+        Log.d("MyGym","is itemEmpty: "+items.isEmpty());
+        while (cursor.moveToNext()){
 
-            Card card = new Card(new Date(
-                    Integer.parseInt(arrayListDateElement.get(0))-1900,
-                   Integer.parseInt(arrayListDateElement.get(1)),
-                   Integer.parseInt(arrayListDateElement.get(2)))
-            );
-            card.setCard_id(card_id);
-            card.setCard_client_id(card_client_id);
-            card.setCardActive(card_active);
-            cardArrayList.add(card);
+            int cardId = cursor.getInt(0);
+            int cardClientId = cursor.getInt(1);
+            int cardActive = cursor.getInt(2);
+            String cardDateFrom = cursor.getString(3);
+            String cardDateEnd = cursor.getString(4);
+            int cardPrice = cursor.getInt(5);
+            int cardDay = cursor.getInt(6);
 
+            String cardInfo = cardId + " "+ cardClientId + " " + cardActive + " " + cardDateFrom
+                    +" "+cardDateEnd+" "+cardDay+" "+ cardPrice;
+            Log.d("MyGym",cardInfo);
+            Log.d("MyGym",cardDateEnd);
 
-
-            if(!card.isCardActive()){
-
-                inactiveCardArrayList.add(card);
-                cardArrayList.remove(card);
-            }
-
-
+            Card c = new Card(cardId,cardClientId,cardActive,cardDateFrom,cardDateEnd,cardPrice,cardDay);
+            Log.d("MyGymCard",c.toString());
+            items.add(c);
         }
 
-
         db.close();
-        return cardArrayList;
+
+        if(items.isEmpty()){
+            return null;
+        }
+        Log.d("MyGym","Size of arr Card: "+items.size());
+        return items;
 
     }
 
-    public void test(){
-        SQLiteDatabase db  =super.gymDbHelper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("update client set client_id=33 where client_id=1",new String[]{});
+    public void updateCardActiveToInActive(Card card){
+        SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
+
+        String newValue = "0";
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("card_active",newValue);
+
+            String selection = "card_id = ?";
+            String[] selectionArg = {String.valueOf(card.getCard_id())};
+            db.update("card",contentValues,selection,selectionArg);
+
         db.close();
 
 
-
-
     }
+
 
     @Override
     public Integer getCountOfAllElements() {

@@ -52,7 +52,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
         loadAd();
 
-        setButtonSet(this.getButtonSetDefault());
+        setButtonSet(this.getButtonSetDefaultFromBindin());
 
         addOnButtonClickListeners();
 
@@ -87,7 +87,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
     void addOnButtonClickListeners(){
-        onButtonClick(this.getButtonSetDefault(),this::defaultActivityLogic);}
+        onButtonClick(this.getButtonSetDefaultFromBindin(),this::defaultActivityLogic);}
 
     private void setGymSqlQueryAndCreateDataBaseWithDefaulCardPrice() {
         gymSqlQuery = new GymSqlQuery();
@@ -152,7 +152,9 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
 
 
-    Button getButtonSetDefault(){return  this.buttonSetDefault;}
+    Button getButtonSetDefaultFromBindin(){return
+            getActivityBinding().buttonSetDefault;
+    }
 
     ActivitySetDefaultsBinding getActivityBinding() {
         return this.activitySetDefaultsBinding;

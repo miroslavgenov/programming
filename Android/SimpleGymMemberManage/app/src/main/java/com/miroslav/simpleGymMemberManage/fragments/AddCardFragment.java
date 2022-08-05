@@ -27,6 +27,7 @@ import com.miroslav.simpleGymMemberManage.databinding.FragmentAddCardBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.CardSqlQuery;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -39,17 +40,26 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
    MySharedPrefs mySharedPrefs;
    ClientSqlQuery clientSqlQuery;
    Client client;
+   Card cardContract;
    MyEditTextController myEditTextController;
-    private CardSqlQuery cardSqlQuery;
+   private CardSqlQuery cardSqlQuery;
 
     public AddCardFragment() {
         // Required empty public constructor
     }
 
+    void initializeCardContract(){
+        cardContract = new Card(new Date());
+        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
+        cardContract.setCard_day(31);
+        fragmentAddCardBinding.setCard(cardContract);
+    }
 
     @Override
     public void onDestroyView() {
-        clientSqlQuery.closeGymDbHelper();
+        if(clientSqlQuery!=null) {
+            clientSqlQuery.closeGymDbHelper();
+        }
         if(cardSqlQuery!=null){
             cardSqlQuery.closeGymDbHelper();
         }
@@ -60,6 +70,8 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
     void setMyEditTextController(EditText editText){
         myEditTextController = new MyEditTextController(editText);
     }
+
+    Card getCardContract(){return this.cardContract;}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,50 +89,62 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
 
 
         initializeSharedPrefs();
+        initializeCardContract();
         clientSqlQuery = new ClientSqlQuery();
         clientSqlQuery.openDataBase(getContext());
 
+        cardSqlQuery = new CardSqlQuery();
+        cardSqlQuery.openDataBase(getContext());
 
-        Card card = new Card(new Date(122,03,04));
 
-        card.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
-        fragmentAddCardBinding.setCard(card);
 
         fragmentAddCardBinding.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 setMyEditTextController(getEditTextClientId());
-
                 if(myEditTextController.isEditTextTextCorrect()){
-
                     setClientToClientFoundFromDataBase();
-
                     if(client!=null){
-                        // check if client don't have card;
-                        Log.d("MyGym","client!=null client_card_id= "+client.getClient_card_id());
-
-
                         if(client.getClient_card_id()==0){
-                            Log.d("MyGym","client_card_id==0: "+client.getClient_card_id());
-                            //TODO insert card to client who don't have card
-                            makeToastSetTextSetGravityAndShow("Client can make card");
+                            makeToastSetTextSetGravityAndShow("Card added");
+//                            makeToastSetTextSetGravityAndShow(client.toString());
+                            MyEditTextController myEditTextPriceController = new MyEditTextController(fragmentAddCardBinding.editTextCardPrice);
 
-                            cardSqlQuery  = new CardSqlQuery();
-                            cardSqlQuery.openDataBase(getContext());
-                            card.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
+                            if(myEditTextPriceController.isEditTextTextCorrect()){
+                                if(cardContract.getCard_price() != myEditTextPriceController.getEditTextStringInteger()){
+                                    cardContract.setCard_price(myEditTextPriceController.getEditTextStringInteger());
+                                    mySharedPrefs.setCardPriceAtSharedPrefs(cardContract.getCard_price());
+                                }
+                            }
+                            cardContract.setCard_client_id(client.getClient_id());
 
-                            cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(card,client);
+//                            clientSqlQuery.closeGymDbHelper();
+
+
+                            cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(cardContract,client);
+//                            cardSqlQuery.closeGymDbHelper();
+
+
 
                         }else{
+                            ArrayList<Card> cardArrayList = cardSqlQuery.getAllActiveCardsFromDataBase();
+                            if(cardArrayList!=null){
+                                for(int i=0;i<cardArrayList.size();i++) {
+                                    if (!cardArrayList.get(i).isCardActive()){
+                                        clientSqlQuery.setClientCardIdToZero(cardArrayList.get(i));
+                                    }
+                                }
+                            }
                             makeToastSetTextSetGravityAndShow("Client have card");
                         }
-
-//                        Toast.makeText(getContext(),"Client exists",Toast.LENGTH_LONG).show();
                     }else{
                         makeToastSetTextSetGravityAndShow("Client doesn't exists");
                     }
+
                 }
+
+
             }
         });
 

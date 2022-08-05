@@ -18,6 +18,7 @@ import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentActiveClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.CardSqlQuery;
+import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 
 import java.util.ArrayList;
 
@@ -47,17 +48,37 @@ public class ActiveClientFragment extends Fragment {
 
         cardSqlQuery.openDataBase(getContext());
 
-        makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
+//        makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
+        makeTextViewAndPrint("Client id's");
 
-        ArrayList<Card> cardArrayList = cardSqlQuery.getAllActiveCardsFromDataBase();
+        ArrayList<Card> cardList = cardSqlQuery.getAllActiveCardsFromDataBase();
 
-        for (int i=0;i<cardArrayList.size();i++){
-            makeTextViewAndPrint(cardArrayList.get(i).getCard_client_id().toString());
+        if(cardList!=null){
+            for (int i=0;i<cardList.size();i++){
+                if(cardList.get(i).isCardActive()) {
+                    makeTextViewAndPrint(String.valueOf(cardList.get(i).getCard_client_id()));
+                }else{
+                    cardList.get(i).setCard_active(false);
+                    cardSqlQuery.updateCardActiveToInActive(cardList.get(i));
+                    cardSqlQuery.closeGymDbHelper();
 
+                    ClientSqlQuery clientSqlQuery = new ClientSqlQuery();
+                    clientSqlQuery.openDataBase(getContext());
+                    clientSqlQuery.setClientCardIdToZero(cardList.get(i));
+                    clientSqlQuery.closeGymDbHelper();
+
+                }
+
+            }
         }
 
-        cardSqlQuery.closeGymDbHelper();
-        cardSqlQuery.test();
+
+
+
+
+
+
+
 
     }
 
