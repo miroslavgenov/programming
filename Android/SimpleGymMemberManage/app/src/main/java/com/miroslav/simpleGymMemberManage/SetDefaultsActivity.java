@@ -27,15 +27,16 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
     AdView adView;
     Button buttonSetDefault;
-    EditText editTextCardPrice;
+    MyEditTextController myEditTextController;
     MySharedPrefs mySharedPrefs;
     GymSqlQuery gymSqlQuery;
     static Integer SET_DEFAULT_ACTIVITY_LAYOUT_ID = R.layout.activity_set_defaults;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActivityBinding(DataBindingUtil.setContentView(this,SET_DEFAULT_ACTIVITY_LAYOUT_ID));
-
         main();
     }
 
@@ -43,48 +44,58 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     @Override
     protected void onDestroy() {
-//        this.gymSqlQuery.closeGymDbHelper();
+        this.gymSqlQuery.closeGymDbHelper();
         super.onDestroy();
     }
 
     private void main() {
 
         loadAd();
-        setButtonSet(this.getActivityBinding().buttonSetDefault);
-        setEditTextCardPrice(getActivityBinding().editTextSetCardPrice);
+
+        setButtonSet(this.getButtonSetDefault());
 
         addOnButtonClickListeners();
 
 
     }
 
+    /**
+     *
+     * @param editText editText to be controlled
+     */
+    void setMyEditTextController(EditText editText){
+        myEditTextController = new MyEditTextController(editText);
+    }
+
+    void defaultActivityLogic(){
+
+        setMyEditTextController(getEditTextCardPrice());
+
+        if(myEditTextController.isEditTextTextCorrect()){
+            initializeSharedPrefsAndSetCardPrice(myEditTextController.getEditTextStringInteger());
+            setGymSqlQueryAndCreateDataBaseWithDefaulCardPrice();
+            finishCurrentActivityAndStartMainMenuActivity();
+
+        }else{
+            makeToastSetTextToErrorPriceSetGravityAndShow();
+        }
+    }
+
+    private void finishCurrentActivityAndStartMainMenuActivity() {
+        finish();
+        startMainMenuActivity();
+    }
+
     void addOnButtonClickListeners(){
-        onButtonClick(this.getButtonSetDefault(),
-                //TODO make this in the lambda function
-                ()->{
-            if(
-                    //TODO: MyEditTextController.isEditTextStringCorrect(editText)
-                    isEditTextStringCorrect()
-            ){
-                initializeSharedPrefs();
-                mySharedPrefs.setCardPriceAtSharedPrefs(getEditTextCardPriceNumber());
+        onButtonClick(this.getButtonSetDefault(),this::defaultActivityLogic);}
 
+    private void setGymSqlQueryAndCreateDataBaseWithDefaulCardPrice() {
+        gymSqlQuery = new GymSqlQuery();
+        gymSqlQuery.createDataBaseWithDefaultCardPrice(getApplicationContext(),myEditTextController.getEditTextStringInteger());
+    }
 
-                //TODO: change the GymSqlQuery constructor
-                gymSqlQuery = new GymSqlQuery();
-                //TODO this createDatabase is in the constructor of gymSqlQuery
-                gymSqlQuery.createDataBase(getApplicationContext(),getEditTextCardPriceNumber());
-
-
-
-                finish();
-                startMainMenuActivity();
-
-
-            }else{
-                makeToastSetTextToErrorPriceSetGravityAndShow();
-            }
-        });
+    private EditText getEditTextCardPrice() {
+        return getActivityBinding().editTextSetCardPrice;
     }
 
     // events
@@ -108,26 +119,6 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
 
-    Boolean isEditTextCardStringEmpty(){
-        return getEditTextCardPriceString().isEmpty();
-    }
-
-    Boolean isEditTextCardStringGreaterThanZero(){
-        int cardPrice = Integer.parseInt(getEditTextCardPriceString());
-        return cardPrice>0;
-    }
-
-    private Boolean isEditTextStringCorrect() {
-        if(isEditTextCardStringEmpty()) {
-            return false;
-        }
-        else{
-            return isEditTextCardStringGreaterThanZero();
-        }
-
-    }
-
-
     // AD LOAD
     private void loadAd(){
         adView = activitySetDefaultsBinding.adView;
@@ -146,9 +137,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
     //SET
-    void setEditTextCardPrice(EditText srcEditText){
-        this.editTextCardPrice = srcEditText;
-    }
+
 
     private void setButtonSet(Button sourceButtonSetDefault) {
         this.buttonSetDefault = sourceButtonSetDefault;
@@ -159,11 +148,9 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
     //GET
-    EditText getEditTextCardPrice(){return this.editTextCardPrice;}
 
-    String getEditTextCardPriceString(){
-        return String.valueOf(getEditTextCardPrice().getText());
-    }
+
+
 
     Button getButtonSetDefault(){return  this.buttonSetDefault;}
 
@@ -171,13 +158,16 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         return this.activitySetDefaultsBinding;
     }
 
-    Integer getEditTextCardPriceNumber(){
-        return isEditTextStringCorrect() ?Integer.parseInt(getEditTextCardPriceString()):0;
-    }
 
     @Override
     public void initializeSharedPrefs() {
         mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
+        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+        mySharedPrefs.setCardPriceAtSharedPrefs(cardPrice);
     }
 }
 

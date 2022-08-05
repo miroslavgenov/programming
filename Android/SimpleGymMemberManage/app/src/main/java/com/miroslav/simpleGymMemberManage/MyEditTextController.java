@@ -7,10 +7,41 @@ import android.widget.EditText;
  */
 public class MyEditTextController {
     EditText editText;
+    String editTextString;
+    int editTextStringInteger;
 
     public MyEditTextController(EditText editText){
-        this.editText=editText;
+        this.editText = editText;
+        this.editTextString = this.editText.getText().toString();
+
     }
+
+    public String getEditTextString() {
+        return editTextString;
+    }
+
+    public boolean isEditTextTextCorrect(){
+        if(this.isEditTextStringEmpty()){
+            return false;
+        }else{
+            return this.isEditTextStringNumberGreaterThanZero();
+        }
+    }
+
+    public boolean isEditTextStringEmpty(){
+        return this.editTextString.isEmpty();
+    }
+
+    public boolean isEditTextStringNumberGreaterThanZero(){
+        return this.getEditTextStringInteger()>0;
+    }
+
+    public int getEditTextStringInteger(){
+        this.editTextStringInteger = Integer.parseInt(this.editTextString);
+        return this.editTextStringInteger;
+    }
+
+
 
 }
 

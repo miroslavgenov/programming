@@ -104,12 +104,10 @@ public class Card {
         return "End "+simpleDateFormat.format(getCard_date_end());
     }
 
-    boolean isCardActive(){
-        Date dateCurrent = new Date();
+    public boolean isCardActive(){
+        return this.getCard_date_end().after(new Date());
 
-        if(this.card_date_end.getMonth()<dateCurrent.getMonth() || this.card_date_end.getDate()<dateCurrent.getDate()){
-            return false;
-        }return true;
+
 
     }
 

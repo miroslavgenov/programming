@@ -13,18 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.miroslav.simpleGymMemberManage.MyEditTextController;
 import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
-//import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
+
 
 
 public class AddClientFragment extends Fragment {
     FragmentAddClientBinding fragmentAddClientBinding;
     ClientSqlQuery clientSqlQuery;
     Integer clientIdForNextClient;
+    private MyEditTextController myEditTextController;
 
     @Nullable
     @Override
@@ -64,9 +67,20 @@ public class AddClientFragment extends Fragment {
         onButtonClick(fragmentAddClientBinding.buttonCancel,this::popFragmentBackStack);
     }
 
+    public void setMyEditTextController(EditText editText) {
+        myEditTextController = new MyEditTextController(editText);
+    }
+
+    EditText getEditTextClientName(){
+        return fragmentAddClientBinding.editTextClientName;
+    }
+
     void addClient(){
-        if(!this.isClientEditTextStringEmpty()) {
-            clientSqlQuery.insertData(fragmentAddClientBinding.editTextClientName.getText().toString());
+
+        setMyEditTextController(getEditTextClientName());
+
+        if(!myEditTextController.isEditTextStringEmpty()) {
+            clientSqlQuery.insertData(myEditTextController.getEditTextString());
             prepareCurrentClientIdForNextClient();
             makeToastLengthLongGravityCenter(getString(R.string.client_added_text));
         }
@@ -105,9 +119,7 @@ public class AddClientFragment extends Fragment {
         this.clientSqlQuery.openDataBase(getActivity().getApplicationContext());
     }
 
-    boolean isClientEditTextStringEmpty(){
-        return fragmentAddClientBinding.editTextClientName.getText().toString().isEmpty();
-    }
+
 
     private void popFragmentBackStack(){
         Navigation.findNavController(getButtonToPopFragment()).popBackStack();

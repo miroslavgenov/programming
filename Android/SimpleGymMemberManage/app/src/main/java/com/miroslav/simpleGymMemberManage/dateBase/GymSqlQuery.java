@@ -32,7 +32,12 @@ public class GymSqlQuery {
     // if default card price is not null then create the database else open the database
     // and place it in the constructor
 
-    public void createDataBase(Context appContext, Integer defaultCardPrice){
+    /**
+     *
+     * @param appContext
+     * @param defaultCardPrice default card price from setDefaultActivity
+     */
+    public void createDataBaseWithDefaultCardPrice(Context appContext, Integer defaultCardPrice){
         //read from database and create
         gymDbHelper = new GymDbHelper(appContext,defaultCardPrice);
     }
@@ -43,7 +48,9 @@ public class GymSqlQuery {
 
 
     public void closeGymDbHelper(){
-        this.gymDbHelper.close();
+        if(gymDbHelper!=null){
+            this.gymDbHelper.close();
+        }
     }
 
 

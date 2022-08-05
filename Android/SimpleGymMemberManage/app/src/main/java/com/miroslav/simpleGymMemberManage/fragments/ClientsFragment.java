@@ -30,28 +30,41 @@ import java.util.ArrayList;
 public class ClientsFragment extends Fragment {
     ClientSqlQuery clientSqlQuery;
     FragmentClientsBinding fragmentClientsBinding;
+    ArrayList<Client> clientArrayList;
+
+    public void setClientArrayList(ArrayList<Client> clientArrayList) {
+        this.clientArrayList = clientArrayList;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         fragmentClientsBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_clients, container, false);
 
         clientSqlQuery= new ClientSqlQuery();
         clientSqlQuery.openDataBase(getActivity());
 
-         ArrayList<Client> clientArrayList = clientSqlQuery.readAllData();
-
-         if(clientArrayList!=null){
-        for(int i=0;i<clientArrayList.size();i++){
-            makeTextViewAndPrint(clientArrayList.get(i).toString());
-        }
-         }else{
-             makeTextViewAndPrint("No clients");
-         }
-
+        setClientArrayList(clientSqlQuery.readAllData());
+        showClientIfAny();
 
         return fragmentClientsBinding.getRoot();
 
+    }
+
+    private void showClientIfAny() {
+        if(clientArrayList!=null){
+            makeTextViewForAllClients();
+        }else{
+            makeTextViewAndPrint("No clients");
+        }
+    }
+
+
+    private void makeTextViewForAllClients() {
+        for(int i=0;i<clientArrayList.size();i++){
+            makeTextViewAndPrint(clientArrayList.get(i).toString());
+        }
     }
 
     @Override
@@ -63,20 +76,24 @@ public class ClientsFragment extends Fragment {
     private void makeTextViewAndPrint(String textViewText) {
         TextView textView = new TextView(getActivity());
         textView.setText(textViewText);
+        textView.setLayoutParams(getTextViewParams());
+        getLinearLayoutInScrollViewClients().addView(textView);
+    }
+    LinearLayout getLinearLayoutInScrollViewClients(){
+        return fragmentClientsBinding.linearLayoutInScrollViewClients;
+    }
 
+    private LinearLayout.LayoutParams getTextViewParams() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-          LinearLayout.LayoutParams.MATCH_PARENT,
-          LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         );
-
-        textView.setLayoutParams(params);
-        fragmentClientsBinding.linearLayoutInScrollViewClients.addView(textView);
+        return params;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 }
 

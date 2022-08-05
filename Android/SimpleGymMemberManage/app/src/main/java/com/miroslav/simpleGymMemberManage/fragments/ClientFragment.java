@@ -24,6 +24,7 @@ import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 public class ClientFragment extends Fragment {
 
     FragmentClientBinding fragmentClientBinding;
+    private ClientSqlQuery clientSqlQuery;
 
     public ClientFragment() {
         // Required empty public constructor
@@ -31,7 +32,7 @@ public class ClientFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-
+        clientSqlQuery.closeGymDbHelper();
         super.onDestroyView();
     }
 
@@ -41,9 +42,7 @@ public class ClientFragment extends Fragment {
         // Inflate the layout for this fragment
         fragmentClientBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_client, container, false);
 
-
-
-        return (View) fragmentClientBinding.getRoot();
+        return fragmentClientBinding.getRoot();
 
     }
 
@@ -51,21 +50,17 @@ public class ClientFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         Integer clientIdFromBundle = Integer.parseInt(getArguments().get("clientId").toString());
 
-
-
-        ClientSqlQuery clientSqlQuery = new ClientSqlQuery();
+        clientSqlQuery = new ClientSqlQuery();
         clientSqlQuery.openDataBase(getActivity());
 
-        Client client = clientSqlQuery.getClientFromDataBase(clientIdFromBundle);
+        Client clientFromQuery = clientSqlQuery.getClientFromDataBase(clientIdFromBundle);
 
-        if(client!=null){
-            fragmentClientBinding.setClient(client);
-
+        if(clientFromQuery!=null){
+            fragmentClientBinding.setClient(clientFromQuery);
         }
-        clientSqlQuery.closeGymDbHelper();
+
     }
 }
 

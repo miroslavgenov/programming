@@ -101,6 +101,8 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
         SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
         ArrayList<Card> cardArrayList = new ArrayList<>();
         Cursor cursor = db.rawQuery("select * from card where card_active=1;",new String[]{});
+        ArrayList<Card> inactiveCardArrayList= new ArrayList<>();
+
 
         while(cursor.moveToNext()){
             Integer card_id = cursor.getInt(cursor.getColumnIndexOrThrow("card_id"));
@@ -130,23 +132,28 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
 
 
+            if(!card.isCardActive()){
 
-//            Log.d("MyGym","cardID: "+  card_id +"  clientID: "+card_client_id+"  cardDateFrom: "+card_date_from+" cardDateEnd: "+card_date_end+
-//                     " cardActive: "+card_active+" cardPrice: "+card_price+" cardDay: "+card_day);
-//            cardArrayList.add(new Card(
-//                    card_id,card_client_id,card_date_from,card_date_end,
-//                    card_active,card_price,card_date_end
-//            ));
+                inactiveCardArrayList.add(card);
+                cardArrayList.remove(card);
+            }
+
 
         }
-//        for(int i=0;i<cardArrayList.size();i++){
-//            Log.d("MyGym",cardArrayList.get(i).toString());
-//        }
-//        if(cursor.getPosition()==0){
-//            return null;
-//        }
 
+
+        db.close();
         return cardArrayList;
+
+    }
+
+    public void test(){
+        SQLiteDatabase db  =super.gymDbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("update client set client_id=33 where client_id=1",new String[]{});
+        db.close();
+
+
+
 
     }
 

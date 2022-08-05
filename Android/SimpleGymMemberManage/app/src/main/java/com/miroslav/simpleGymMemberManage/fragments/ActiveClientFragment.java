@@ -44,13 +44,20 @@ public class ActiveClientFragment extends Fragment {
 
 
         CardSqlQuery cardSqlQuery = new CardSqlQuery();
+
         cardSqlQuery.openDataBase(getContext());
 
         makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
+
         ArrayList<Card> cardArrayList = cardSqlQuery.getAllActiveCardsFromDataBase();
+
         for (int i=0;i<cardArrayList.size();i++){
             makeTextViewAndPrint(cardArrayList.get(i).getCard_client_id().toString());
+
         }
+
+        cardSqlQuery.closeGymDbHelper();
+        cardSqlQuery.test();
 
     }
 

@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
 import com.miroslav.simpleGymMemberManage.databinding.ActivityMainBinding;
 
 
@@ -18,7 +16,6 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     ActivityMainBinding activityMainBinding;
     MySharedPrefs mySharedPrefs;
     private static final int MAIN_ACTIVITY_LAYOUT_ID = R.layout.activity_main;
-    private AdView adView;
 
 
     @Override
@@ -72,6 +69,11 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
         this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
     }
 
+    @Override
+    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
+
+    }
+
     private void setDefaultCardPrice(Integer defaultCardPrice) {
         mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
     }
@@ -85,45 +87,18 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
         startActivity(intent);
     }
 
-    //TODO: make adview at main activity
-    // LOAD ADD
-    private void loadAd(){
-
-//        setAdView(activityMainMenuBinding.adView);
-//        MobileAds.initialize(this, initializationStatus -> {
-//
-//        });
-//        addAdRequest();
-    }
-
-    private void addAdRequest() {
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        getAdView().loadAd(adRequest);
-    }
-
     //SETTERS & GETTERS
     //SET
 
-    void setAdView(AdView adView){
-        this.adView = adView;
-    }
-    AdView getAdView(){
-        return this.adView;
-    }
-
     @Override
     public <T> void setActivityBinding(T DataBindingUtilContent) {
-
             this.activityMainBinding = (ActivityMainBinding) DataBindingUtilContent;
-
-
     }
 
     //GET
     final ActivityMainBinding getActivityMainBinding() {
         return this.activityMainBinding;
     }
-
 
 }
 

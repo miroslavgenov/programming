@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 
+import com.miroslav.simpleGymMemberManage.MyEditTextController;
 import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentMainMenuBinding;
 
@@ -24,17 +25,19 @@ public class MainMenuFragment extends Fragment {
     private Button buttonAddCard;
     private Button buttonAddClient;
     private Button buttonActiveClient;
+    MyEditTextController myEditTextController ;
 
+    int CURRENT_TO_ADD_CARD_FRAGMENT = R.id.action_mainMenuFragment_to_addCardFragment;
+    int CURRENT_TO_ADD_CLIENT_FRAGMENT = R.id.action_mainMenuFragment_to_addClientFragment;
+    int CURRENT_TO_ACTIVE_CLIENT_FRAGMENT= R.id.action_mainMenuFragment_to_activeClientFragment2;
+    int CURRENT_TO_CLIENTS_FRAGMENT= R.id.action_mainMenuFragment_to_clientsFragment;
+    int CURRENT_TO_CLIENT_FRAGMENT = R.id.action_mainMenuFragment_to_clientFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentMainMenuBinding fragmentMainMenuBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_menu,container,false);
         setInitialElementsFromXML(fragmentMainMenuBinding);
 
-
-
-
-//        View view = fragmentMainMenuBinding.getRoot();
         return fragmentMainMenuBinding.getRoot();
     }
 
@@ -43,46 +46,72 @@ public class MainMenuFragment extends Fragment {
         // here you will need to execute operations like setEventListener and etc.
         super.onViewCreated(view, savedInstanceState);
 
+        main();
+    }
 
-        getButtonAddCard().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_addCardFragment);
-            }
-        });
 
-        getButtonAddClient().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_addClientFragment);
-            }
-        });
 
-        getImageButtonSearchClient().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(getEditTextSearch().getText().toString().isEmpty()){
-                    Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_clientsFragment);
-                }else{
-                    if(Integer.parseInt(editTextSearch.getText().toString())>0){
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("clientId",Integer.parseInt(editTextSearch.getText().toString()));
-                        Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_clientFragment,bundle);
-                    }
-                }
-            }
-        });
+    /**
+     *  navigates the current fragment to id from nav graph
+     *
+     * @param view
+     * @param idToNavigate
+     */
+    private void myNavigationNavigate(View view,int idToNavigate) {
+        Navigation.findNavController(view).navigate(idToNavigate);
+    }
+    private void myNavigationNavigate(View view,int idToNavigate,Bundle bundle) {
+        Navigation.findNavController(view).navigate(idToNavigate,bundle);
+    }
 
-        getButtonActiveClient().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_mainMenuFragment_to_activeClientFragment2);
-            }
-        });
 
+
+
+    private void main() {
+        setOnAllButtonsClick();
+    }
+
+    private void setOnAllButtonsClick() {
+        onButtonClick(getButtonAddCard(),()->{myNavigationNavigate(getButtonAddCard(),CURRENT_TO_ADD_CARD_FRAGMENT);});
+        onButtonClick(getButtonAddClient(),()->{ myNavigationNavigate(getButtonAddCard(),CURRENT_TO_ADD_CLIENT_FRAGMENT);});
+        onButtonClick(getButtonActiveClient(),()-> myNavigationNavigate(getButtonActiveClient(),CURRENT_TO_ACTIVE_CLIENT_FRAGMENT));
+
+        onImageButtonClick(getImageButtonSearchClient(),this::searchLogic);
+    }
+    void searchLogic(){
+        setMyEditTextController(getEditTextSearch());
+        navigateToClientsOrClient();
 
     }
 
+    private void navigateToClientsOrClient() {
+        if(myEditTextController.isEditTextStringEmpty()){
+            myNavigationNavigate(getImageButtonSearchClient(),CURRENT_TO_CLIENTS_FRAGMENT);
+        }else{
+            if(myEditTextController.isEditTextStringNumberGreaterThanZero()){
+                myNavigationNavigate(getImageButtonSearchClient(),CURRENT_TO_CLIENT_FRAGMENT,getBundleClientId());
+            }
+        }
+    }
+
+    Bundle getBundleClientId(){
+        Bundle bundle = new Bundle();
+        bundle.putInt("clientId", myEditTextController.getEditTextStringInteger());
+        return bundle;
+    }
+
+
+    private void setMyEditTextController(EditText editText) {
+        myEditTextController = new MyEditTextController(editText);
+    }
+
+    void onImageButtonClick(ImageButton button , MyButtonEventLogicInterface myButtonEventLogicInterface){
+        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+    }
+
+    void onButtonClick(Button button , MyButtonEventLogicInterface myButtonEventLogicInterface){
+        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+    }
 
 
 //    SET
