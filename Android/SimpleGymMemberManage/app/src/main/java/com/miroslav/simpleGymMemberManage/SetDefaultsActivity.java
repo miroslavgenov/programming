@@ -11,11 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
@@ -25,7 +21,7 @@ import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
 
 public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingInterface ,SharedPrefsInitializer{
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
-    AdView adView;
+
     Button buttonSetDefault;
     MyEditTextController myEditTextController;
     MySharedPrefs mySharedPrefs;
@@ -50,9 +46,9 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     private void main() {
 
-        loadAd();
 
-        setButtonSet(this.getButtonSetDefaultFromBindin());
+
+        setButtonSet(this.getButtonSetDefaultFromBinding());
 
         addOnButtonClickListeners();
 
@@ -87,7 +83,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
     void addOnButtonClickListeners(){
-        onButtonClick(this.getButtonSetDefaultFromBindin(),this::defaultActivityLogic);}
+        onButtonClick(this.getButtonSetDefaultFromBinding(),this::defaultActivityLogic);}
 
     private void setGymSqlQueryAndCreateDataBaseWithDefaulCardPrice() {
         gymSqlQuery = new GymSqlQuery();
@@ -119,22 +115,8 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
 
-    // AD LOAD
-    private void loadAd(){
-        adView = activitySetDefaultsBinding.adView;
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
 
-            }
-        });
-        addAdRequest();
-    }
 
-    private void addAdRequest() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        this.adView.loadAd(adRequest);
-    }
 
     //SET
 
@@ -152,7 +134,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
 
 
-    Button getButtonSetDefaultFromBindin(){return
+    Button getButtonSetDefaultFromBinding(){return
             getActivityBinding().buttonSetDefault;
     }
 
