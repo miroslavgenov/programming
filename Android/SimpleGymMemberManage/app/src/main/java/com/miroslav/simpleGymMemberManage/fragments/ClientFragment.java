@@ -1,5 +1,6 @@
 package com.miroslav.simpleGymMemberManage.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,12 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
+import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
@@ -21,10 +23,11 @@ import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
  * A simple {@link Fragment} subclass.
  *
  */
-public class ClientFragment extends Fragment {
+public class ClientFragment extends Fragment implements SharedPrefsInitializer {
 
     FragmentClientBinding fragmentClientBinding;
     private ClientSqlQuery clientSqlQuery;
+    MySharedPrefs mySharedPrefs;
 
     public ClientFragment() {
         // Required empty public constructor
@@ -53,13 +56,24 @@ public class ClientFragment extends Fragment {
         Integer clientIdFromBundle = Integer.parseInt(getArguments().get("clientId").toString());
 
         clientSqlQuery = new ClientSqlQuery();
-        clientSqlQuery.openDataBase(getActivity());
+        initializeSharedPrefs();
+        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getPasswordFromSharedPrefs());
 
         Client clientFromQuery = clientSqlQuery.getClientFromDataBase(clientIdFromBundle);
 
         if(clientFromQuery!=null){
             fragmentClientBinding.setClient(clientFromQuery);
         }
+
+    }
+
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs=new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
 }

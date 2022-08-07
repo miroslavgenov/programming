@@ -1,17 +1,17 @@
 package com.miroslav.simpleGymMemberManage.dateBase;
 
 import android.content.ContentValues;
+
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+
 
 public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
     class CardSqlQueryException extends Exception{
@@ -31,6 +31,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
 
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
+        db.enableWriteAheadLogging();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("card_date_from",card.getStringDateFrom());
@@ -76,6 +77,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
     public ArrayList<Card> getAllActiveCardsFromDataBase(){
         SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        db.enableWriteAheadLogging();
         String[] projection ={
                 "card_id","card_client_id","card_active","card_date_from",
                 "card_date_end","card_price","card_day"
@@ -127,6 +129,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
     public void updateCardActiveToInActive(Card card){
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
+        db.enableWriteAheadLogging();
 
         String newValue = "0";
         ContentValues contentValues = new ContentValues();
@@ -145,6 +148,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
     @Override
     public Integer getCountOfAllElements() {
         SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        db.enableWriteAheadLogging();
         Cursor cursor = db.rawQuery("select count(card_id) from card;",new String []{});
         cursor.moveToNext();
         Integer value = cursor.getInt(0);

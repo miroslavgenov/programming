@@ -22,35 +22,37 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        System.loadLibrary("sqlcipher");
+
         setActivityBinding(DataBindingUtil.setContentView(this, MAIN_ACTIVITY_LAYOUT_ID));
         main();
 }
     private void main() {
 
         initializeSharedPrefs();
-        goToSetDefaultCardPriceOrGoToMainMenuActivity();
+        goToSetDefaultPasswordOrGoToLogInActivity();
 
         finish();
     }
 
-    private void goToSetDefaultCardPriceOrGoToMainMenuActivity() {
+    private void goToSetDefaultPasswordOrGoToLogInActivity() {
         if (mySharedPrefs.isSharedPrefsFileExists()) {
-            setDefaultCardPriceOrStartMainMenuActivity();
+            setDefaultPasswordOrStartLogInActivity();
         } else {
-            setDefaultCardPrinceAndStartSetDefaultActivity();
+            setDefaultPasswordAndStartSetDefaultActivity();
         }
     }
 
-    private void setDefaultCardPriceOrStartMainMenuActivity() {
-        if (mySharedPrefs.getCardPriceFromSharedPrefs() != 0) {
-            startMainMenuActivity();
+    private void setDefaultPasswordOrStartLogInActivity() {
+        if (!mySharedPrefs.getPasswordFromSharedPrefs().equals("0")) {
+            startLogInActivity();
         } else {
-            setDefaultCardPrinceAndStartSetDefaultActivity();
+            setDefaultPasswordAndStartSetDefaultActivity();
         }
     }
 
-    private void setDefaultCardPrinceAndStartSetDefaultActivity() {
-        setDefaultCardPrice(0);
+    private void setDefaultPasswordAndStartSetDefaultActivity() {
+        setDefaultPassword("0");
         startSetDefaultsActivity();
     }
 
@@ -58,24 +60,27 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
      * Function that starts <b>MainMenuActivity</b>
      * @see MainMenuActivity
      */
-    private void startMainMenuActivity() {
-        Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
+    private void startLogInActivity() {
+        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
         startActivity(intent);
     }
 
 
     @Override
     public void initializeSharedPrefs() {
-        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
     }
 
     @Override
-    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
 
-    private void setDefaultCardPrice(Integer defaultCardPrice) {
-        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
+
+
+    private void setDefaultPassword(String defaultPassword) {
+//        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
+        mySharedPrefs.setPasswordAtSharedPrefs("0");
     }
 
     /**

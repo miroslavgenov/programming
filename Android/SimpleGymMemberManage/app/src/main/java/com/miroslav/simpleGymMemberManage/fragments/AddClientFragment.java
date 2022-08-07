@@ -1,5 +1,6 @@
 package com.miroslav.simpleGymMemberManage.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,13 +18,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.MyEditTextController;
+import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
+import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 
 
 
-public class AddClientFragment extends Fragment {
+public class AddClientFragment extends Fragment implements SharedPrefsInitializer {
+    MySharedPrefs mySharedPrefs;
     FragmentAddClientBinding fragmentAddClientBinding;
     ClientSqlQuery clientSqlQuery;
     Integer clientIdForNextClient;
@@ -54,7 +58,7 @@ public class AddClientFragment extends Fragment {
     }
 
     private void addClientLogic() {
-
+        initializeSharedPrefs();
         initializeClientSqlQueryAndOpenDataBase();
         prepareCurrentClientIdForNextClient();
         addOnButtonClickListeners();
@@ -114,9 +118,13 @@ public class AddClientFragment extends Fragment {
         this.clientIdForNextClient =countOfAllElements;
     }
 
+    /**
+     * Create new instance of ClientSqlQuery
+     */
     private void initializeClientSqlQueryAndOpenDataBase() {
         this.clientSqlQuery = new ClientSqlQuery();
-        this.clientSqlQuery.openDataBase(getActivity().getApplicationContext());
+
+        this.clientSqlQuery.openDataBaseWithPassword(getActivity(), mySharedPrefs.getPasswordFromSharedPrefs());
     }
 
 
@@ -133,6 +141,16 @@ public class AddClientFragment extends Fragment {
 
     private void onButtonClick(Button button,MyButtonEventLogicInterface myButtonEventLogicInterface) {
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+    }
+
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
+
     }
 }
 

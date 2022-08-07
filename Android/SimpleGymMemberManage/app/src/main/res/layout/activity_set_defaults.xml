@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -33,20 +34,33 @@
             android:id="@+id/linearLayoutSetDefaultForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_below="@id/text_view_default_activity_name"
             android:layout_marginTop="@dimen/linearLayoutMargin"
             >
 
             <EditText
-                android:id="@+id/editTextSetCardPrice"
+                android:id="@+id/editTextTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/set_default_activity_card_price"
-                android:inputType="number"
-                android:digits="0123456789"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/set_default_activity_password"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:maxLength="4"
+                android:autofillHints="y@rP@ssw@rd" />
+
+            <EditText
+                android:id="@+id/editTextTextRepeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/set_default_activity_repeat_password"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:autofillHints="y@rP@ssw@rd"
+                android:layout_marginTop="@dimen/button_add_client_margin"
                 />
         </LinearLayout>
 
@@ -57,8 +71,10 @@
             android:layout_below="@id/linearLayoutSetDefaultForm"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/linearLayoutMargin"
-            android:layout_marginRight="@dimen/linearLayoutMargin"
+            android:layout_marginEnd="@dimen/linearLayoutMargin"
             android:text="@string/button_set_text" />
+
+
 
 
     </RelativeLayout>

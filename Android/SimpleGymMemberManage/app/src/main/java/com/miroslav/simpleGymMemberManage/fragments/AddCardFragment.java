@@ -9,11 +9,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,7 +50,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
 
     void initializeCardContract(){
         cardContract = new Card(new Date());
-        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
+//        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
         cardContract.setCard_day(31);
         fragmentAddCardBinding.setCard(cardContract);
     }
@@ -91,10 +91,10 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
         initializeSharedPrefs();
         initializeCardContract();
         clientSqlQuery = new ClientSqlQuery();
-        clientSqlQuery.openDataBase(getContext());
+        clientSqlQuery.openDataBaseWithPassword(getContext(), mySharedPrefs.getPasswordFromSharedPrefs());
 
         cardSqlQuery = new CardSqlQuery();
-        cardSqlQuery.openDataBase(getContext());
+        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
 
 
 
@@ -103,31 +103,37 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
             public void onClick(View view) {
 
                 setMyEditTextController(getEditTextClientId());
-                if(myEditTextController.isEditTextTextCorrect()){
+                if(myEditTextController.isEditTextTextCorrectNumber()){
                     setClientToClientFoundFromDataBase();
                     if(client!=null){
-                        if(client.getClient_card_id()==0){
-                            makeToastSetTextSetGravityAndShow("Card added");
-//                            makeToastSetTextSetGravityAndShow(client.toString());
-                            MyEditTextController myEditTextPriceController = new MyEditTextController(fragmentAddCardBinding.editTextCardPrice);
+                        MyEditTextController myEditTextPriceController = new MyEditTextController(fragmentAddCardBinding.editTextCardPrice);
+                        if(client.getClient_card_id()==0 && myEditTextPriceController.isEditTextTextCorrectNumber()){
 
-                            if(myEditTextPriceController.isEditTextTextCorrect()){
-                                if(cardContract.getCard_price() != myEditTextPriceController.getEditTextStringInteger()){
-                                    cardContract.setCard_price(myEditTextPriceController.getEditTextStringInteger());
-                                    mySharedPrefs.setCardPriceAtSharedPrefs(cardContract.getCard_price());
-                                }
-                            }
-                            cardContract.setCard_client_id(client.getClient_id());
+
+
+
+
+                                makeToastSetTextSetGravityAndShow("Card added");
+                                cardContract.setCard_price(myEditTextPriceController.getEditTextStringInteger());
+                                cardContract.setCard_client_id(client.getClient_id());
+                                cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(cardContract,client);
+
+
 
 //                            clientSqlQuery.closeGymDbHelper();
 
 
-                            cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(cardContract,client);
+
 //                            cardSqlQuery.closeGymDbHelper();
 
 
 
-                        }else{
+                        }else if(!myEditTextPriceController.isEditTextTextCorrectNumber()){
+                            makeToastSetTextSetGravityAndShow("Change the price!");
+                        }
+                        else{
+                            // if card id is !=0
+                            // check if the client have inactive card and remove it
                             ArrayList<Card> cardArrayList = cardSqlQuery.getAllActiveCardsFromDataBase();
                             if(cardArrayList!=null){
                                 for(int i=0;i<cardArrayList.size();i++) {
@@ -157,6 +163,16 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
 
     }
 
+    //TODO
+    void setOnButtonsClick(){
+        //TODO
+        onButtonClick(null,null);
+    }
+
+    private void onButtonClick(Button button , MyButtonEventLogicInterface myButtonEventLogicInterface) {
+        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+    }
+
     private void makeToastSetTextSetGravityAndShow(String MESSAGE) {
         Toast toast;
         toast= Toast.makeText(getActivity(), MESSAGE,Toast.LENGTH_LONG);
@@ -170,15 +186,17 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
 
     @Override
     public void initializeSharedPrefs() {
-        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
 
 
     }
 
     @Override
-    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
+
+
 }
 
 

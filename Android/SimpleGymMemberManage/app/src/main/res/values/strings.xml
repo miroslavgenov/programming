@@ -2,12 +2,14 @@
     <string name="app_name">Simple Gym Member Manage</string>
 
     <!--    shared preferences key-->
-    <string name="shared_prefs_file_key_card_price_default">com.miroslav.simpleGymMemberManage.DefaultCardPrice</string>
+    <string name="shared_prefs_file_key_card_password">com.miroslav.simpleGymMemberManage.password</string>
 
     <!--    activity set defaults-->
-    <string name="set_default_activity_name">Set Defaults</string>
-    <string name="set_default_activity_card_price">Card Price</string>
-    <string name="incorrect_card_price">Incorrect Card Price</string>
+
+    <string name="default_password">0</string>
+    <string name="set_default_activity_name">Set Password</string>
+    <string name="set_default_activity_password">Password</string>
+    <string name="incorrect_password">Incorrect Password</string>
     <string name="button_set_text">SET</string>
     <string name="button_active_text">ACTIVE CLIENTS</string>
     <string name="edit_text_search_text">Search ID</string>
@@ -26,6 +28,9 @@
     <string name="client_added_text">Client added</string>
     <string name="client_text">Client</string>
     <string name="active_clients_text">Active Clients</string>
+    <string name="set_default_activity_repeat_password">Repeat your Password</string>
+    <string name="button_log_in">Log</string>
+    <string name="log_in_activity_name_text">Log In</string>
 
 
 </resources>
