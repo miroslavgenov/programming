@@ -6,12 +6,12 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
 import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
@@ -23,7 +23,8 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
 
     Button buttonSetDefault;
-    MyEditTextController myEditTextController;
+    MyEditTextController myEditTextControllerPassword;
+    MyEditTextController myEditTextControllerRepeatedPassword;
     MySharedPrefs mySharedPrefs;
     GymSqlQuery gymSqlQuery;
     static Integer SET_DEFAULT_ACTIVITY_LAYOUT_ID = R.layout.activity_set_defaults;
@@ -55,26 +56,51 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     }
 
-    /**
-     *
-     * @param editText editText to be controlled
-     */
-    void setMyEditTextController(EditText editText){
-        myEditTextController = new MyEditTextController(editText);
+
+    void setMyEditTextController(EditText editTextPassword,EditText editTextRepeatedPassword){
+        myEditTextControllerPassword = new MyEditTextController(editTextPassword);
+        myEditTextControllerRepeatedPassword = new MyEditTextController(editTextRepeatedPassword);
+    }
+
+    public EditText getMyEditTextRepeatedPassword() {
+        return getActivityBinding().editTextTextRepeatPassword;
     }
 
     void defaultActivityLogic(){
 
-        setMyEditTextController(getEditTextCardPrice());
+        setMyEditTextController(getEditTextPassword(),getMyEditTextRepeatedPassword());
 
-        if(myEditTextController.isEditTextTextCorrect()){
-            initializeSharedPrefsAndSetCardPrice(myEditTextController.getEditTextStringInteger());
-            setGymSqlQueryAndCreateDataBaseWithDefaulCardPrice();
-            finishCurrentActivityAndStartMainMenuActivity();
+        Log.d("MyGym",""+myEditTextControllerPassword.isEditTextTextCorrectForPassword());
+        Log.d("MyGym",""+myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword());
+        if
+        (myEditTextControllerPassword.isEditTextTextCorrectForPassword() && myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword()){
 
+            MyPassword myPassword = new MyPassword(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
+            if(myPassword.isPasswordEqual()){
+                makeToastSetTextToErrorPriceSetGravityAndShow("Password is set.");
+                // initialize shared prefs
+                initializeSharedPrefsAndSetUserPassword(myPassword.getPasswordText());
+                finish();
+            }else{
+                makeToastSetTextToErrorPriceSetGravityAndShow("Passwords are not equal!");
+            }
         }else{
-            makeToastSetTextToErrorPriceSetGravityAndShow();
+            makeToastSetTextToErrorPriceSetGravityAndShow("Password Length must be greater than 6 !");
         }
+
+
+
+
+
+//            MyPassword myPassword = new MyPassword(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
+//            if(myPassword.isPasswordEqual()){
+//                makeToastSetTextToErrorPriceSetGravityAndShow("Password is correct");
+//            }else{makeToastSetTextToErrorPriceSetGravityAndShow("Password is incorrect");}
+            //            initializeSharedPrefsAndSetCardPrice(myEditTextController.getEditTextStringInteger());
+//            setGymSqlQueryAndCreateDataBaseWithDefaultCardPrice();
+//            finishCurrentActivityAndStartMainMenuActivity();
+
+
     }
 
     private void finishCurrentActivityAndStartMainMenuActivity() {
@@ -85,13 +111,13 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     void addOnButtonClickListeners(){
         onButtonClick(this.getButtonSetDefaultFromBinding(),this::defaultActivityLogic);}
 
-    private void setGymSqlQueryAndCreateDataBaseWithDefaulCardPrice() {
-        gymSqlQuery = new GymSqlQuery();
-        gymSqlQuery.createDataBaseWithDefaultCardPrice(getApplicationContext(),myEditTextController.getEditTextStringInteger());
+    private void setGymSqlQueryAndCreateDataBaseWithDefaultCardPrice() {
+//        gymSqlQuery = new GymSqlQuery();
+//        gymSqlQuery.createDataBaseWithDefaultCardPrice(getApplicationContext(),myEditTextController.getEditTextStringInteger());
     }
 
-    private EditText getEditTextCardPrice() {
-        return getActivityBinding().editTextSetCardPrice;
+    private EditText getEditTextPassword() {
+        return getActivityBinding().editTextTextPassword;
     }
 
     // events
@@ -107,9 +133,9 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         startActivity(intent);
     }
 
-    private void makeToastSetTextToErrorPriceSetGravityAndShow() {
+    private void makeToastSetTextToErrorPriceSetGravityAndShow(String message) {
         Toast toast;
-        toast= Toast.makeText(getApplicationContext(),getApplicationContext().getString(R.string.incorrect_card_price),Toast.LENGTH_LONG);
+        toast= Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
     }
@@ -145,14 +171,16 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     @Override
     public void initializeSharedPrefs() {
-        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
     }
 
     @Override
-    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
-        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
-        mySharedPrefs.setCardPriceAtSharedPrefs(cardPrice);
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
+        mySharedPrefs = new MySharedPrefs(getApplicationContext(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+        mySharedPrefs.setPasswordAtSharedPrefs(userPassword);
     }
+
+
 }
 
 

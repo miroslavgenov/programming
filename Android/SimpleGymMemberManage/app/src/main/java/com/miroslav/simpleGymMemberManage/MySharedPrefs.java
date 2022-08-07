@@ -1,8 +1,12 @@
 package com.miroslav.simpleGymMemberManage;
 
-import android.content.Context;
+import  android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * This class is used to store shared prefs
@@ -11,6 +15,7 @@ import android.util.Log;
 public class MySharedPrefs {
     Context context;
     SharedPreferences sharedPreferences;
+
     String sharedPrefKey;
     Integer contextMode;
     SharedPreferences.Editor editor;
@@ -36,18 +41,36 @@ public class MySharedPrefs {
     public boolean isSharedPrefsFileExists(){
         createOrAccessExistingSharedPreferences();
         if(getSharedPreferences().contains(this.getSharedPrefKey())){
-            Log.d("GymMenage","exists");
+//            Log.d("GymMenage","exists");
             return true;
         }
         else{
-            Log.d("GymMenage","doesn't exists");
+//            Log.d("GymMenage","doesn't exists");
             return false;
         }
 
     }
 
-    private void createOrAccessExistingSharedPreferences(){
-        this.sharedPreferences = getContext().getSharedPreferences(getSharedPrefKey(), getContextModePrivate());
+    private void createOrAccessExistingSharedPreferences() {
+//        this.sharedPreferences = getContext().getSharedPreferences(getSharedPrefKey(), getContextModePrivate());
+
+        try {
+            String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+
+            this.sharedPreferences = EncryptedSharedPreferences.create(
+                    this.getSharedPrefKey(),
+                    masterKeyAlias,
+                    this.getContext(),
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     private int getContextModePrivate() {
@@ -55,15 +78,15 @@ public class MySharedPrefs {
     }
 
 
-    private void writeCardPriceToSharedPrefs(Integer value){
+    private void writePasswordToSharedPrefs(String value){
         editor = getSharedPreferences().edit();
-        editor.putInt(this.sharedPrefKey,value);
+        editor.putString(this.getSharedPrefKey(),value);
         editor.apply();
     }
 
     //SET
-    public void setCardPriceAtSharedPrefs(Integer value){
-        writeCardPriceToSharedPrefs(value);
+    public void setPasswordAtSharedPrefs(String value){
+        writePasswordToSharedPrefs(value);
     }
 
 
@@ -76,8 +99,8 @@ public class MySharedPrefs {
     public SharedPreferences getSharedPreferences(){return this.sharedPreferences;}
     public String getSharedPrefKey(){return this.sharedPrefKey;}
 
-    public Integer getCardPriceFromSharedPrefs(){
-        Integer value = getSharedPreferences().getInt(getContext().getString(R.string.shared_prefs_file_key_card_price_default),this.context.getResources().getInteger(R.integer.default_card_price));
+    public String getPasswordFromSharedPrefs(){
+        String value = getSharedPreferences().getString(getContext().getString(R.string.shared_prefs_file_key_card_password),this.context.getResources().getString(R.string.default_password));
         return value;
     }
 }

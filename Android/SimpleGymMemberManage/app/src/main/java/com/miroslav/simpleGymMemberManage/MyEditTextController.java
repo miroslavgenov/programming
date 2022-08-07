@@ -20,6 +20,19 @@ public class MyEditTextController {
         return editTextString;
     }
 
+    public boolean isEditTextTextCorrectForPassword(){
+        if(this.isEditTextStringEmpty()){
+            return false;
+        }else{
+            return this.isEditTextStringLengthGreaterThanEight();
+        }
+    }
+
+    private boolean isEditTextStringLengthGreaterThanEight() {
+        return this.getEditTextString().length()>6;
+    }
+
+
     public boolean isEditTextTextCorrect(){
         if(this.isEditTextStringEmpty()){
             return false;

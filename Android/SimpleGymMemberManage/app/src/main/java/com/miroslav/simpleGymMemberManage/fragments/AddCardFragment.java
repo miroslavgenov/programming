@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +49,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
 
     void initializeCardContract(){
         cardContract = new Card(new Date());
-        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
+//        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
         cardContract.setCard_day(31);
         fragmentAddCardBinding.setCard(cardContract);
     }
@@ -114,7 +113,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
                             if(myEditTextPriceController.isEditTextTextCorrect()){
                                 if(cardContract.getCard_price() != myEditTextPriceController.getEditTextStringInteger()){
                                     cardContract.setCard_price(myEditTextPriceController.getEditTextStringInteger());
-                                    mySharedPrefs.setCardPriceAtSharedPrefs(cardContract.getCard_price());
+//                                    mySharedPrefs.setCardPriceAtSharedPrefs(cardContract.getCard_price());
                                 }
                             }
                             cardContract.setCard_client_id(client.getClient_id());
@@ -170,15 +169,20 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
 
     @Override
     public void initializeSharedPrefs() {
-        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
 
 
     }
 
     @Override
-    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
+
+//    @Override
+//    public void initializeSharedPrefsAndSetPassword(int cardPrice) {
+//
+//    }
 }
 
 

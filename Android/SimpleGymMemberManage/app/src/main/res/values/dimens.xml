@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="relativeLayout_margin">20dp</dimen>
-    <dimen name="set_default_activity_name_size">40dp</dimen>
+    <dimen name="set_default_activity_name_size">40sp</dimen>
     <dimen name="linearLayoutMargin">20dp</dimen>
     <dimen name="button_add_client_margin">30dp</dimen>
     <dimen name="button_main_menu_padding">12dp</dimen>

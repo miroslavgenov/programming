@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     }
 
     private void setDefaultCardPriceOrStartMainMenuActivity() {
-        if (mySharedPrefs.getCardPriceFromSharedPrefs() != 0) {
+        if (!mySharedPrefs.getPasswordFromSharedPrefs().equals("0")) {
             startMainMenuActivity();
         } else {
             setDefaultCardPrinceAndStartSetDefaultActivity();
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     }
 
     private void setDefaultCardPrinceAndStartSetDefaultActivity() {
-        setDefaultCardPrice(0);
+        setDefaultPassword("0");
         startSetDefaultsActivity();
     }
 
@@ -66,16 +66,22 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
     @Override
     public void initializeSharedPrefs() {
-        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_price_default), Context.MODE_PRIVATE);
+        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
     }
 
     @Override
-    public void initializeSharedPrefsAndSetCardPrice(int cardPrice) {
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
 
-    private void setDefaultCardPrice(Integer defaultCardPrice) {
-        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
+//    @Override
+//    public void initializeSharedPrefsAndSetPassword(int cardPrice) {
+//
+//    }
+
+    private void setDefaultPassword(String defaultPassword) {
+//        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
+        mySharedPrefs.setPasswordAtSharedPrefs("0");
     }
 
     /**
