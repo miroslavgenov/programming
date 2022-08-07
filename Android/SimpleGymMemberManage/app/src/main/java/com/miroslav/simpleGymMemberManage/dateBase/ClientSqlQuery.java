@@ -76,13 +76,10 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
 
 
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
-<<<<<<< HEAD
 
-
-=======
         db.enableWriteAheadLogging();
         // create a new map of values , where column names are the keys
->>>>>>> encrypt
+
         ContentValues values = new ContentValues();
         values.put(GymContract.ClientEntry.COLUMN_NAME_CLIENT_NAME,(String) value);
 

@@ -34,12 +34,7 @@ public class GymDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(GymContract.ClientEntry.SQL_DELETE_ENTRIES);
-<<<<<<< HEAD
         sqLiteDatabase.execSQL(GymContract.CardEntry.SQL_DELETE_ENTRIES);
-
-=======
-        sqLiteDatabase.execSQL(GymContract.CardEntry.getSqlCreateEntries());
->>>>>>> encrypt
         this.onCreate(sqLiteDatabase);
     }
 
