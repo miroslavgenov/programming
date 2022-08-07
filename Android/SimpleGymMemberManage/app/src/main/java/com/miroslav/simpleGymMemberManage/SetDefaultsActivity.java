@@ -26,7 +26,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     MyEditTextController myEditTextControllerPassword;
     MyEditTextController myEditTextControllerRepeatedPassword;
     MySharedPrefs mySharedPrefs;
-    GymSqlQuery gymSqlQuery;
+//    GymSqlQuery gymSqlQuery;
     static Integer SET_DEFAULT_ACTIVITY_LAYOUT_ID = R.layout.activity_set_defaults;
 
 
@@ -41,7 +41,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     @Override
     protected void onDestroy() {
-        this.gymSqlQuery.closeGymDbHelper();
+//        this.gymSqlQuery.closeGymDbHelper();
         super.onDestroy();
     }
 
@@ -76,11 +76,14 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         (myEditTextControllerPassword.isEditTextTextCorrectForPassword() && myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword()){
 
             MyPassword myPassword = new MyPassword(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
+
             if(myPassword.isPasswordEqual()){
+
                 makeToastSetTextToErrorPriceSetGravityAndShow("Password is set.");
                 // initialize shared prefs
                 initializeSharedPrefsAndSetUserPassword(myPassword.getPasswordText());
-                finish();
+                finishCurrentActivityAndStartLogInActivity();
+
             }else{
                 makeToastSetTextToErrorPriceSetGravityAndShow("Passwords are not equal!");
             }
@@ -90,31 +93,17 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
 
 
-
-
-//            MyPassword myPassword = new MyPassword(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
-//            if(myPassword.isPasswordEqual()){
-//                makeToastSetTextToErrorPriceSetGravityAndShow("Password is correct");
-//            }else{makeToastSetTextToErrorPriceSetGravityAndShow("Password is incorrect");}
-            //            initializeSharedPrefsAndSetCardPrice(myEditTextController.getEditTextStringInteger());
-//            setGymSqlQueryAndCreateDataBaseWithDefaultCardPrice();
-//            finishCurrentActivityAndStartMainMenuActivity();
-
-
     }
 
-    private void finishCurrentActivityAndStartMainMenuActivity() {
+    private void finishCurrentActivityAndStartLogInActivity() {
         finish();
-        startMainMenuActivity();
+        startLogInActivity();
     }
 
     void addOnButtonClickListeners(){
         onButtonClick(this.getButtonSetDefaultFromBinding(),this::defaultActivityLogic);}
 
-    private void setGymSqlQueryAndCreateDataBaseWithDefaultCardPrice() {
-//        gymSqlQuery = new GymSqlQuery();
-//        gymSqlQuery.createDataBaseWithDefaultCardPrice(getApplicationContext(),myEditTextController.getEditTextStringInteger());
-    }
+
 
     private EditText getEditTextPassword() {
         return getActivityBinding().editTextTextPassword;
@@ -128,8 +117,8 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
 
 
-    private void startMainMenuActivity(){
-        Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
+    private void startLogInActivity(){
+        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
         startActivity(intent);
     }
 

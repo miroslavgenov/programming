@@ -1,5 +1,6 @@
 package com.miroslav.simpleGymMemberManage.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
+import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentActiveClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.CardSqlQuery;
@@ -23,10 +26,10 @@ import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 import java.util.ArrayList;
 
 
-public class ActiveClientFragment extends Fragment {
+public class ActiveClientFragment extends Fragment implements SharedPrefsInitializer {
 
 
-
+    MySharedPrefs mySharedPrefs;
     FragmentActiveClientBinding fragmentActiveClientBinding;
     final Integer ACTIVE_CLIENT_FRAGMENT_LAYOUT = R.layout.fragment_active_client;
 
@@ -45,8 +48,8 @@ public class ActiveClientFragment extends Fragment {
 
 
         CardSqlQuery cardSqlQuery = new CardSqlQuery();
-
-        cardSqlQuery.openDataBase(getContext());
+        initializeSharedPrefs();
+        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
 
 //        makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
         makeTextViewAndPrint("Client id's");
@@ -63,7 +66,7 @@ public class ActiveClientFragment extends Fragment {
                     cardSqlQuery.closeGymDbHelper();
 
                     ClientSqlQuery clientSqlQuery = new ClientSqlQuery();
-                    clientSqlQuery.openDataBase(getContext());
+                    clientSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
                     clientSqlQuery.setClientCardIdToZero(cardList.get(i));
                     clientSqlQuery.closeGymDbHelper();
 
@@ -98,6 +101,16 @@ public class ActiveClientFragment extends Fragment {
 
     private void setFragmentActiveClientBinding(ViewDataBinding viewDataBinding) {
         this.fragmentActiveClientBinding = (FragmentActiveClientBinding) viewDataBinding;
+
+    }
+
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
 }

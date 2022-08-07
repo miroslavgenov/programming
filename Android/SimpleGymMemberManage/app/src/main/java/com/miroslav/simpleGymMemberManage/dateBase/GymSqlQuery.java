@@ -1,16 +1,9 @@
 package com.miroslav.simpleGymMemberManage.dateBase;
 
-import android.content.ContentValues;
+
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.miroslav.simpleGymMemberManage.actors.Client;
-import com.miroslav.simpleGymMemberManage.fragments.ClientsFragment;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * this class is used to open or create gymMemberDataBase.db
@@ -35,15 +28,15 @@ public class GymSqlQuery {
     /**
      *
      * @param appContext
-     * @param defaultCardPrice default card price from setDefaultActivity
+     * @param userPassword default card price from setDefaultActivity
      */
-    public void createDataBaseWithDefaultCardPrice(Context appContext, Integer defaultCardPrice){
+    public void createDataBaseWithDefaultUserPassword(Context appContext, String userPassword){
         //read from database and create
-        gymDbHelper = new GymDbHelper(appContext,defaultCardPrice);
+        gymDbHelper = new GymDbHelper(appContext,userPassword);
     }
 
-    public void openDataBase(Context appContext){
-            gymDbHelper = new GymDbHelper(appContext);
+    public void openDataBaseWithPassword(Context appContext, String password){
+            gymDbHelper = new GymDbHelper(appContext,password);
     }
 
 

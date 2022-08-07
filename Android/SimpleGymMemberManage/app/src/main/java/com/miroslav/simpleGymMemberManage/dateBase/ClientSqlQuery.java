@@ -1,12 +1,15 @@
 package com.miroslav.simpleGymMemberManage.dateBase;
 
 import android.content.ContentValues;
+
+
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
+
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import java.util.ArrayList;
 
@@ -18,6 +21,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
     public <T> ArrayList<T> readAllData() {
 
         SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        db.enableWriteAheadLogging();
 
         //define a projection that specifies which column from database
         // you will actually select use after this query
@@ -98,7 +102,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
 
 
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
-
+        db.enableWriteAheadLogging();
         // create a new map of values , where column names are the keys
         ContentValues values = new ContentValues();
         values.put(GymContract.ClientEntry.COLUMN_NAME_CLIENT_NAME,(String) value);
@@ -120,6 +124,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
     public Integer getCountOfAllElements() {
         Integer count;
         SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        db.enableWriteAheadLogging();
         Cursor cursor = db.rawQuery("select count(client_id) from client;",new String[]{});
         cursor.moveToNext();
         count = cursor.getInt(0);
@@ -133,8 +138,10 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
 
 
     public Client getClientFromDataBase(Integer clientId) {
-        SQLiteDatabase database = super.gymDbHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery("select * from client where client_id= " + clientId + ";", new String[]{});
+        SQLiteDatabase db = super.gymDbHelper.getReadableDatabase();
+        db.enableWriteAheadLogging();
+
+        Cursor cursor = db.rawQuery("select * from client where client_id= " + clientId + ";", new String[]{});
 
         if (cursor.moveToNext()) {
             int clientIndex = cursor.getInt(cursor.getColumnIndexOrThrow("client_id"));
@@ -153,6 +160,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
 
     public void setClientCardIdToZero(Card card) {
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
+        db.enableWriteAheadLogging();
         String selection = "client_id = ?";
         String[] selectionArg ={String.valueOf(card.getCard_client_id())};
 

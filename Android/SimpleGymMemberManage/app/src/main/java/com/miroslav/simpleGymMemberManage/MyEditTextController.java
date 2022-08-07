@@ -33,7 +33,11 @@ public class MyEditTextController {
     }
 
 
-    public boolean isEditTextTextCorrect(){
+    /**
+     * Checks if the text is empty and if the string number is greather than zero
+     * @return
+     */
+    public boolean isEditTextTextCorrectNumber(){
         if(this.isEditTextStringEmpty()){
             return false;
         }else{

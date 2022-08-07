@@ -2,7 +2,7 @@ package com.miroslav.simpleGymMemberManage.dateBase;
 
 import android.provider.BaseColumns;
 
-import java.util.Date;
+
 
 public final class GymContract {
     GymContract(){}
@@ -49,14 +49,14 @@ public final class GymContract {
                 "    references client(client_id)\n" +
                 ");";
 
-        public static final String getSqlCreateEntries(Integer defaultCardPrice){
+        public static String getSqlCreateEntries(){
             return "create table if not exists card(\n" +
                     "    card_id integer not null primary key autoincrement,\n" +
                     "    card_client_id integer not null,\n" +
                     "    card_date_from datetime,\n" +
                     "    card_date_end datetime,\n" +
                     "    card_active boolean default(0) not null,\n" +
-                    "    card_price integer default("+ defaultCardPrice +"),\n" +
+                    "    card_price integer ,"+"\n" +
                     "    card_day integer default(31),\n" +
                     "    foreign key(card_client_id)\n" +
                     "    references client(client_id)\n" +

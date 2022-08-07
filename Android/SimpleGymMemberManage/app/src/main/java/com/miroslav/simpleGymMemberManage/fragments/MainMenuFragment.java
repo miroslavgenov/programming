@@ -32,6 +32,7 @@ public class MainMenuFragment extends Fragment {
     int CURRENT_TO_ACTIVE_CLIENT_FRAGMENT= R.id.action_mainMenuFragment_to_activeClientFragment2;
     int CURRENT_TO_CLIENTS_FRAGMENT= R.id.action_mainMenuFragment_to_clientsFragment;
     int CURRENT_TO_CLIENT_FRAGMENT = R.id.action_mainMenuFragment_to_clientFragment;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

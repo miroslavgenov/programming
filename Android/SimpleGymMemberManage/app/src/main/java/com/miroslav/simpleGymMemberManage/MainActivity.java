@@ -22,34 +22,36 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        System.loadLibrary("sqlcipher");
+
         setActivityBinding(DataBindingUtil.setContentView(this, MAIN_ACTIVITY_LAYOUT_ID));
         main();
 }
     private void main() {
 
         initializeSharedPrefs();
-        goToSetDefaultCardPriceOrGoToMainMenuActivity();
+        goToSetDefaultPasswordOrGoToLogInActivity();
 
         finish();
     }
 
-    private void goToSetDefaultCardPriceOrGoToMainMenuActivity() {
+    private void goToSetDefaultPasswordOrGoToLogInActivity() {
         if (mySharedPrefs.isSharedPrefsFileExists()) {
-            setDefaultCardPriceOrStartMainMenuActivity();
+            setDefaultPasswordOrStartLogInActivity();
         } else {
-            setDefaultCardPrinceAndStartSetDefaultActivity();
+            setDefaultPasswordAndStartSetDefaultActivity();
         }
     }
 
-    private void setDefaultCardPriceOrStartMainMenuActivity() {
+    private void setDefaultPasswordOrStartLogInActivity() {
         if (!mySharedPrefs.getPasswordFromSharedPrefs().equals("0")) {
-            startMainMenuActivity();
+            startLogInActivity();
         } else {
-            setDefaultCardPrinceAndStartSetDefaultActivity();
+            setDefaultPasswordAndStartSetDefaultActivity();
         }
     }
 
-    private void setDefaultCardPrinceAndStartSetDefaultActivity() {
+    private void setDefaultPasswordAndStartSetDefaultActivity() {
         setDefaultPassword("0");
         startSetDefaultsActivity();
     }
@@ -58,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
      * Function that starts <b>MainMenuActivity</b>
      * @see MainMenuActivity
      */
-    private void startMainMenuActivity() {
-        Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
+    private void startLogInActivity() {
+        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
         startActivity(intent);
     }
 
@@ -74,10 +76,7 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
     }
 
-//    @Override
-//    public void initializeSharedPrefsAndSetPassword(int cardPrice) {
-//
-//    }
+
 
     private void setDefaultPassword(String defaultPassword) {
 //        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);

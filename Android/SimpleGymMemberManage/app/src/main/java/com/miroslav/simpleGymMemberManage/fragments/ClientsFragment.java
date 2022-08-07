@@ -1,5 +1,6 @@
 package com.miroslav.simpleGymMemberManage.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
+import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentClientsBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
-//import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
+
 
 import java.util.ArrayList;
 
@@ -27,10 +30,11 @@ import java.util.ArrayList;
  *
  *
  */
-public class ClientsFragment extends Fragment {
+public class ClientsFragment extends Fragment implements SharedPrefsInitializer {
     ClientSqlQuery clientSqlQuery;
     FragmentClientsBinding fragmentClientsBinding;
     ArrayList<Client> clientArrayList;
+    MySharedPrefs mySharedPrefs;
 
     public void setClientArrayList(ArrayList<Client> clientArrayList) {
         this.clientArrayList = clientArrayList;
@@ -43,7 +47,8 @@ public class ClientsFragment extends Fragment {
         fragmentClientsBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_clients, container, false);
 
         clientSqlQuery= new ClientSqlQuery();
-        clientSqlQuery.openDataBase(getActivity());
+        initializeSharedPrefs();
+        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getPasswordFromSharedPrefs());
 
         setClientArrayList(clientSqlQuery.readAllData());
         showClientIfAny();
@@ -84,16 +89,25 @@ public class ClientsFragment extends Fragment {
     }
 
     private LinearLayout.LayoutParams getTextViewParams() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+        return new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        return params;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
+
     }
 }
 
