@@ -36,11 +36,11 @@ public class MySharedPrefs {
     public boolean isSharedPrefsFileExists(){
         createOrAccessExistingSharedPreferences();
         if(getSharedPreferences().contains(this.getSharedPrefKey())){
-            Log.d("GymMenage","exists");
+
             return true;
         }
         else{
-            Log.d("GymMenage","doesn't exists");
+
             return false;
         }
 

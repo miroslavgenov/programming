@@ -29,11 +29,10 @@ public class Card {
         setCard_client_id(card_client_id);
         setCard_day(card_day);
         setCard_price(card_price);
-//        String cardInfo = card_id + " "+ card_client_id + " " + card_active + " " + dateFrom
-//                +" "+dateEnd+" "+card_day+" "+ card_price;
-//        Log.d("MyGym","Constructor Card!!!!:  "+cardInfo);
-//        Log.d("MyGym","Constructor Card!!!!:  "+dateFrom);
-//        Log.d("MyGym","Constructor Card!!!!:  "+dateEnd);
+
+
+
+
 
         String[] dateFromSplit = getDateSplit(dateFrom);
         String[] dateEndSplit = getDateSplit(dateEnd);
@@ -115,7 +114,7 @@ public class Card {
     public void setCardActive(String value){
 
         if(Integer.parseInt(value)==1){
-            Log.d("MyGym","value == 1");
+
             this.card_active=true;
         }else{
             this.card_active=false;

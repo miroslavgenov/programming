@@ -28,7 +28,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
 
     public void insertCardToDataBaseAndUpdateClientCardId(Card card,Client client){
-        Log.d("MyGym",card.toString()+"\n"+client.toString());
+
 
         SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
 
@@ -59,9 +59,9 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
                 selectionArg);
 
         if(newRowIdOfNewCard!=-1){
-            Log.d("MyGym","inserted rowId= "+ newRowIdOfNewCard);
+
         }else {
-            Log.d("MyGym","insertion error = " +newRowIdOfNewCard);
+
         }
 
 
@@ -72,23 +72,6 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
     @Override
     public <T> void insertData(T value) {
 
-
-
-
-        //        SQLiteDatabase db = super.gymDbHelper.getWritableDatabase();
-
-        // create a new map of values , where column names are the keys
-//        ContentValues values = new ContentValues();
-//        values.put(GymContract.ClientEntry.COLUMN_NAME_CLIENT_NAME,(String) value);
-
-
-//        long newRowId = db.insert(GymContract.ClientEntry.TABLE_NAME,null,values);
-//        if(newRowId!=-1){
-//            Log.d("DataBase","inserted rowId= "+ newRowId);
-//        }else {
-//            Log.d("DataBase","insertion error = " +newRowId);
-//        }
-//        db.close();
     }
 
     public ArrayList<Card> getAllActiveCardsFromDataBase(){
@@ -111,7 +94,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
         );
 
         ArrayList<Card> items = new ArrayList<>();
-        Log.d("MyGym","is itemEmpty: "+items.isEmpty());
+
         while (cursor.moveToNext()){
 
             int cardId = cursor.getInt(0);
@@ -124,11 +107,11 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
 
             String cardInfo = cardId + " "+ cardClientId + " " + cardActive + " " + cardDateFrom
                     +" "+cardDateEnd+" "+cardDay+" "+ cardPrice;
-            Log.d("MyGym",cardInfo);
-            Log.d("MyGym",cardDateEnd);
+
+
 
             Card c = new Card(cardId,cardClientId,cardActive,cardDateFrom,cardDateEnd,cardPrice,cardDay);
-            Log.d("MyGymCard",c.toString());
+
             items.add(c);
         }
 
@@ -137,7 +120,7 @@ public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
         if(items.isEmpty()){
             return null;
         }
-        Log.d("MyGym","Size of arr Card: "+items.size());
+
         return items;
 
     }

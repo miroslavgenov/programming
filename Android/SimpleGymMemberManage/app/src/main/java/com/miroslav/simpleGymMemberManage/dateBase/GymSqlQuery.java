@@ -27,11 +27,6 @@ public class GymSqlQuery {
 
     public GymSqlQuery(){}
 
-
-    //TODO change createDataBase and openDataBase to createOrOpenDataBase(Context appContext,Integer defaultCardPrice)
-    // if default card price is not null then create the database else open the database
-    // and place it in the constructor
-
     /**
      *
      * @param appContext
