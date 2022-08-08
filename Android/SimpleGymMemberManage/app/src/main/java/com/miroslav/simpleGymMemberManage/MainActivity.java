@@ -13,46 +13,53 @@ import com.miroslav.simpleGymMemberManage.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements  MyActivityBindingInterface,SharedPrefsInitializer {
 
-    ActivityMainBinding activityMainBinding;
+    ActivityMainBinding binding;
     MySharedPrefs mySharedPrefs;
     private static final int MAIN_ACTIVITY_LAYOUT_ID = R.layout.activity_main;
-
+    final String libraryNameForSqlCipher ="sqlcipher";
+    final String defaultUserPassword ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        System.loadLibrary("sqlcipher");
+        System.loadLibrary(libraryNameForSqlCipher);
 
-        setActivityBinding(DataBindingUtil.setContentView(this, MAIN_ACTIVITY_LAYOUT_ID));
+        setActivityBinding(this.getDataBindingUtilContentViewForThisActivity());
         main();
 }
+
+
+
     private void main() {
 
         initializeSharedPrefs();
-        goToSetDefaultPasswordOrGoToLogInActivity();
+        goToSetDefaultUserPasswordOrGoToLogInActivity();
 
         finish();
     }
 
-    private void goToSetDefaultPasswordOrGoToLogInActivity() {
+    private void goToSetDefaultUserPasswordOrGoToLogInActivity() {
         if (mySharedPrefs.isSharedPrefsFileExists()) {
-            setDefaultPasswordOrStartLogInActivity();
+            setDefaultUserPasswordOrStartLogInActivity();
         } else {
-            setDefaultPasswordAndStartSetDefaultActivity();
+            setDefaultUserPasswordAndStartSetDefaultActivity();
         }
     }
 
-    private void setDefaultPasswordOrStartLogInActivity() {
-        if (!mySharedPrefs.getPasswordFromSharedPrefs().equals("0")) {
+    private void setDefaultUserPasswordOrStartLogInActivity() {
+        if (
+                !mySharedPrefs.isDefaultPasswordEqualsZero()
+
+        ) {
             startLogInActivity();
         } else {
-            setDefaultPasswordAndStartSetDefaultActivity();
+            setDefaultUserPasswordAndStartSetDefaultActivity();
         }
     }
 
-    private void setDefaultPasswordAndStartSetDefaultActivity() {
-        setDefaultPassword("0");
+    private void setDefaultUserPasswordAndStartSetDefaultActivity() {
+        setDefaultUserPassword(defaultUserPassword);
         startSetDefaultsActivity();
     }
 
@@ -61,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
      * @see MainMenuActivity
      */
     private void startLogInActivity() {
-        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
-        startActivity(intent);
+        Intent intentLogInActivity = new Intent(getApplicationContext(),LogInActivity.class);
+        startActivity(intentLogInActivity);
     }
 
 
@@ -78,9 +85,8 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
 
 
-    private void setDefaultPassword(String defaultPassword) {
-//        mySharedPrefs.setCardPriceAtSharedPrefs(defaultCardPrice);
-        mySharedPrefs.setPasswordAtSharedPrefs("0");
+    private void setDefaultUserPassword(String defaultUserPassword) {
+        mySharedPrefs.setPasswordAtSharedPrefs(defaultUserPassword);
     }
 
     /**
@@ -88,21 +94,31 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
      * @see SetDefaultsActivity
      */
     private void startSetDefaultsActivity() {
-        Intent intent = new Intent(getApplicationContext(),SetDefaultsActivity.class);
-        startActivity(intent);
+        Intent intentSetDefaultsActivity = new Intent(getApplicationContext(),SetDefaultsActivity.class);
+        startActivity(intentSetDefaultsActivity);
     }
 
     //SETTERS & GETTERS
     //SET
 
+    /**
+     *
+     * @param DataBindingUtilContent
+     * @param <T> current activity binding
+     */
     @Override
     public <T> void setActivityBinding(T DataBindingUtilContent) {
-            this.activityMainBinding = (ActivityMainBinding) DataBindingUtilContent;
+            this.binding = (ActivityMainBinding) DataBindingUtilContent;
+    }
+
+    @Override
+    public <T> T getDataBindingUtilContentViewForThisActivity() {
+        return (T) DataBindingUtil.setContentView(this,MAIN_ACTIVITY_LAYOUT_ID);
     }
 
     //GET
-    final ActivityMainBinding getActivityMainBinding() {
-        return this.activityMainBinding;
+    final ActivityMainBinding getBinding() {
+        return this.binding;
     }
 
 }

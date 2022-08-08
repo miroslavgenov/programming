@@ -48,20 +48,24 @@
                 android:hint="@string/set_default_activity_password"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:autofillHints="y@rP@ssw@rd" />
+                android:autofillHints="y@rP@ssw@rd"
+                android:minHeight="@dimen/editTextMinHeightTouchSizeRequired"
+                android:textColorHint="@color/editTextTextColorHintColor"
+                />
 
             <EditText
                 android:id="@+id/editTextTextRepeatPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/set_default_activity_repeat_password"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:autofillHints="y@rP@ssw@rd"
                 android:layout_marginTop="@dimen/button_add_client_margin"
-                />
+                android:autofillHints="y@rP@ssw@rd"
+                android:ems="10"
+                android:hint="@string/set_default_activity_repeat_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:minHeight="@dimen/editTextMinHeightTouchSizeRequired"
+                android:singleLine="true"
+                android:textColorHint="@color/editTextTextColorHintColor" />
         </LinearLayout>
 
         <Button

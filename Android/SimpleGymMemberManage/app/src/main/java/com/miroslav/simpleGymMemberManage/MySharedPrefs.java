@@ -97,6 +97,10 @@ public class MySharedPrefs {
     public SharedPreferences getSharedPreferences(){return this.sharedPreferences;}
     public String getSharedPrefKey(){return this.sharedPrefKey;}
 
+    public boolean isDefaultPasswordEqualsZero(){
+        return this.getPasswordFromSharedPrefs().equals("0");
+    }
+
     public String getPasswordFromSharedPrefs(){
         String value = getSharedPreferences().getString(getContext().getString(R.string.shared_prefs_file_key_card_password),this.context.getResources().getString(R.string.default_password));
         return value;

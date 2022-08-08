@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding;
-import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
 import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
 
 
@@ -142,6 +141,11 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     @Override
     public <T> void setActivityBinding(T DataBindingUtilContent) {
         this.activitySetDefaultsBinding = (ActivitySetDefaultsBinding) DataBindingUtilContent;
+    }
+
+    @Override
+    public <T> T getDataBindingUtilContentViewForThisActivity() {
+        return null;
     }
 
     //GET

@@ -54,20 +54,20 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsInitial
 //        makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
         makeTextViewAndPrint("Client id's");
 
-        ArrayList<Card> cardList = cardSqlQuery.getAllActiveCardsFromDataBase();
+        ArrayList<Card> allActiveCardsFromDataBase = cardSqlQuery.getAllActiveCardsFromDataBase();
 
-        if(cardList!=null){
-            for (int i=0;i<cardList.size();i++){
-                if(cardList.get(i).isCardActive()) {
-                    makeTextViewAndPrint(String.valueOf(cardList.get(i).getCard_client_id()));
+        if(allActiveCardsFromDataBase!=null){
+            for (int value=0;value<allActiveCardsFromDataBase.size();value++){
+                if(allActiveCardsFromDataBase.get(value).isCardActive()) {
+                    makeTextViewAndPrint(String.valueOf(allActiveCardsFromDataBase.get(value).getCard_client_id()));
                 }else{
-                    cardList.get(i).setCard_active(false);
-                    cardSqlQuery.updateCardActiveToInActive(cardList.get(i));
+                    allActiveCardsFromDataBase.get(value).setCard_active(false);
+                    cardSqlQuery.updateCardActiveToInActive(allActiveCardsFromDataBase.get(value));
                     cardSqlQuery.closeGymDbHelper();
 
                     ClientSqlQuery clientSqlQuery = new ClientSqlQuery();
                     clientSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
-                    clientSqlQuery.setClientCardIdToZero(cardList.get(i));
+                    clientSqlQuery.setClientCardIdToZero(allActiveCardsFromDataBase.get(value));
                     clientSqlQuery.closeGymDbHelper();
 
                 }
