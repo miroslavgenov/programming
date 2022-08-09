@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+    @author Miroslav Genov
+*/
+
 public class Card {
     int card_id;
     int card_client_id;
