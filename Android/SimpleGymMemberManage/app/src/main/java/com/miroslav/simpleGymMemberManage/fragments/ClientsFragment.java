@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
-import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
+import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentClientsBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
  *
  *
  */
-public class ClientsFragment extends Fragment implements SharedPrefsInitializer {
+public class ClientsFragment extends Fragment implements SharedPrefsImp {
     ClientSqlQuery clientSqlQuery;
     FragmentClientsBinding fragmentClientsBinding;
     ArrayList<Client> clientArrayList;
@@ -48,7 +48,7 @@ public class ClientsFragment extends Fragment implements SharedPrefsInitializer 
 
         clientSqlQuery= new ClientSqlQuery();
         initializeSharedPrefs();
-        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getPasswordFromSharedPrefs());
+        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getUserPasswordFromSharedPrefs());
 
         setClientArrayList(clientSqlQuery.readAllData());
         showClientIfAny();

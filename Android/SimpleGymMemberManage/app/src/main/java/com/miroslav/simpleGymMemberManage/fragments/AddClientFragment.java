@@ -20,13 +20,13 @@ import android.widget.Toast;
 import com.miroslav.simpleGymMemberManage.MyEditTextController;
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
-import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
+import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 
 
 
-public class AddClientFragment extends Fragment implements SharedPrefsInitializer {
+public class AddClientFragment extends Fragment implements SharedPrefsImp {
     MySharedPrefs mySharedPrefs;
     FragmentAddClientBinding fragmentAddClientBinding;
     ClientSqlQuery clientSqlQuery;
@@ -124,7 +124,7 @@ public class AddClientFragment extends Fragment implements SharedPrefsInitialize
     private void initializeClientSqlQueryAndOpenDataBase() {
         this.clientSqlQuery = new ClientSqlQuery();
 
-        this.clientSqlQuery.openDataBaseWithPassword(getActivity(), mySharedPrefs.getPasswordFromSharedPrefs());
+        this.clientSqlQuery.openDataBaseWithPassword(getActivity(), mySharedPrefs.getUserPasswordFromSharedPrefs());
     }
 
 
@@ -139,7 +139,7 @@ public class AddClientFragment extends Fragment implements SharedPrefsInitialize
         return fragmentAddClientBinding.buttonCancel;
     }
 
-    private void onButtonClick(Button button,MyButtonEventLogicInterface myButtonEventLogicInterface) {
+    private void onButtonClick(Button button, MyButtonEventLogicImp myButtonEventLogicInterface) {
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 

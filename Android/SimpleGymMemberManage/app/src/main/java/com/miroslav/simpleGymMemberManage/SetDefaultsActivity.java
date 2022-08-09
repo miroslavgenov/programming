@@ -13,12 +13,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.databinding.ActivitySetDefaultsBinding;
-import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
+import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicImp;
 
 
 // TODO: make this activity Fragment
 
-public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingInterface ,SharedPrefsInitializer{
+public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingImp, SharedPrefsImp {
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
 
     Button buttonSetDefault;
@@ -80,7 +80,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
                 makeToastSetTextToErrorPriceSetGravityAndShow("Password is set.");
                 // initialize shared prefs
-                initializeSharedPrefsAndSetUserPassword(myPassword.getPasswordText());
+                initializeSharedPrefsAndSetUserPassword(myPassword.getUserPasswordText());
                 finishCurrentActivityAndStartLogInActivity();
 
             }else{
@@ -109,7 +109,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
     // events
-    private void onButtonClick(Button button, MyButtonEventLogicInterface myButtonEventLogicInterface) {
+    private void onButtonClick(Button button, MyButtonEventLogicImp myButtonEventLogicInterface) {
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
 
     }

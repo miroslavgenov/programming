@@ -1,30 +1,30 @@
 package com.miroslav.simpleGymMemberManage;
 
 public class MyPassword {
-    String passwordText;
-    String repeatedPasswordText;
+    String userPasswordText;
+    String repeatedUserPasswordText;
 
-    public MyPassword(String passwordText, String repeatedPasswordText){
-        setPasswordText(passwordText);
-        setRepeatedPasswordText(repeatedPasswordText);
+    public MyPassword(String userPasswordText, String repeatedUserPasswordText){
+        setUserPasswordText(userPasswordText);
+        setRepeatedUserPasswordText(repeatedUserPasswordText);
     }
-    public void setPasswordText(String value){
-        this.passwordText=value;
+    public void setUserPasswordText(String value){
+        this.userPasswordText =value;
     }
-    public void setRepeatedPasswordText(String value){
-        this.repeatedPasswordText = value;
-    }
-
-    public String getPasswordText() {
-        return passwordText;
+    public void setRepeatedUserPasswordText(String value){
+        this.repeatedUserPasswordText = value;
     }
 
-    public String getRepeatedPasswordText() {
-        return repeatedPasswordText;
+    public String getUserPasswordText() {
+        return userPasswordText;
+    }
+
+    public String getRepeatedUserPasswordText() {
+        return repeatedUserPasswordText;
     }
 
     boolean isPasswordEqual(){
-        return getPasswordText().equals(getRepeatedPasswordText());
+        return getUserPasswordText().equals(getRepeatedUserPasswordText());
     }
 }
 

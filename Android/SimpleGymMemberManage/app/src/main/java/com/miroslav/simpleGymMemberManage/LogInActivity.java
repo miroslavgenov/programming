@@ -14,9 +14,9 @@ import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.databinding.ActivityLogInBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.GymSqlQuery;
-import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicInterface;
+import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicImp;
 
-public class LogInActivity extends AppCompatActivity implements  SharedPrefsInitializer{
+public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
 
     ActivityLogInBinding activityLogInBinding;
     int LOG_IN_ACTIVITY_LAYOUT = R.layout.activity_log_in;
@@ -48,7 +48,7 @@ public class LogInActivity extends AppCompatActivity implements  SharedPrefsInit
         onButtonClick(getActivityLogInBinding().buttonLogIn,()->{
             MyEditTextController myEditTextController = new MyEditTextController(getEditTextTextPassword());
             initializeSharedPrefs();
-            String password = mySharedPrefs.getPasswordFromSharedPrefs();
+            String password = mySharedPrefs.getUserPasswordFromSharedPrefs();
             if(!myEditTextController.isEditTextStringEmpty()){
                 MyPassword myPassword = new MyPassword(myEditTextController.getEditTextString(),password);
                 if(myPassword.isPasswordEqual()){
@@ -57,7 +57,7 @@ public class LogInActivity extends AppCompatActivity implements  SharedPrefsInit
 
                     gymSqlQuery = new GymSqlQuery();
                     initializeSharedPrefs();
-                    String userPassword = mySharedPrefs.getPasswordFromSharedPrefs();
+                    String userPassword = mySharedPrefs.getUserPasswordFromSharedPrefs();
 
                     gymSqlQuery.createDataBaseWithDefaultUserPassword(getApplicationContext(),userPassword);
 
@@ -100,7 +100,7 @@ public class LogInActivity extends AppCompatActivity implements  SharedPrefsInit
     toast.show();
     }
 
-    private void onButtonClick(Button buttonLogIn, MyButtonEventLogicInterface myButtonEventLogicInterface) {
+    private void onButtonClick(Button buttonLogIn, MyButtonEventLogicImp myButtonEventLogicInterface) {
         buttonLogIn.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 
 
 import android.database.Cursor;
-import android.util.Log;
 
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
@@ -13,7 +12,7 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface {
+public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryImp {
 
 
 
@@ -69,7 +68,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryInterface 
      * This function inserts client into data base
      *
      * @param value client name
-     * @see GymSqlQueryInterface#insertData(T)
+     * @see GymSqlQueryImp#insertData(T)
      */
     @Override
     public <T> void insertData(T value) {

@@ -106,11 +106,11 @@ public class MainMenuFragment extends Fragment {
         myEditTextController = new MyEditTextController(editText);
     }
 
-    void onImageButtonClick(ImageButton button , MyButtonEventLogicInterface myButtonEventLogicInterface){
+    void onImageButtonClick(ImageButton button , MyButtonEventLogicImp myButtonEventLogicInterface){
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 
-    void onButtonClick(Button button , MyButtonEventLogicInterface myButtonEventLogicInterface){
+    void onButtonClick(Button button , MyButtonEventLogicImp myButtonEventLogicInterface){
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 

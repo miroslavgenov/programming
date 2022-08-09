@@ -3,7 +3,6 @@ package com.miroslav.simpleGymMemberManage.dateBase;
 import android.content.ContentValues;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
@@ -13,7 +12,7 @@ import net.zetetic.database.sqlcipher.SQLiteDatabase;
 import java.util.ArrayList;
 
 
-public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryInterface{
+public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryImp {
     class CardSqlQueryException extends Exception{
 
         public CardSqlQueryException(String message){

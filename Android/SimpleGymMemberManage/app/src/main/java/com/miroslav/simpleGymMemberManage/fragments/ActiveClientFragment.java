@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
-import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
+import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentActiveClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.CardSqlQuery;
@@ -26,7 +26,7 @@ import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
 import java.util.ArrayList;
 
 
-public class ActiveClientFragment extends Fragment implements SharedPrefsInitializer {
+public class ActiveClientFragment extends Fragment implements SharedPrefsImp {
 
 
     MySharedPrefs mySharedPrefs;
@@ -49,7 +49,7 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsInitial
 
         CardSqlQuery cardSqlQuery = new CardSqlQuery();
         initializeSharedPrefs();
-        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
+        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
 
 //        makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
         makeTextViewAndPrint("Client id's");
@@ -66,7 +66,7 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsInitial
                     cardSqlQuery.closeGymDbHelper();
 
                     ClientSqlQuery clientSqlQuery = new ClientSqlQuery();
-                    clientSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
+                    clientSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
                     clientSqlQuery.setClientCardIdToZero(allActiveCardsFromDataBase.get(value));
                     clientSqlQuery.closeGymDbHelper();
 

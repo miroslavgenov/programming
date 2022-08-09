@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.miroslav.simpleGymMemberManage.MyEditTextController;
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
-import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
+import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.actors.Card;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddCardBinding;
@@ -34,7 +34,7 @@ import java.util.Date;
  * A simple {@link Fragment} subclass.
  *
  */
-public class AddCardFragment extends Fragment implements SharedPrefsInitializer {
+public class AddCardFragment extends Fragment implements SharedPrefsImp {
 
    FragmentAddCardBinding fragmentAddCardBinding;
    MySharedPrefs mySharedPrefs;
@@ -91,10 +91,10 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
         initializeSharedPrefs();
         initializeCardContract();
         clientSqlQuery = new ClientSqlQuery();
-        clientSqlQuery.openDataBaseWithPassword(getContext(), mySharedPrefs.getPasswordFromSharedPrefs());
+        clientSqlQuery.openDataBaseWithPassword(getContext(), mySharedPrefs.getUserPasswordFromSharedPrefs());
 
         cardSqlQuery = new CardSqlQuery();
-        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getPasswordFromSharedPrefs());
+        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
 
 
 
@@ -169,7 +169,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsInitializer 
         onButtonClick(null,null);
     }
 
-    private void onButtonClick(Button button , MyButtonEventLogicInterface myButtonEventLogicInterface) {
+    private void onButtonClick(Button button , MyButtonEventLogicImp myButtonEventLogicInterface) {
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 

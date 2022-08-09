@@ -11,7 +11,7 @@ import android.os.Bundle;
 import com.miroslav.simpleGymMemberManage.databinding.ActivityMainBinding;
 
 
-public class MainActivity extends AppCompatActivity implements  MyActivityBindingInterface,SharedPrefsInitializer {
+public class MainActivity extends AppCompatActivity implements MyActivityBindingImp, SharedPrefsImp {
 
     ActivityMainBinding binding;
     MySharedPrefs mySharedPrefs;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements  MyActivityBindin
 
     private void setDefaultUserPasswordOrStartLogInActivity() {
         if (
-                !mySharedPrefs.isDefaultPasswordEqualsZero()
+                !mySharedPrefs.isDefaultUserPasswordEqualsZero()
 
         ) {
             startLogInActivity();

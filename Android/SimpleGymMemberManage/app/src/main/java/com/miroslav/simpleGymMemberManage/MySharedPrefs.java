@@ -50,7 +50,7 @@ public class MySharedPrefs {
     }
 
     private void createOrAccessExistingSharedPreferences() {
-//        this.sharedPreferences = getContext().getSharedPreferences(getSharedPrefKey(), getContextModePrivate());
+
 
         try {
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
@@ -72,7 +72,7 @@ public class MySharedPrefs {
     }
 
     private int getContextModePrivate() {
-        return this.getContext().MODE_PRIVATE;
+        return Context.MODE_PRIVATE;
     }
 
 
@@ -97,13 +97,12 @@ public class MySharedPrefs {
     public SharedPreferences getSharedPreferences(){return this.sharedPreferences;}
     public String getSharedPrefKey(){return this.sharedPrefKey;}
 
-    public boolean isDefaultPasswordEqualsZero(){
-        return this.getPasswordFromSharedPrefs().equals("0");
+    public boolean isDefaultUserPasswordEqualsZero(){
+        return this.getUserPasswordFromSharedPrefs().equals("0");
     }
 
-    public String getPasswordFromSharedPrefs(){
-        String value = getSharedPreferences().getString(getContext().getString(R.string.shared_prefs_file_key_card_password),this.context.getResources().getString(R.string.default_password));
-        return value;
+    public String getUserPasswordFromSharedPrefs(){
+        return getSharedPreferences().getString(getContext().getString(R.string.shared_prefs_file_key_card_password), this.context.getResources().getString(R.string.default_password));
     }
 }
 

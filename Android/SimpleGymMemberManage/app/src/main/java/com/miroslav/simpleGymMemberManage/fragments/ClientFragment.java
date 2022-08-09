@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
 import com.miroslav.simpleGymMemberManage.R;
-import com.miroslav.simpleGymMemberManage.SharedPrefsInitializer;
+import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.actors.Client;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentClientBinding;
 import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
@@ -23,7 +23,7 @@ import com.miroslav.simpleGymMemberManage.dateBase.ClientSqlQuery;
  * A simple {@link Fragment} subclass.
  *
  */
-public class ClientFragment extends Fragment implements SharedPrefsInitializer {
+public class ClientFragment extends Fragment implements SharedPrefsImp {
 
     FragmentClientBinding fragmentClientBinding;
     private ClientSqlQuery clientSqlQuery;
@@ -57,7 +57,7 @@ public class ClientFragment extends Fragment implements SharedPrefsInitializer {
 
         clientSqlQuery = new ClientSqlQuery();
         initializeSharedPrefs();
-        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getPasswordFromSharedPrefs());
+        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getUserPasswordFromSharedPrefs());
 
         Client clientFromQuery = clientSqlQuery.getClientFromDataBase(clientIdFromBundle);
 

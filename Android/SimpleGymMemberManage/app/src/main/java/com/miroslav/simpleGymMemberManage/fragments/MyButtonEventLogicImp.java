@@ -2,6 +2,6 @@ package com.miroslav.simpleGymMemberManage.fragments;
 
 // change MyButtonEventLogicInterface to MyButtonEventLogicImp
 
-public interface MyButtonEventLogicInterface {
+public interface MyButtonEventLogicImp {
     void doThisFromFragment();
 }
