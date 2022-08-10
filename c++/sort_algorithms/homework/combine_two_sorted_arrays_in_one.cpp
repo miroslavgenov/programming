@@ -9,41 +9,52 @@ void showNumbers(int [],int );
 bool isNumberGreater(int *,int *);
 void bubbleSortNumbers(int [],int );
 
+bool isIndexLessThenArraySize(int index , int arraySize){
+    return index<arraySize;
+}
+
+bool isNumberGreaterAndIndexSizeLessThanArraySize(int *greaterNumber , int *lesserNumber,int index,int arraySize){
+    return isNumberGreater(greaterNumber,lesserNumber) && isIndexLessThenArraySize(index,arraySize);
+}
+
+
+void combineTwoArraysAndSortTheCombinedArrayInAscendingOrder(
+    int firstArray[],int secondArray[],
+    int firstArraySize,int secondArraySize,
+    int combinedArray[],int combinedArraySize
+){
+    
+    int firstArrayValue=0,secondArrayValue=0;
+    
+    for(int z=0;z<combinedArraySize;z++){
+        if(isNumberGreaterAndIndexSizeLessThanArraySize(&secondArray[secondArrayValue],&firstArray[firstArrayValue],firstArrayValue,firstArraySize)){
+            combinedArray[z]=firstArray[firstArrayValue];
+            firstArrayValue++;
+        }
+        else if(
+            isNumberGreaterAndIndexSizeLessThanArraySize(&firstArray[firstArrayValue],&secondArray[secondArrayValue],secondArrayValue,secondArraySize)){
+            combinedArray[z]=secondArray[secondArrayValue];
+            secondArrayValue++;
+        }
+    }
+}
 
 int main(){
-    int s1 = 5;
-    int s2 = 5;
-    int s3 = s1+s2;
     
-    int a1[s1]={1,3,5,7,10};
-    int a2[s2]={2,4,6,8,9};
-    int a3[s3]{};
+    int firstArray[]={1,3,5,6,7};
+    int secondArray[]={2,4,8};
+    int firstArraySize = sizeof(firstArray)/sizeof(*firstArray);
+    int secondArraySize =sizeof(secondArray)/sizeof(*secondArray);
+    int combinedArraySize = (firstArraySize+secondArraySize);
+    int combinedArray[combinedArraySize]{};
 
-    // not optimal aproach
-
-    int i=0,j=0;
-    for(int z=0;z<=s3;z++){
-    	if(i<s1){
-    		a3[z]=a1[i];
-    		i++;
-		}else{
-			a3[z]=a2[j];
-    		j++;
-		}
-		
-	}
-	
-	for(int i=0;i<s3;i++){
-			for(int j=1;j<s3;j++){
-				if(a3[j-1]>a3[j]){
-					swapNumber(&a3[j-1],&a3[j]);
-				}
-			}
-	}
-
-
-    showNumbers(a3,s3);
     
+    combineTwoArraysAndSortTheCombinedArrayInAscendingOrder(
+        firstArray,secondArray,firstArraySize,secondArraySize
+        ,combinedArray,combinedArraySize
+    );
+
+    showNumbers(combinedArray,combinedArraySize);
    
 }
 
