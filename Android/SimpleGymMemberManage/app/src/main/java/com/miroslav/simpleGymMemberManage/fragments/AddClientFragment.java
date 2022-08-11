@@ -122,9 +122,9 @@ public class AddClientFragment extends Fragment implements SharedPrefsImp {
      * Create new instance of ClientSqlQuery
      */
     private void initializeClientSqlQueryAndOpenDataBase() {
-        this.clientSqlQuery = new ClientSqlQuery();
+        this.clientSqlQuery = new ClientSqlQuery(getActivity(), mySharedPrefs.getUserPasswordFromSharedPrefs());
 
-        this.clientSqlQuery.openDataBaseWithPassword(getActivity(), mySharedPrefs.getUserPasswordFromSharedPrefs());
+        this.clientSqlQuery.openDataBaseWithPassword();
     }
 
 

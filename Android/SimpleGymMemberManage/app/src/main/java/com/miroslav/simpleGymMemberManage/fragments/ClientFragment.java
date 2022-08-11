@@ -55,9 +55,10 @@ public class ClientFragment extends Fragment implements SharedPrefsImp {
 
         Integer clientIdFromBundle = Integer.parseInt(getArguments().get("clientId").toString());
 
-        clientSqlQuery = new ClientSqlQuery();
         initializeSharedPrefs();
-        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+        clientSqlQuery = new ClientSqlQuery(getActivity(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+
+        clientSqlQuery.openDataBaseWithPassword();
 
         Client clientFromQuery = clientSqlQuery.getClientFromDataBase(clientIdFromBundle);
 

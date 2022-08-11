@@ -50,7 +50,18 @@ public class MainMenuFragment extends Fragment {
         main();
     }
 
+    private void main() {
+        setOnAllButtonsClick();
+    }
 
+
+    private void setOnAllButtonsClick() {
+        onButtonClick(getButtonAddCard(),()->{myNavigationNavigate(getButtonAddCard(),CURRENT_TO_ADD_CARD_FRAGMENT);});
+        onButtonClick(getButtonAddClient(),()->{ myNavigationNavigate(getButtonAddCard(),CURRENT_TO_ADD_CLIENT_FRAGMENT);});
+        onButtonClick(getButtonActiveClient(),()-> myNavigationNavigate(getButtonActiveClient(),CURRENT_TO_ACTIVE_CLIENT_FRAGMENT));
+
+        onImageButtonClick(getImageButtonSearchClient(),this::searchLogic);
+    }
 
     /**
      *  navigates the current fragment to id from nav graph
@@ -65,20 +76,6 @@ public class MainMenuFragment extends Fragment {
         Navigation.findNavController(view).navigate(idToNavigate,bundle);
     }
 
-
-
-
-    private void main() {
-        setOnAllButtonsClick();
-    }
-
-    private void setOnAllButtonsClick() {
-        onButtonClick(getButtonAddCard(),()->{myNavigationNavigate(getButtonAddCard(),CURRENT_TO_ADD_CARD_FRAGMENT);});
-        onButtonClick(getButtonAddClient(),()->{ myNavigationNavigate(getButtonAddCard(),CURRENT_TO_ADD_CLIENT_FRAGMENT);});
-        onButtonClick(getButtonActiveClient(),()-> myNavigationNavigate(getButtonActiveClient(),CURRENT_TO_ACTIVE_CLIENT_FRAGMENT));
-
-        onImageButtonClick(getImageButtonSearchClient(),this::searchLogic);
-    }
     void searchLogic(){
         setMyEditTextController(getEditTextSearch());
         navigateToClientsOrClient();

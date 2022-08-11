@@ -41,17 +41,22 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsImp {
 
         return fragmentActiveClientBinding.getRoot();
     }
+    private void setFragmentActiveClientBinding(ViewDataBinding viewDataBinding) {
+        this.fragmentActiveClientBinding = (FragmentActiveClientBinding) viewDataBinding;
+
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 
-        CardSqlQuery cardSqlQuery = new CardSqlQuery();
         initializeSharedPrefs();
-        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+        CardSqlQuery cardSqlQuery = new CardSqlQuery(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
 
-//        makeTextViewAndPrint("Total card "+String.valueOf(cardSqlQuery.getCountOfAllElements()));
+        cardSqlQuery.openDataBaseWithPassword();
+
+
         makeTextViewAndPrint("Client id's");
 
         ArrayList<Card> allActiveCardsFromDataBase = cardSqlQuery.getAllActiveCardsFromDataBase();
@@ -65,8 +70,8 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsImp {
                     cardSqlQuery.updateCardActiveToInActive(allActiveCardsFromDataBase.get(value));
                     cardSqlQuery.closeGymDbHelper();
 
-                    ClientSqlQuery clientSqlQuery = new ClientSqlQuery();
-                    clientSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+                    ClientSqlQuery clientSqlQuery = new ClientSqlQuery(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+                    clientSqlQuery.openDataBaseWithPassword();
                     clientSqlQuery.setClientCardIdToZero(allActiveCardsFromDataBase.get(value));
                     clientSqlQuery.closeGymDbHelper();
 
@@ -75,14 +80,11 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsImp {
             }
         }
 
+    }
 
-
-
-
-
-
-
-
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
     }
 
     private void makeTextViewAndPrint(String textViewText) {
@@ -99,15 +101,9 @@ public class ActiveClientFragment extends Fragment implements SharedPrefsImp {
     }
 
 
-    private void setFragmentActiveClientBinding(ViewDataBinding viewDataBinding) {
-        this.fragmentActiveClientBinding = (FragmentActiveClientBinding) viewDataBinding;
 
-    }
 
-    @Override
-    public void initializeSharedPrefs() {
-        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
-    }
+
 
     @Override
     public void initializeSharedPrefsAndSetUserPassword(String userPassword) {

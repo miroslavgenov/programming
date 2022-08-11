@@ -46,9 +46,10 @@ public class ClientsFragment extends Fragment implements SharedPrefsImp {
 
         fragmentClientsBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_clients, container, false);
 
-        clientSqlQuery= new ClientSqlQuery();
         initializeSharedPrefs();
-        clientSqlQuery.openDataBaseWithPassword(getActivity(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+        clientSqlQuery= new ClientSqlQuery(getActivity(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+
+        clientSqlQuery.openDataBaseWithPassword();
 
         setClientArrayList(clientSqlQuery.readAllData());
         showClientIfAny();

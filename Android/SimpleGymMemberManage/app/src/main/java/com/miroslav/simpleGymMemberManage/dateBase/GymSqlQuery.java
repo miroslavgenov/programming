@@ -13,12 +13,31 @@ import android.content.Context;
 public class GymSqlQuery {
 
     GymDbHelper gymDbHelper;
+    Context appContext;
+    String userPassword;
+
+    public Context getAppContext() {
+        return appContext;
+    }
+
+    public void setAppContext(Context appContext) {
+        this.appContext = appContext;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
 
     public void setGymDbHelper(Context appContext){}
     public GymDbHelper getGymDbHelper(){return this.gymDbHelper;}
 
 
     public GymSqlQuery(){}
+
 
     /**
      *
@@ -30,8 +49,8 @@ public class GymSqlQuery {
         gymDbHelper = new GymDbHelper(appContext,userPassword);
     }
 
-    public void openDataBaseWithPassword(Context appContext, String password){
-            gymDbHelper = new GymDbHelper(appContext,password);
+    public void openDataBaseWithPassword(){
+            gymDbHelper = new GymDbHelper(getAppContext(),getUserPassword());
     }
 
 

@@ -91,11 +91,11 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
 
         initializeSharedPrefs();
         initializeCardContract();
-        clientSqlQuery = new ClientSqlQuery();
-        clientSqlQuery.openDataBaseWithPassword(getContext(), mySharedPrefs.getUserPasswordFromSharedPrefs());
+        clientSqlQuery = new ClientSqlQuery(getContext(), mySharedPrefs.getUserPasswordFromSharedPrefs());
+        clientSqlQuery.openDataBaseWithPassword();
 
-        cardSqlQuery = new CardSqlQuery();
-        cardSqlQuery.openDataBaseWithPassword(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+        cardSqlQuery = new CardSqlQuery(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+        cardSqlQuery.openDataBaseWithPassword();
 
 
 

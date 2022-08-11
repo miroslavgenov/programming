@@ -16,6 +16,7 @@ public class MainMenuActivity extends AppCompatActivity implements MyActivityBin
     ActivityMainMenuBinding activityMainMenuBinding;
     AdView adView;
 
+
     private final int MAIN_MENU_ACTIVITY_LAYOUT_ID=  R.layout.activity_main_menu;
 
 

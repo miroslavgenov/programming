@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SetDefaultsActivity"
+        android:layout_marginTop="@dimen/relativeLayout_margin"
+        android:layout_marginLeft="@dimen/relativeLayout_margin"
+        android:layout_marginRight="@dimen/relativeLayout_margin"
+        >
+
+
+        <TextView
+            android:id="@+id/text_view_default_activity_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:textAlignment="center"
+            android:text="@string/set_default_activity_name"
+            android:textSize="@dimen/set_default_activity_name_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSetDefaultForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/text_view_default_activity_name"
+            android:layout_marginTop="@dimen/linearLayoutMargin"
+            >
+
+            <EditText
+                android:id="@+id/editTextTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/set_default_activity_password"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:autofillHints="y@rP@ssw@rd"
+                android:minHeight="@dimen/editTextMinHeightTouchSizeRequired"
+                android:textColorHint="@color/editTextTextColorHintColor"
+                />
+
+            <EditText
+                android:id="@+id/editTextTextRepeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_add_client_margin"
+                android:autofillHints="y@rP@ssw@rd"
+                android:ems="10"
+                android:hint="@string/set_default_activity_repeat_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:minHeight="@dimen/editTextMinHeightTouchSizeRequired"
+                android:singleLine="true"
+                android:textColorHint="@color/editTextTextColorHintColor" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonSetDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayoutSetDefaultForm"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/linearLayoutMargin"
+            android:layout_marginEnd="@dimen/linearLayoutMargin"
+            android:text="@string/button_set_text" />
+
+
+
+
+    </RelativeLayout>
+</layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

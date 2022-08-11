@@ -3,6 +3,7 @@ package com.miroslav.simpleGymMemberManage.dateBase;
 import android.content.ContentValues;
 
 
+import android.content.Context;
 import android.database.Cursor;
 
 import com.miroslav.simpleGymMemberManage.actors.Card;
@@ -14,6 +15,13 @@ import java.util.ArrayList;
 
 public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryImp {
 
+
+    public ClientSqlQuery(){}
+
+    public ClientSqlQuery(Context appContext,String userPassword){
+        super.setAppContext(appContext);
+        super.setUserPassword(userPassword);
+    }
 
 
     @Override
