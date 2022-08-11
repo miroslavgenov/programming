@@ -24,17 +24,17 @@ public class MyEditTextController {
         if(this.isEditTextStringEmpty()){
             return false;
         }else{
-            return this.isEditTextStringLengthGreaterThanEight();
+            return this.isEditTextStringLengthGreaterThanSix();
         }
     }
 
-    private boolean isEditTextStringLengthGreaterThanEight() {
-        return this.getEditTextString().length()>6;
+    private boolean isEditTextStringLengthGreaterThanSix() {
+        return this.getEditTextString().length()>Password.PASSWORD_REQUIRED_LENGTH;
     }
 
 
     /**
-     * Checks if the text is empty and if the string number is greather than zero
+     * Checks if the text is empty and if the string number is greater than zero
      * @return
      */
     public boolean isEditTextTextCorrectNumber(){

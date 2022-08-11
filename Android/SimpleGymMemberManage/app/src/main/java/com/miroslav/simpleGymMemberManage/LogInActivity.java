@@ -46,14 +46,21 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
     private void setOnButtonClick() {
 
         onButtonClick(getActivityLogInBinding().buttonLogIn,()->{
-            MyEditTextController myEditTextController = new MyEditTextController(getEditTextTextPassword());
-            initializeSharedPrefs();
-            String password = mySharedPrefs.getUserPasswordFromSharedPrefs();
-            if(!myEditTextController.isEditTextStringEmpty()){
-                MyPassword myPassword = new MyPassword(myEditTextController.getEditTextString(),password);
-                if(myPassword.isPasswordEqual()){
 
-                    Log.d("MyGym",password);
+            MyEditTextController myEditTextController = new MyEditTextController(getEditTextTextPassword());
+
+            initializeSharedPrefs();
+
+
+            String password = mySharedPrefs.getUserPasswordFromSharedPrefs();
+
+            if(!myEditTextController.isEditTextStringEmpty()){
+
+                Password myPassword = new Password(myEditTextController.getEditTextString(),password);
+
+                if(myPassword.isPasswordsEqual()){
+
+
 
                     gymSqlQuery = new GymSqlQuery();
                     initializeSharedPrefs();
@@ -67,16 +74,14 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
                 }
 
             }else{
-                makeToastSetMessageAndPlaceItToGravityCenter("Incorrect password");
+                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Incorrect password");
+
             }
 
         });
     }
 
-    private void setGymSqlQueryAndCreateDataBaseWithDefaultCardPrice() {
-//        gymSqlQuery = new GymSqlQuery();
-//        gymSqlQuery.createDataBaseWithDefaultCardPrice(getApplicationContext(),myEditTextController.getEditTextStringInteger());
-    }
+
 
     private void finishCurrentActivityAndStartMainMenuActivity() {
 
@@ -90,15 +95,6 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
 
     }
 
-    /**
-     *
-     * @param message message to be displayed
-     */
-    private void makeToastSetMessageAndPlaceItToGravityCenter(String message) {
-    Toast toast =   Toast.makeText(this, message, Toast.LENGTH_SHORT);
-    toast.setGravity(Gravity.CENTER,0,0);
-    toast.show();
-    }
 
     private void onButtonClick(Button buttonLogIn, MyButtonEventLogicImp myButtonEventLogicInterface) {
         buttonLogIn.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());

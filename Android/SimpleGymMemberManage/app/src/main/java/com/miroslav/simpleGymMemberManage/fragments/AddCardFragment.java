@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.MyEditTextController;
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
+import com.miroslav.simpleGymMemberManage.MyToast;
 import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.actors.Card;
@@ -113,7 +114,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
 
 
 
-                                makeToastSetTextSetGravityAndShow("Card added");
+                                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Card added");
                                 cardContract.setCard_price(myEditTextPriceController.getEditTextStringInteger());
                                 cardContract.setCard_client_id(client.getClient_id());
                                 cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(cardContract,client);
@@ -129,23 +130,26 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
 
 
                         }else if(!myEditTextPriceController.isEditTextTextCorrectNumber()){
-                            makeToastSetTextSetGravityAndShow("Change the price!");
+                            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Change the price!");
                         }
                         else{
                             // if card id is !=0
                             // check if the client have inactive card and remove it
-                            ArrayList<Card> cardArrayList = cardSqlQuery.getAllActiveCardsFromDataBase();
-                            if(cardArrayList!=null){
-                                for(int i=0;i<cardArrayList.size();i++) {
-                                    if (!cardArrayList.get(i).isCardActive()){
-                                        clientSqlQuery.setClientCardIdToZero(cardArrayList.get(i));
+                            ArrayList<Card> allActiveCards = cardSqlQuery.getAllActiveCardsFromDataBase();
+
+                            if(allActiveCards!=null){
+                                for(int i=0;i<allActiveCards.size();i++) {
+                                    if (!allActiveCards.get(i).isCardActive()){
+                                        clientSqlQuery.setClientCardIdToZero(allActiveCards.get(i));
                                     }
                                 }
                             }
-                            makeToastSetTextSetGravityAndShow("Client have card");
+                            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Client have card");
+
                         }
                     }else{
-                        makeToastSetTextSetGravityAndShow("Client doesn't exists");
+                        MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Client doesn't exists");
+
                     }
 
                 }
@@ -173,12 +177,7 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 
-    private void makeToastSetTextSetGravityAndShow(String MESSAGE) {
-        Toast toast;
-        toast= Toast.makeText(getActivity(), MESSAGE,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
+
 
     private void setClientToClientFoundFromDataBase() {
         client = clientSqlQuery.getClientFromDataBase(myEditTextController.getEditTextStringInteger());

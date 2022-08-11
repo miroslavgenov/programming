@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,7 @@ import com.miroslav.simpleGymMemberManage.fragments.MyButtonEventLogicImp;
 
 public class SetDefaultsActivity extends AppCompatActivity implements MyActivityBindingImp, SharedPrefsImp {
     ActivitySetDefaultsBinding activitySetDefaultsBinding;
-
+    Password userPassword;
     Button buttonSetDefault;
     MyEditTextController myEditTextControllerPassword;
     MyEditTextController myEditTextControllerRepeatedPassword;
@@ -32,7 +31,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setActivityBinding(DataBindingUtil.setContentView(this,SET_DEFAULT_ACTIVITY_LAYOUT_ID));
+        setActivityBinding(getDataBindingUtilContentViewForThisActivity());
         main();
     }
 
@@ -69,29 +68,32 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
         setMyEditTextController(getEditTextPassword(),getMyEditTextRepeatedPassword());
 
-        Log.d("MyGym",""+myEditTextControllerPassword.isEditTextTextCorrectForPassword());
-        Log.d("MyGym",""+myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword());
-        if
-        (myEditTextControllerPassword.isEditTextTextCorrectForPassword() && myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword()){
-
-            MyPassword myPassword = new MyPassword(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
-
-            if(myPassword.isPasswordEqual()){
-
-                makeToastSetTextToErrorPriceSetGravityAndShow("Password is set.");
-                // initialize shared prefs
-                initializeSharedPrefsAndSetUserPassword(myPassword.getUserPasswordText());
-                finishCurrentActivityAndStartLogInActivity();
-
+        if(isEditTextPasswordAndRepeatedPasswordCorrect()){
+            initializePassword(myEditTextControllerPassword,myEditTextControllerRepeatedPassword);
+            if(userPassword.isPasswordsEqual()){
+                showMessageSavePasswordFinishThisActivityAndStartLoginActivity();
             }else{
-                makeToastSetTextToErrorPriceSetGravityAndShow("Passwords are not equal!");
+                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Passwords are not equal!");
             }
         }else{
-            makeToastSetTextToErrorPriceSetGravityAndShow("Password Length must be greater than 6 !");
+            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Password Length must be greater than "+Password.PASSWORD_REQUIRED_LENGTH+" !");
+
         }
+    }
+
+    private void showMessageSavePasswordFinishThisActivityAndStartLoginActivity() {
+        MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Password is set.");
+        initializeSharedPrefsAndSetUserPassword(userPassword.getUserPassword());
+        finishCurrentActivityAndStartLogInActivity();
+    }
+
+    private void initializePassword(MyEditTextController myEditTextControllerPassword, MyEditTextController myEditTextControllerRepeatedPassword) {
+        userPassword = new Password(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
+    }
 
 
-
+    boolean isEditTextPasswordAndRepeatedPasswordCorrect(){
+        return myEditTextControllerPassword.isEditTextTextCorrectForPassword() && myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword();
     }
 
     private void finishCurrentActivityAndStartLogInActivity() {
@@ -121,18 +123,19 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         startActivity(intent);
     }
 
-    private void makeToastSetTextToErrorPriceSetGravityAndShow(String message) {
-        Toast toast;
-        toast= Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
-    }
-
-
-
-
 
     //SET
+
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
+        mySharedPrefs = new MySharedPrefs(getApplicationContext(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+        mySharedPrefs.setPasswordAtSharedPrefs(userPassword);
+    }
 
 
     private void setButtonSet(Button sourceButtonSetDefault) {
@@ -143,12 +146,15 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         this.activitySetDefaultsBinding = (ActivitySetDefaultsBinding) DataBindingUtilContent;
     }
 
+    //GET
+
+
     @Override
     public <T> T getDataBindingUtilContentViewForThisActivity() {
-        return null;
+        return (T)DataBindingUtil.setContentView(this,SET_DEFAULT_ACTIVITY_LAYOUT_ID);
     }
 
-    //GET
+
 
 
 
@@ -162,16 +168,7 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
 
 
-    @Override
-    public void initializeSharedPrefs() {
-        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
-    }
 
-    @Override
-    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
-        mySharedPrefs = new MySharedPrefs(getApplicationContext(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
-        mySharedPrefs.setPasswordAtSharedPrefs(userPassword);
-    }
 
 
 }

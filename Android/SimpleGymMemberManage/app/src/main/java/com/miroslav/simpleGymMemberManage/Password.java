@@ -1,10 +1,11 @@
 package com.miroslav.simpleGymMemberManage;
 
-public class MyPassword {
+public class Password {
     String userPasswordText;
     String repeatedUserPasswordText;
+    public static final int PASSWORD_REQUIRED_LENGTH =6;
 
-    public MyPassword(String userPasswordText, String repeatedUserPasswordText){
+    public Password(String userPasswordText, String repeatedUserPasswordText){
         setUserPasswordText(userPasswordText);
         setRepeatedUserPasswordText(repeatedUserPasswordText);
     }
@@ -15,7 +16,7 @@ public class MyPassword {
         this.repeatedUserPasswordText = value;
     }
 
-    public String getUserPasswordText() {
+    public String getUserPassword() {
         return userPasswordText;
     }
 
@@ -23,8 +24,8 @@ public class MyPassword {
         return repeatedUserPasswordText;
     }
 
-    boolean isPasswordEqual(){
-        return getUserPasswordText().equals(getRepeatedUserPasswordText());
+    boolean isPasswordsEqual(){
+        return getUserPassword().equals(getRepeatedUserPasswordText());
     }
 }
 
