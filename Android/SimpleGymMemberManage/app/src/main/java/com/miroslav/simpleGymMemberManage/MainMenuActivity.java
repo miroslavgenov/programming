@@ -26,7 +26,15 @@ public class MainMenuActivity extends AppCompatActivity implements MyActivityBin
         main();
     }
 
+    @Override
+    public <T> void setActivityBinding(T DataBindingUtilContent) {
+        this.activityMainMenuBinding = (ActivityMainMenuBinding) DataBindingUtilContent;
+    }
 
+    @Override
+    public <T> T getDataBindingUtilContentViewForThisActivity() {
+        return (T)DataBindingUtil.setContentView(this,MAIN_MENU_ACTIVITY_LAYOUT_ID);
+    }
 
     private void main() {
 
@@ -45,37 +53,25 @@ public class MainMenuActivity extends AppCompatActivity implements MyActivityBin
         addAdRequest();
     }
 
-    private void addAdRequest() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        getAdView().loadAd(adRequest);
-    }
-
     void setAdView(AdView adView){
         this.adView = adView;
     }
 
 
-
-    @Override
-    public <T> void setActivityBinding(T DataBindingUtilContent) {
-        this.activityMainMenuBinding = (ActivityMainMenuBinding) DataBindingUtilContent;
-    }
-
-    @Override
-    public <T> T getDataBindingUtilContentViewForThisActivity() {
-        return (T)DataBindingUtil.setContentView(this,MAIN_MENU_ACTIVITY_LAYOUT_ID);
-    }
-
-    //    GET
-    ActivityMainMenuBinding getActivityMainMenuBinding(){
-        return this.activityMainMenuBinding;
+    private void addAdRequest() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        getAdView().loadAd(adRequest);
     }
 
     AdView getAdView(){
         return this.adView;
     }
 
-
+   
+    //    GET
+    ActivityMainMenuBinding getActivityMainMenuBinding(){
+        return this.activityMainMenuBinding;
+    }
 
 }
 

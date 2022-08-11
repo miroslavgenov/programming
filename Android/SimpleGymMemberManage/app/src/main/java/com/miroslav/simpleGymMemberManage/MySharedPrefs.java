@@ -48,6 +48,9 @@ public class MySharedPrefs {
         }
 
     }
+    
+    public SharedPreferences getSharedPreferences(){return this.sharedPreferences;}
+    public String getSharedPrefKey(){return this.sharedPrefKey;}
 
     private void createOrAccessExistingSharedPreferences() {
 
@@ -76,6 +79,10 @@ public class MySharedPrefs {
     }
 
 
+    public void setPasswordAtSharedPrefs(String value){
+        writePasswordToSharedPrefs(value);
+    }
+    
     private void writePasswordToSharedPrefs(String value){
         editor = getSharedPreferences().edit();
         editor.putString(this.getSharedPrefKey(),value);
@@ -83,9 +90,7 @@ public class MySharedPrefs {
     }
 
     //SET
-    public void setPasswordAtSharedPrefs(String value){
-        writePasswordToSharedPrefs(value);
-    }
+    
 
 
     public void setContext(Context srcContext){
@@ -94,8 +99,8 @@ public class MySharedPrefs {
 
     //GET
     public Context getContext(){return this.context;}
-    public SharedPreferences getSharedPreferences(){return this.sharedPreferences;}
-    public String getSharedPrefKey(){return this.sharedPrefKey;}
+    
+    
 
     public boolean isDefaultUserPasswordEqualsZero(){
         return this.getUserPasswordFromSharedPrefs().equals("0");

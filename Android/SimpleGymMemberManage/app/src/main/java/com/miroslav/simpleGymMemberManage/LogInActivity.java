@@ -23,21 +23,22 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
     MySharedPrefs mySharedPrefs;
     GymSqlQuery gymSqlQuery;
 
-    public void setActivityLogInBinding(ActivityLogInBinding dataBindingUtilContent) {
-        this.activityLogInBinding = dataBindingUtilContent;
-    }
+    
 
-    public ActivityLogInBinding getActivityLogInBinding() {
-        return activityLogInBinding;
-    }
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActivityLogInBinding(DataBindingUtil.setContentView(this,LOG_IN_ACTIVITY_LAYOUT));
-
+        
         main();
     }
+
+    public void setActivityLogInBinding(ActivityLogInBinding dataBindingUtilContent) {
+        this.activityLogInBinding = dataBindingUtilContent;
+    }
+
 
     private void main() {
         setOnButtonClick();
@@ -63,7 +64,7 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
 
 
                     gymSqlQuery = new GymSqlQuery();
-                    initializeSharedPrefs();
+                    //initializeSharedPrefs();
                     String userPassword = mySharedPrefs.getUserPasswordFromSharedPrefs();
 
                     gymSqlQuery.createDataBaseWithDefaultUserPassword(getApplicationContext(),userPassword);
@@ -83,6 +84,24 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
 
 
 
+    private void onButtonClick(Button buttonLogIn, MyButtonEventLogicImp myButtonEventLogicInterface) {
+        buttonLogIn.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+    }
+
+    public ActivityLogInBinding getActivityLogInBinding() {
+        return activityLogInBinding;
+    }
+
+
+    @Override
+    public void initializeSharedPrefs() {
+        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    EditText getEditTextTextPassword(){
+        return getActivityLogInBinding().editTextTextPassword;
+    }
+    
     private void finishCurrentActivityAndStartMainMenuActivity() {
 
         finish();
@@ -93,20 +112,6 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
         Intent intent = new Intent(this,MainMenuActivity.class);
         startActivity(intent);
 
-    }
-
-
-    private void onButtonClick(Button buttonLogIn, MyButtonEventLogicImp myButtonEventLogicInterface) {
-        buttonLogIn.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
-    }
-
-    EditText getEditTextTextPassword(){
-        return getActivityLogInBinding().editTextTextPassword;
-    }
-
-    @Override
-    public void initializeSharedPrefs() {
-        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
     }
 
     @Override

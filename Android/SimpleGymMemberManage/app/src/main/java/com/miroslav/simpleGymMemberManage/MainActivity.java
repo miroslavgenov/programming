@@ -29,79 +29,7 @@ public class MainActivity extends AppCompatActivity implements MyActivityBinding
         main();
 }
 
-
-
-    private void main() {
-
-        initializeSharedPrefs();
-        goToSetDefaultUserPasswordOrGoToLogInActivity();
-
-        finish();
-    }
-
-    private void goToSetDefaultUserPasswordOrGoToLogInActivity() {
-        if (mySharedPrefs.isSharedPrefsFileExists()) {
-            setDefaultUserPasswordOrStartLogInActivity();
-        } else {
-            setDefaultUserPasswordAndStartSetDefaultActivity();
-        }
-    }
-
-    private void setDefaultUserPasswordOrStartLogInActivity() {
-        if (
-                !mySharedPrefs.isDefaultUserPasswordEqualsZero()
-
-        ) {
-            startLogInActivity();
-        } else {
-            setDefaultUserPasswordAndStartSetDefaultActivity();
-        }
-    }
-
-    private void setDefaultUserPasswordAndStartSetDefaultActivity() {
-        setDefaultUserPassword(defaultUserPassword);
-        startSetDefaultsActivity();
-    }
-
-    /**
-     * Function that starts <b>MainMenuActivity</b>
-     * @see MainMenuActivity
-     */
-    private void startLogInActivity() {
-        Intent intentLogInActivity = new Intent(getApplicationContext(),LogInActivity.class);
-        startActivity(intentLogInActivity);
-    }
-
-
-    @Override
-    public void initializeSharedPrefs() {
-        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
-    }
-
-    @Override
-    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
-
-    }
-
-
-
-    private void setDefaultUserPassword(String defaultUserPassword) {
-        mySharedPrefs.setPasswordAtSharedPrefs(defaultUserPassword);
-    }
-
-    /**
-     * Function that starts <b>SetDefaultsActivity</b>
-     * @see SetDefaultsActivity
-     */
-    private void startSetDefaultsActivity() {
-        Intent intentSetDefaultsActivity = new Intent(getApplicationContext(),SetDefaultsActivity.class);
-        startActivity(intentSetDefaultsActivity);
-    }
-
-    //SETTERS & GETTERS
-    //SET
-
-    /**
+/**
      *
      * @param DataBindingUtilContent
      * @param <T> current activity binding
@@ -114,6 +42,74 @@ public class MainActivity extends AppCompatActivity implements MyActivityBinding
     @Override
     public <T> T getDataBindingUtilContentViewForThisActivity() {
         return (T) DataBindingUtil.setContentView(this,MAIN_ACTIVITY_LAYOUT_ID);
+    }
+
+
+
+    private void main() {
+
+        initializeSharedPrefs();
+        goToSetDefaultUserPasswordOrGoToLogInActivity();
+
+        finish();
+    }
+
+    @Override
+    public void initializeSharedPrefs() {
+        this.mySharedPrefs = new MySharedPrefs(getApplicationContext(), getResources().getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+
+
+    private void goToSetDefaultUserPasswordOrGoToLogInActivity() {
+        if (mySharedPrefs.isSharedPrefsFileExists()) {
+            setDefaultUserPasswordOrStartLogInActivity();
+        } else {
+            setDefaultUserPasswordAndStartSetDefaultActivity();
+        }
+    }
+
+    private void setDefaultUserPasswordOrStartLogInActivity() {
+        if (!mySharedPrefs.isDefaultUserPasswordEqualsZero()) {
+            startLogInActivity();
+        } else {
+            setDefaultUserPasswordAndStartSetDefaultActivity();
+        }
+    }
+
+    /**
+     * Function that starts <b>MainMenuActivity</b>
+     * @see MainMenuActivity
+     */
+    private void startLogInActivity() {
+        Intent intentLogInActivity = new Intent(getApplicationContext(),LogInActivity.class);
+        startActivity(intentLogInActivity);
+    }
+    
+    private void setDefaultUserPasswordAndStartSetDefaultActivity() {
+        setDefaultUserPassword(defaultUserPassword);
+        startSetDefaultsActivity();
+    }
+
+    
+
+    private void setDefaultUserPassword(String defaultUserPassword) {
+        mySharedPrefs.setPasswordAtSharedPrefs(defaultUserPassword);
+    }
+    
+
+    /**
+     * Function that starts <b>SetDefaultsActivity</b>
+     * @see SetDefaultsActivity
+     */
+    private void startSetDefaultsActivity() {
+        Intent intentSetDefaultsActivity = new Intent(getApplicationContext(),SetDefaultsActivity.class);
+        startActivity(intentSetDefaultsActivity);
+    }
+    
+    @Override
+    public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
+
     }
 
     //GET

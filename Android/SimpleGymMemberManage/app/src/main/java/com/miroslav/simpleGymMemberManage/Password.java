@@ -16,6 +16,10 @@ public class Password {
         this.repeatedUserPasswordText = value;
     }
 
+    boolean isPasswordsEqual(){
+        return getUserPassword().equals(getRepeatedUserPasswordText());
+    }
+    
     public String getUserPassword() {
         return userPasswordText;
     }
@@ -24,9 +28,7 @@ public class Password {
         return repeatedUserPasswordText;
     }
 
-    boolean isPasswordsEqual(){
-        return getUserPassword().equals(getRepeatedUserPasswordText());
-    }
+    
 }
 
 

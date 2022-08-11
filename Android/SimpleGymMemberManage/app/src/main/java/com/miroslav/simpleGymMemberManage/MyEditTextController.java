@@ -16,9 +16,7 @@ public class MyEditTextController {
 
     }
 
-    public String getEditTextString() {
-        return editTextString;
-    }
+    
 
     public boolean isEditTextTextCorrectForPassword(){
         if(this.isEditTextStringEmpty()){
@@ -27,9 +25,17 @@ public class MyEditTextController {
             return this.isEditTextStringLengthGreaterThanSix();
         }
     }
-
+    
+    public boolean isEditTextStringEmpty(){
+        return this.editTextString.isEmpty();
+    }
+        
     private boolean isEditTextStringLengthGreaterThanSix() {
         return this.getEditTextString().length()>Password.PASSWORD_REQUIRED_LENGTH;
+    }
+
+    public String getEditTextString() {
+        return editTextString;
     }
 
 
@@ -45,9 +51,7 @@ public class MyEditTextController {
         }
     }
 
-    public boolean isEditTextStringEmpty(){
-        return this.editTextString.isEmpty();
-    }
+    
 
     public boolean isEditTextStringNumberGreaterThanZero(){
         return this.getEditTextStringInteger()>0;

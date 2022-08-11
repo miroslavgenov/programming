@@ -34,15 +34,19 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
         setActivityBinding(getDataBindingUtilContentViewForThisActivity());
         main();
     }
-
-
-
+    //setActivityBinding
     @Override
-    protected void onDestroy() {
-//        this.gymSqlQuery.closeGymDbHelper();
-        super.onDestroy();
+    public <T> void setActivityBinding(T DataBindingUtilContent) {
+        this.activitySetDefaultsBinding = (ActivitySetDefaultsBinding) DataBindingUtilContent;
     }
 
+    //getDataBindingUtilContentViewForThisActivity
+    @Override
+    public <T> T getDataBindingUtilContentViewForThisActivity() {
+        return (T)DataBindingUtil.setContentView(this,SET_DEFAULT_ACTIVITY_LAYOUT_ID);
+    }
+
+    //main
     private void main() {
 
 
@@ -54,16 +58,36 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
     }
 
-
-    void setMyEditTextController(EditText editTextPassword,EditText editTextRepeatedPassword){
-        myEditTextControllerPassword = new MyEditTextController(editTextPassword);
-        myEditTextControllerRepeatedPassword = new MyEditTextController(editTextRepeatedPassword);
+    //setButtonSet
+    private void setButtonSet(Button sourceButtonSetDefault) {
+        this.buttonSetDefault = sourceButtonSetDefault;
     }
 
-    public EditText getMyEditTextRepeatedPassword() {
-        return getActivityBinding().editTextTextRepeatPassword;
+    //getButtonSetDefaultFromBinding
+    Button getButtonSetDefaultFromBinding(){return
+        getActivityBinding().buttonSetDefault;
+    }
+    
+    //getActivityBinding
+    ActivitySetDefaultsBinding getActivityBinding() {
+        return this.activitySetDefaultsBinding;
     }
 
+    // addOnButtonClickListeners
+    void addOnButtonClickListeners(){
+        onButtonClick(this.getButtonSetDefaultFromBinding(),this::defaultActivityLogic);
+    }
+
+    //onButtonClick
+    // events
+    private void onButtonClick(Button button, MyButtonEventLogicImp myButtonEventLogicInterface) {
+        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
+
+    }
+
+    
+
+    //defaultActivityLogic
     void defaultActivityLogic(){
 
         setMyEditTextController(getEditTextPassword(),getMyEditTextRepeatedPassword());
@@ -80,92 +104,121 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
 
         }
     }
+    //setMyEditTextController
 
+    void setMyEditTextController(EditText editTextPassword,EditText editTextRepeatedPassword){
+        myEditTextControllerPassword = new MyEditTextController(editTextPassword);
+        myEditTextControllerRepeatedPassword = new MyEditTextController(editTextRepeatedPassword);
+    }
+
+    //getEditTextPassword
+    private EditText getEditTextPassword() {
+        return getActivityBinding().editTextTextPassword;
+    }
+    //getMyEditTextRepeatedPassword
+    public EditText getMyEditTextRepeatedPassword() {
+        return getActivityBinding().editTextTextRepeatPassword;
+    }
+
+    //isEditTextPasswordAndRepeatedPasswordCorrect
+    boolean isEditTextPasswordAndRepeatedPasswordCorrect(){
+        return myEditTextControllerPassword.isEditTextTextCorrectForPassword() && myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword();
+    }
+
+    //initializePassword
+    private void initializePassword(MyEditTextController myEditTextControllerPassword, MyEditTextController myEditTextControllerRepeatedPassword) {
+        userPassword = new Password(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
+    }
+    //showMessageSavePasswordFinishThisActivityAndStartLoginActivity
     private void showMessageSavePasswordFinishThisActivityAndStartLoginActivity() {
         MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Password is set.");
         initializeSharedPrefsAndSetUserPassword(userPassword.getUserPassword());
         finishCurrentActivityAndStartLogInActivity();
     }
 
-    private void initializePassword(MyEditTextController myEditTextControllerPassword, MyEditTextController myEditTextControllerRepeatedPassword) {
-        userPassword = new Password(myEditTextControllerPassword.getEditTextString(),myEditTextControllerRepeatedPassword.getEditTextString());
-    }
-
-
-    boolean isEditTextPasswordAndRepeatedPasswordCorrect(){
-        return myEditTextControllerPassword.isEditTextTextCorrectForPassword() && myEditTextControllerRepeatedPassword.isEditTextTextCorrectForPassword();
-    }
-
-    private void finishCurrentActivityAndStartLogInActivity() {
-        finish();
-        startLogInActivity();
-    }
-
-    void addOnButtonClickListeners(){
-        onButtonClick(this.getButtonSetDefaultFromBinding(),this::defaultActivityLogic);}
-
-
-
-    private EditText getEditTextPassword() {
-        return getActivityBinding().editTextTextPassword;
-    }
-
-    // events
-    private void onButtonClick(Button button, MyButtonEventLogicImp myButtonEventLogicInterface) {
-        button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
-
-    }
-
-
-
-    private void startLogInActivity(){
-        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
-        startActivity(intent);
-    }
-
-
-    //SET
-
-    @Override
-    public void initializeSharedPrefs() {
-        mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
-    }
-
+    //initializeSharedPrefsAndSetUserPassword
     @Override
     public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
         mySharedPrefs = new MySharedPrefs(getApplicationContext(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
         mySharedPrefs.setPasswordAtSharedPrefs(userPassword);
     }
 
+    //finishCurrentActivityAndStartLogInActivity
+    private void finishCurrentActivityAndStartLogInActivity() {
+        finish();
+        startLogInActivity();
+    }
+    
+    //startLogInActivity
+    private void startLogInActivity(){
+        Intent intent = new Intent(getApplicationContext(),LogInActivity.class);
+        startActivity(intent);
+    }
+    
 
-    private void setButtonSet(Button sourceButtonSetDefault) {
-        this.buttonSetDefault = sourceButtonSetDefault;
-    }
     @Override
-    public <T> void setActivityBinding(T DataBindingUtilContent) {
-        this.activitySetDefaultsBinding = (ActivitySetDefaultsBinding) DataBindingUtilContent;
+    protected void onDestroy() {
+//        this.gymSqlQuery.closeGymDbHelper();
+        super.onDestroy();
     }
+
+    
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+
+
+    
+
+
+    //SET
+
+    // @Override
+    // public void initializeSharedPrefs() {
+    //     mySharedPrefs=new MySharedPrefs(this,getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    // }
+
+    
+
+
+    
+    
 
     //GET
 
 
-    @Override
-    public <T> T getDataBindingUtilContentViewForThisActivity() {
-        return (T)DataBindingUtil.setContentView(this,SET_DEFAULT_ACTIVITY_LAYOUT_ID);
-    }
+    
 
 
 
 
 
 
-    Button getButtonSetDefaultFromBinding(){return
-            getActivityBinding().buttonSetDefault;
-    }
+    
 
-    ActivitySetDefaultsBinding getActivityBinding() {
-        return this.activitySetDefaultsBinding;
-    }
+    
 
 
 
