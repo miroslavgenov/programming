@@ -19,8 +19,7 @@ public class ClientSqlQuery extends GymSqlQuery implements GymSqlQueryImp {
     public ClientSqlQuery(){}
 
     public ClientSqlQuery(Context appContext,String userPassword){
-        super.setAppContext(appContext);
-        super.setUserPassword(userPassword);
+        super(appContext, userPassword);
     }
 
 

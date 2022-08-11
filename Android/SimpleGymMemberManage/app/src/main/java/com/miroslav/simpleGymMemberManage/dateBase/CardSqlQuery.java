@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public class CardSqlQuery extends GymSqlQuery implements GymSqlQueryImp {
     public CardSqlQuery(){}
     public CardSqlQuery(Context appContext,String userPassword){
-        super.setAppContext(appContext);
-        super.setUserPassword(userPassword);
+        super(appContext,userPassword);
     }
 
     class CardSqlQueryException extends Exception{

@@ -16,6 +16,10 @@ public class GymSqlQuery {
     Context appContext;
     String userPassword;
 
+
+
+
+
     public Context getAppContext() {
         return appContext;
     }
@@ -37,6 +41,11 @@ public class GymSqlQuery {
 
 
     public GymSqlQuery(){}
+
+    public  GymSqlQuery(Context appContext,String userPassword){
+        this.setAppContext(appContext);
+        this.setUserPassword(userPassword);
+    }
 
 
     /**

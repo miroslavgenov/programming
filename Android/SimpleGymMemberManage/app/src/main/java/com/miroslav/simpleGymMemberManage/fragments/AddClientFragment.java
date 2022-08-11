@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.miroslav.simpleGymMemberManage.MyEditTextController;
 import com.miroslav.simpleGymMemberManage.MySharedPrefs;
+import com.miroslav.simpleGymMemberManage.MyToast;
 import com.miroslav.simpleGymMemberManage.R;
 import com.miroslav.simpleGymMemberManage.SharedPrefsImp;
 import com.miroslav.simpleGymMemberManage.databinding.FragmentAddClientBinding;
@@ -86,7 +87,8 @@ public class AddClientFragment extends Fragment implements SharedPrefsImp {
         if(!myEditTextController.isEditTextStringEmpty()) {
             clientSqlQuery.insertData(myEditTextController.getEditTextString());
             prepareCurrentClientIdForNextClient();
-            makeToastLengthLongGravityCenter(getString(R.string.client_added_text));
+            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),getString(R.string.client_added_text));
+
         }
     }
 
@@ -123,7 +125,6 @@ public class AddClientFragment extends Fragment implements SharedPrefsImp {
      */
     private void initializeClientSqlQueryAndOpenDataBase() {
         this.clientSqlQuery = new ClientSqlQuery(getActivity(), mySharedPrefs.getUserPasswordFromSharedPrefs());
-
         this.clientSqlQuery.openDataBaseWithPassword();
     }
 
