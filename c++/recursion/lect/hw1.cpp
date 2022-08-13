@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 
-void rec1(int n){
+void row(int n){
     if(n==-1)return;
-    rec1(n-1);
+    row(n-1);
     cout<<n<<" ";
 }
 void rec2(int n){
@@ -13,7 +13,7 @@ void rec2(int n){
 }
 
 void rec3(int n){
-    rec1(n);
+    row(n);
     rec2(--n);
 }
 
@@ -44,7 +44,7 @@ void rec5(int n){
 
 
 int main(){
-    rec1(5);
+    row(5);
     cout<<endl;
     rec2(5);
     cout<<endl;
