@@ -18,28 +18,41 @@ void swapNumber(int &greaterNumber , int &lesserNumber){
 
 }
 
-void mergeSort(int numbers[],int left,int right,int a[],int b[]){
-    
-    
+void merge(int a[],int left,int right,int b[],int c[]){
+	// todo in b compare the numbers from left to right and sort them as the previous exercise
+	// then rewratite them it a[]
+	cout<<endl<<"merge"<<endl;
+	cout<<left<<" "<<right<<endl;
+	int mid = (left+right)/2;
+	int k=left;
+	int l = mid+1;
+	int x = left;
+
+
+
+}
+
+void mergeSort(int a[],int left,int right,int b[],int c[]){
+    if(left==right)return;
     int mid = (left+right)/2;
-    if(left<right){
-        cout<<numbers[mid]<<" mid: "<<mid<<" left: "<<left<<" right:"<<right<<endl;
-        mergeSort(numbers,left,mid,a,b);
-        
-    }
+    cout<<"left: "<<left<<" mid: "<<mid<<" right: "<<right<<endl;
+    cout<<" "<<a[left]<<"  "<<a[mid]<<" "<<a[right]<<endl;
+    mergeSort(a,left,mid);
+    
+    mergeSort(a,mid+1,right,b,c);
+    
+    merge(a,left,right,b,c);
+    
+    
+
     
 }
 
   
 int main(){
-    int size=8;
-    int numbers[size]{11,10,2,13,9,7,6,4};
-    int a[size/2];
-    int b[size/2];
-    showNumbers(numbers,size);
-    mergeSort(numbers,0,size-1,a,b);
-    
-    
+    int arr[8]={7,6,1,3,5,4,8,2};
+    int b[8],c[8];
+    mergeSort(arr,0,sizeof(arr)/sizeof(*arr)-1,b,c);
 
     
     
@@ -50,3 +63,17 @@ int main(){
     
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
