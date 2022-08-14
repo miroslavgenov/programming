@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MyActivityBinding
     private void main() {
 
         initializeSharedPrefs();
+        //TODO make functions do 1 think reduce the level of abstraction
         goToSetDefaultUserPasswordOrGoToLogInActivity();
 
         finish();

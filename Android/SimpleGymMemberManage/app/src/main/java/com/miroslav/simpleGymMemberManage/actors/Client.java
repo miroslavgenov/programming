@@ -9,6 +9,10 @@ public class Client {
 
     int client_id;
     String client_name;
+
+    /**
+     *  client_card_id if 0 client card is inactive or don't have card
+     */
     int client_card_id;
 
     /**
@@ -67,6 +71,9 @@ public class Client {
         return client_card_id;
     }
 
+    public boolean isClientCardInactive(){
+        return getClient_card_id()==0;
+    }
 
     /**
      *

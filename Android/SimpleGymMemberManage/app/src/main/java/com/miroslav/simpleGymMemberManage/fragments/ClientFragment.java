@@ -29,15 +29,9 @@ public class ClientFragment extends Fragment implements SharedPrefsImp {
     private ClientSqlQuery clientSqlQuery;
     MySharedPrefs mySharedPrefs;
 
-    public ClientFragment() {
-        // Required empty public constructor
-    }
 
-    @Override
-    public void onDestroyView() {
-        clientSqlQuery.closeGymDbHelper();
-        super.onDestroyView();
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +70,11 @@ public class ClientFragment extends Fragment implements SharedPrefsImp {
     @Override
     public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
+    }
+    @Override
+    public void onDestroyView() {
+        clientSqlQuery.closeGymDbHelper();
+        super.onDestroyView();
     }
 }
 

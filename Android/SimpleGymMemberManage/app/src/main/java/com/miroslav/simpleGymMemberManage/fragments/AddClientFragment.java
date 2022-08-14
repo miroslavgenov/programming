@@ -41,11 +41,7 @@ public class AddClientFragment extends Fragment implements SharedPrefsImp {
         return fragmentAddClientBinding.getRoot();
     }
 
-    @Override
-    public void onDestroyView() {
-        clientSqlQuery.closeGymDbHelper();
-        super.onDestroyView();
-    }
+
 
 
 
@@ -66,18 +62,22 @@ public class AddClientFragment extends Fragment implements SharedPrefsImp {
 
 
     }
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+    private void initializeClientSqlQueryAndOpenDataBase() {
+        this.clientSqlQuery = new ClientSqlQuery(getActivity(), mySharedPrefs.getUserPasswordFromSharedPrefs());
+        this.clientSqlQuery.openDataBaseWithPassword();
+    }
+
+
+
+
 
     private void addOnButtonClickListeners() {
         onButtonClick(fragmentAddClientBinding.buttonAdd,this::addClient);
         onButtonClick(fragmentAddClientBinding.buttonCancel,this::popFragmentBackStack);
-    }
-
-    public void setMyEditTextController(EditText editText) {
-        myEditTextController = new MyEditTextController(editText);
-    }
-
-    EditText getEditTextClientName(){
-        return fragmentAddClientBinding.editTextClientName;
     }
 
     void addClient(){
@@ -87,71 +87,66 @@ public class AddClientFragment extends Fragment implements SharedPrefsImp {
         if(!myEditTextController.isEditTextStringEmpty()) {
             clientSqlQuery.insertData(myEditTextController.getEditTextString());
             prepareCurrentClientIdForNextClient();
-            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),getString(R.string.client_added_text));
+            new MyToast(getActivity(),getString(R.string.client_added_text)).show();
 
         }
     }
-
-    void makeToastLengthLongGravityCenter(String message){
-        Toast toast =  Toast.makeText(getActivity(),message,Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0,0);
-        toast.show();
+    EditText getEditTextClientName(){
+        return fragmentAddClientBinding.editTextClientName;
     }
+
+
+    public void setMyEditTextController(EditText editText) {
+        myEditTextController = new MyEditTextController(editText);
+    }
+
 
     private void prepareCurrentClientIdForNextClient() {
         setCurrentClientIdForNextClient();
         setTextViewClientIdNumberText(String.valueOf(clientIdForNextClient));
     }
 
+    //setCurrentClientIdForNextClient
     private void setCurrentClientIdForNextClient() {
         setCurrentClientId(clientSqlQuery.getCountOfAllElements());
         incrementClientIdForNextClientByOne();
     }
+    //setCurrentClientId
+    private void setCurrentClientId(Integer countOfAllElements) {
+        this.clientIdForNextClient =countOfAllElements;
+    }
+
+    //incrementClientIdForNextClientByOne
+    void incrementClientIdForNextClientByOne(){
+        this.clientIdForNextClient =this.clientIdForNextClient +1;
+    }
+
+    //setTextViewClientIdNumberText
 
     private void setTextViewClientIdNumberText(String clientId) {
         fragmentAddClientBinding.textViewClientIdNumber.setText(String.valueOf(clientId));
     }
 
-    void incrementClientIdForNextClientByOne(){
-        this.clientIdForNextClient =this.clientIdForNextClient +1;
-    }
-
-    private void setCurrentClientId(Integer countOfAllElements) {
-        this.clientIdForNextClient =countOfAllElements;
-    }
-
-    /**
-     * Create new instance of ClientSqlQuery
-     */
-    private void initializeClientSqlQueryAndOpenDataBase() {
-        this.clientSqlQuery = new ClientSqlQuery(getActivity(), mySharedPrefs.getUserPasswordFromSharedPrefs());
-        this.clientSqlQuery.openDataBaseWithPassword();
-    }
-
-
-
-    private void popFragmentBackStack(){
-        Navigation.findNavController(getButtonToPopFragment()).popBackStack();
-    }
-
-
-
-    private Button getButtonToPopFragment() {
-        return fragmentAddClientBinding.buttonCancel;
-    }
 
     private void onButtonClick(Button button, MyButtonEventLogicImp myButtonEventLogicInterface) {
         button.setOnClickListener(view -> myButtonEventLogicInterface.doThisFromFragment());
     }
 
-    @Override
-    public void initializeSharedPrefs() {
-        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    private void popFragmentBackStack(){
+        Navigation.findNavController(getButtonToPopFragment()).popBackStack();
+    }
+    private Button getButtonToPopFragment() {
+        return fragmentAddClientBinding.buttonCancel;
     }
 
     @Override
     public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
+    }
+    @Override
+    public void onDestroyView() {
+        clientSqlQuery.closeGymDbHelper();
+        super.onDestroyView();
     }
 }
 

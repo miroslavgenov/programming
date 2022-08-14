@@ -33,12 +33,8 @@ import java.util.ArrayList;
 public class ClientsFragment extends Fragment implements SharedPrefsImp {
     ClientSqlQuery clientSqlQuery;
     FragmentClientsBinding fragmentClientsBinding;
-    ArrayList<Client> clientArrayList;
+    ArrayList<Client> clients;
     MySharedPrefs mySharedPrefs;
-
-    public void setClientArrayList(ArrayList<Client> clientArrayList) {
-        this.clientArrayList = clientArrayList;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,32 +47,39 @@ public class ClientsFragment extends Fragment implements SharedPrefsImp {
 
         clientSqlQuery.openDataBaseWithPassword();
 
-        setClientArrayList(clientSqlQuery.readAllData());
-        showClientIfAny();
+        setClients(clientSqlQuery.readAllData());
+        showClients();
+        showNoClients();
 
         return fragmentClientsBinding.getRoot();
 
     }
 
-    private void showClientIfAny() {
-        if(clientArrayList!=null){
+    @Override
+    public void initializeSharedPrefs() {
+        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
+    }
+
+    public void setClients(ArrayList<Client> clients) {
+        this.clients = clients;
+    }
+
+
+
+    private void showClients() {
+        if(!this.isClientsNull()){
             makeTextViewForAllClients();
-        }else{
-            makeTextViewAndPrint("No clients");
         }
     }
 
+    boolean isClientsNull(){
+        return clients== null;
+    }
 
     private void makeTextViewForAllClients() {
-        for(int i=0;i<clientArrayList.size();i++){
-            makeTextViewAndPrint(clientArrayList.get(i).toString());
+        for(int i = 0; i< clients.size(); i++){
+            makeTextViewAndPrint(clients.get(i).toString());
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        clientSqlQuery.closeGymDbHelper();
-        super.onDestroyView();
     }
 
     private void makeTextViewAndPrint(String textViewText) {
@@ -84,9 +87,6 @@ public class ClientsFragment extends Fragment implements SharedPrefsImp {
         textView.setText(textViewText);
         textView.setLayoutParams(getTextViewParams());
         getLinearLayoutInScrollViewClients().addView(textView);
-    }
-    LinearLayout getLinearLayoutInScrollViewClients(){
-        return fragmentClientsBinding.linearLayoutInScrollViewClients;
     }
 
     private LinearLayout.LayoutParams getTextViewParams() {
@@ -96,15 +96,37 @@ public class ClientsFragment extends Fragment implements SharedPrefsImp {
         );
     }
 
+
+    LinearLayout getLinearLayoutInScrollViewClients(){
+        return fragmentClientsBinding.linearLayoutInScrollViewClients;
+    }
+
+
+    private void showNoClients(){
+        if(this.isClientsNull())
+            makeTextViewAndPrint("No clients");
+    }
+
+
+
+
+    @Override
+    public void onDestroyView() {
+        clientSqlQuery.closeGymDbHelper();
+        super.onDestroyView();
+    }
+
+
+
+
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @Override
-    public void initializeSharedPrefs() {
-        mySharedPrefs = new MySharedPrefs(getActivity(),getString(R.string.shared_prefs_file_key_card_password), Context.MODE_PRIVATE);
-    }
+
 
     @Override
     public void initializeSharedPrefsAndSetUserPassword(String userPassword) {

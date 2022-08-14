@@ -75,7 +75,8 @@ public class LogInActivity extends AppCompatActivity implements SharedPrefsImp {
                 }
 
             }else{
-                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Incorrect password");
+                new MyToast(getApplicationContext(),"Incorrect password").show();
+//                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Incorrect password");
 
             }
 

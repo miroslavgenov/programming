@@ -97,10 +97,12 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
             if(userPassword.isPasswordsEqual()){
                 showMessageSavePasswordFinishThisActivityAndStartLoginActivity();
             }else{
-                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Passwords are not equal!");
+                new MyToast(getApplicationContext(),"Passwords are not equal!").show();
+//                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),);
             }
         }else{
-            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Password Length must be greater than "+Password.PASSWORD_REQUIRED_LENGTH+" !");
+            new MyToast(getApplicationContext(),"Password Length must be greater than "+Password.PASSWORD_REQUIRED_LENGTH+" !").show();
+//            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),);
 
         }
     }
@@ -131,7 +133,8 @@ public class SetDefaultsActivity extends AppCompatActivity implements MyActivity
     }
     //showMessageSavePasswordFinishThisActivityAndStartLoginActivity
     private void showMessageSavePasswordFinishThisActivityAndStartLoginActivity() {
-        MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),"Password is set.");
+        new MyToast(getApplicationContext(),"Password is set.").show();
+        //        MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getApplicationContext(),);
         initializeSharedPrefsAndSetUserPassword(userPassword.getUserPassword());
         finishCurrentActivityAndStartLogInActivity();
     }

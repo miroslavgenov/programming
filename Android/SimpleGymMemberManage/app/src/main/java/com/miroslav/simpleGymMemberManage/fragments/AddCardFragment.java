@@ -44,35 +44,10 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
    Card cardContract;
    MyEditTextController myEditTextController;
    private CardSqlQuery cardSqlQuery;
+    MyEditTextController myEditTextPriceController;
 
-    public AddCardFragment() {
-        // Required empty public constructor
-    }
 
-    void initializeCardContract(){
-        cardContract = new Card(new Date());
-//        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
-        cardContract.setCard_day(31);
-        fragmentAddCardBinding.setCard(cardContract);
-    }
 
-    @Override
-    public void onDestroyView() {
-        if(clientSqlQuery!=null) {
-            clientSqlQuery.closeGymDbHelper();
-        }
-        if(cardSqlQuery!=null){
-            cardSqlQuery.closeGymDbHelper();
-        }
-
-        super.onDestroyView();
-    }
-
-    void setMyEditTextController(EditText editText){
-        myEditTextController = new MyEditTextController(editText);
-    }
-
-    Card getCardContract(){return this.cardContract;}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,9 +56,8 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
         fragmentAddCardBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_card, container, false);
         return fragmentAddCardBinding.getRoot();
     }
-    EditText getEditTextClientId(){
-        return fragmentAddCardBinding.editTextClientID;
-    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -91,12 +65,10 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
 
         initializeSharedPrefs();
         initializeCardContract();
-        clientSqlQuery = new ClientSqlQuery(getContext(), mySharedPrefs.getUserPasswordFromSharedPrefs());
+        initializeClientSqlQuery();
         clientSqlQuery.openDataBaseWithPassword();
-
-        cardSqlQuery = new CardSqlQuery(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+        initializeCardSqlQuery();
         cardSqlQuery.openDataBaseWithPassword();
-
 
 
         fragmentAddCardBinding.buttonAdd.setOnClickListener(new View.OnClickListener() {
@@ -104,33 +76,26 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
             public void onClick(View view) {
 
                 setMyEditTextController(getEditTextClientId());
+
                 if(myEditTextController.isEditTextTextCorrectNumber()){
+
                     setClientToClientFoundFromDataBase();
-                    if(client!=null){
-                        MyEditTextController myEditTextPriceController = new MyEditTextController(fragmentAddCardBinding.editTextCardPrice);
-                        if(client.getClient_card_id()==0 && myEditTextPriceController.isEditTextTextCorrectNumber()){
 
+                    if(!isClientNull()){
 
+                        initializeMyEditTextPriceController();
 
+                        if(client.isClientCardInactive() && myEditTextPriceController.isEditTextTextCorrectNumber()){
 
-
-                                MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Card added");
+                                new MyToast(getActivity(),"Card added").show();
                                 cardContract.setCard_price(myEditTextPriceController.getEditTextStringInteger());
                                 cardContract.setCard_client_id(client.getClient_id());
                                 cardSqlQuery.insertCardToDataBaseAndUpdateClientCardId(cardContract,client);
 
 
 
-//                            clientSqlQuery.closeGymDbHelper();
-
-
-
-//                            cardSqlQuery.closeGymDbHelper();
-
-
-
                         }else if(!myEditTextPriceController.isEditTextTextCorrectNumber()){
-                            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Change the price!");
+                            new MyToast(getActivity(),"Change the price!").show();
                         }
                         else{
                             // if card id is !=0
@@ -144,11 +109,11 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
                                     }
                                 }
                             }
-                            MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Client have card");
+                            new MyToast(getActivity(),"Client have card").show();
 
                         }
                     }else{
-                        MyToast.makeToastSetMessageSetGravityCenterAndShowLong(getActivity(),"Client doesn't exists");
+                        new MyToast(getActivity(),"Client doesn't exists").show();
 
                     }
 
@@ -166,6 +131,43 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
        });
 
     }
+
+    private void initializeMyEditTextPriceController() {
+        myEditTextPriceController = new MyEditTextController(fragmentAddCardBinding.editTextCardPrice);
+    }
+
+    private void initializeCardSqlQuery() {
+        cardSqlQuery = new CardSqlQuery(getContext(),mySharedPrefs.getUserPasswordFromSharedPrefs());
+    }
+
+    private void initializeClientSqlQuery() {
+        clientSqlQuery = new ClientSqlQuery(getContext(), mySharedPrefs.getUserPasswordFromSharedPrefs());
+    }
+
+    private boolean isClientNull() {
+        return client==null;
+    }
+
+    EditText getEditTextClientId(){
+        return fragmentAddCardBinding.editTextClientID;
+    }
+
+
+    void initializeCardContract(){
+        cardContract = new Card(new Date());
+//        cardContract.setCard_price(mySharedPrefs.getCardPriceFromSharedPrefs());
+        cardContract.setCard_day(31);
+        fragmentAddCardBinding.setCard(cardContract);
+    }
+
+
+
+    void setMyEditTextController(EditText editText){
+        myEditTextController = new MyEditTextController(editText);
+    }
+
+    Card getCardContract(){return this.cardContract;}
+
 
     //TODO
     void setOnButtonsClick(){
@@ -194,7 +196,17 @@ public class AddCardFragment extends Fragment implements SharedPrefsImp {
     public void initializeSharedPrefsAndSetUserPassword(String userPassword) {
 
     }
+    @Override
+    public void onDestroyView() {
+        if(clientSqlQuery!=null) {
+            clientSqlQuery.closeGymDbHelper();
+        }
+        if(cardSqlQuery!=null){
+            cardSqlQuery.closeGymDbHelper();
+        }
 
+        super.onDestroyView();
+    }
 
 }
 
