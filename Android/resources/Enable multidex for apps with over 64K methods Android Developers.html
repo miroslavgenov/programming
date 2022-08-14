@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="google-signin-client-id" content="721724668570-nbkv1cfusk7kk4eni4pjvepaus73b13t.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="profile email https://www.googleapis.com/auth/developerprofiles https://www.googleapis.com/auth/developerprofiles.award">
+    <meta property="og:site_name" content="Android Developers">
+    <meta property="og:type" content="website"><meta name="theme-color" content="#3ddc84"><meta charset="utf-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="manifest" href="https://developer.android.com/_pwa/android/manifest.json" crossorigin="use-credentials">
+    <link rel="preconnect" href="https://www.gstatic.com/" crossorigin="">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin="">
+    <link rel="preconnect" href="https://apis.google.com/" crossorigin="">
+    <link rel="preconnect" href="https://www.google-analytics.com/" crossorigin=""><link rel="stylesheet" href="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/css_002.css">
+      <link rel="stylesheet" href="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/css.css"><link rel="stylesheet" href="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/app.css">
+      <link rel="shortcut icon" href="https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/android/images/favicon.png">
+    <link rel="apple-touch-icon" href="https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/android/images/touchicon-180.png"><link rel="canonical" href="https://developer.android.com/studio/build/multidex"><link rel="search" type="application/opensearchdescription+xml" title="Android Developers" href="https://developer.android.com/s/opensearch.xml">
+      
+
+<title>Enable multidex for apps with over 64K methods &nbsp;|&nbsp; Android Developers</title>
+
+<meta property="og:title" content="Enable multidex for apps with over 64K methods &nbsp;|&nbsp; Android Developers"><meta name="description" content="Learn how to enable an app configuration known as multidex, which allows your app to build and read multiple DEX files.">
+  <meta property="og:description" content="Learn how to enable an app configuration known as multidex, which allows your app to build and read multiple DEX files."><meta property="og:url" content="https://developer.android.com/studio/build/multidex"><meta property="og:image" content="https://developer.android.com/images/social/android-developers.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675"><meta property="og:locale" content="en"><meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+ <script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/cb=gapi.loaded_0" nonce="" async=""></script><script async="" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/google-analytics_analytics_002.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_app_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_app_custom_elements_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_a11y_announce_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_analytics_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_badger_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_book_nav_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_bookmark_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_code_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_content_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_footer_linkboxes_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_footer_promos_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_footer_utility_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_hats_survey_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_header_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_heading_link_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_language_selector_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_notification_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_panel_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_progress_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_recommendations_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_recommendations_dropdown_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_recommendations_sidebar_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_search_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_select_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_selector_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_sitemask_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_snackbar_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_tabs_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_thumb_rating_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_toc_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_tooltip_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_user_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_android_fully_clickable_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/google-analytics_analytics.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_badge_awarded_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_dialog_module.js" nonce=""></script><script async="" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/lazy.min.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_spinner_module.js" nonce=""></script><script src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/devsite_devsite_feedback_module.js" nonce=""></script><script type="text/javascript" charset="UTF-8" nonce="" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/client.js" gapi_processed="true"></script><style type="text/css"></style></head><body layout="docs" type="article" theme="android-theme" template="page" class="" style="--devsite-js-header-height: 157px;" ready="">&nbsp;
+  
+  
+
+
+    
+  
+    <devsite-progress id="app-progress"></devsite-progress>
+  
+    <section class="devsite-wrapper"><devsite-header top-row--height="49" bottom-row--height="108" bottom-tabs--height="48" fixed="">
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="devsite-header--inner nocontent">
+  <div class="devsite-top-logo-row-wrapper-wrapper">
+    <div class="devsite-top-logo-row-wrapper">
+      <div class="devsite-top-logo-row">
+        <button type="button" id="devsite-hamburger-menu" class="devsite-header-icon-button button-flat material-icons gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Navigation menu button" aria-label="Open menu">
+        </button>
+        <div class="devsite-product-name-wrapper">
+
+  <a href="https://developer.android.com/" class="devsite-site-logo-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Site logo" track-type="globalNav" track-name="androidDevelopers" track-metadata-position="nav" track-metadata-eventdetail="nav">
+
+  
+    <img src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/lockup.svg" class="devsite-site-logo" alt="Android Developers">
+  
+
+</a>
+
+
+
+  
+  
+  <span class="devsite-product-name">
+    <ul class="devsite-breadcrumb-list">
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+    
+    
+      
+      
+    
+  </li>
+  
+</ul>
+  </span>
+
+</div>
+        <div class="devsite-top-logo-row-middle">
+          <div class="devsite-header-upper-tabs">
+            
+              
+              
+  <devsite-tabs class="upper-tabs" connected="">
+
+    
+
+  <nav class="devsite-tabs-wrapper" aria-label="Upper tabs">
+      
+        
+          <tab>
+            <a href="https://developer.android.com/about" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/about" track-metadata-position="nav - platform" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Platform" track-name="platform">
+  Platform
+</a>
+
+          </tab>
+        
+      
+        
+          <tab active="">
+            <a href="https://developer.android.com/studio" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/studio" track-metadata-position="nav - android studio" track-metadata-module="primary nav" aria-label="Android Studio, selected" data-category="Site-Wide Custom Events" data-label="Tab: Android Studio" track-name="android studio">
+  Android Studio
+</a>
+
+          </tab>
+        
+      
+        
+          <tab>
+            <a href="https://developer.android.com/distribute" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/distribute" track-metadata-position="nav - google play" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Google Play" track-name="google play">
+  Google Play
+</a>
+
+          </tab>
+        
+      
+        
+          <tab>
+            <a href="https://developer.android.com/jetpack" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/jetpack" track-metadata-position="nav - jetpack" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Jetpack" track-name="jetpack">
+  Jetpack
+</a>
+
+          </tab>
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    <tab overflow-tab=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""><tab>
+            <a href="https://developer.android.com/kotlin" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/kotlin" track-metadata-position="nav - kotlin" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Kotlin" track-name="kotlin">
+  Kotlin
+</a>
+
+          </tab><tab>
+            <a href="https://developer.android.com/docs" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/docs" track-metadata-position="nav - docs" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Docs" track-name="docs">
+  Docs
+</a>
+
+          </tab><tab>
+            <a href="https://developer.android.com/games" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/games" track-metadata-position="nav - games" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Games" track-name="games">
+  Games
+</a>
+
+          </tab></div></tab></nav></devsite-tabs>
+
+            
+           </div>
+          
+<devsite-search aria-expanded="false" aria-haspopup="listbox" enable-signin="" enable-search="" enable-suggestions="" enable-query-completion="" project-name="Android Developers" tenant-name="Android Developers" role="combobox">
+  <form class="devsite-search-form" action="https://developer.android.com/s/results" method="GET">
+    <div class="devsite-search-container">
+      <div class="devsite-searchbox">
+        <input aria-activedescendant="" aria-autocomplete="list" aria-label="Search" aria-haspopup="false" aria-multiline="false" autocomplete="off" class="devsite-search-field devsite-search-query" name="q" placeholder="Search" role="searchbox" type="text" aria-controls="devsite-search-popout-container-id-1">
+        <div class="devsite-search-image material-icons" aria-hidden="true"></div>
+      </div>
+      <button type="button" search-open="" class="devsite-search-button devsite-header-icon-button button-flat material-icons" aria-label="Open search"></button>
+    </div>
+  <div class="devsite-popout" id="devsite-search-popout-container-id-1"><div class="devsite-popout-result devsite-suggest-results-container" devsite-hide=""></div></div></form>
+  <button type="button" search-close="" class="devsite-search-button devsite-header-icon-button button-flat material-icons" aria-label="Close search"></button>
+</devsite-search>
+
+        <div class="devsite-search-background" style="opacity: 1;"></div></div>
+
+        
+
+        
+
+        
+
+        
+<devsite-language-selector>
+  <devsite-select class="devsite-language-selector-menu">
+    
+    <select aria-label="Select your language preference." class="devsite-language-selector-select" name="language" track-name="click" track-type="languageSelector">
+    
+    
+      <option value="en" selected="selected" lang="en">
+        English
+      </option>
+    
+      <option value="id" lang="id">
+        Bahasa Indonesia
+      </option>
+    
+      <option value="es_419" lang="es_419">
+        Español – América Latina
+      </option>
+    
+      <option value="pt_br" lang="pt_br">
+        Português – Brasil
+      </option>
+    
+      <option value="vi" lang="vi">
+        Tiếng Việt
+      </option>
+    
+      <option value="zh_cn" lang="zh_cn">
+        中文 – 简体
+      </option>
+    
+      <option value="zh_tw" lang="zh_tw">
+        中文 – 繁體
+      </option>
+    
+      <option value="ja" lang="ja">
+        日本語
+      </option>
+    
+      <option value="ko" lang="ko">
+        한국어
+      </option>
+    
+    </select>
+  <div class="devsite-select"><label id="devsite-select-19485226001290402-label" style="display:none;" aria-label="Select your language preference.">Select an option</label><button type="button" class="devsite-select-toggle" id="devsite-select-19485226001290402-button" aria-haspopup="true" aria-labelledby="devsite-select-19485226001290402-label devsite-select-19485226001290402-button" aria-controls="devsite-select-19485226001290402-popup"><span class="devsite-select-toggle-label">English</span><span class="devsite-icon devsite-icon-arrow-drop-down devsite-select-toggle-icon" aria-hidden="true"></span></button><ul class="devsite-select-list" id="devsite-select-19485226001290402-popup" tabindex="-1" role="listbox" scrollbars="" aria-labelledby="devsite-select-19485226001290402-button"><li role="option" id="devsite-select-19485226001290402-0" class="devsite-select-item" data-index="0" data-selected="" aria-selected="true" aria-label="English, selected" value="en" lang="en">English</li><li role="option" id="devsite-select-19485226001290402-1" class="devsite-select-item" data-index="1" aria-selected="false" aria-label="Bahasa Indonesia" value="id" lang="id">Bahasa Indonesia</li><li role="option" id="devsite-select-19485226001290402-2" class="devsite-select-item" data-index="2" aria-selected="false" aria-label="Español – América Latina" value="es_419" lang="es_419">Español – América Latina</li><li role="option" id="devsite-select-19485226001290402-3" class="devsite-select-item" data-index="3" aria-selected="false" aria-label="Português – Brasil" value="pt_br" lang="pt_br">Português – Brasil</li><li role="option" id="devsite-select-19485226001290402-4" class="devsite-select-item" data-index="4" aria-selected="false" aria-label="Tiếng Việt" value="vi" lang="vi">Tiếng Việt</li><li role="option" id="devsite-select-19485226001290402-5" class="devsite-select-item" data-index="5" aria-selected="false" aria-label="中文 – 简体" value="zh_cn" lang="zh_cn">中文 – 简体</li><li role="option" id="devsite-select-19485226001290402-6" class="devsite-select-item" data-index="6" aria-selected="false" aria-label="中文 – 繁體" value="zh_tw" lang="zh_tw">中文 – 繁體</li><li role="option" id="devsite-select-19485226001290402-7" class="devsite-select-item" data-index="7" aria-selected="false" aria-label="日本語" value="ja" lang="ja">日本語</li><li role="option" id="devsite-select-19485226001290402-8" class="devsite-select-item" data-index="8" aria-selected="false" aria-label="한국어" value="ko" lang="ko">한국어</li></ul></div></devsite-select>
+</devsite-language-selector>
+
+
+        
+
+        
+          
+          
+          <devsite-user enable-profiles="" id="devsite-user" sign-in-url="https://developer.android.com/_d/signin?continue=https%3A%2F%2Fdeveloper.android.com%2Fstudio%2Fbuild%2Fmultidex&amp;prompt=select_account" sign-out-url="https://developer.android.com/_d/signout?continue=https%3A%2F%2Fdeveloper.android.com%2Fstudio%2Fbuild%2Fmultidex" url="https://developer.android.com/_d/signout?continue=https%3A%2F%2Fdeveloper.android.com%2Fstudio%2Fbuild%2Fmultidex"><div class="ogb-wrapper ogb-si"><a href="https://developer.android.com/_d/signin?continue=https%3A%2F%2Fdeveloper.android.com%2Fstudio%2Fbuild%2Fmultidex&amp;prompt=select_account" class="devsite-user-signin button devsite-top-button" track-type="globalNav" track-name="signIn" track-metadata-eventdetail="nav" track-metadata-position="nav">
+  Sign in
+</a></div></devsite-user>
+           
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="devsite-collapsible-section
+    " style="transform: translate3d(0px, 0px, 0px);">
+    <div class="devsite-header-background">
+      
+        
+          <div class="devsite-product-id-row">
+            <div class="devsite-product-description-row">
+              
+                
+                  
+                  
+                  <ul class="devsite-breadcrumb-list">
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+    
+    
+      
+  <a href="https://developer.android.com/studio" class="devsite-breadcrumb-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Lower Header" data-value="1" track-type="globalNav" track-name="breadcrumb" track-metadata-position="1" track-metadata-eventdetail="">
+    
+        Android Studio
+      
+  </a>
+  
+    
+  </li>
+  
+</ul>
+                
+              
+              
+            </div>
+            
+          </div>
+          
+        
+      
+      
+        <div class="devsite-doc-set-nav-row">
+          
+          
+            
+            
+  <devsite-tabs class="lower-tabs" connected="">
+
+    
+
+  <nav class="devsite-tabs-wrapper" aria-label="Lower tabs">
+      
+        
+          <tab>
+            <a href="https://developer.android.com/studio" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/studio" track-metadata-position="nav - download" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Download" track-name="download">
+  Download
+</a>
+
+          </tab>
+        
+      
+        
+          <tab>
+            <a href="https://developer.android.com/studio/features" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/studio/features" track-metadata-position="nav - what's new" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: What's new" track-name="what's new">
+  What's new
+</a>
+
+          </tab>
+        
+      
+        
+          <tab active="">
+            <a href="https://developer.android.com/studio/intro" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/studio/intro" track-metadata-position="nav - user guide" track-metadata-module="primary nav" aria-label="User guide, selected" data-category="Site-Wide Custom Events" data-label="Tab: User guide" track-name="user guide">
+  User guide
+</a>
+
+          </tab>
+        
+      
+        
+          <tab>
+            <a href="https://developer.android.com/studio/preview" class="gc-analytics-event " track-type="nav" track-metadata-eventdetail="https://developer.android.com/studio/preview" track-metadata-position="nav - preview" track-metadata-module="primary nav" data-category="Site-Wide Custom Events" data-label="Tab: Preview" track-name="preview">
+  Preview
+</a>
+
+          </tab>
+        
+      
+    <tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></nav></devsite-tabs>
+
+          
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+  
+
+  
+</devsite-header>
+      <div class="devsite-book-nav-bg" fixed=""></div><devsite-book-nav scrollbars="" fixed="" style="top: 157px; max-height: 755px;" user-scrolled="">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="devsite-book-nav-filter
+            ">
+  <input type="text" placeholder="Filter" aria-label="Type to filter" role="searchbox">
+  
+  <span class="filter-clear-button hidden" data-title="Clear filter" aria-label="Clear filter" role="button" tabindex="0"></span>
+</div>
+
+<nav class="devsite-book-nav devsite-nav nocontent" aria-label="Side menu">
+  <div class="devsite-mobile-header">
+    <button type="button" id="devsite-close-nav" class="devsite-header-icon-button button-flat material-icons gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Close navigation" aria-label="Close navigation">
+    </button>
+    <div class="devsite-product-name-wrapper">
+
+  <a href="https://developer.android.com/" class="devsite-site-logo-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Site logo" track-type="globalNav" track-name="androidDevelopers" track-metadata-position="nav" track-metadata-eventdetail="nav">
+
+  
+    <img src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/lockup.svg" class="devsite-site-logo" alt="Android Developers">
+  
+
+</a>
+
+
+  
+      <span class="devsite-product-name">
+        
+        
+        <ul class="devsite-breadcrumb-list">
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+    
+    
+      
+      
+    
+  </li>
+  
+</ul>
+      </span>
+    
+
+</div>
+  </div>
+
+  <div class="devsite-book-nav-wrapper">
+    <div class="devsite-mobile-nav-top">
+      
+        <ul class="devsite-nav-list">
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/about" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Platform" track-name="platform" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Platform
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/studio" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Tab: Android Studio" track-name="android studio" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Android Studio
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+                <ul class="devsite-nav-responsive-tabs">
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="https://developer.android.com/studio" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Download" track-name="download" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Download
+   </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="https://developer.android.com/studio/features" class="devsite-nav-title gc-analytics-event
+              devsite-nav-has-children
+              " data-category="Site-Wide Custom Events" data-label="Tab: What's new" track-name="what's new" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      What's new
+   </span>
+    
+    <span class="devsite-nav-icon material-icons" data-icon="forward">
+    </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="https://developer.android.com/studio/intro" class="devsite-nav-title gc-analytics-event devsite-nav-has-children" data-category="Site-Wide Custom Events" data-label="Tab: User guide" track-name="user guide" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="" menu="_book">
+      User guide
+   </span>
+    
+    <span class="devsite-nav-icon material-icons" data-icon="forward" menu="_book">
+    </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                    
+                    
+                    
+                    <li class="devsite-nav-item">
+                      
+  
+  <a href="https://developer.android.com/studio/preview" class="devsite-nav-title gc-analytics-event
+              devsite-nav-has-children
+              " data-category="Site-Wide Custom Events" data-label="Tab: Preview" track-name="preview" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Preview
+   </span>
+    
+    <span class="devsite-nav-icon material-icons" data-icon="forward">
+    </span>
+    
+  
+  </a>
+  
+
+  
+                    </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/distribute" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Google Play" track-name="google play" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Google Play
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/jetpack" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Jetpack" track-name="jetpack" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Jetpack
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/kotlin" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Kotlin" track-name="kotlin" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Kotlin
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/docs" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Docs" track-name="docs" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Docs
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+            </li>
+          
+            <li class="devsite-nav-item">
+              
+  
+  <a href="https://developer.android.com/games" class="devsite-nav-title gc-analytics-event
+              
+              " data-category="Site-Wide Custom Events" data-label="Tab: Games" track-name="games" track-type="globalNav" track-metadata-eventdetail="globalMenu" track-metadata-position="nav">
+  
+    <span class="devsite-nav-text" tooltip="">
+      Games
+   </span>
+    
+  
+  </a>
+  
+
+  
+              
+            </li>
+          
+          
+          
+        </ul>
+      
+    </div>
+    
+      <div class="devsite-mobile-nav-bottom" role="navigation">
+        
+          
+          <ul class="devsite-nav-list" menu="_book">
+            <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Meet Android Studio</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/intro" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/install" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Install Android Studio</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/intro/migrate" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Migrate to Android Studio</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/intro/studio-config" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure the IDE</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/intro/keyboard-shortcuts" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Keyboard shortcuts</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/intro/accessibility" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Accessibility features</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/intro/update" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Update the IDE and tools</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="https://developer.android.com/studio/workflow" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Workflow basics</span></a></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Manage your project</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/create-project" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create a project</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/guide/app-bundle/dynamic-delivery" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">About Play Feature Delivery</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Add C and C++ code</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/add-native-code" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/install-ndk" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Install NDK and CMake</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/configure-agp-ndk" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure the NDK for AGP</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/configure-cmake" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure CMake</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/gradle-external-native-builds" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Link Gradle</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/android-library" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create an Android library</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/continuous-integration" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Set up continuous integration</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Write your app</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/templates" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Add code from a template</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/sample-code" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Find sample code</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/projects/add-app-module" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Add a module for a new device</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/create-java-class" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create a Java class or type</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/java8-support" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Use Java 8 language features</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/java8-support-table" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Java 8 language support table</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/add-resources" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Add app resources</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/layout-editor" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Build a UI with Layout Editor</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/motion-editor" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Build animation with Motion Editor</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/resource-manager" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Manage your app's UI resources</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/theme-editor" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Design app themes</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/vector-asset-studio" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Add multi-density vector graphics</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/image-asset-studio" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create icons with Image Asset Studio</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/draw9patch" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create resizable bitmaps (9-Patch)</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/convert-webp" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create WebP images</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/translations-editor" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Localize the UI</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/app-link-indexing" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Add Android app links</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/firebase" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Connect to Firebase</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/lint" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Improve your code with lint checks</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/annotations" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Improve code inspection with annotations</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/write/tool-attributes" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Tools attributes reference</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Build and run your app</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Run apps on the emulator</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/managing-avds" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create and manage virtual devices</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator-commandline" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Start the emulator from the command line</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator-console" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Send emulator console commands</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator-networking" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Set up emulator networking</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator-acceleration" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure hardware acceleration</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator-comparison" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Emulator feature comparison</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/emulator-troubleshooting" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Troubleshoot emulator</span></a></li></ul></div></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Run apps on a hardware device</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/device" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/oem-usb" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Install OEM USB drivers</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/win-usb" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Get the Google USB driver</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/run/rundebugconfig" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Create run/debug configurations</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/building-cmdline" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Build your app from the command line</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav expanded">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Configure your build</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/configure-app-module" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure the app module</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/dependencies" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Add build dependencies</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/build-variants" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure build variants</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/agp-upgrade-assistant" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Use the Android Gradle plugin Upgrade Assistant</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/gradle-tips" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Gradle tips and recipes</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/migrate-to-kts" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Migrate to Kotlin script</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Optimize your build speed</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/optimize-your-build" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/build-analyzer" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Troubleshoot build performance</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/profile-your-build" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Profile your build</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/maven-publish-plugin" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Use the Maven Publish plugin</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/manage-manifests" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Manage manifest files</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/shrink-code" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Shrink your app</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/multidex" class="devsite-nav-title devsite-nav-active"><span class="devsite-nav-text" tooltip="">Enable multidex</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/extend-agp" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Extend the Android Gradle plugin</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/build/cxx-ninja" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Integrate a custom C/<wbr>C++ build system</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Debug your app</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/dev-options" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure developer options</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/am-logcat" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Write and view logs</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/stacktraces" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Analyze a stack trace</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/layout-inspector" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Debug your layout with Layout Inspector</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/network-profiler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Inspect network traffic with the Network Inspector</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/inspect/database" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Debug your database with the Database Inspector</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/inspect/task" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Debug your WorkManager Workers with Background Task Inspector</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/device-file-explorer" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">View on-device files</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/apk-debugger" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Debug pre-built APKs</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/am-screenshot" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Take a screenshot</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/am-video" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Record a video</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/bug-report" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Capture and read bug reports</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/debug/apk-analyzer" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Analyze your build with APK Analyzer</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Test your app</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/test-in-android-studio" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Test in Android Studio</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/command-line" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Test from the command line</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/advanced-test-setup" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Advanced test setup</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Other testing tools</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/other-testing-tools" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/other-testing-tools/espresso-test-recorder" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Espresso Test Recorder</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/other-testing-tools/app-crawler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">App Crawler</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/other-testing-tools/monkey" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Monkey testing</span></a></li></ul></div></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">monkeyrunner reference</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/monkeyrunner" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/monkeyrunner/MonkeyDevice" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">MonkeyDevice</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/monkeyrunner/MonkeyImage" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">MonkeyImage</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/test/monkeyrunner/MonkeyRunner" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">MonkeyRunner</span></a></li></ul></div></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Profile your app</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Android Studio profilers</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/android-profiler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Profile CPU activity</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/cpu-profiler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/record-traces" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Record traces</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/export-traces" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Export traces</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/import-traces" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Import traces</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/inspect-traces" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Inspect traces</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/jank-detection" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">UI jank detection</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/generate-trace-logs" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Generate trace logs by instrumenting your app</span></a></li></ul></div></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/memory-profiler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Profile memory usage</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/energy-profiler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Profile energy use</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/profile/apk-profiler" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Profile with pre-built APKs</span></a></li></ul></div></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Publish your app</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish/preparing" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Prepare for release</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish/versioning" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Version your app</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish/app-signing" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Sign your app</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish/upload-bundle" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Upload your app</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Publish your library</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish-library" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish-library/prep-lib-release" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Prepare for release</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish-library/configure-pub-variants" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure publication variants</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish-library/configure-test-fixtures" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Configure test fixtures for publication</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/publish-library/upload-library" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Upload your library</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item
+           devsite-nav-expandable"><div class="devsite-expandable-nav">
+      <a class="devsite-nav-toggle" aria-hidden="true"></a><div class="devsite-nav-title devsite-nav-title-no-path" tabindex="0" role="button">
+        <span class="devsite-nav-text" tooltip="">Command line tools</span>
+      </div><ul class="devsite-nav-section"><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Overview</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/aapt2" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">aapt2</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/adb" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">adb</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/apkanalyzer" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">apkanalyzer</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/apksigner" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">apksigner</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/avdmanager" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">avdmanager</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/bmgr" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">bmgr</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/bundletool" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">bundletool</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/d8" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">d8</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/dmtracedump" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">dmtracedump</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/dumpsys" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">dumpsys</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/etc1tool" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">etc1tool</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/jobb" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">jobb</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/jetifier" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">jetifier-standalone</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/logcat" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">logcat</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/mksdcard" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">mksdcard</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/retrace" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">retrace</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/sdkmanager" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">sdkmanager</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/systrace" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">systrace</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/perfetto" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">perfetto</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/zipalign" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">zipalign</span></a></li><li class="devsite-nav-item"><a href="https://developer.android.com/studio/command-line/variables" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Environment variables</span></a></li></ul></div></li>
+
+  <li class="devsite-nav-item"><a href="https://developer.android.com/studio/troubleshoot" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Troubleshoot</span></a></li>
+
+  <li class="devsite-nav-item"><a href="https://developer.android.com/studio/known-issues" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Known issues</span></a></li>
+
+  <li class="devsite-nav-item"><a href="https://developer.android.com/studio/report-bugs" class="devsite-nav-title"><span class="devsite-nav-text" tooltip="">Report a bug</span></a></li>
+          </ul>
+        
+        
+          
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+        
+        
+          
+    
+  
+    
+  
+    
+  
+    
+  
+        
+      </div>
+    
+  </div>
+</nav>
+        
+      </devsite-book-nav><div class="devsite-book-nav-blur" fixed="" style="--devsite-js-book-nav-scrollbar-width: 0px;"></div><button class="devsite-book-nav-toggle" aria-haspopup="menu" fixed="" aria-label="Hide side navigation" data-title="Hide side navigation" aria-expanded="true"><span class="material-icons devsite-book-nav-toggle-icon"></span></button>
+      <section id="gc-wrapper" style="margin-top: 157px;">
+        <main role="main" class="devsite-main-content" has-book-nav="" has-sidebar="">
+          
+          <div class="devsite-sidebar" fixed="" style="--devsite-js-sidebar-max-height: 707px; --devsite-js-sidebar-max-width: 144px; --devsite-js-sidebar-offset: 0;">
+            <div class="devsite-sidebar-content">
+              <devsite-toc class="devsite-nav devsite-toc" role="navigation" aria-label="On this page" depth="2" scrollbars="" visible=""><ul class="devsite-nav-list"><li class="devsite-nav-item devsite-nav-heading devsite-toc-toggle" role="heading" aria-level="2"><span class="devsite-nav-title"><span class="devsite-nav-text">On this page</span></span></li><li class="devsite-nav-item"><a href="#about" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="0" track-type="navigation" track-name="rightNav" track-metadata-position="0" track-metadata-link-destination="#about"><span class="devsite-nav-text" tooltip="">About the 64K reference limit</span></a><ul class="devsite-nav-list"><li class="devsite-nav-item"><a href="#mdex-pre-l" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="0.0" track-type="navigation" track-name="rightNav" track-metadata-position="0.0" track-metadata-link-destination="#mdex-pre-l"><span class="devsite-nav-text" tooltip="">Multidex support prior to Android 5.0</span></a></li><li class="devsite-nav-item"><a href="#mdex-on-l" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="0.1" track-type="navigation" track-name="rightNav" track-metadata-position="0.1" track-metadata-link-destination="#mdex-on-l"><span class="devsite-nav-text" tooltip="">Multidex support for Android 5.0 and higher</span></a></li></ul></li><li class="devsite-nav-item"><a href="#avoid" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="1" track-type="navigation" track-name="rightNav" track-metadata-position="1" track-metadata-link-destination="#avoid"><span class="devsite-nav-text" tooltip="">Avoid the 64K limit</span></a></li><li class="devsite-nav-item"><a href="#mdex-gradle" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="2" track-type="navigation" track-name="rightNav" track-metadata-position="2" track-metadata-link-destination="#mdex-gradle"><span class="devsite-nav-text" tooltip="">Configure your app for multidex</span></a><ul class="devsite-nav-list"><li class="devsite-nav-item"><a href="#limitations" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="2.0" track-type="navigation" track-name="rightNav" track-metadata-position="2.0" track-metadata-link-destination="#limitations"><span class="devsite-nav-text" tooltip="">Limitations of the multidex library</span></a></li></ul></li><li class="devsite-nav-item"><a href="#keep" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="3" track-type="navigation" track-name="rightNav" track-metadata-position="3" track-metadata-link-destination="#keep"><span class="devsite-nav-text" tooltip="">Declare classes required in the primary DEX file</span></a><ul class="devsite-nav-list"><li class="devsite-nav-item"><a href="#multidexkeepfile-property" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="3.0" track-type="navigation" track-name="rightNav" track-metadata-position="3.0" track-metadata-link-destination="#multidexkeepfile-property"><span class="devsite-nav-text" tooltip="">multiDexKeepFile property</span></a></li><li class="devsite-nav-item"><a href="#multidexkeepproguard-property" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="3.1" track-type="navigation" track-name="rightNav" track-metadata-position="3.1" track-metadata-link-destination="#multidexkeepproguard-property"><span class="devsite-nav-text" tooltip="">multiDexKeepProguard property</span></a></li></ul></li><li class="devsite-nav-item"><a href="#dev-build" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="4" track-type="navigation" track-name="rightNav" track-metadata-position="4" track-metadata-link-destination="#dev-build"><span class="devsite-nav-text" tooltip="">Optimize multidex in development builds</span></a></li><li class="devsite-nav-item"><a href="#testing" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Right nav" data-value="5" track-type="navigation" track-name="rightNav" track-metadata-position="5" track-metadata-link-destination="#testing"><span class="devsite-nav-text" tooltip="">Test multidex apps</span></a></li></ul></devsite-toc>
+              <devsite-recommendations-sidebar class="nocontent devsite-nav"></devsite-recommendations-sidebar>
+            </div>
+          </div>
+          <devsite-content>
+            
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<article class="devsite-article" has-bookmark="">
+  
+  
+  
+
+  <div class="devsite-article-meta nocontent" role="navigation">
+    
+    
+    <ul class="devsite-breadcrumb-list" aria-label="Breadcrumb">
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+    
+    
+      
+  <a href="https://developer.android.com/" class="devsite-breadcrumb-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Breadcrumbs" data-value="1" track-type="globalNav" track-name="breadcrumb" track-metadata-position="1" track-metadata-eventdetail="Android Developers">
+    
+        Android Developers
+      
+  </a>
+  
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+  <a href="https://developer.android.com/studio" class="devsite-breadcrumb-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Breadcrumbs" data-value="2" track-type="globalNav" track-name="breadcrumb" track-metadata-position="2" track-metadata-eventdetail="">
+    
+        Android Studio
+      
+  </a>
+  
+    
+  </li>
+  
+  <li class="devsite-breadcrumb-item
+             ">
+    
+      
+      <div class="devsite-breadcrumb-guillemet material-icons" aria-hidden="true"></div>
+    
+    
+    
+      
+  <a href="https://developer.android.com/studio/intro" class="devsite-breadcrumb-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Breadcrumbs" data-value="3" track-type="globalNav" track-name="breadcrumb" track-metadata-position="3" track-metadata-eventdetail="">
+    
+        User guide
+      
+  </a>
+  
+    
+  </li>
+  
+</ul>
+    
+      
+    <devsite-thumb-rating position="header"><div class="devsite-thumb-rating" role="form" aria-labelledby="devsite-thumb-label-header" tabindex="0"><div class="devsite-thumb-label" id="devsite-thumb-label-header">Was this helpful?</div><div class="devsite-thumbs"><button class="devsite-thumb devsite-thumb-up" data-title="Helpful" aria-label="Helpful"><svg class="devsite-thumb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21,7h-6.31l0.95-4.57l0.03-0.32c0-0.41-0.17-0.79-0.44-1.06L14.17,0c0,0-7.09,6.85-7.17,7H2v13h16 c0.83,0,1.54-0.5,1.84-1.22l3.02-7.05C22.95,11.5,23,11.26,23,11V9C23,7.9,22.1,7,21,7z M7,18H4V9h3V18z M21,11l-3,7H9V8l4.34-4.34 L12,9h9V11z"></path></svg></button><button class="devsite-thumb devsite-thumb-down" data-title="Not helpful" aria-label="Not helpful"><svg class="devsite-thumb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3,17h6.31l-0.95,4.57l-0.03,0.32c0,0.41,0.17,0.79,0.44,1.06L9.83,24c0,0,7.09-6.85,7.17-7h5V4H6 C5.17,4,4.46,4.5,4.16,5.22l-3.02,7.05C1.05,12.5,1,12.74,1,13v2C1,16.1,1.9,17,3,17z M17,6h3v9h-3V6z M3,13l3-7h9v10l-4.34,4.34 L12,15H3V13z"></path></svg></button></div></div></devsite-thumb-rating>
+  
+    
+  </div>
+  
+  
+    <h1 class="devsite-page-title">Enable multidex for apps with over 64K methods</h1>
+  
+  <devsite-bookmark class="show devsite-legacy-bookmark" data-title="Add bookmark"><input type="checkbox" class="bookmark-checkbox" aria-label="Add bookmark"></devsite-bookmark>
+  <devsite-toc class="devsite-nav devsite-toc-embedded" depth="2" devsite-toc-embedded="" expandable="" visible=""><ul class="devsite-nav-list"><li class="devsite-nav-item devsite-nav-heading devsite-toc-toggle" role="heading" aria-level="2"><span class="devsite-nav-title"><span class="devsite-nav-text">On this page</span></span><button type="button" title="Expand/collapse contents" class="devsite-nav-show-all button-transparent material-icons"></button></li><li class="devsite-nav-item" visible=""><a href="#about" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="0" track-type="navigation" track-name="embeddedNav" track-metadata-position="0" track-metadata-link-destination="#about"><span class="devsite-nav-text" tooltip="">About the 64K reference limit</span></a><ul class="devsite-nav-list"><li class="devsite-nav-item" visible=""><a href="#mdex-pre-l" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="0.0" track-type="navigation" track-name="embeddedNav" track-metadata-position="0.0" track-metadata-link-destination="#mdex-pre-l"><span class="devsite-nav-text" tooltip="">Multidex support prior to Android 5.0</span></a></li><li class="devsite-nav-item" visible=""><a href="#mdex-on-l" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="0.1" track-type="navigation" track-name="embeddedNav" track-metadata-position="0.1" track-metadata-link-destination="#mdex-on-l"><span class="devsite-nav-text" tooltip="">Multidex support for Android 5.0 and higher</span></a></li></ul></li><li class="devsite-nav-item" visible=""><a href="#avoid" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="1" track-type="navigation" track-name="embeddedNav" track-metadata-position="1" track-metadata-link-destination="#avoid"><span class="devsite-nav-text" tooltip="">Avoid the 64K limit</span></a></li><li class="devsite-nav-item" visible=""><a href="#mdex-gradle" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="2" track-type="navigation" track-name="embeddedNav" track-metadata-position="2" track-metadata-link-destination="#mdex-gradle"><span class="devsite-nav-text" tooltip="">Configure your app for multidex</span></a><ul class="devsite-nav-list"><li class="devsite-nav-item" visible=""><a href="#limitations" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="2.0" track-type="navigation" track-name="embeddedNav" track-metadata-position="2.0" track-metadata-link-destination="#limitations"><span class="devsite-nav-text" tooltip="">Limitations of the multidex library</span></a></li></ul></li><li class="devsite-nav-item" visible=""><a href="#keep" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="3" track-type="navigation" track-name="embeddedNav" track-metadata-position="3" track-metadata-link-destination="#keep"><span class="devsite-nav-text" tooltip="">Declare classes required in the primary DEX file</span></a><ul class="devsite-nav-list"><li class="devsite-nav-item" visible=""><a href="#multidexkeepfile-property" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="3.0" track-type="navigation" track-name="embeddedNav" track-metadata-position="3.0" track-metadata-link-destination="#multidexkeepfile-property"><span class="devsite-nav-text" tooltip="">multiDexKeepFile property</span></a></li><li class="devsite-nav-item"><a href="#multidexkeepproguard-property" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="3.1" track-type="navigation" track-name="embeddedNav" track-metadata-position="3.1" track-metadata-link-destination="#multidexkeepproguard-property"><span class="devsite-nav-text" tooltip="">multiDexKeepProguard property</span></a></li></ul></li><li class="devsite-nav-item"><a href="#dev-build" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="4" track-type="navigation" track-name="embeddedNav" track-metadata-position="4" track-metadata-link-destination="#dev-build"><span class="devsite-nav-text" tooltip="">Optimize multidex in development builds</span></a></li><li class="devsite-nav-item"><a href="#testing" class="devsite-nav-title gc-analytics-event" data-category="Site-Wide Custom Events" data-action="click" data-label="Embedded nav" data-value="5" track-type="navigation" track-name="embeddedNav" track-metadata-position="5" track-metadata-link-destination="#testing"><span class="devsite-nav-text" tooltip="">Test multidex apps</span></a></li><li class="devsite-toc-toggle"><button type="button" class="button-flat devsite-nav-more-items material-icons" track-type="navigation" track-name="embeddedNavExpand" title="Expand/collapse contents"></button></li></ul></devsite-toc>
+
+  
+  <devsite-recommendations-dropdown class="nocontent"></devsite-recommendations-dropdown>
+  
+
+  <div class="devsite-article-body clearfix
+    ">
+
+    
+      
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>When your app and the libraries it references exceed 65,536 methods, you encounter a build error
+that indicates your app has reached the limit of the Android build architecture:
+</p>
+
+<devsite-code no-copy="" data-copy-event-label=""><div class="devsite-code-buttons-container" role="group" aria-label="Action buttons"><button type="button" class="gc-analytics-event material-icons devsite-icon-code-dark devsite-toggle-dark" data-category="Site-Wide Custom Events" data-label="Dark Code Toggle" track-type="exampleCode" track-name="darkCodeToggle" aria-label="Dark code theme" data-title="Dark code theme"></button><button type="button" class="gc-analytics-event material-icons devsite-icon-code-light devsite-toggle-light" data-category="Site-Wide Custom Events" data-label="Light Code Toggle" track-type="exampleCode" track-name="lightCodeToggle" aria-label="Light code theme" data-title="Light code theme"></button></div><pre class="none" translate="no" dir="ltr" is-upgraded="">trouble writing output:
+Too many field references: 131000; max is 65536.
+You may try using --multi-dex option.
+</pre></devsite-code>
+
+<p>Older versions
+of the build system report a different error, which is an indication of the same problem:
+</p>
+
+<devsite-code no-copy="" data-copy-event-label=""><div class="devsite-code-buttons-container" role="group" aria-label="Action buttons"><button type="button" class="gc-analytics-event material-icons devsite-icon-code-dark devsite-toggle-dark" data-category="Site-Wide Custom Events" data-label="Dark Code Toggle" track-type="exampleCode" track-name="darkCodeToggle" aria-label="Dark code theme" data-title="Dark code theme"></button><button type="button" class="gc-analytics-event material-icons devsite-icon-code-light devsite-toggle-light" data-category="Site-Wide Custom Events" data-label="Light Code Toggle" track-type="exampleCode" track-name="lightCodeToggle" aria-label="Light code theme" data-title="Light code theme"></button></div><pre class="none" translate="no" dir="ltr" is-upgraded="">Conversion to Dalvik format failed:
+Unable to execute dex: method ID not in [0, 0xffff]: 65536
+</pre></devsite-code>
+
+<p>Both these error conditions display a common number: 65536. This number
+represents the total number of references that can be
+invoked by the code within a single Dalvik Executable (DEX) bytecode file.
+This page explains how to move past this limitation by
+enabling an app configuration known as <em>multidex</em>, which allows your app
+to build and read multiple DEX files.</p>
+
+
+<h2 id="about" data-text="About the 64K reference limit">About the 64K reference limit</h2>
+
+<p>
+  Android app (APK) files contain executable bytecode files in the form
+  of <a href="https://source.android.com/devices/tech/dalvik/">Dalvik</a>
+  Executable (DEX) files, which contain the compiled code used to run your app.
+  The Dalvik Executable specification limits the total number of methods that
+  can be referenced within a single DEX file to 65,536—including Android
+  framework methods, library methods, and methods in your own code. In the
+  context of computer science, the term <a class="external-link" href="https://en.wikipedia.org/wiki/Kilo-"><em>Kilo, K</em></a>, denotes 1024 (or
+  2^10). Because 65,536 is equal to 64 X 1024, this limit is referred to as the
+  '64K reference limit'.
+</p>
+
+<h3 id="mdex-pre-l" data-text="Multidex support prior to Android 5.0">Multidex support prior to Android 5.<wbr>0</h3>
+
+<p>
+  Versions of the platform prior to Android 5.0 (API level 21) use the Dalvik
+  runtime for executing app code. By default, Dalvik limits apps to a single
+  <code translate="no" dir="ltr">classes.dex</code> bytecode file per APK. In order to get around this
+  limitation, you can add the multidex library to the module-level <code translate="no" dir="ltr">build.gradle</code> file:</p>
+
+<div>
+<devsite-selector scope="auto" active="groovy" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="true" aria-controls="tabpanel-groovy" tab="groovy" id="groovy" active=""><a id="aria-tab-groovy" role="button" href="#groovy" aria-selected="true">Groovy</a></tab><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kts"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="groovy" role="tabpanel" aria-labelledby="aria-tab-groovy" tabindex="0" id="tabpanel-groovy" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-groovy" translate="no" dir="ltr" is-upgraded=""><span class="pln">dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">def</span><span class="pln"> multidex_version </span><span class="pun">=</span><span class="pln"> </span><span class="str">"2.0.1"</span><span class="pln"><br>&nbsp; &nbsp; implementation </span><span class="str">"androidx.multidex:multidex:$multidex_version"</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="pln">dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">val</span><span class="pln"> multidex</span><span class="lit">_</span><span class="pln">version </span><span class="pun">=</span><span class="pln"> </span><span class="str">"2.0.1"</span><span class="pln"><br>&nbsp; &nbsp; implementation</span><span class="pun">(</span><span class="str">"androidx.multidex:multidex:$multidex_version"</span><span class="pun">)</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+   <p>To view the current versions for this library, see the information about
+   Multidex on the <a href="https://developer.android.com/jetpack/androidx/versions">versions</a> page.</p>
+    <p>If you aren't using AndroidX, add the following deprecated support library
+      dependency instead:</p>
+
+<div>
+<devsite-selector scope="auto" active="groovy" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="true" aria-controls="tabpanel-groovy" tab="groovy" id="groovy" active=""><a id="aria-tab-groovy" role="button" href="#groovy" aria-selected="true">Groovy</a></tab><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kts"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="groovy" role="tabpanel" aria-labelledby="aria-tab-groovy" tabindex="0" id="tabpanel-groovy" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-groovy" translate="no" dir="ltr" is-upgraded=""><span class="pln">dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; implementation </span><span class="str">'com.android.support:multidex:1.0.3'</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="pln">dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; implementation</span><span class="pun">(</span><span class="str">"com.android.support:multidex:1.0.3"</span><span class="pun">)</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+<p>This library becomes part of the primary DEX file of your app and then
+  manages access to the additional DEX files and the code they contain.
+  More details are below in the section about how to
+  <a href="#mdex-gradle">configure your app for multidex</a>.
+</p>
+
+<h3 id="mdex-on-l" data-text="Multidex support for Android 5.0 and higher">Multidex support for Android 5.<wbr>0 and higher</h3>
+
+<p>
+  Android 5.0 (API level 21) and higher uses a runtime called ART which
+  natively supports loading multiple DEX files from APK files. ART
+  performs pre-compilation at app install time which scans for
+  <code translate="no" dir="ltr">classes<var translate="no">N</var>.dex</code> files and compiles them into a single
+  <code translate="no" dir="ltr">.oat</code> file for
+  execution by the Android device. Therefore, if your <code translate="no" dir="ltr">minSdkVersion</code>
+  is 21 or higher multidex is enabled by default,
+  and you do not need the multidex library.</p>
+
+  <p>For more information on the Android 5.0
+  runtime, read <a href="https://source.android.com/devices/tech/dalvik/">ART and Dalvik</a>.
+</p>
+
+<p class="note">
+  <strong>Note:</strong> When running your app using Android Studio,
+  the build is optimized for the target devices you deploy to.
+  This includes enabling multidex when the target devices are running
+  Android 5.0 and above.
+  Because this optimization is applied only when deploying your app using Android Studio, you might
+  still need to <a href="#mdex-gradle">configure your release build</a> for multidex to avoid the
+  64K limit.
+</p>
+
+<h2 id="avoid" data-text="Avoid the 64K limit">Avoid the 64K limit</h2>
+
+<p>
+  Before configuring your app to enable use of 64K or more method references, you should take steps
+  to reduce the total number of references called by your app code, including methods defined by
+  your app code or included libraries. The following strategies can help you avoid hitting the DEX
+  reference limit:
+</p>
+
+<ul>
+  <li>
+    <strong>Review your app's direct and transitive dependencies</strong> - Ensure any large library
+    dependency you include in your app is used in a manner that outweighs the amount of code
+    being added to the app. A common anti-pattern is to include a very large library
+    because a few utility methods were useful. Reducing your app code dependencies can often help
+    you avoid the DEX reference limit.
+  </li>
+  <li>
+    <strong>Remove unused code with R8</strong> - <a href="https://developer.android.com/studio/build/shrink-code">Enable code shrinking</a> to run R8
+    for your release builds. Enabling shrinking ensures you
+    are not shipping unused code with your APKs.
+  </li>
+</ul>
+
+
+<p>
+  Using these techniques might help you avoid the need to enable multidex in
+  your app while also decreasing the overall size of your APK.
+</p>
+
+
+<h2 id="mdex-gradle" data-text="Configure your app for multidex">Configure your app for multidex</h2>
+
+<p>If your <code translate="no" dir="ltr">minSdkVersion</code> is set to 21 or higher, multidex is enabled by default
+and you do not need the multidex library.</p>
+
+<p>However, if your <code translate="no" dir="ltr">minSdkVersion</code> is set to 20 or lower, then you
+must use the
+<a href="https://developer.android.com/jetpack/androidx/releases/multidex">multidex library</a> and make
+  the following modifications to your app project:</p>
+
+<ol>
+<li>
+<p>
+  Modify the module-level <code translate="no" dir="ltr">build.gradle</code> file to
+  enable multidex and add the multidex library as a dependency, as shown here:
+</p>
+
+<div>
+<devsite-selector scope="auto" active="groovy" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="true" aria-controls="tabpanel-groovy" tab="groovy" id="groovy" active=""><a id="aria-tab-groovy" role="button" href="#groovy" aria-selected="true">Groovy</a></tab><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kts"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="groovy" role="tabpanel" aria-labelledby="aria-tab-groovy" tabindex="0" id="tabpanel-groovy" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-groovy" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; defaultConfig </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; minSdkVersion </span><span class="lit">15</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; targetSdkVersion </span><span class="lit">28</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><b><span class="pln">multiDexEnabled </span><span class="kwd">true</span></b><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br><br>dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; </span><b><span class="pln">implementation </span><span class="str">"androidx.multidex:multidex:2.0.1"</span></b><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; defaultConfig </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; minSdk </span><span class="pun">=</span><span class="pln"> </span><span class="lit">15</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; targetSdk </span><span class="pun">=</span><span class="pln"> </span><span class="lit">28</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><b><span class="pln">multiDexEnabled </span><span class="pun">=</span><span class="pln"> </span><span class="lit">true</span></b><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br><br>dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; </span><b><span class="pln">implementation</span><span class="pun">(</span><span class="str">"androidx.multidex:multidex:2.0.1"</span><span class="pun">)</span></b><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+</li>
+
+<li>Depending on whether you override the <a href="https://developer.android.com/reference/android/app/Application"><code translate="no" dir="ltr">Application</code></a>
+class, perform one of the following:
+<ul>
+  <li><p>If you <em>do not</em> override the <a href="https://developer.android.com/reference/android/app/Application"><code translate="no" dir="ltr">Application</code></a>
+class, edit your manifest file to set <code translate="no" dir="ltr">android:name</code> in the
+<code translate="no" dir="ltr">&lt;application&gt;</code> tag as follows:</p>
+<devsite-code data-copy-event-label=""><pre class="lang-xml" translate="no" dir="ltr" is-upgraded=""><span class="pun">&lt;?</span><span class="pln">xml version</span><span class="pun">=</span><span class="str">"1.0"</span><span class="pln"> encoding</span><span class="pun">=</span><span class="str">"utf-8"</span><span class="pun">?&gt;</span><span class="pln"><br></span><span class="tag">&lt;manifest</span><span class="pln"> </span><span class="atn">xmlns:android</span><span class="pun">=</span><span class="atv">"http://schemas.android.com/apk/res/android"</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="atn">package</span><span class="pun">=</span><span class="atv">"com.example.myapp"</span><span class="tag">&gt;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="tag">&lt;application</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><b><span class="atn">android:name</span><span class="pun">=</span><span class="atv">"androidx.multidex.MultiDexApplication"</span></b><span class="pln"> </span><span class="tag">&gt;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; ...<br>&nbsp; &nbsp; </span><span class="tag">&lt;/application&gt;</span><span class="pln"><br></span><span class="tag">&lt;/manifest&gt;</span><span class="pln"><br></span></pre></devsite-code>
+  </li>
+  <li><p>If you do override the <a href="https://developer.android.com/reference/android/app/Application"><code translate="no" dir="ltr">Application</code></a>
+class, change it to extend <code translate="no" dir="ltr">MultiDexApplication</code> (if possible) as follows:</p>
+
+<div>
+<devsite-selector scope="auto" active="java" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kotlin"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab role="tab" aria-selected="true" aria-controls="tabpanel-java" tab="java" id="java" active=""><a id="aria-tab-java" role="button" href="#java" aria-selected="true">Java</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="kwd">class</span><span class="pln"> </span><span class="typ">MyApplication</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">MultiDexApplication</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{...}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="java" role="tabpanel" aria-labelledby="aria-tab-java" tabindex="0" id="tabpanel-java" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-java" translate="no" dir="ltr" is-upgraded=""><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">MyApplication</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">MultiDexApplication</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">...</span><span class="pln"> </span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+  </li>
+  <li><p>Or if you do override the <a href="https://developer.android.com/reference/android/app/Application"><code translate="no" dir="ltr">Application</code></a>
+class but it's not possible to change the base class, then you can
+instead override the <a href="https://developer.android.com/reference/android/content/ContextWrapper#attachBaseContext(android.content.Context)"><code translate="no" dir="ltr">attachBaseContext()</code></a> method and call<code translate="no" dir="ltr">MultiDex.install(this)</code> to enable
+    multidex:</p>
+
+<div>
+<devsite-selector scope="auto" active="java" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kotlin"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab role="tab" aria-selected="true" aria-controls="tabpanel-java" tab="java" id="java" active=""><a id="aria-tab-java" role="button" href="#java" aria-selected="true">Java</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="kwd">class</span><span class="pln"> </span><span class="typ">MyApplication</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">SomeOtherApplication</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="kwd">override</span><span class="pln"> </span><span class="kwd">fun</span><span class="pln"> attachBaseContext</span><span class="pun">(</span><span class="pln">base</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Context</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">attachBaseContext</span><span class="pun">(</span><span class="pln">base</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">MultiDex</span><span class="pun">.</span><span class="pln">install</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="java" role="tabpanel" aria-labelledby="aria-tab-java" tabindex="0" id="tabpanel-java" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-java" translate="no" dir="ltr" is-upgraded=""><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">MyApplication</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">SomeOtherApplication</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; </span><span class="lit">@Override</span><span class="pln"><br>&nbsp; </span><span class="kwd">protected</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> attachBaseContext</span><span class="pun">(</span><span class="typ">Context</span><span class="pln"> base</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp;</span><span class="kwd">super</span><span class="pun">.</span><span class="pln">attachBaseContext</span><span class="pun">(</span><span class="pln">base</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp;</span><span class="typ">MultiDex</span><span class="pun">.</span><span class="pln">install</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">);</span><span class="pln"><br>&nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+<p class="caution"><b>Caution:</b> Do not execute
+  <code translate="no" dir="ltr">MultiDex.install()</code> or any other code through reflection
+or JNI before <code translate="no" dir="ltr">MultiDex.install()</code> is complete. Multidex tracing will
+not follow those calls, causing <code translate="no" dir="ltr">ClassNotFoundException</code> or verify errors
+due to a bad class partition between DEX files.</p>
+  </li>
+</ul>
+</li>
+</ol>
+
+
+<p>Now when you build your app, the Android build tools construct a primary DEX
+file (<code translate="no" dir="ltr">classes.dex</code>) and supporting DEX files
+(<code translate="no" dir="ltr">classes2.dex</code>, <code translate="no" dir="ltr">classes3.dex</code>, and so on) as needed.
+The build system then packages all DEX files into your APK. </p>
+
+<p>At runtime, the multidex APIs use a special class loader to search all of the
+available DEX files for your methods (instead of searching only in the main
+<code translate="no" dir="ltr">classes.dex</code> file).</p>
+
+
+<h3 id="limitations" data-text="Limitations of the multidex library">Limitations of the multidex library</h3>
+
+<p>
+  The multidex library has some known limitations that you should be aware of and test for
+  when you incorporate it into your app build configuration:
+</p>
+
+<ul>
+  <li>The installation of DEX files during startup onto a device's data partition is complex and
+  can result in Application Not Responding (ANR) errors if the secondary DEX files are large. To
+  avoid this issue, <a href="https://developer.android.com/studio/build/shrink-code">enable code shrinking</a> to minimize
+  the size of DEX files and remove unused portions of code.
+  </li>
+
+  <li>When running on versions prior to Android 5.0 (API level 21), using
+  multidex is not enough to work around the linearalloc limit (<a href="http://b.android.com/78035">issue 78035</a>). This limit was increased in
+  Android 4.0 (API level 14), but that did not solve it completely. And on
+  versions lower than Android 4.0, you might reach the linearalloc limit before
+  reaching the DEX index limit. So if you are targeting API levels lower than
+  14, test thoroughly on those versions of the platform, because your app might
+  have issues at startup or when particular groups of classes are loaded.
+  <p><a href="https://developer.android.com/studio/build/shrink-code">Code shrinking</a> can reduce or
+  possibly eliminate these issues.</p>
+  </li>
+
+</ul>
+
+
+<h2 id="keep" data-text="Declare classes required in the primary DEX file">Declare classes required in the primary DEX file</h2>
+
+<p>When building each DEX file for a multidex app, the build tools perform
+complex decision-making to determine which classes are needed in the primary DEX
+file so that your app can start successfully. If any class that's required
+during startup is not provided in the primary DEX file, then your app crashes
+with the error <code translate="no" dir="ltr">java.lang.NoClassDefFoundError</code>.</p>
+
+<p>This shouldn't happen for code that's accessed directly from your app
+code because the build tools recognize those code paths, but it can happen when
+the code paths are less visible such as when a library you use has
+complex dependencies. For example, if the code uses introspection or invocation
+of Java methods from native code, then those classes might not be recognized as
+required in the primary DEX file.</p>
+
+<p>So if you receive <code translate="no" dir="ltr">java.lang.NoClassDefFoundError</code>, then you
+must manually specify these additional classes as required in the primary DEX
+file by declaring them with the <a href="https://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.BuildType.html#com.android.build.gradle.internal.dsl.BuildType:multiDexKeepFile"><code translate="no" dir="ltr">multiDexKeepFile</code></a> or the <a href="https://google.github.io/android-gradle-dsl/2.2/com.android.build.gradle.internal.dsl.BuildType.html#com.android.build.gradle.internal.dsl.BuildType:multiDexKeepProguard">
+<code translate="no" dir="ltr">multiDexKeepProguard</code></a> property in your build type. If a class is matched in either
+  the <code translate="no" dir="ltr">multiDexKeepFile</code> or the <code translate="no" dir="ltr">multiDexKeepProguard</code> file, then that class
+  is added to the primary DEX file.
+  </p>
+
+<h3 id="multidexkeepfile-property" data-text="multiDexKeepFile property">multiDexKeepFile property</h3>
+
+<p>
+The file you specify in <code translate="no" dir="ltr">multiDexKeepFile</code> should contain one class per line, in the
+format <code translate="no" dir="ltr">com/example/MyClass.class</code>. For example, you can create a
+file called <code translate="no" dir="ltr">multidex-config.txt</code> that looks like this:
+</p><devsite-code no-copy="" data-copy-event-label=""><pre class="none" translate="no" dir="ltr" is-upgraded="">com/example/MyClass.class
+com/example/MyOtherClass.class
+</pre></devsite-code>
+
+<p>Then you can declare that file for a build type as follows:</p>
+<div>
+<devsite-selector scope="auto" active="groovy" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="true" aria-controls="tabpanel-groovy" tab="groovy" id="groovy" active=""><a id="aria-tab-groovy" role="button" href="#groovy" aria-selected="true">Groovy</a></tab><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kts"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="groovy" role="tabpanel" aria-labelledby="aria-tab-groovy" tabindex="0" id="tabpanel-groovy" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-groovy" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; buildTypes </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; release </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; multiDexKeepFile file</span><span class="pun">(</span><span class="str">'multidex-config.txt'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; buildTypes </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; getByName</span><span class="pun">(</span><span class="str">"release"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; multiDexKeepFile </span><span class="pun">=</span><span class="pln"> file</span><span class="pun">(</span><span class="pln">'multidex</span><span class="pun">-</span><span class="pln">config</span><span class="pun">.</span><span class="pln">txt'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+<p>Remember that Gradle reads paths relative to the <code translate="no" dir="ltr">build.gradle</code> file,
+so the above example works if <code translate="no" dir="ltr">multidex-config.txt</code> is in the same directory
+as the <code translate="no" dir="ltr">build.gradle</code> file.</p>
+
+<h3 id="multidexkeepproguard-property" data-text="multiDexKeepProguard property">multiDexKeepProguard property</h3>
+
+<p>
+  The <code translate="no" dir="ltr">multiDexKeepProguard</code> file uses the same format as Proguard and supports the entire
+  Proguard grammar. For more information about Proguard format and grammar, see the
+  <a href="http://proguard.sourceforge.net/manual/usage.html#keepoptions">Keep Options</a> section
+  in the Proguard manual.
+  </p>
+
+  <p>
+  The file you specify in <code translate="no" dir="ltr">multiDexKeepProguard</code> should contain <code translate="no" dir="ltr">-keep</code>
+  options in any valid ProGuard syntax. For example,
+  <code translate="no" dir="ltr">-keep com.example.MyClass.class</code>. You can create a file called
+    <code translate="no" dir="ltr">multidex-config.pro</code> that looks like this:
+</p>
+
+<devsite-code no-copy="" data-copy-event-label=""><pre class="none" translate="no" dir="ltr" is-upgraded="">-keep class com.example.MyClass
+-keep class com.example.MyClassToo
+</pre></devsite-code>
+
+<p>
+If you want to specify all classes in a package, the file looks like this:
+</p>
+
+<devsite-code no-copy="" data-copy-event-label=""><pre class="none" translate="no" dir="ltr" is-upgraded="">-keep class com.example.** { *; } // All classes in the com.example package
+</pre></devsite-code>
+
+<p>
+Then you can declare that file for a build type as follows:
+</p>
+
+<div>
+<devsite-selector scope="auto" active="groovy" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="true" aria-controls="tabpanel-groovy" tab="groovy" id="groovy" active=""><a id="aria-tab-groovy" role="button" href="#groovy" aria-selected="true">Groovy</a></tab><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kts"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="groovy" role="tabpanel" aria-labelledby="aria-tab-groovy" tabindex="0" id="tabpanel-groovy" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-groovy" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; buildTypes </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; release </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; multiDexKeepProguard file</span><span class="pun">(</span><span class="str">'multidex-config.pro'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; buildTypes </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; getByName</span><span class="pun">(</span><span class="str">"release"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; multiDexKeepProguard </span><span class="pun">=</span><span class="pln"> file</span><span class="pun">(</span><span class="pln">'multidex</span><span class="pun">-</span><span class="pln">config</span><span class="pun">.</span><span class="pln">pro'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+<h2 id="dev-build" data-text="Optimize multidex in development builds">Optimize multidex in development builds</h2>
+
+<p>A multidex configuration requires significantly increased build processing
+time because the build system must make complex decisions about which classes
+must be included in the primary DEX file and which classes can be included in
+secondary DEX files. This means that incremental builds using multidex typically
+take longer and can potentially slow your development process.</p>
+
+<p>
+  To mitigate longer incremental build times, you should use
+  <em>pre-dexing</em> to reuse multidex output between builds.
+  Pre-dexing relies on an ART format available only on Android 5.0
+  (API level 21) and higher. <b>If you're using Android Studio 2.3 and
+  higher</b>, the IDE automatically uses this feature when deploying your app
+  to a device running Android 5.0 (API level 21) or higher.
+</p>
+
+<p class="note">
+  <b>Tip:</b> <a href="https://developer.android.com/studio/releases/gradle-plugin#3-0-0">
+  Android plugin for Gradle 3.0.0</a> and higher include further improvements to optimize build
+  speeds, such as per-class dexing (so that only the classes that you modify are re-dexed). In
+  general, for the best development experience, you should always upgrade to the
+  <a href="https://developer.android.com/studio/releases">latest version of Android Studio</a> and the Android plugin.
+</p>
+
+<p>
+  However, <b>if you're running Gradle builds from the command line</b>, you need to set the
+  <code translate="no" dir="ltr">minSdkVersion</code> to 21 or higher to enable pre-dexing. A helpful strategy
+  to preserve settings for your production build is to create two versions of your app
+  <a href="https://developer.android.com/studio/build/build-variants#product-flavors">using product flavors</a>:
+  a development flavor and a release flavor with different values for <code translate="no" dir="ltr">minSdkVersion</code>,
+  as shown below.
+</p>
+
+<div>
+<devsite-selector scope="auto" active="groovy" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="true" aria-controls="tabpanel-groovy" tab="groovy" id="groovy" active=""><a id="aria-tab-groovy" role="button" href="#groovy" aria-selected="true">Groovy</a></tab><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kts"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="groovy" role="tabpanel" aria-labelledby="aria-tab-groovy" tabindex="0" id="tabpanel-groovy" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-groovy" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; defaultConfig </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; multiDexEnabled </span><span class="kwd">true</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// The default minimum API level you want to support.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; minSdkVersion </span><span class="lit">15</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; productFlavors </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Includes settings you want to keep only while developing your app.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; dev </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Enables pre-dexing for command line builds. When using</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Android Studio 2.3 or higher, the IDE enables pre-dexing</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// when deploying your app to a device running Android 5.0</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// (API level 21) or higher—regardless of what you set for</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// minSdkVersion.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; minSdkVersion </span><span class="lit">21</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; prod </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// If you've configured the defaultConfig block for the production version of</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// your app, you can leave this block empty and Gradle uses configurations in</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// the defaultConfig block instead. You still need to include this flavor.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Otherwise, all variants use the "dev" flavor configurations.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; buildTypes </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; release </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; minifyEnabled </span><span class="kwd">true</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; proguardFiles getDefaultProguardFile</span><span class="pun">(</span><span class="str">'proguard-android.txt'</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">'proguard-rules.pro'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br>dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; implementation </span><span class="str">"androidx.multidex:multidex:2.0.1"</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="pln">android </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; defaultConfig </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; multiDexEnabled </span><span class="pun">=</span><span class="pln"> </span><span class="lit">true</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// The default minimum API level you want to support.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; minSdk </span><span class="pun">=</span><span class="pln"> </span><span class="lit">15</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; productFlavors </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Includes settings you want to keep only while developing your app.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; create</span><span class="pun">(</span><span class="str">"dev"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Enables pre-dexing for command line builds. When using</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Android Studio 2.3 or higher, the IDE enables pre-dexing</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// when deploying your app to a device running Android 5.0</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// (API level 21) or higher—regardless of what you set for</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// minSdkVersion.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; minSdk </span><span class="pun">=</span><span class="pln"> </span><span class="lit">21</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; create</span><span class="pun">(</span><span class="str">"prod"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// If you've configured the defaultConfig block for the production version of</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// your app, you can leave this block empty and Gradle uses configurations in</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// the defaultConfig block instead. You still need to include this flavor.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">// Otherwise, all variants use the "dev" flavor configurations.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; buildTypes </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; getByName</span><span class="pun">(</span><span class="str">"release"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; isMinifyEnabled </span><span class="pun">=</span><span class="pln"> </span><span class="lit">true</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; proguardFiles</span><span class="pun">(</span><span class="pln">getDefaultProguardFile</span><span class="pun">(</span><span class="str">"proguard-android.txt"</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">"proguard-rules.pro"</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br><br>dependencies </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; implementation</span><span class="pun">(</span><span class="str">"androidx.multidex:multidex:2.0.1"</span><span class="pun">)</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+<p>
+  To learn more strategies to help improve build speeds (from either Android Studio or the command
+  line), read <a href="https://developer.android.com/studio/build/optimize-your-build">Optimize Your Build Speed</a>.
+  For more information about using build variants, see
+  <a href="https://developer.android.com/studio/build/build-variants">Configure Build Variants</a>.
+</p>
+
+<p class="note">
+  <strong>Tip:</strong> Now that you have different build variants for different
+  multidex needs, you can also provide a different manifest file for each
+  variant (so only the one for API level 20 and lower changes the
+  <code translate="no" dir="ltr">&lt;application&gt;</code> tag name),
+  or create a different <code translate="no" dir="ltr">Application</code> subclass for each variant (so
+  only the one for API level 20 and lower extends the <code translate="no" dir="ltr">MultiDexApplication</code> class or
+  calls <code translate="no" dir="ltr">MultiDex.install(this)</code>).
+</p>
+
+<h2 id="testing" data-text="Test multidex apps">Test multidex apps</h2>
+
+  <p>
+  When you write instrumentation tests for multidex apps, no additional configuration is required
+  if you use a
+<a href="https://developer.android.com/reference/androidx/test/runner/MonitoringInstrumentation">
+  <code translate="no" dir="ltr">MonitoringInstrumentation</code></a> (or an
+<a href="https://developer.android.com/reference/androidx/test/runner/AndroidJUnitRunner">
+  <code translate="no" dir="ltr">AndroidJUnitRunner</code></a>)
+  instrumentation. If you use another
+    <a href="https://developer.android.com/reference/android/app/Instrumentation"><code translate="no" dir="ltr">Instrumentation</code></a>,
+    then you must override its <code translate="no" dir="ltr">onCreate()</code> method with the following code:
+
+</p><div>
+<devsite-selector scope="auto" active="java" ready=""><devsite-tabs role="tablist" connected=""><div class="devsite-tabs-wrapper"><tab role="tab" aria-selected="false" aria-controls="tabpanel-kotlin" tab="kotlin" id="kotlin"><a id="aria-tab-kotlin" role="button" href="#kotlin">Kotlin</a></tab><tab role="tab" aria-selected="true" aria-controls="tabpanel-java" tab="java" id="java" active=""><a id="aria-tab-java" role="button" href="#java" aria-selected="true">Java</a></tab><tab overflow-tab="" hidden=""><a href="#" class="devsite-icon devsite-icon-arrow-drop-down">More</a><div class="devsite-tabs-overflow-menu" scrollbars="" hidden=""></div></tab></div></devsite-tabs><section tab="kotlin" role="tabpanel" aria-labelledby="aria-tab-kotlin" tabindex="0" id="tabpanel-kotlin">
+<devsite-code data-copy-event-label=""><pre class="lang-kotlin" translate="no" dir="ltr" is-upgraded=""><span class="kwd">fun</span><span class="pln"> onCreate</span><span class="pun">(</span><span class="pln">arguments</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Bundle</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; </span><span class="typ">MultiDex</span><span class="pun">.</span><span class="pln">install</span><span class="pun">(</span><span class="pln">targetContext</span><span class="pun">)</span><span class="pln"><br>&nbsp; </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">onCreate</span><span class="pun">(</span><span class="pln">arguments</span><span class="pun">)</span><span class="pln"><br>&nbsp; </span><span class="pun">...</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section><section tab="java" role="tabpanel" aria-labelledby="aria-tab-java" tabindex="0" id="tabpanel-java" active="">
+<devsite-code data-copy-event-label=""><pre class="lang-java" translate="no" dir="ltr" is-upgraded=""><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> onCreate</span><span class="pun">(</span><span class="typ">Bundle</span><span class="pln"> arguments</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; </span><span class="typ">MultiDex</span><span class="pun">.</span><span class="pln">install</span><span class="pun">(</span><span class="pln">getTargetContext</span><span class="pun">());</span><span class="pln"><br>&nbsp; </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">onCreate</span><span class="pun">(</span><span class="pln">arguments</span><span class="pun">);</span><span class="pln"><br>&nbsp; </span><span class="pun">...</span><span class="pln"><br></span><span class="pun">}</span><span class="pln"><br></span></pre></devsite-code>
+</section></devsite-selector>
+</div>
+
+  <aside class="note"><b>Notes:</b>
+    <ul>
+      <li>Don't use
+<a href="https://developer.android.com/reference/com/android/test/runner/MultiDexTestRunner"><code translate="no" dir="ltr">MultiDexTestRunner</code></a>,
+    which is deprecated; use
+<a href="https://developer.android.com/reference/androidx/test/runner/AndroidJUnitRunner"><code translate="no" dir="ltr">AndroidJUnitRunner</code></a>
+        instead.</li>
+    </ul>
+  </aside>
+
+
+    
+
+    
+      <devsite-hats-survey class="nocontent" hats-id="onAFgYxTD0kxBYCLVTd0Z41p75CM" listnr-id="5207477"></devsite-hats-survey>
+    
+  </div>
+
+  
+
+  
+    
+      <devsite-recommendations display="in-page" yield="" hidden="">
+      </devsite-recommendations>
+    
+    
+      
+    <devsite-thumb-rating position="footer"><div class="devsite-thumb-rating" role="form" aria-labelledby="devsite-thumb-label-footer" tabindex="0"><div class="devsite-thumb-label" id="devsite-thumb-label-footer">Was this helpful?</div><div class="devsite-thumbs"><button class="devsite-thumb devsite-thumb-up" data-title="Helpful" aria-label="Helpful"><svg class="devsite-thumb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21,7h-6.31l0.95-4.57l0.03-0.32c0-0.41-0.17-0.79-0.44-1.06L14.17,0c0,0-7.09,6.85-7.17,7H2v13h16 c0.83,0,1.54-0.5,1.84-1.22l3.02-7.05C22.95,11.5,23,11.26,23,11V9C23,7.9,22.1,7,21,7z M7,18H4V9h3V18z M21,11l-3,7H9V8l4.34-4.34 L12,9h9V11z"></path></svg></button><button class="devsite-thumb devsite-thumb-down" data-title="Not helpful" aria-label="Not helpful"><svg class="devsite-thumb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3,17h6.31l-0.95,4.57l-0.03,0.32c0,0.41,0.17,0.79,0.44,1.06L9.83,24c0,0,7.09-6.85,7.17-7h5V4H6 C5.17,4,4.46,4.5,4.16,5.22l-3.02,7.05C1.05,12.5,1,12.74,1,13v2C1,16.1,1.9,17,3,17z M17,6h3v9h-3V6z M3,13l3-7h9v10l-4.34,4.34 L12,15H3V13z"></path></svg></button></div></div></devsite-thumb-rating>
+  
+       
+    
+    
+      
+    
+  
+
+  
+  
+</article>
+
+
+<devsite-content-footer class="nocontent">
+  <p>Content and code samples on this page are subject to the licenses described in the <a href="https://developer.android.com/license">Content License</a>. Java and OpenJDK are trademarks or registered trademarks of Oracle and/or its affiliates.</p>
+  <p>Last updated 2022-06-21 UTC.</p>
+</devsite-content-footer>
+
+
+<devsite-notification>
+</devsite-notification>
+
+
+  
+<div class="devsite-content-data">
+  <template class="devsite-thumb-rating-down-categories">
+  [{
+      "type": "thumb-down",
+      "id": "missingTheInformationINeed",
+      "label":"Missing the information I need"
+    },{
+      "type": "thumb-down",
+      "id": "tooComplicatedTooManySteps",
+      "label":"Too complicated / too many steps"
+    },{
+      "type": "thumb-down",
+      "id": "outOfDate",
+      "label":"Out of date"
+    },{
+      "type": "thumb-down",
+      "id": "samplesCodeIssue",
+      "label":"Samples / code issue"
+    },{
+      "type": "thumb-down",
+      "id": "otherDown",
+      "label":"Other"
+    }]
+  </template>
+  <template class="devsite-thumb-rating-up-categories">
+  [{
+      "type": "thumb-up",
+      "id": "easyToUnderstand",
+      "label":"Easy to understand"
+    },{
+      "type": "thumb-up",
+      "id": "solvedMyProblem",
+      "label":"Solved my problem"
+    },{
+      "type": "thumb-up",
+      "id": "otherUp",
+      "label":"Other"
+    }]
+  </template>
+  
+</div>
+            
+          </devsite-content>
+        </main>
+        <devsite-footer-promos class="devsite-footer">
+          
+            
+
+<nav class="devsite-footer-promos nocontent" aria-label="Promotions">
+  <ul class="devsite-footer-promos-list">
+    
+    <li class="devsite-footer-promo">
+      <a href="https://twitter.com/AndroidDev" class="devsite-footer-promo-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Twitter Promo">
+        
+        
+          
+            <img class="devsite-footer-promo-icon" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/logo-twitter.svg" loading="lazy" alt="Twitter">
+          
+        
+        Twitter
+      </a>
+      <div class="devsite-footer-promo-description">Follow @AndroidDev on Twitter</div>
+    </li>
+    
+    <li class="devsite-footer-promo">
+      <a href="https://www.youtube.com/user/androiddevelopers" class="devsite-footer-promo-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer YouTube Promo">
+        
+        
+          
+            <img class="devsite-footer-promo-icon" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/youtube_48dp.png" loading="lazy" alt="YouTube">
+          
+        
+        YouTube
+      </a>
+      <div class="devsite-footer-promo-description">Check out Android Developers on YouTube</div>
+    </li>
+    
+    <li class="devsite-footer-promo">
+      <a href="https://www.linkedin.com/showcase/androiddev" class="devsite-footer-promo-title gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer LinkedIn Promo">
+        
+        
+          
+            <img class="devsite-footer-promo-icon" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/logo-linkedin.svg" loading="lazy" alt="LinkedIn">
+          
+        
+        LinkedIn
+      </a>
+      <div class="devsite-footer-promo-description">Connect with the Android Developers community on LinkedIn</div>
+    </li>
+    
+  </ul>
+</nav>
+
+          
+        </devsite-footer-promos>
+        <devsite-footer-linkboxes class="devsite-footer">
+          
+            
+<nav class="devsite-footer-linkboxes nocontent" aria-label="Footer links">
+  
+  <ul class="devsite-footer-linkboxes-list">
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">More Android</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://www.android.com/" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 1)">
+            
+          
+            Android
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://www.android.com/enterprise/" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 2)">
+            
+          
+            Android for Enterprise
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://www.android.com/security-center/" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 3)">
+            
+          
+            Security
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://source.android.com/" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 4)">
+            
+          
+            Source
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/news" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 5)">
+            
+          
+            News
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://android-developers.googleblog.com/" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 6)">
+            
+          
+            Blog
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/podcasts" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 7)">
+            
+              
+              
+            
+          
+            Podcasts
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">Discover</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/games" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 1)">
+            
+          
+            Gaming
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/ml" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 2)">
+            
+          
+            Machine Learning
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/privacy" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 3)">
+            
+          
+            Privacy
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/training/connectivity/5g" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 4)">
+            
+              
+              
+            
+          
+            5G
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">Android Devices</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/large-screens" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 1)">
+            
+          
+            Large screens
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/wear" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 2)">
+            
+          
+            Wear OS
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/tv" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 3)">
+            
+          
+            Android TV
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/cars" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 4)">
+            
+          
+            Android for cars
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/things" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 5)">
+            
+          
+            Android Things
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/chrome-os" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 6)">
+            
+              
+              
+            
+          
+            Chrome OS devices
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">Releases</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/11" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 1)">
+            
+          
+            Android 11
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/10" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 2)">
+            
+          
+            Android 10
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/pie" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 3)">
+            
+          
+            Pie
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/oreo" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 4)">
+            
+          
+            Oreo
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/nougat" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 5)">
+            
+          
+            Nougat
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/marshmallow" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 6)">
+            
+          
+            Marshmallow
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/lollipop" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 7)">
+            
+          
+            Lollipop
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/about/versions/kitkat" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 8)">
+            
+              
+              
+            
+          
+            KitKat
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">Documentation and Downloads</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/studio/intro" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 1)">
+            
+          
+            Android Studio guide
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/guide" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 2)">
+            
+          
+            Developers guides
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/reference" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 3)">
+            
+          
+            API reference
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/studio" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 4)">
+            
+          
+            Download Studio
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://developer.android.com/ndk" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 5)">
+            
+              
+              
+            
+          
+            Android NDK
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+    <li class="devsite-footer-linkbox ">
+    <h3 class="devsite-footer-linkbox-heading no-link">Support</h3>
+      <ul class="devsite-footer-linkbox-list">
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://issuetracker.google.com/issues/new?component=190923&amp;template=841312" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 1)">
+            
+          
+            Report platform bug
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://issuetracker.google.com/issues/new?component=192697" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 2)">
+            
+          
+            Report documentation bug
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://support.google.com/googleplay/android-developer" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 3)">
+            
+          
+            Google Play support
+          
+          </a>
+          
+          
+        </li>
+        
+        <li class="devsite-footer-linkbox-item">
+          
+          <a href="https://google.qualtrics.com/jfe/form/SV_ewWXIoEVLBcyp7f??reserved=1&amp;utm_source=FooterLink&amp;Q_Language=en&amp;utm_medium=own_srch&amp;utm_campaign=developer.android.com&amp;utm_term=0&amp;utm_content=0&amp;productTag=reg&amp;campaignDate=may19&amp;pType=devel&amp;referral_code=gV420370" class="devsite-footer-linkbox-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Link (index 4)">
+            
+              
+              
+            
+          
+            Join research studies
+          
+          </a>
+          
+          
+        </li>
+        
+      </ul>
+    </li>
+    
+  </ul>
+  
+</nav>
+          
+        </devsite-footer-linkboxes>
+        <devsite-footer-utility class="devsite-footer">
+          
+            
+
+<div class="devsite-footer-utility nocontent">
+  
+  
+  <nav class="devsite-footer-sites" aria-label="Other Google Developers websites">
+    <a href="https://developers.google.com/" class="devsite-footer-sites-logo-link gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Google Developers Link">
+      <img class="devsite-footer-sites-logo" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/lockup-developers.svg" loading="lazy" alt="Google Developers">
+    </a>
+    <ul class="devsite-footer-sites-list">
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://developer.android.com/" class="devsite-footer-sites-link
+                  gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Android Link">
+          Android
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://developer.chrome.com/home" class="devsite-footer-sites-link
+                  gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Chrome Link">
+          Chrome
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://firebase.google.com/" class="devsite-footer-sites-link
+                  gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Firebase Link">
+          Firebase
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://cloud.google.com/" class="devsite-footer-sites-link
+                  gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer Google Cloud Platform Link">
+          Google Cloud Platform
+        </a>
+      </li>
+      
+      <li class="devsite-footer-sites-item">
+        <a href="https://developers.google.com/products/" class="devsite-footer-sites-link
+                  gc-analytics-event" data-category="Site-Wide Custom Events" data-label="Footer All products Link">
+          All products
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+
+  
+  <nav class="devsite-footer-utility-links" aria-label="Utility links">
+    
+    <ul class="devsite-footer-utility-list">
+      
+      <li class="devsite-footer-utility-item
+                 ">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event" href="https://policies.google.com/privacy" data-category="Site-Wide Custom Events" data-label="Footer Privacy link">
+          Privacy
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 ">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event" href="https://developer.android.com/license" data-category="Site-Wide Custom Events" data-label="Footer License link">
+          License
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 ">
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event" href="https://developer.android.com/distribute/marketing-tools/brand-guidelines" data-category="Site-Wide Custom Events" data-label="Footer Brand guidelines link">
+          Brand guidelines
+        </a>
+        
+      </li>
+      
+      <li class="devsite-footer-utility-item
+                 devsite-footer-utility-button">
+        
+        <span class="devsite-footer-utility-description">Get news and tips by email</span>
+        
+        
+        <a class="devsite-footer-utility-link gc-analytics-event" href="https://developer.android.com/updates" data-category="Site-Wide Custom Events" data-label="Footer Subscribe link">
+          Subscribe
+        </a>
+        
+      </li>
+      
+    </ul>
+    
+    
+<devsite-language-selector>
+  <devsite-select class="devsite-language-selector-menu">
+    
+    <select aria-label="Select your language preference." class="devsite-language-selector-select" name="language" track-name="click" track-type="languageSelector">
+    
+    
+      <option value="en" selected="selected" lang="en">
+        English
+      </option>
+    
+      <option value="id" lang="id">
+        Bahasa Indonesia
+      </option>
+    
+      <option value="es_419" lang="es_419">
+        Español – América Latina
+      </option>
+    
+      <option value="pt_br" lang="pt_br">
+        Português – Brasil
+      </option>
+    
+      <option value="vi" lang="vi">
+        Tiếng Việt
+      </option>
+    
+      <option value="zh_cn" lang="zh_cn">
+        中文 – 简体
+      </option>
+    
+      <option value="zh_tw" lang="zh_tw">
+        中文 – 繁體
+      </option>
+    
+      <option value="ja" lang="ja">
+        日本語
+      </option>
+    
+      <option value="ko" lang="ko">
+        한국어
+      </option>
+    
+    </select>
+  <div class="devsite-select"><label id="devsite-select-28573481572728125-label" style="display:none;" aria-label="Select your language preference.">Select an option</label><button type="button" class="devsite-select-toggle" id="devsite-select-28573481572728125-button" aria-haspopup="true" aria-labelledby="devsite-select-28573481572728125-label devsite-select-28573481572728125-button" aria-controls="devsite-select-28573481572728125-popup"><span class="devsite-select-toggle-label">English</span><span class="devsite-icon devsite-icon-arrow-drop-down devsite-select-toggle-icon" aria-hidden="true"></span></button><ul class="devsite-select-list" id="devsite-select-28573481572728125-popup" tabindex="-1" role="listbox" scrollbars="" aria-labelledby="devsite-select-28573481572728125-button"><li role="option" id="devsite-select-28573481572728125-0" class="devsite-select-item" data-index="0" data-selected="" aria-selected="true" aria-label="English, selected" value="en" lang="en">English</li><li role="option" id="devsite-select-28573481572728125-1" class="devsite-select-item" data-index="1" aria-selected="false" aria-label="Bahasa Indonesia" value="id" lang="id">Bahasa Indonesia</li><li role="option" id="devsite-select-28573481572728125-2" class="devsite-select-item" data-index="2" aria-selected="false" aria-label="Español – América Latina" value="es_419" lang="es_419">Español – América Latina</li><li role="option" id="devsite-select-28573481572728125-3" class="devsite-select-item" data-index="3" aria-selected="false" aria-label="Português – Brasil" value="pt_br" lang="pt_br">Português – Brasil</li><li role="option" id="devsite-select-28573481572728125-4" class="devsite-select-item" data-index="4" aria-selected="false" aria-label="Tiếng Việt" value="vi" lang="vi">Tiếng Việt</li><li role="option" id="devsite-select-28573481572728125-5" class="devsite-select-item" data-index="5" aria-selected="false" aria-label="中文 – 简体" value="zh_cn" lang="zh_cn">中文 – 简体</li><li role="option" id="devsite-select-28573481572728125-6" class="devsite-select-item" data-index="6" aria-selected="false" aria-label="中文 – 繁體" value="zh_tw" lang="zh_tw">中文 – 繁體</li><li role="option" id="devsite-select-28573481572728125-7" class="devsite-select-item" data-index="7" aria-selected="false" aria-label="日本語" value="ja" lang="ja">日本語</li><li role="option" id="devsite-select-28573481572728125-8" class="devsite-select-item" data-index="8" aria-selected="false" aria-label="한국어" value="ko" lang="ko">한국어</li></ul></div></devsite-select>
+</devsite-language-selector>
+
+  </nav>
+</div>
+          
+        </devsite-footer-utility>
+        <devsite-panel style="height: auto;"></devsite-panel>
+      </section></section>
+    <devsite-sitemask></devsite-sitemask>
+    <devsite-snackbar type="cookie-notification" data-cookie-notice="2" style="bottom: 0px;">
+</devsite-snackbar>
+    <devsite-tooltip></devsite-tooltip>
+    <devsite-heading-link></devsite-heading-link>
+    <devsite-analytics analytics-iframe="">
+      
+        <script async="" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/app_loader.js"></script><script type="application/json" analytics="">[{"dimensions": {"dimension3": false, "dimension1": "Signed out", "dimension6": "en", "dimension4": "Android Developers", "dimension11": false, "dimension5": "en"}, "gaid": "UA-5831155-1", "metrics": {"ratings_value": "metric1", "ratings_count": "metric2"}}]</script>
+<script type="application/json" gtm="">{"parameters": {"internalUser": "False", "language": {"machineTranslated": "False", "requested": "en", "served": "en"}, "pageType": "article", "projectName": "Android Developers", "signedIn": "False", "tenant": "android", "recommendations": {"sourcePage": "", "sourceType": 0, "sourceRank": 0, "sourceIdenticalDescriptions": 0, "sourceTitleWords": 0, "sourceDescriptionWords": 0, "experiment": ""}, "experiment": {"ids": ""}}, "tags": ["GTM-KMSWPCJ"]}</script>
+      
+    <iframe src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/analytics-iframe.html"></iframe></devsite-analytics>
+    
+      <devsite-badger></devsite-badger>
+    
+    
+<android-fully-clickable target="
+        .android-grouped-resources .devsite-landing-row-item,
+        .android-illustrated-resources-index .devsite-landing-row-item,
+        .android-illustrated-resources-primary .devsite-landing-row-item,
+        .android-illustrated-resources-secondary .devsite-landing-row-item,
+        .android-illustrated-resources-secondary-small .devsite-landing-row-item,
+        .android-illustrated-resources-tertiary .devsite-landing-row-item,
+        .android-illustrated-resources-tertiary-small .devsite-landing-row-item,
+        .android-promo .devsite-landing-row-item,
+        .android-quick-link,
+        .android-samples .devsite-card-wrapper,
+        .fully-clickable" watch=".android-samples, devsite-content"></android-fully-clickable>
+    <script nonce="">
+  
+  (function(d,e,v,s,i,t,E){d['GoogleDevelopersObject']=i;
+    t=e.createElement(v);t.async=1;t.src=s;E=e.getElementsByTagName(v)[0];
+    E.parentNode.insertBefore(t,E);})(window, document, 'script',
+    'https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/android/js/app_loader.js', '[3,"en",null,"/js/devsite_app_module.js","https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78","https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/android","https://android-dot-devsite-v2-prod.appspot.com",null,null,["/_pwa/android/manifest.json","https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/images/video-placeholder.svg","https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/android/images/favicon.png","https://www.gstatic.com/devrel-devsite/prod/v0e5fe81d770a1c83a74ae94cff5f78c2b690ac595b30fc2439f12b56fdf9fe78/android/images/lockup.svg","https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,700italic|Roboto+Mono:400,500,700&display=swap"],1,null,[1,6,8,12,14,17,21,25,40,50,63,70,75,76,80,87,91,92,93,97,98,100,101,102,103,104,105,107,108,109,110,111,112,113,115,117,118,120,122,124,125,126,127,129,130,131,132,133,134,135,136,138,140,141,144,147,148,149,150,151,152,154,155,156,157,158,159,161,163,164,165,168,169,170,172,173,179,180,182,183,186,190,191,193,196],"AIzaSyAP-jjEJBzmIyKR4F-3XITp8yM9T1gEEI8","AIzaSyB6xiKGDR5O3Ak2okS4rLkauxGUG7XP0hg","developer.android.com","AIzaSyAQk0fBONSGUqCNznf6Krs82Ap1-NV6J4o","AIzaSyCCxcqdrZ_7QMeLCRY20bh_SXdAYqy70KY",null,null,null,["Profiles__enable_public_developer_profiles","Cloud__enable_cloud_shell","Search__enable_devsite_serp","BookNav__enable_book_nav_filtering","Badges__enable_delete_badges","Profiles__enable_developer_profiles_callout","Profiles__enable_page_saving","BookNav__enable_collapsible_book_nav","Search__enable_acl_suggestions","Experiments__reqs_query_experiments","SignIn__enable_auto_signin_oauth","Significatio__enable_by_tenant","Badges__enable_drag_and_drop_badges","Profiles__enable_profile_notifications_ui","Profiles__enable_developer_profiles_interests","MiscFeatureFlags__enable_footprints_record_views","Search__enable_suggestions_from_borg","Profiles__require_profile_eligibility_for_signin","MiscFeatureFlags__enable_tls_version_for_gaia_calls","Cloud__enable_cloud_dlp_service","Experiments__enable_experiments","Cloud__enable_cloud_shell_fte_user_flow","Search__enable_page_map","Profiles__enable_developer_profiles_dashboard_recommendations"]]')
+  
+</script>
+    <devsite-a11y-announce aria-live="assertive" aria-atomic="true"></devsite-a11y-announce>
+  
+<iframe id="apiproxye30b0334d990a03847677bb04c28445e23e0c88e0.3932923254" name="apiproxye30b0334d990a03847677bb04c28445e23e0c88e0.3932923254" style="width: 1px; height: 1px; position: absolute; top: -100px; display: none;" src="Enable%20multidex%20for%20apps%20with%20over%2064K%20methods%20Android%20Developers_files/proxy.html" tabindex="-1" aria-hidden="true"></iframe></body></html>
