@@ -21,8 +21,10 @@
         />
 
     <stroke
-        android:color="#2FCCFF96"
         android:width="1dp"
+
+        android:dashWidth="10dp"
+        android:color="#9FCCFF96"
         />
     <size
         android:width="100dp"

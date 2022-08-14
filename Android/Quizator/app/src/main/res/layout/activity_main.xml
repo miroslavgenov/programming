@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/layout_background"
+    android:id="@+id/root_layout"
+    android:background="@drawable/gradient_animation"
 
 
     tools:context=".MainActivity"
@@ -19,7 +20,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:background="@drawable/button_play_state"
+        android:background="@drawable/button_transition"
 
         android:gravity="center"
         android:text="Play"
