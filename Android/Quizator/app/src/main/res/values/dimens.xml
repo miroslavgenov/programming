@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_play_text_size">35sp</dimen>
+    <dimen name="button_play_layout_width">150dp</dimen>
+    <dimen name="button_play_layout_height">150dp</dimen>
+</resources>

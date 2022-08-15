@@ -1,46 +1,69 @@
 package com.miroslav.quizator;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity {
+import com.miroslav.quizator.databinding.ActivityMainBinding;
+
+public class MainActivity extends AppCompatActivity implements Binding {
+
+    private static final int LAYOUT_MAIN_ACTIVITY_ID = R.layout.activity_main;
+//    private ViewDataBinding activityMainBinding;
+        ActivityMainBinding activityMainBinding;
+        ActivityMainBinding dataBindingUtilContent;
+        AnimationDrawableHelper animationDrawableHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        initActivityDataBindingUtilContent();
+        setBinding();
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 
-        Button btn  = findViewById(R.id.button);
-        ConstraintLayout constraintLayout = findViewById(R.id.root_layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(10);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
 
-        TransitionDrawable transitionDrawable = (TransitionDrawable) btn.getBackground();
-        btn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    transitionDrawable.startTransition(50);
-                }else if(motionEvent.getAction()== MotionEvent.ACTION_UP){
-                    transitionDrawable.reverseTransition(50);
-                }
-                return false;
-            }
-        });
+        animationDrawableHelper = new AnimationDrawableHelper(activityMainBinding.rootLayout.getBackground());
+
+
+        //        LinearLayout layout = activityMainBinding.rootLayout;
+//        AnimationDrawable animationDrawable = (AnimationDrawable) layout.getBackground();
+//        animationDrawable.setEnterFadeDuration(10);
+//        animationDrawable.setExitFadeDuration(5000);
+//        animationDrawable.start();
 
 
 
+
+    }
+
+
+    @Override
+    public void initActivityDataBindingUtilContent() {
+        this.dataBindingUtilContent = DataBindingUtil.setContentView(this , LAYOUT_MAIN_ACTIVITY_ID);
+    }
+
+    @Override
+    public void initFragmentDataBindingUtilContent(LayoutInflater inflater, ViewGroup container) {
+
+    }
+
+    @Override
+    public void setBinding() {
+        this.activityMainBinding = this.dataBindingUtilContent;
+    }
+
+    @Override
+    public <T> T getBinding() {
+        return (T)activityMainBinding;
     }
 }
 

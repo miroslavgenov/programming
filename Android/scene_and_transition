@@ -1,0 +1,139 @@
+//----
+From scratch
+Scene(ViewGroupt);
+Scene.setNterAction(Runable);
+
+From a ViewGroup
+Scene(ViewGroup,ViewGroup);
+
+From a layoyt resource
+Scene scene1 =  Scene.getSceneFroLeyout(viewgroup root, leyout to replace in the root);
+scene1.enter();
+scene1.exit();
+
+//----
+Transitions
+
+Crete it Individually
+Transition changeBounds = new ChangeBounds();
+TransitionManage.go(scene1,changeBounds);
+
+	ChangeBounds(); // move and resize object between scene
+	Fade(); // fade in or out
+	
+Transition sets
+	group of coreographic set of different transitions
+	TransitionSet set = new TransitionSet();
+	set.addTransition(new ChangeBounds()).addTransiotion(new Fade());
+
+From resource files
+	<transitionSet>
+		<changeBounds/>
+		<fade/>
+	</transitionSet>
+
+
+//------
+Custom Transitions
+
+Sublass Transition
+
+Ovrride 
+	// capture value from the start when the app is ready to do transition
+	// then read from viewobject and can read the layout position
+	captureStartValues(TransitionValue);
+	captureEndValues(TransitionValues);
+	createAnimator(ViewGroup,TransitionValues,TransitionValues);
+
+
+//------
+Change Scenes
+Without transitions
+	Scene.enter();
+
+With default transition
+	TransitionManager.go(Scene);
+
+Whit custom transition
+	TransitionManager.go(Scene , Transition);
+	// or , on TransitionManager instance
+	TransitionManager.TransitionTo(Scene , Transition);
+
+
+//----Transitions,Simplified
+// dinamic transition
+TransitionManager.beginDelayedTransition(ViewGroup);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,35 +7,4 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_transparent">#00FFFFFF</color>
-
-    <color name="layout_gradient_center_color">#D41872</color>
-    <color name="layout_gradient_start_color">#FF0066</color>
-    <color name="layout_gradient_end_color">#A445B2</color>
 </resources>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
