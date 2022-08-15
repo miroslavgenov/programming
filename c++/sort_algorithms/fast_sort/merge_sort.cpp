@@ -11,7 +11,7 @@ void showNumbers(int numbers[],int size){
     cout<<endl;
 }
 
-void swapNumber(int &greaterNumber , int &lesserNumber){
+void swap(int &greaterNumber , int &lesserNumber){
     int temporaryNumber = lesserNumber;
     lesserNumber = greaterNumber;
     greaterNumber = temporaryNumber;
@@ -21,12 +21,16 @@ void swapNumber(int &greaterNumber , int &lesserNumber){
 void merge(int a[],int left,int right,int b[],int c[]){
 	// todo in b compare the numbers from left to right and sort them as the previous exercise
 	// then rewratite them it a[]
-	cout<<endl<<"merge"<<endl;
-	cout<<left<<" "<<right<<endl;
-	int mid = (left+right)/2;
-	int k=left;
-	int l = mid+1;
-	int x = left;
+	//cout<<endl<<"merge"<<endl;
+
+//	cout<<"rangeFrom: "<<left<<" rangeEnd: "<<right<<endl;
+
+	for(int i=right;i>=0;i--)
+		for(int j=left+1;j<=right;j++)
+			if(a[j-1]>a[j])swap(a[j-1],a[j]);
+	
+//	for(int i=left;i<=right;i++)cout<<a[i]<<" ";
+//	cout<<endl<<"merge end"<<endl;
 
 
 
@@ -35,9 +39,9 @@ void merge(int a[],int left,int right,int b[],int c[]){
 void mergeSort(int a[],int left,int right,int b[],int c[]){
     if(left==right)return;
     int mid = (left+right)/2;
-    cout<<"left: "<<left<<" mid: "<<mid<<" right: "<<right<<endl;
-    cout<<" "<<a[left]<<"  "<<a[mid]<<" "<<a[right]<<endl;
-    mergeSort(a,left,mid);
+//    cout<<"left: "<<left<<" mid: "<<mid<<" right: "<<right<<endl;
+//  cout<<" "<<a[left]<<"  "<<a[mid]<<" "<<a[right]<<endl;
+    mergeSort(a,left,mid,b,c);
     
     mergeSort(a,mid+1,right,b,c);
     
