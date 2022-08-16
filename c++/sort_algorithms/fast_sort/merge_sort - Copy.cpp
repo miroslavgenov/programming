@@ -20,35 +20,52 @@ void swap(int &greaterNumber , int &lesserNumber){
 
 }
 
-void merge(int A[],int left,int mid,int right,int* B){
+void merge(int a[],int left,int mid,int right,int b[]){
 	
     int l = left;
 	int m = mid+1;
 	int r = right;
 	int z=left;
+    cout<<"merger"<<endl;
+    for(int i=left;i<=right;i++)cout<<a[i]<<' ';
+    cout<<endl;
 	while(l<=mid && m<=right){
-		if(A[l]>A[m]){
-			B[z]=A[m];
+		
+		cout<<"l<=mid && m<=right"<<endl;
+		cout<<l<<' '<<mid<<' '<<m<<' '<<right<<endl;
+		if(a[l]>a[m]){
+			cout<<"a[l]>a[m]"<<endl;
+			cout<<a[l]<<" "<<a[m]<<endl;
+			b[z]=a[m];
 			m++;z++;
 		}
 		else{
-			B[z]=A[l];
-			l++;
-			z++;
+			cout<<"a[l]<a[m]"<<endl;
+			cout<<a[l]<<" "<<a[m]<<endl;
+			b[z++]=a[l++];
+			
 		}
 		
 	}
 	while(l<=mid){
-		B[z] = A[l];
+		cout<<"l<=mid"<<endl;
+		cout<<l<<' '<<mid<<endl;
+		cout<<a[l]<<endl;
+		b[z] = a[l];
 		l++;z++;
 	}
 	while(m<=right){
-		B[z]=A[m];
+		cout<<"m<=right"<<endl;
+		cout<<m<<" "<<right<<endl;
+		cout<<a[m]<<endl;
+		b[z]=a[m];
 		m++;z++;
 	}
     for(int i=left;i<=right;i++){
-        A[i]=B[i];
-    }
+        a[i]=b[i];
+        cout<<b[i]<<" ";
+    }cout<<endl;
+    cout<<"merger end"<<endl<<endl;
 	
 	
 	
@@ -58,15 +75,19 @@ void merge(int A[],int left,int mid,int right,int* B){
 }
 
 
-void mergeSort(int a[],int left,int right,int *b){
-
+void mergeSort(int a[],int left,int right,int b[]){
     if(left==right)return;
     int mid = (left+right)/2;
-
-    mergeSort(a,left,mid,b); 
+//    cout<<"left: "<<left<<" mid: "<<mid<<" right: "<<right<<endl;
+//  cout<<" "<<a[left]<<"  "<<a[mid]<<" "<<a[right]<<endl;
+    mergeSort(a,left,mid,b);
+    
     mergeSort(a,mid+1,right,b);
+    if(left+1==right){
+    	if(a[left]>a[right])swap(a[left],a[right]);
+	}
     merge(a,left,mid,right,b);
-
+    
     
     
     
@@ -80,7 +101,7 @@ void mergeSort(int a[],int left,int right,int *b){
 int main(){
     int size=9;
     int arr[size]={7,6,1,3,5,4,8,2,9};
-    int *b = new int[size];
+    int b[size]{};
     mergeSort(arr,0,size-1,b);
     for(int i=0;i<size;i++)cout<<arr[i]<<" ";
     
