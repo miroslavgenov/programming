@@ -16,12 +16,17 @@
         <entry key="app/src/main/res/drawable/gradient_layout2.xml" value="0.166" />
         <entry key="app/src/main/res/drawable/gradient_layout3.xml" value="0.166" />
         <entry key="app/src/main/res/drawable/gradient_start.xml" value="0.1715" />
+        <entry key="app/src/main/res/drawable/image_button_play_active_state.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/image_button_play_press_state.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/image_button_state_animation.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/layout_background.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/layout_quiz_question.xml" value="0.171" />
         <entry key="app/src/main/res/drawable/my_button_shape.xml" value="0.156" />
         <entry key="app/src/main/res/drawable/my_button_shape_1.xml" value="0.169" />
         <entry key="app/src/main/res/drawable/my_button_spape_1.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/radio_button_inactive_state.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17" />
+        <entry key="app/src/main/res/layout/answers_scene_1.xml" value="0.10055724417426545" />
         <entry key="app/src/main/res/layout/fragment_quizator_main.xml" value="0.1286231884057971" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.1" />
         <entry key="app/src/main/res/layout/question1_scene.xml" value="0.12907608695652173" />

@@ -12,6 +12,7 @@
     <color name="layout_gradient_center_color">#D41872</color>
     <color name="layout_gradient_start_color">#FF0066</color>
     <color name="layout_gradient_end_color">#A445B2</color>
+    <color name="radio_button_text_color">#838383</color>
 </resources>
 
 
