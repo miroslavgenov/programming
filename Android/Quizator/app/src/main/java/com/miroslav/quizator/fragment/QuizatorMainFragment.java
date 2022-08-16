@@ -12,10 +12,13 @@ import android.transition.Scene;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
 
 import com.miroslav.quizator.AnimationDrawableHelper;
 import com.miroslav.quizator.Binding;
 import com.miroslav.quizator.R;
+import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
 
 
@@ -53,8 +56,26 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Question question = new Question("C++","What is this operator?",new String[]{"1","2"});
+        Question question1= new Question("Java","What is this operator?",new String[]{"0","1"});
+        fragmentQuizatorMainBinding.setQuestion(question);
 
+        fragmentQuizatorMainBinding.imageButtonToNextQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentQuizatorMainBinding.setQuestion(question1);
+                int checkedRadioButtonID = fragmentQuizatorMainBinding.radioGroupAnswers.getCheckedRadioButtonId();
+                RadioButton radioButtonFirstAnswer = fragmentQuizatorMainBinding.radioButtonFirstAnswer;
+                RadioButton radioButtonSecondAnswer = fragmentQuizatorMainBinding.radioButtonSecondAnswer;
 
+                //TODO make class to check which radio button is checked
+//                if(radioButtonFirstAnswer.getId()==checkedRadioButtonID){
+//                  fragmentQuizatorMainBinding.editTextQuestionTitle.setText(radioButtonFirstAnswer.getText().toString());
+//                }else if(radioButtonSecondAnswer.getId()==checkedRadioButtonID){
+//                    fragmentQuizatorMainBinding.editTextQuestionTitle.setText(radioButtonSecondAnswer.getText().toString());
+//                }
+            }
+        });
 
 
 
