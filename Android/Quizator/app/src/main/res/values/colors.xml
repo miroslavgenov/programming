@@ -9,10 +9,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_transparent">#00FFFFFF</color>
 
-    <color name="layout_gradient_center_color">#D41872</color>
-    <color name="layout_gradient_start_color">#FF0066</color>
-    <color name="layout_gradient_end_color">#A445B2</color>
+    <color name="layout_main_background_color">#2a0e3c</color>
+
+    <color name="layout_gradient_start_color">#f68eb3</color>
+    <color name="layout_gradient_center_color">#faa36c</color>
+    <color name="layout_gradient_end_color">#ffb63b</color>
     <color name="radio_button_text_color">#838383</color>
+    <color name="inactive_color">#90FFFFFF</color>
+    <color name="active_button_start_color">#74af86</color>
+    <color name="active_button_center_color">#a9c971</color>
+    <color name="active_button_end_color">#d2da7c</color>
 </resources>
 
 

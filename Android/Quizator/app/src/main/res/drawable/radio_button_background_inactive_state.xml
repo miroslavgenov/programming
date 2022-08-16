@@ -2,15 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <shape android:shape="oval">
-            <gradient
-                android:angle="315"
-                android:type="linear"
-                android:startColor="@color/active_button_start_color"
-                android:centerColor="@color/active_button_center_color"
-                android:endColor="@color/active_button_end_color"
-                />
-
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/rectangle_shape_corner_radius"/>
+            <solid android:color="#90FFFFFF"/>
         </shape>
     </item>
     <item
@@ -19,7 +13,8 @@
         android:left="@dimen/layer_list_item_border_space"
         android:right="@dimen/layer_list_item_border_space">
 
-        <shape android:shape="oval">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/rectangle_shape_corner_radius"/>
             <solid android:color="@color/layout_main_background_color"/>
         </shape>
     </item>

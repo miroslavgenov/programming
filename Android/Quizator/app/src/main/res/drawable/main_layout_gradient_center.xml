@@ -1,15 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:angle="315"
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners
+                android:radius="@dimen/rectangle_shape_corner_radius"
+                />
+            <gradient
+                android:angle="315"
+                android:startColor="@color/layout_gradient_end_color"
+                android:centerColor="@color/layout_gradient_start_color"
+                android:endColor="@color/layout_gradient_center_color"
+                android:type="linear"
+                android:useLevel="false"
+                />
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/layer_list_item_border_space"
+        android:bottom="@dimen/layer_list_item_border_space"
+        android:left="@dimen/layer_list_item_border_space"
+        android:right="@dimen/layer_list_item_border_space"
+        >
+        <shape
+            android:shape="rectangle"
+            >
+            <corners
+                android:radius="@dimen/rectangle_shape_corner_radius"
+                />
+            <solid android:color="@color/layout_main_background_color"/>
+        </shape>
+    </item>
 
-        android:startColor="@color/layout_gradient_center_color"
-        android:centerColor="@color/layout_gradient_end_color"
-        android:endColor="@color/layout_gradient_start_color"
-        android:type="linear"
-        />
 
-</shape>
+
+</layer-list>
 
 
 

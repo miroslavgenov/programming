@@ -20,10 +20,39 @@
             android:id="@+id/button_play"
             android:layout_width="@dimen/button_play_layout_width"
             android:layout_height="@dimen/button_play_layout_height"
-            android:background="@drawable/button_play_transition"
+            android:background="@drawable/button_play_pressed_state_selector"
             android:text="@string/play_text"
             android:textColor="@color/white"
             android:textSize="@dimen/button_play_text_size" />
 
     </LinearLayout>
 </layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

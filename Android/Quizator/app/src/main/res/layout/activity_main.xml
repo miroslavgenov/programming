@@ -14,7 +14,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:id="@+id/root_layout"
-        android:background="@drawable/main_layout_gradient_animation"
+        android:background="#2a0e3c"
         tools:context=".MainActivity">
 
         <androidx.fragment.app.FragmentContainerView

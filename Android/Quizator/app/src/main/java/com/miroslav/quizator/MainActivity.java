@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements Binding {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 
 
-        animationDrawableHelper = new AnimationDrawableHelper(activityMainBinding.rootLayout.getBackground());
+//        animationDrawableHelper = new AnimationDrawableHelper(activityMainBinding.rootLayout.getBackground());
 
 
         //        LinearLayout layout = activityMainBinding.rootLayout;

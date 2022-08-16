@@ -3,14 +3,7 @@
 
     <item>
         <shape android:shape="oval">
-            <gradient
-                android:angle="315"
-                android:type="linear"
-                android:startColor="@color/active_button_start_color"
-                android:centerColor="@color/active_button_center_color"
-                android:endColor="@color/active_button_end_color"
-                />
-
+            <solid android:color="@color/inactive_color"/>
         </shape>
     </item>
     <item
@@ -20,7 +13,7 @@
         android:right="@dimen/layer_list_item_border_space">
 
         <shape android:shape="oval">
-            <solid android:color="@color/layout_main_background_color"/>
+            <solid android:color="#2a0e3c"/>
         </shape>
     </item>
 </layer-list>

@@ -11,52 +11,120 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+
 
         tools:context=".fragment.QuizatorMainFragment">
 
         <TextView
-            android:textAlignment="center"
-            android:textStyle="bold"
+            android:id="@+id/text_view_question_number"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:background="@drawable/radio_button_background_inactive_state"
             android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
 
-            android:background="@drawable/layout_quiz_question"
-            />
+            android:textStyle="bold" />
+
 
         <ImageButton
-            android:id="@+id/button_next_question"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_alignTop="@+id/layout_answers"
-
-            android:layout_marginTop="50dp"
-
-
+            android:id="@+id/image_button_next_question"
+            android:layout_width="@dimen/image_button_width"
+            android:layout_height="@dimen/image_button_height"
+            android:layout_alignTop="@+id/layout_answers_root"
             android:background="@drawable/image_button_state_animation"
             android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 
         <LinearLayout
-            android:id="@+id/layout_question"
+            android:id="@+id/layout_question_root"
             android:layout_width="250dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:orientation="vertical"
             >
+            <LinearLayout
+                android:id="@+id/layout_question_second_root"
+                android:orientation="vertical"
+                android:gravity="center|top"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_layout_gradient_animation">
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:text="Hell world"
+                    android:id="@+id/edit_text_question_title"
+                    android:textColor="@color/white"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="What is this?aaaaaaaaadasdadadaaaaaaaaaaaaaaasssssdd"
+                    android:textColor="@color/white"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_answers"
+            android:id="@+id/layout_answers_root"
             android:layout_width="250dp"
             android:layout_height="200dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/layout_question"
+            android:layout_below="@+id/layout_question_root"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
 
             >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+
+                    >
+
+                    <RadioButton
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/radio_button_background_select_state"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Answer 1"
+                        android:textColor="@color/white" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radio_button_background_select_state"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:text="Answer 2"
+                        android:textColor="@color/white" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
 
         </LinearLayout>
     </RelativeLayout>

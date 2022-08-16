@@ -1,5 +1,8 @@
 package com.miroslav.quizator.fragment;
 
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 
@@ -56,16 +59,19 @@ public class StartFragment extends Fragment implements Binding {
 
 
         Button buttonPlay = fragmentStartBinding.buttonPlay;
-        TransitionDrawable transitionDrawable = (TransitionDrawable) buttonPlay.getBackground();
-        buttonPlay.setOnTouchListener((view1, motionEvent) -> {
-            if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                transitionDrawable.startTransition(50);
-            }else if(motionEvent.getAction()== MotionEvent.ACTION_UP){
-                transitionDrawable.reverseTransition(50);
-                Navigation.findNavController(view1).navigate(R.id.action_startFragment_to_quizatorMainFragment);
-            }
-            return false;
-        });
+        buttonPlay.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_startFragment_to_quizatorMainFragment));
+
+
+//        TransitionDrawable transitionDrawable = (TransitionDrawable) buttonPlay.getBackground();
+//        buttonPlay.setOnTouchListener((view1, motionEvent) -> {
+//            if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+//                transitionDrawable.startTransition(50);
+//            }else if(motionEvent.getAction()== MotionEvent.ACTION_UP){
+//                transitionDrawable.reverseTransition(50);
+//                Navigation.findNavController(view1).navigate(R.id.action_startFragment_to_quizatorMainFragment);
+//            }
+//            return false;
+//        });
 
     }
 
