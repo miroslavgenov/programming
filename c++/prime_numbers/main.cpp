@@ -23,6 +23,7 @@ class MyException{
 	private:
 		std::string error_message;
 		int error_number;
+
 	public:
 		MyException(int,std::string);
 		MyException();
@@ -34,6 +35,7 @@ class MyException{
 
 MyException::MyException(int _error_number,std::string _error_message):error_number(_error_number),error_message(_error_message){
 }
+
 MyException::MyException():MyException(999,"Deffault exception"){
 }
 
@@ -87,8 +89,6 @@ bool is_number_valid_and_greater(int *source_number){
 	return false;
 	
 }
-
-
 
 bool is_number_prime(int *source_number){
 	if(is_number_valid_and_greater(source_number) && is_number_not_devidible(*source_number))

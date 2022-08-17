@@ -12,6 +12,9 @@ import android.transition.Scene;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RadioButton;
 
@@ -59,6 +62,8 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         Question question = new Question("C++","What is this operator?",new String[]{"1","2"});
         Question question1= new Question("Java","What is this operator?",new String[]{"0","1"});
         fragmentQuizatorMainBinding.setQuestion(question);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
+        alphaAnimation.setDuration(1000);
 
         fragmentQuizatorMainBinding.imageButtonToNextQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +72,13 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                 int checkedRadioButtonID = fragmentQuizatorMainBinding.radioGroupAnswers.getCheckedRadioButtonId();
                 RadioButton radioButtonFirstAnswer = fragmentQuizatorMainBinding.radioButtonFirstAnswer;
                 RadioButton radioButtonSecondAnswer = fragmentQuizatorMainBinding.radioButtonSecondAnswer;
+
+//                fragmentQuizatorMainBinding.layoutQuestionRoot.startAnimation(alphaAnimation);
+                    AlphaAnimation a = (AlphaAnimation) AnimationUtils.loadAnimation(getContext(),R.anim.animation_alpa);
+                    fragmentQuizatorMainBinding.layoutQuestionRoot.startAnimation(a);
+
+
+
 
                 //TODO make class to check which radio button is checked
 //                if(radioButtonFirstAnswer.getId()==checkedRadioButtonID){

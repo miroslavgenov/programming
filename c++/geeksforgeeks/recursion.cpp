@@ -1,22 +1,33 @@
 #include <iostream>
+
 using namespace std;
 
-void printNos(int N){
-	if(N>0){
-		printNos(N-1);
-		cout<<N<<" ";
+void printNos(int );
+bool isNumberZero(int );
+void rec(int );
+
+int main(){
+	printNos(10);
+}
+
+void printNos(int number){
+	if(number>0){
+		printNos(number-1);
+		cout<<number<<" ";
 	}	
 }
 
-void rec(int N){
-	if(N>=1 && N<=100000){
-		if(N==0){
+void rec(int number){
+	if(number>=1 && number<=100000){
+		
+		if(isNumberZero(number)){
 			return;
 		}
-		rec(--N);
-		cout<<N+1<<" ";
+
+		rec(--number);
+		cout<<number+1<<" ";
 	}
 }
-int main(){
-	printNos(10);
+bool isNumberZero(int number){
+	return number==0;
 }

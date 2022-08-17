@@ -1,12 +1,13 @@
 #include <iostream>
+
 using namespace std;
 
-class Number{
-    
+int fact=1;
 
+class Number{
     public:
-    
         Number(int _number):number(_number){}
+
         Number():Number(6){}
         
         int getFactorialNumber(){
@@ -22,12 +23,9 @@ class Number{
             number=value;
         }
 
-
     private:
         int number;
         int factorial = 1;
-    
-        
         
         int multiplayFactorial(int value){
             setFactorial(getFactorial()*value);
@@ -37,12 +35,10 @@ class Number{
 
         void setFactorial(int value){
             factorial = value;
-        }
-
-        
+        }        
 };
 
-int fact=1;
+
 void factorialRec(int number,int fac){
     
     if(number==0){
@@ -60,5 +56,4 @@ int main(){
     // cout<<number->getFactorialNumber()<<endl;
    factorialRec(4,1);
    cout<<fact<<endl;
-    
 }

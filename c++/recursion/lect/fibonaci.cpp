@@ -1,10 +1,13 @@
 #include <iostream>
+
 using namespace std;
+
 int b(int n){
     if (n==0) {
         cout<<endl<<n<<" returing from b"<<endl;
         return 1;
-        }
+    }
+    
     cout<<"b: "<<n<<endl;
     return b(n-1);
     
@@ -13,11 +16,11 @@ int b(int n){
 int a(int n){
     if(n==0){
         cout<<endl<<n<<" returing from a"<<endl;
-        return 1;}
+        return 1;
+    }
+
     cout<<"a: "<<n<<endl;
     return a(n-1)+b(n-1);
-
-
 }
 
 
