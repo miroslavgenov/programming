@@ -28,7 +28,9 @@ public class Question {
     public String getQuestionTitle() {
         return questionTitle;
     }
-
+    public String getCorrectQuestionAnswer(){
+        return this.questionAnswers[0];
+    }
     public String getQuestion() {
         return question;
     }

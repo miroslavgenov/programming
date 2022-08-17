@@ -18,5 +18,15 @@
         android:id="@+id/quizatorMainFragment"
         android:name="com.miroslav.quizator.fragment.QuizatorMainFragment"
         android:label="fragment_quizator_main"
-        tools:layout="@layout/fragment_quizator_main" />
+        tools:layout="@layout/fragment_quizator_main" >
+        <action
+            android:id="@+id/action_quizatorMainFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:popUpTo="@id/startFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.miroslav.quizator.fragment.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 
 import com.miroslav.quizator.Binding;
@@ -33,6 +34,17 @@ public class StartFragment extends Fragment implements Binding {
                              Bundle savedInstanceState) {
         initFragmentDataBindingUtilContent(inflater, container);
         this.setBinding();
+
+        Button buttonPlay = fragmentStartBinding.buttonPlay;
+
+        AlphaAnimation alphaAnimationForButtonPlay = new AlphaAnimation(0,1);
+        alphaAnimationForButtonPlay.setDuration(1200);
+        buttonPlay.startAnimation(alphaAnimationForButtonPlay);
+
+        buttonPlay.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_startFragment_to_quizatorMainFragment));
+
+
+
         return fragmentStartBinding.getRoot();
     }
 
@@ -58,8 +70,7 @@ public class StartFragment extends Fragment implements Binding {
 
 
 
-        Button buttonPlay = fragmentStartBinding.buttonPlay;
-        buttonPlay.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_startFragment_to_quizatorMainFragment));
+
 
 
 //        TransitionDrawable transitionDrawable = (TransitionDrawable) buttonPlay.getBackground();

@@ -1,0 +1,135 @@
+animation dont have default duration
+
+AlphaAnimation(fromAlpha,toAlpha)
++setDuration(int)
+
+TranslateAnimation(Animation.Absolute , 0 , Animation.relative_to_parent, 1,animation.absolute,0,animation.absolute,100);
+setDuration(int);
+
+
+
+RotateAnimation(0,360,animation.relative_to_self,.5f ,
+animation.relative-to-self, .5f);
+setduration(int);
+
+scaleanimation(1,2,1,2);
+setDuration(int);
+
+animationSet(bool); // true,false
+setanimation.addanimation(alphaanimation);
+setanimation.addanimation(translateanimation);
+setanimation.addanimation(rotateanimation);
+setanimation.addanimation(scaleanimation);
+
+
+
+// load from xml
+view.startAnimation(AnimationUtils.loadAnimation(ViewAnimations.this , R.anim.yourAnimation);
+
+or 
+
+view.startAnimation(alphaanimation);
+
+xml
+<alpha 
+	android:fromAlpha="1.0"
+	android:toAlpha="0.0:
+	android:duration="500"/>
+
+<rotate
+	toDegrees=""
+	pivotX="50%" // center
+	pivotY="50%" // center
+	duration="1000"
+	/>
+
+<translate <-- transition -- >
+	fromxdelta="0"
+	toxdelta="100%p"
+	fromydelta="0"
+	toydelta="100"
+	duration="100"
+/>
+
+<scale
+	fromXScale="1" this is 1 is normatsize
+	fromYScale="1" = 100%
+	toXScale="2"
+	toYScale="2"  = 200%
+	duration="1000"/>
+
+<set >
+this will stack all at the same time
+	<alpha 
+	 ... />
+	 <rotate .. />
+ 	 <scale .. />
+</set>
+
+!!! use startOffSet to split them in time
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,7 +25,7 @@
             android:background="@drawable/radio_button_background_inactive_state"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="0"
+
             android:textAlignment="center"
             android:textColor="@color/white"
 
@@ -101,7 +101,7 @@
                     android:id="@+id/radio_group_answers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:checkedButton="@id/radio_button_first_answer"
 
                     >
