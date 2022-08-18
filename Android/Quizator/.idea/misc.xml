@@ -47,12 +47,14 @@
         <entry key="app/src/main/res/drawable/stroke_gradient_test_1.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/stroke_gradient_test_selected.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.2158203125" />
         <entry key="app/src/main/res/layout/answers_scene_1.xml" value="0.10055724417426545" />
         <entry key="app/src/main/res/layout/fragment_quizator_main.xml" value="0.1286231884057971" />
         <entry key="app/src/main/res/layout/fragment_result.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.1" />
         <entry key="app/src/main/res/layout/question1_scene.xml" value="0.22" />
         <entry key="app/src/main/res/layout/question2_scene.xml" value="0.12907608695652173" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/quizator.xml" value="0.1045" />
       </map>
     </option>
   </component>

@@ -1,8 +1,10 @@
 package com.miroslav.quizator;
 
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
@@ -26,6 +28,14 @@ public class AlphaAnimationHelper {
 
     public Question getQuestion() {
         return question;
+    }
+
+
+
+    public AlphaAnimationHelper(View targetViewToStartAnimation , int fromAlpha,int toAlpha , int animationDuration){
+        AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha,toAlpha);
+        alphaAnimation.setDuration(animationDuration);
+        targetViewToStartAnimation.startAnimation(alphaAnimation);
     }
 
     public AlphaAnimationHelper(LinearLayout layoutQuestionRoot, LinearLayout layoutAnswersRoot,

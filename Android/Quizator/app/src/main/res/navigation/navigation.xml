@@ -28,5 +28,10 @@
         android:id="@+id/resultFragment"
         android:name="com.miroslav.quizator.fragment.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <argument
+            android:name="player_score"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

@@ -75,9 +75,11 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     public void setQuestions() {
 
         Question[] questions= new Question[]{
-            new Question("Software development","What is Agile?",new String[]{"project management methodology","programming language"}),
-            new Question("C++","What is this operator?",new String[]{"pointer","object"}),
-            new Question("Test++","What is this operator?",new String[]{"pointer","object"})
+            new Question("Software development","What is Agile ?",new String[]{"Project management methodology","Programming language"}),
+            new Question("Computing","How many bit's 1 byte have ?",new String[]{"8","16"}),
+            new Question("Roblox","Which language is used to program games in Roblox Studio?",new String[]{"Lua","C++"}),
+            new Question("Web development","What is HTML ?",new String[]{"Markup language","File format"}),
+            new Question("C++","How did you write a comment in C++ ?",new String[]{"//","#"})
         };
 
         Collections.addAll(this.questions, questions);
@@ -166,27 +168,28 @@ public class QuizatorMainFragment extends Fragment implements Binding {
             public void onClick(View view) {
 
                 if(quiz.isQuizCompleted()){
-                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getSelectedAnswerFromPlayer());
+                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
                     quizQuestor.setQuestionGivenToPlayer(quiz.getQuestions().get(quiz.getCurrentQuestionNumber()));
                     Log.d("MyGym","quiz complete");
                     if(quizQuestor.isPlayerAnswerCorrect()){
-                        Log.d("MyGym",radioGroupHelper.getSelectedAnswerFromPlayer());
+                        Log.d("MyGym",radioGroupHelper.getCheckedAnswerFromPlayer());
                         quizPlayer.incrementScoreByOne();
                         Log.d("MyGym",String.valueOf(quizPlayer.getScore()));
                     }
-
-                    Navigation.findNavController(view).navigate(R.id.action_quizatorMainFragment_to_resultFragment);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("player_score",quizPlayer.getScore());
+                    Navigation.findNavController(view).navigate(R.id.action_quizatorMainFragment_to_resultFragment,bundle);
 
 
                 }else{
 
 
-                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getSelectedAnswerFromPlayer());
+                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
                     quizQuestor.setQuestionGivenToPlayer(quiz.getQuestions().get(quiz.getCurrentQuestionNumber()));
                     Log.d("MyGym",String.valueOf(quizPlayer.getScore()));
 
                     if(quizQuestor.isPlayerAnswerCorrect()){
-                        Log.d("MyGym",radioGroupHelper.getSelectedAnswerFromPlayer());
+                        Log.d("MyGym",radioGroupHelper.getCheckedAnswerFromPlayer());
                         quizPlayer.incrementScoreByOne();
                         Log.d("MyGym",String.valueOf(quizPlayer.getScore()));
                     }
