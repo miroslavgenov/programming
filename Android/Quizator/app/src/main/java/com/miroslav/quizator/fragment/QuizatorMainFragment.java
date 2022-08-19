@@ -54,19 +54,32 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         super.onCreate(savedInstanceState);
     }
 
+    public void initQuestions(){
+        this.questions = new ArrayList<>();
+    }
+    public void initQuestor(){
+        quizQuestor = new Questor();
+    }
+
+    public void initQuizPlayer(){
+        quizPlayer=new Player();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         initFragmentDataBindingUtilContent(inflater,container);
         setBinding();
-        this.questions = new ArrayList<>();
-        quizQuestor = new Questor();
+        initQuestions();
+        initQuestor();
+        initQuizPlayer();
+
         imageButtonToNextQuestion = fragmentQuizatorMainBinding.imageButtonToNextQuestion;
         layoutQuestionRoot = fragmentQuizatorMainBinding.layoutQuestionRoot;
         layoutAnswersRoot = fragmentQuizatorMainBinding.layoutAnswersRoot;
         textViewQuestionNumber = fragmentQuizatorMainBinding.textViewQuestionNumber;
         alphaAnimationHelper = new AlphaAnimationHelper(layoutQuestionRoot,layoutAnswersRoot,fragmentQuizatorMainBinding);
-        quizPlayer=new Player();
+        
 
 
         return fragmentQuizatorMainBinding.getRoot();
@@ -87,7 +100,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
     void quizInit(){
         this.quiz = new Quiz(this.questions);
-
     }
 
     @Override
@@ -169,13 +181,12 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
                 if(quiz.isQuizCompleted()){
                     quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
-                    quizQuestor.setQuestionGivenToPlayer(quiz.getQuestions().get(quiz.getCurrentQuestionNumber()));
-                    Log.d("MyGym","quiz complete");
+                    quizQuestor.setQuestionGivenToPlayer(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
+//                    incrementPlayerScore();
                     if(quizQuestor.isPlayerAnswerCorrect()){
-                        Log.d("MyGym",radioGroupHelper.getCheckedAnswerFromPlayer());
-                        quizPlayer.incrementScoreByOne();
-                        Log.d("MyGym",String.valueOf(quizPlayer.getScore()));
+                        quizPlayer.setScore(quizPlayer.incrementScoreByOne());
                     }
+
                     Bundle bundle = new Bundle();
                     bundle.putInt("player_score",quizPlayer.getScore());
                     Navigation.findNavController(view).navigate(R.id.action_quizatorMainFragment_to_resultFragment,bundle);
@@ -184,28 +195,29 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                 }else{
 
 
-                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
-                    quizQuestor.setQuestionGivenToPlayer(quiz.getQuestions().get(quiz.getCurrentQuestionNumber()));
-                    Log.d("MyGym",String.valueOf(quizPlayer.getScore()));
-
-                    if(quizQuestor.isPlayerAnswerCorrect()){
-                        Log.d("MyGym",radioGroupHelper.getCheckedAnswerFromPlayer());
-                        quizPlayer.incrementScoreByOne();
-                        Log.d("MyGym",String.valueOf(quizPlayer.getScore()));
+//                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
+//                    quizQuestor.setQuestionGivenToPlayer(quiz.getQuestionBesideCurrentQuestionNumber());
+                    if(Questor.isPlayerAnswerCorrect(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()),
+                            radioGroupHelper.getCheckedAnswerFromPlayer())){
+                        quizPlayer.setScore(quizPlayer.incrementScoreByOne());
                     }
+
+//                    incrementPlayerScore();
+
                     quiz.incrementQuestionNumber();
 
-                    alphaAnimationHelper.setQuestion(
-                            quiz.getQuestions().get(quiz.getCurrentQuestionNumber())
-                    );
-
+                    alphaAnimationHelper.setQuestionForAnimation(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
 
                     alphaAnimationHelper.startAnimation();
-
-                    textViewQuestionNumber.startAnimation(animationSet);}
+                    textViewQuestionNumber.startAnimation(animationSet);
+                }
             }
         });
     }
+
+//    private void incrementPlayerScore() {
+//
+//    }
 
     private void setFirstQuestionToUI() {
         fragmentQuizatorMainBinding.setQuestion(quiz.getFirstQuestion());

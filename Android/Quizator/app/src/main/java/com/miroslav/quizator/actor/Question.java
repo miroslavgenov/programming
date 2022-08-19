@@ -1,16 +1,14 @@
 package com.miroslav.quizator.actor;
 
-
 public class Question {
     String questionTitle;
     String[] questionAnswers;
     String question;
 
-    public Question(String questionTitle,String question,String[] questionAnswers){
+    public Question(String questionTitle, String question, String[] questionAnswers) {
         setQuestionTitle(questionTitle);
         setQuestion(question);
         setQuestionAnswers(questionAnswers);
-
     }
 
     public void setQuestionTitle(String questionTitle) {
@@ -22,15 +20,17 @@ public class Question {
     }
 
     public void setQuestionAnswers(String[] questionAnswers) {
-        this.questionAnswers=questionAnswers;
+        this.questionAnswers = questionAnswers;
     }
 
     public String getQuestionTitle() {
         return questionTitle;
     }
-    public String getCorrectQuestionAnswer(){
+
+    public String getCorrectQuestionAnswer() {
         return this.questionAnswers[0];
     }
+
     public String getQuestion() {
         return question;
     }
@@ -39,15 +39,6 @@ public class Question {
         return questionAnswers;
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

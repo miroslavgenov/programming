@@ -18,38 +18,25 @@ public class AlphaAnimationHelper {
     Question question;
     final int ANIMATION_DURATION = 1000;
 
-    public void setFragmentQuizatorMainBinding(FragmentQuizatorMainBinding fragmentQuizatorMainBinding) {
-        this.fragmentQuizatorMainBinding = fragmentQuizatorMainBinding;
-    }
+    
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-
-
-    public AlphaAnimationHelper(View targetViewToStartAnimation , int fromAlpha,int toAlpha , int animationDuration){
-        AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha,toAlpha);
+    public AlphaAnimationHelper(View targetViewToStartAnimation, int fromAlpha, int toAlpha, int animationDuration) {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
         alphaAnimation.setDuration(animationDuration);
         targetViewToStartAnimation.startAnimation(alphaAnimation);
     }
 
     public AlphaAnimationHelper(LinearLayout layoutQuestionRoot, LinearLayout layoutAnswersRoot,
-                                FragmentQuizatorMainBinding fragmentQuizatorMainBinding){
+            FragmentQuizatorMainBinding fragmentQuizatorMainBinding) {
         this.layoutQuestionRoot = layoutQuestionRoot;
         this.layoutAnswersRoot = layoutAnswersRoot;
-        this.fragmentQuizatorMainBinding  = fragmentQuizatorMainBinding;
+        this.fragmentQuizatorMainBinding = fragmentQuizatorMainBinding;
 
-        fadeInForQuestionAndAnswersRootLayout = new AlphaAnimation(1,0);
+        fadeInForQuestionAndAnswersRootLayout = new AlphaAnimation(1, 0);
         fadeInForQuestionAndAnswersRootLayout.setDuration(ANIMATION_DURATION);
 
-        fadeOutForQuestionAndAnswersRootLayout = new AlphaAnimation(0,1);
+        fadeOutForQuestionAndAnswersRootLayout = new AlphaAnimation(0, 1);
         fadeOutForQuestionAndAnswersRootLayout.setDuration(ANIMATION_DURATION/2);
-
 
         fadeInForQuestionAndAnswersRootLayout.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -71,58 +58,22 @@ public class AlphaAnimationHelper {
         });
 
     }
-    public void startAnimation(){
+
+    public void setFragmentQuizatorMainBinding(FragmentQuizatorMainBinding fragmentQuizatorMainBinding) {
+        this.fragmentQuizatorMainBinding = fragmentQuizatorMainBinding;
+    }
+
+    public void setQuestionForAnimation(Question question) {
+        this.question = question;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void startAnimation() {
         layoutQuestionRoot.startAnimation(fadeInForQuestionAndAnswersRootLayout);
         layoutAnswersRoot.startAnimation(fadeInForQuestionAndAnswersRootLayout);
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

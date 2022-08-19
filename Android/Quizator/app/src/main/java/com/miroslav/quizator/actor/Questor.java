@@ -5,7 +5,8 @@ public class Questor {
     Question questionGivenToPlayer;
     String questionAnswerPassedFromPlayer;
 
-    public Questor(){}
+    public Questor() {
+    }
 
     public void setQuestionAnswerPassedFromPlayer(String questionAnswerPassedFromPlayer) {
         this.questionAnswerPassedFromPlayer = questionAnswerPassedFromPlayer;
@@ -15,27 +16,13 @@ public class Questor {
         this.questionGivenToPlayer = questionGivenToPlayer;
     }
 
-    public boolean isPlayerAnswerCorrect(){
-        return questionGivenToPlayer.getCorrectQuestionAnswer().equals(questionAnswerPassedFromPlayer);
+    public static  boolean isPlayerAnswerCorrect(Question questionGivenToPlayer , String questionAnswerPassedFromPlayer){
+        return questionGivenToPlayer.getCorrectQuestionAnswer().equals(
+                questionAnswerPassedFromPlayer);
+    }
+
+    public boolean isPlayerAnswerCorrect() {
+        return questionGivenToPlayer.getCorrectQuestionAnswer().equals(
+                questionAnswerPassedFromPlayer);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

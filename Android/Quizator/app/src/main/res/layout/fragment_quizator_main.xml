@@ -36,7 +36,8 @@
             android:id="@+id/image_button_to_next_question"
             android:layout_width="@dimen/image_button_width"
             android:layout_height="@dimen/image_button_height"
-            android:layout_alignTop="@+id/layout_answers_root"
+            android:layout_below="@+id/text_view_question_number"
+            android:layout_marginTop="60dp"
             android:background="@drawable/image_button_state_animation"
             android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
 

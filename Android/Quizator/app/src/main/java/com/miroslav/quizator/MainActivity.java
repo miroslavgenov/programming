@@ -3,7 +3,7 @@ package com.miroslav.quizator;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private static final int LAYOUT_MAIN_ACTIVITY_ID = R.layout.activity_main;
 
     @Override
@@ -12,39 +12,3 @@ public class MainActivity extends AppCompatActivity{
         setContentView(LAYOUT_MAIN_ACTIVITY_ID);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
