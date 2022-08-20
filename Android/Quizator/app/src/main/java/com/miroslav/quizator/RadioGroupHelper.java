@@ -13,13 +13,11 @@ public class RadioGroupHelper {
     public RadioGroupHelper(RadioGroup radioGroupAnswer) {
         setRadioGroupAnswer(radioGroupAnswer);
         setRadioButtonsAnswer(radioGroupAnswer);
-        ;
     }
 
     public void setRadioGroupAnswer(RadioGroup radioGroupAnswer) {
         this.radioGroupAnswer = radioGroupAnswer;
     }
-
     
     void setRadioButtonsAnswerSize(int size){
         radioButtonsAnswer = new RadioButton[size];
@@ -30,24 +28,20 @@ public class RadioGroupHelper {
     }
 
     public void setRadioButtonsAnswer(RadioGroup radioGroupAnswer) {
-        setRadioButtonsAnswerSize(getRadioGroupAnswerSize())
-        
-        // radioButtonsAnswer = new RadioButton[getRadioGroupAnswerSize()];
-        for (int i = 0; i < getRadioButtonsAnswerLenght(); i++) {
+        setRadioButtonsAnswerSize(getRadioGroupAnswerSize());
+
+        for (int i = 0; i < getRadioButtonsAnswerLength(); i++) {
             setRadioButtonAnswer(i,(RadioButton) radioGroupAnswer.getChildAt(i));
-            // radioButtonsAnswer[i] = (RadioButton) radioGroupAnswer.getChildAt(i);
         }
     }
 
-    int getRadioButtonsAnswerLenght(){
+    int getRadioButtonsAnswerLength(){
         return radioButtonsAnswer.length;
     }
     
     void setRadioButtonAnswer(int buttonIndex,RadioButton valueRadioButton){
         radioButtonsAnswer[buttonIndex]  = valueRadioButton;
     }
-
-    
 
     public String getCheckedAnswerFromPlayer() {
         for (RadioButton radioButtonAnswer : radioButtonsAnswer) {
@@ -72,7 +66,7 @@ public class RadioGroupHelper {
     }
 
     public String getRadioButtonTextString(RadioButton radioButton) {
-        return radioButton.getText().toString();
+        return (String)radioButton.getText();
     }
 }
 

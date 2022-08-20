@@ -23,7 +23,7 @@ public class StartFragment extends Fragment implements Binding {
     FragmentStartBinding dataBindingUtilContent;
     final int LAYOUT_START_FRAGMENT_ID = R.layout.fragment_start;
     final int CURRENT_TO_QUIZATOR_MAIN_FRAGMENT_ID = R.id.action_startFragment_to_quizatorMainFragment;
-    private AlphaAnimationHelper alphaAnimationHelperForButtonPlay;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +53,7 @@ public class StartFragment extends Fragment implements Binding {
     }
 
     private void iniAnimationForButtonPlay() {
-        alphaAnimationHelperForButtonPlay = new AlphaAnimationHelper(fragmentStartBinding.buttonPlay,0,1,1200);
+        new AlphaAnimationHelper(fragmentStartBinding.buttonPlay,0,1,1200);
     }
 
     @Override

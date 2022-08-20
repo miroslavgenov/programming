@@ -21,22 +21,16 @@ public class AlphaAnimationHelper {
     
 
     public AlphaAnimationHelper(View targetViewToStartAnimation, int fromAlpha, int toAlpha, int animationDuration) {
-        AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
-        alphaAnimation.setDuration(animationDuration);
-        targetViewToStartAnimation.startAnimation(alphaAnimation);
+        targetViewToStartAnimation.startAnimation(createAlphaAnimation(fromAlpha,toAlpha,animationDuration));
     }
 
-    public AlphaAnimationHelper(LinearLayout layoutQuestionRoot, LinearLayout layoutAnswersRoot,
-            FragmentQuizatorMainBinding fragmentQuizatorMainBinding) {
-        this.layoutQuestionRoot = layoutQuestionRoot;
-        this.layoutAnswersRoot = layoutAnswersRoot;
+    public AlphaAnimationHelper(View layoutQuestionRoot, View layoutAnswersRoot,
+            FragmentQuizatorMainBinding fragmentQuizatorMainBinding ) {
+        this.layoutQuestionRoot = (LinearLayout) layoutQuestionRoot;
+        this.layoutAnswersRoot = (LinearLayout) layoutAnswersRoot;
         this.fragmentQuizatorMainBinding = fragmentQuizatorMainBinding;
-
-        fadeInForQuestionAndAnswersRootLayout = new AlphaAnimation(1, 0);
-        fadeInForQuestionAndAnswersRootLayout.setDuration(ANIMATION_DURATION);
-
-        fadeOutForQuestionAndAnswersRootLayout = new AlphaAnimation(0, 1);
-        fadeOutForQuestionAndAnswersRootLayout.setDuration(ANIMATION_DURATION/2);
+        fadeInForQuestionAndAnswersRootLayout = createAlphaAnimation(1,0,ANIMATION_DURATION);
+        fadeOutForQuestionAndAnswersRootLayout = createAlphaAnimation(0,1,ANIMATION_DURATION/2);
 
         fadeInForQuestionAndAnswersRootLayout.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -59,6 +53,12 @@ public class AlphaAnimationHelper {
 
     }
 
+    public static AlphaAnimation createAlphaAnimation(int fromAlpha, int toAlpha, int animationDuration) {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha,toAlpha);
+        alphaAnimation.setDuration(animationDuration);
+        return alphaAnimation;
+    }
+
     public void setFragmentQuizatorMainBinding(FragmentQuizatorMainBinding fragmentQuizatorMainBinding) {
         this.fragmentQuizatorMainBinding = fragmentQuizatorMainBinding;
     }
@@ -71,9 +71,69 @@ public class AlphaAnimationHelper {
         return question;
     }
 
-    public void startAnimation() {
+     public void startAnimation() {
         layoutQuestionRoot.startAnimation(fadeInForQuestionAndAnswersRootLayout);
         layoutAnswersRoot.startAnimation(fadeInForQuestionAndAnswersRootLayout);
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

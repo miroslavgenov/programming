@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
 
 public class QuizatorMainFragment extends Fragment implements Binding {
     FragmentQuizatorMainBinding fragmentQuizatorMainBinding;
@@ -79,8 +77,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         layoutAnswersRoot = fragmentQuizatorMainBinding.layoutAnswersRoot;
         textViewQuestionNumber = fragmentQuizatorMainBinding.textViewQuestionNumber;
         alphaAnimationHelper = new AlphaAnimationHelper(layoutQuestionRoot,layoutAnswersRoot,fragmentQuizatorMainBinding);
-        
-
 
         return fragmentQuizatorMainBinding.getRoot();
     }
@@ -106,15 +102,11 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         setQuestions();
         this.quizInit();
         setTextViewQuestionNumberText(quiz.getCurrentQuestionNumber());
         setFirstQuestionToUI();
         initRadioGroupHelper();
-
-
-
 
         float scaleAnimationFromX=1f;
         float scaleAnimationFromY=1f;
@@ -140,7 +132,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
             }
         });
-
 
         ScaleAnimation scaleAnimation = new ScaleAnimation(scaleAnimationFromX,scaleAnimationToX,scaleAnimationFromY,scaleAnimationToY);
         scaleAnimation.setDuration(400);
@@ -182,7 +173,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                 if(quiz.isQuizCompleted()){
                     quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
                     quizQuestor.setQuestionGivenToPlayer(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
-//                    incrementPlayerScore();
+
                     if(quizQuestor.isPlayerAnswerCorrect()){
                         quizPlayer.setScore(quizPlayer.incrementScoreByOne());
                     }
@@ -190,20 +181,13 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                     Bundle bundle = new Bundle();
                     bundle.putInt("player_score",quizPlayer.getScore());
                     Navigation.findNavController(view).navigate(R.id.action_quizatorMainFragment_to_resultFragment,bundle);
-
-
                 }else{
-
-
-//                    quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
-//                    quizQuestor.setQuestionGivenToPlayer(quiz.getQuestionBesideCurrentQuestionNumber());
-                    if(Questor.isPlayerAnswerCorrect(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()),
-                            radioGroupHelper.getCheckedAnswerFromPlayer())){
-                        quizPlayer.setScore(quizPlayer.incrementScoreByOne());
+                    if(Questor.isPlayerAnswerCorrect(quiz.getQuestionBesideCurrentQuestionNumber(
+                            quiz.getCurrentQuestionNumber())    ,
+                        radioGroupHelper.getCheckedAnswerFromPlayer()))
+                    {
+                            quizPlayer.setScore(quizPlayer.incrementScoreByOne());
                     }
-
-//                    incrementPlayerScore();
-
                     quiz.incrementQuestionNumber();
 
                     alphaAnimationHelper.setQuestionForAnimation(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
@@ -214,10 +198,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
             }
         });
     }
-
-//    private void incrementPlayerScore() {
-//
-//    }
 
     private void setFirstQuestionToUI() {
         fragmentQuizatorMainBinding.setQuestion(quiz.getFirstQuestion());
