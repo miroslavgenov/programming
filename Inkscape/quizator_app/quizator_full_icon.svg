@@ -9,7 +9,7 @@
    id="svg5"
    sodipodi:docname="quizator_full_icon.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   inkscape:export-filename="/home/home/Desktop/programming/Inkscape/quizator_full_icon.png"
+   inkscape:export-filename="/home/home/Desktop/programming/Inkscape/quizator_app/quizator_full_icon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -26,9 +26,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="0.66796875"
-     inkscape:cx="65.871345"
-     inkscape:cy="389.9883"
+     inkscape:zoom="0.94465047"
+     inkscape:cx="240.30052"
+     inkscape:cy="230.24389"
      inkscape:window-width="1280"
      inkscape:window-height="960"
      inkscape:window-x="0"
@@ -37,6 +37,17 @@
      inkscape:current-layer="svg5" />
   <defs
      id="defs2">
+    <linearGradient
+       id="linearGradient1055">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.41356048"
+         offset="0"
+         id="stop1051" />
+      <stop
+         style="stop-color:#2a0e3c;stop-opacity:0.15686275"
+         offset="1"
+         id="stop1053" />
+    </linearGradient>
     <linearGradient
        id="linearGradient23647">
       <stop
@@ -140,30 +151,32 @@
          id="stop18275" />
     </linearGradient>
     <linearGradient
-       xlink:href="#linearGradient18420"
+       xlink:href="#linearGradient1055"
        id="linearGradient15477"
        x1="268.07605"
        y1="86.9869"
-       x2="519.24237"
-       y2="98.974457"
-       gradientUnits="userSpaceOnUse" />
+       x2="468.53448"
+       y2="99.797585"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.88881461,0.45826694,-0.42058697,0.90725223,-56.665389,-54.833311)" />
     <linearGradient
-       xlink:href="#linearGradient18277"
+       xlink:href="#linearGradient1055"
        id="linearGradient15599"
-       x1="248.99394"
-       y1="87.538322"
-       x2="377.08163"
-       y2="87.538322"
-       gradientUnits="userSpaceOnUse" />
+       x1="225.53107"
+       y1="91.870003"
+       x2="328.26511"
+       y2="93.076088"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.88881461,0.45826694,-0.42058697,0.90725223,-56.665389,-54.833311)" />
     <linearGradient
-       xlink:href="#linearGradient18420"
+       xlink:href="#linearGradient1055"
        id="linearGradient16464"
        gradientUnits="userSpaceOnUse"
        x1="248.99394"
        y1="87.538322"
-       x2="377.08163"
-       y2="87.538322"
-       gradientTransform="matrix(0.43176987,0,0,0.472303,296.43531,170.09171)" />
+       x2="361.70267"
+       y2="85.965195"
+       gradientTransform="matrix(0.37061863,0.22151084,-0.17537669,0.43853522,134.62715,255.17769)" />
     <linearGradient
        xlink:href="#linearGradient18915"
        id="linearGradient18573"
@@ -196,32 +209,29 @@
     </pattern>
   </defs>
   <rect
-     style="fill:#ffffff;stroke-width:8.45184;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
+     style="fill:#2a0e3c;fill-opacity:1;stroke-width:8.45184;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
      id="rect880"
      width="512"
      height="512"
      x="0"
      y="0" />
   <g
-     id="g27126"
-     transform="translate(-56.665389,-54.833311)">
+     id="g1732">
     <path
        id="rect7253"
-       style="fill:url(#linearGradient15599);stroke-width:6.26836;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
-       transform="matrix(0.88881461,0.45826694,-0.42058697,0.90725223,0,0)"
-       d="M 248.99394,48.801983 H 377.08163 V 126.27466 H 248.99394 Z" />
+       style="fill:url(#linearGradient15599);fill-opacity:1;stroke-width:6.2656;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
+       d="M 144.11858,103.54809 257.96479,162.24644 225.3808,232.5337 111.53459,173.83535 Z" />
     <path
        id="rect10711"
-       style="fill:url(#linearGradient15477);fill-opacity:1;stroke-width:6.26836;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
-       transform="matrix(0.88881461,0.45826694,-0.42058697,0.90725223,0,0)"
-       d="M 288.54398,16.609706 510.96166,-7.0867972 519.24239,205.03571 H 391.15469 L 385.1633,81.832099 Z" />
+       style="fill:url(#linearGradient15477);fill-opacity:1;stroke-width:6.2656;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
+       d="M 192.81089,92.466049 400.46541,172.89401 318.60949,369.13742 204.76327,310.43906 251.25586,195.91665 Z" />
     <path
        id="rect16462"
-       style="fill:url(#linearGradient16464);fill-opacity:1;stroke-width:2.83068;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
-       d="m 422.88802,183.43291 89.64826,-2.39403 0.90892,46.77519 -109.50181,1.91756 z"
-       transform="matrix(0.85837076,0.51302986,-0.37132241,0.92850399,0,0)" />
+       style="fill:url(#linearGradient16464);fill-opacity:1;stroke-width:2.81293;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
+       d="m 238.21657,332.43906 77.8404,43.76937 -16.58848,43.89725 -94.70519,-54.39724 z" />
     <g
-       id="g1313">
+       id="g1313"
+       transform="translate(-56.665389,-54.833311)">
       <path
          id="rect5058"
          style="fill:url(#linearGradient18573);stroke-width:8.56723;stroke-linecap:round;stroke-miterlimit:3;paint-order:markers fill stroke"
