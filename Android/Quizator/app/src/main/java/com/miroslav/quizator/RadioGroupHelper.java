@@ -13,6 +13,7 @@ public class RadioGroupHelper {
     public RadioGroupHelper(RadioGroup radioGroupAnswer) {
         setRadioGroupAnswer(radioGroupAnswer);
         setRadioButtonsAnswer(radioGroupAnswer);
+        ;
     }
 
     public void setRadioGroupAnswer(RadioGroup radioGroupAnswer) {
@@ -20,17 +21,33 @@ public class RadioGroupHelper {
     }
 
     
-
-    public void setRadioButtonsAnswer(RadioGroup radioGroupAnswer) {
-        radioButtonsAnswer = new RadioButton[getRadioGroupAnswerSize()];
-        for (int i = 0; i < radioButtonsAnswer.length; i++) {
-            radioButtonsAnswer[i] = (RadioButton) this.radioGroupAnswer.getChildAt(i);
-        }
+    void setRadioButtonsAnswerSize(int size){
+        radioButtonsAnswer = new RadioButton[size];
     }
-    
+
     public int getRadioGroupAnswerSize(){
         return radioGroupAnswer.getChildCount();
     }
+
+    public void setRadioButtonsAnswer(RadioGroup radioGroupAnswer) {
+        setRadioButtonsAnswerSize(getRadioGroupAnswerSize())
+        
+        // radioButtonsAnswer = new RadioButton[getRadioGroupAnswerSize()];
+        for (int i = 0; i < getRadioButtonsAnswerLenght(); i++) {
+            setRadioButtonAnswer(i,(RadioButton) radioGroupAnswer.getChildAt(i));
+            // radioButtonsAnswer[i] = (RadioButton) radioGroupAnswer.getChildAt(i);
+        }
+    }
+
+    int getRadioButtonsAnswerLenght(){
+        return radioButtonsAnswer.length;
+    }
+    
+    void setRadioButtonAnswer(int buttonIndex,RadioButton valueRadioButton){
+        radioButtonsAnswer[buttonIndex]  = valueRadioButton;
+    }
+
+    
 
     public String getCheckedAnswerFromPlayer() {
         for (RadioButton radioButtonAnswer : radioButtonsAnswer) {
@@ -58,3 +75,33 @@ public class RadioGroupHelper {
         return radioButton.getText().toString();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
