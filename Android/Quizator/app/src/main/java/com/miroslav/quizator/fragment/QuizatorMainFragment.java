@@ -21,9 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.miroslav.quizator.AlphaAnimationHelper;
+import com.miroslav.quizator.AnimationSetHelper;
 import com.miroslav.quizator.Binding;
+import com.miroslav.quizator.MyError;
 import com.miroslav.quizator.R;
 import com.miroslav.quizator.RadioGroupHelper;
+import com.miroslav.quizator.ScaleAnimationHelper;
 import com.miroslav.quizator.actor.Player;
 import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.actor.Questor;
@@ -41,7 +44,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     LinearLayout layoutQuestionRoot;
     LinearLayout layoutAnswersRoot;
     TextView textViewQuestionNumber;
-    AlphaAnimationHelper alphaAnimationHelper;
+    AlphaAnimationHelper alphaAnimationHelperForLayoutQuestionAndAnswers;
     Player quizPlayer;
     Questor quizQuestor;
     RadioGroupHelper radioGroupHelper;
@@ -72,14 +75,50 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         initQuestions();
         initQuestor();
         initQuizPlayer();
+        initImageButtonToNextQuestion();
 
-        imageButtonToNextQuestion = fragmentQuizatorMainBinding.imageButtonToNextQuestion;
-        layoutQuestionRoot = fragmentQuizatorMainBinding.layoutQuestionRoot;
-        layoutAnswersRoot = fragmentQuizatorMainBinding.layoutAnswersRoot;
-        textViewQuestionNumber = fragmentQuizatorMainBinding.textViewQuestionNumber;
-        alphaAnimationHelper = new AlphaAnimationHelper(layoutQuestionRoot,layoutAnswersRoot,fragmentQuizatorMainBinding);
+
+        initLayoutQuestionRoot();
+
+        initLayoutAnswersRoot();
+
+        initTextViewQuestionNumber();
+
+        try {
+            initAlphaAnimationHelperForLayoutQuestionAndAnswers();
+        } catch (MyError e) {
+            e.printStackTrace();
+        }
+
 
         return fragmentQuizatorMainBinding.getRoot();
+    }
+
+    private void initAlphaAnimationHelperForLayoutQuestionAndAnswers() throws MyError {
+
+            if(layoutAnswersRoot==null || layoutQuestionRoot==null || fragmentQuizatorMainBinding == null){
+                throw new MyError("QuizatorMainFragment.initialAlphaAnimationHelper() Answer or Question or fragmentBinding is null !!! ");
+            }else{
+                alphaAnimationHelperForLayoutQuestionAndAnswers = new AlphaAnimationHelper(layoutQuestionRoot, layoutAnswersRoot, fragmentQuizatorMainBinding);
+            }
+
+
+    }
+
+    private void initTextViewQuestionNumber() {
+        textViewQuestionNumber = fragmentQuizatorMainBinding.textViewQuestionNumber;
+    }
+
+    private void initLayoutAnswersRoot() {
+        layoutAnswersRoot = fragmentQuizatorMainBinding.layoutAnswersRoot;
+    }
+
+    private void initLayoutQuestionRoot() {
+        layoutQuestionRoot = fragmentQuizatorMainBinding.layoutQuestionRoot;
+    }
+
+    private void initImageButtonToNextQuestion() {
+        imageButtonToNextQuestion = fragmentQuizatorMainBinding.imageButtonToNextQuestion;
     }
 
     public void setQuestions() {
@@ -94,18 +133,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
         Collections.addAll(this.questions, questions);
         Collections.shuffle(this.questions);
-        for(Question question : questions){
-            for(String que : question.getQuestionAnswers()){
-                Log.d("MyQue",que);
-            }
-        }
-
-//        for(Question question : questions){
-//            for(String que : question.getQuestionAnswersShuffled()){
-//                Log.d("MyQue",que);
-//            }
-//        }
-
     }
 
     void quizInit(){
@@ -122,15 +149,22 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         setFirstQuestionToUI();
         initRadioGroupHelper();
 
-        float scaleAnimationFromX=1f;
-        float scaleAnimationFromY=1f;
-        float scaleAnimationToX=1.2f;
-        float scaleAnimationToY=1.2f;
 
-        ScaleAnimation scaleAnimation1 = new ScaleAnimation(scaleAnimationToX,scaleAnimationFromX,scaleAnimationToY,scaleAnimationFromY);
-        scaleAnimation1.setDuration(600);
+        // TODO EDIT THE ANIMATION
+        float[] scaleAnimationFromXYToXY = new float[]{
+            1f,
+            1f,
+            1.2f,
+            1.2f
+        };
+//        float scaleAnimationFromX=1f;
+//        float scaleAnimationFromY=1f;
+//        float scaleAnimationToX=1.2f;
+//        float scaleAnimationToY=1.2f;
 
-        scaleAnimation1.setAnimationListener(new Animation.AnimationListener() {
+        ScaleAnimation secondScaleAnimationFotQuestionNumberEditText = ScaleAnimationHelper.createAnimation(scaleAnimationFromXYToXY[0],scaleAnimationFromXYToXY[2],scaleAnimationFromXYToXY[1],scaleAnimationFromXYToXY[3],600);
+
+        secondScaleAnimationFotQuestionNumberEditText.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 textViewQuestionNumber.setBackground(getResources().getDrawable(R.drawable.main_layout_gradient_start));
@@ -147,18 +181,15 @@ public class QuizatorMainFragment extends Fragment implements Binding {
             }
         });
 
-        ScaleAnimation scaleAnimation = new ScaleAnimation(scaleAnimationFromX,scaleAnimationToX,scaleAnimationFromY,scaleAnimationToY);
-        scaleAnimation.setDuration(400);
+        ScaleAnimation firstScaleAnimationFotQuestionNumberEditText = ScaleAnimationHelper.createAnimation(scaleAnimationFromXYToXY[2],scaleAnimationFromXYToXY[0],scaleAnimationFromXYToXY[3],scaleAnimationFromXYToXY[1],400);
 
-        AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
-        alphaAnimation.setDuration(100);
+        AlphaAnimation alphaAnimationFotQuestionNumberEditText = AlphaAnimationHelper.createAlphaAnimation(1,0,100);
 
-        AnimationSet animationSet = new AnimationSet(true);
-        animationSet.setStartOffset(450);
-        animationSet.addAnimation(scaleAnimation);
-        animationSet.addAnimation(alphaAnimation);
+        AnimationSet animationSetForQuestionNumberEditText = AnimationSetHelper.createAnimationSet(true,450,new Animation[]{
+                firstScaleAnimationFotQuestionNumberEditText,alphaAnimationFotQuestionNumberEditText
+        });
 
-        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+        firstScaleAnimationFotQuestionNumberEditText.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -167,9 +198,9 @@ public class QuizatorMainFragment extends Fragment implements Binding {
             @Override
             public void onAnimationEnd(Animation animation) {
 
-                textViewQuestionNumber.startAnimation(scaleAnimation1);
-
-                textViewQuestionNumber.setText(String.valueOf(quiz.getCurrentQuestionNumber()));
+                textViewQuestionNumber.startAnimation(secondScaleAnimationFotQuestionNumberEditText);
+                setTextViewQuestionNumberText(quiz.getCurrentQuestionNumber());
+//                textViewQuestionNumber.setText(String.valueOf(quiz.getCurrentQuestionNumber()));
             }
 
             @Override
@@ -202,13 +233,17 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
                     quiz.incrementQuestionNumber();
 
-                    alphaAnimationHelper.setQuestionForAnimation(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
-                    alphaAnimationHelper.startAnimation();
-                    textViewQuestionNumber.startAnimation(animationSet);
+                    alphaAnimationHelperForLayoutQuestionAndAnswers.setQuestionForAnimation(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
+                    alphaAnimationHelperForLayoutQuestionAndAnswers.startAnimation();
+                    textViewQuestionNumber.startAnimation(animationSetForQuestionNumberEditText);
 
                 }
             }
         });
+    }
+
+    void setTextViewQuestionNumberText(String number){
+        fragmentQuizatorMainBinding.textViewQuestionNumber.setText(number);
     }
 
     private void setFirstQuestionToUI() {
