@@ -1,14 +1,28 @@
 package com.miroslav.quizator.actor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Question {
     String questionTitle;
     String[] questionAnswers;
+    String[] questionAnswersShuffled;
+
     String question;
+
 
     public Question(String questionTitle, String question, String[] questionAnswers) {
         setQuestionTitle(questionTitle);
         setQuestion(question);
         setQuestionAnswers(questionAnswers);
+        questionAnswersShuffled = new String[questionAnswers.length];
+        for(int i=0;i<questionAnswersShuffled.length;i++){
+            questionAnswersShuffled[i]=questionAnswers[i];
+        }
+        Collections.shuffle(Arrays.asList(questionAnswersShuffled));
+
+
     }
 
     public void setQuestionTitle(String questionTitle) {
@@ -21,6 +35,10 @@ public class Question {
 
     public void setQuestionAnswers(String[] questionAnswers) {
         this.questionAnswers = questionAnswers;
+    }
+
+    public String[] getQuestionAnswersShuffled() {
+       return questionAnswersShuffled;
     }
 
     public String getQuestionTitle() {

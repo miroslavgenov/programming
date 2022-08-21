@@ -1,5 +1,7 @@
 package com.miroslav.quizator.actor;
 
+import android.util.Log;
+
 public class Questor {
 
     Question questionGivenToPlayer;
@@ -17,6 +19,7 @@ public class Questor {
     }
 
     public static  boolean isPlayerAnswerCorrect(Question questionGivenToPlayer , String questionAnswerPassedFromPlayer){
+        Log.d("MyQue",questionGivenToPlayer.getCorrectQuestionAnswer()+ "  "+ questionAnswerPassedFromPlayer);
         return questionGivenToPlayer.getCorrectQuestionAnswer().equals(
                 questionAnswerPassedFromPlayer);
     }

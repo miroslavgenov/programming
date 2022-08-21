@@ -1,5 +1,6 @@
 package com.miroslav.quizator;
 
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -44,9 +45,16 @@ public class RadioGroupHelper {
     }
 
     public String getCheckedAnswerFromPlayer() {
+        int checkedButton = radioGroupAnswer.getCheckedRadioButtonId();
         for (RadioButton radioButtonAnswer : radioButtonsAnswer) {
-            return getCheckedRadioButtonTextString(radioButtonAnswer);
+
+            if(radioButtonAnswer.getId()== checkedButton){
+                return radioButtonAnswer.getText().toString();
+//                Log.d("MyQue",radioButtonAnswer.getText().toString());
+            }
+            //            return getCheckedRadioButtonTextString(radioButtonAnswer);
         }
+        Log.d("MyGym","RadioGroupHelper.getCheckedAnswerFormPlayer().ERROR!!!!!");
         return "";
     }
 
@@ -58,6 +66,7 @@ public class RadioGroupHelper {
     }
 
     public boolean isButtonChecked(RadioButton radioButton) {
+        Log.d("MyQue",radioButton.getId()+ " "+ radioGroupAnswer.getCheckedRadioButtonId());
         return radioButton.getId() == getCheckedButtonIdFromRadioGroup();
     }
 
@@ -66,7 +75,7 @@ public class RadioGroupHelper {
     }
 
     public String getRadioButtonTextString(RadioButton radioButton) {
-        return (String)radioButton.getText();
+        return radioButton.getText().toString();
     }
 }
 

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,19 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         };
 
         Collections.addAll(this.questions, questions);
+        Collections.shuffle(this.questions);
+        for(Question question : questions){
+            for(String que : question.getQuestionAnswers()){
+                Log.d("MyQue",que);
+            }
+        }
+
+//        for(Question question : questions){
+//            for(String que : question.getQuestionAnswersShuffled()){
+//                Log.d("MyQue",que);
+//            }
+//        }
+
     }
 
     void quizInit(){
@@ -172,7 +186,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
                 if(quiz.isQuizCompleted()){
                     quizQuestor.setQuestionAnswerPassedFromPlayer(radioGroupHelper.getCheckedAnswerFromPlayer());
-                    quizQuestor.setQuestionGivenToPlayer(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
+                    quizQuestor.setQuestionGivenToPlayer(questions.get(quiz.getCurrentQuestionNumber()));
 
                     if(quizQuestor.isPlayerAnswerCorrect()){
                         quizPlayer.setScore(quizPlayer.incrementScoreByOne());
@@ -182,18 +196,16 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                     bundle.putInt("player_score",quizPlayer.getScore());
                     Navigation.findNavController(view).navigate(R.id.action_quizatorMainFragment_to_resultFragment,bundle);
                 }else{
-                    if(Questor.isPlayerAnswerCorrect(quiz.getQuestionBesideCurrentQuestionNumber(
-                            quiz.getCurrentQuestionNumber())    ,
-                        radioGroupHelper.getCheckedAnswerFromPlayer()))
-                    {
-                            quizPlayer.setScore(quizPlayer.incrementScoreByOne());
+                    if(Questor.isPlayerAnswerCorrect(questions.get(quiz.getCurrentQuestionNumber()),radioGroupHelper.getCheckedAnswerFromPlayer())){
+                        quizPlayer.setScore(quizPlayer.incrementScoreByOne());
                     }
+
                     quiz.incrementQuestionNumber();
 
                     alphaAnimationHelper.setQuestionForAnimation(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
-
                     alphaAnimationHelper.startAnimation();
                     textViewQuestionNumber.startAnimation(animationSet);
+
                 }
             }
         });

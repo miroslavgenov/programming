@@ -116,7 +116,7 @@
                         android:button="@null"
                         android:padding="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="@{question.questionAnswers[0]}"
+                        android:text="@{question.questionAnswersShuffled[0]}"
                         android:textColor="@color/white" />
 
                     <RadioButton
@@ -126,7 +126,7 @@
                         android:background="@drawable/radio_button_background_select_state"
                         android:button="@null"
                         android:padding="10dp"
-                        android:text="@{question.questionAnswers[1]}"
+                        android:text="@{question.questionAnswersShuffled[1]}"
                         android:textColor="@color/white" />
 
                 </RadioGroup>

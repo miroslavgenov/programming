@@ -10,11 +10,11 @@ public class Quiz {
 
     public Quiz(ArrayList<Question> questions) {
         this.questions = questions;
-        setQuestionNumber(FIRST_QUESTION_NUMBER);
+        setQuestionNumberToFirst(FIRST_QUESTION_NUMBER);
 
     }
 
-    public void setQuestionNumber(int questionNumber) {
+    public void setQuestionNumberToFirst(int questionNumber) {
         this.questionNumber = questionNumber;
     }
 
