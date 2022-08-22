@@ -8,7 +8,6 @@ public class Question {
     String questionTitle;
     String[] questionAnswers;
     String[] questionAnswersShuffled;
-
     String question;
 
 
@@ -17,6 +16,7 @@ public class Question {
         setQuestion(question);
         setQuestionAnswers(questionAnswers);
         questionAnswersShuffled = new String[questionAnswers.length];
+
         for(int i=0;i<questionAnswersShuffled.length;i++){
             questionAnswersShuffled[i]=questionAnswers[i];
         }

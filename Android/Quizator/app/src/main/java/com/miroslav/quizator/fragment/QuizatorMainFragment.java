@@ -44,7 +44,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     LinearLayout layoutQuestionRoot;
     LinearLayout layoutAnswersRoot;
     TextView textViewQuestionNumber;
-    AlphaAnimationHelper alphaAnimationHelperForLayoutQuestionAndAnswers;
+
     Player quizPlayer;
     Questor quizQuestor;
     RadioGroupHelper radioGroupHelper;
@@ -97,9 +97,9 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     private void initAlphaAnimationHelperForLayoutQuestionAndAnswers() throws MyError {
 
             if(layoutAnswersRoot==null || layoutQuestionRoot==null || fragmentQuizatorMainBinding == null){
-                throw new MyError("QuizatorMainFragment.initialAlphaAnimationHelper() Answer or Question or fragmentBinding is null !!! ");
+                throw new NullPointerException("QuizatorMainFragment.initAlphaAnimationHelperForLayoutQuestionAnswers null object ");
             }else{
-                alphaAnimationHelperForLayoutQuestionAndAnswers = new AlphaAnimationHelper(layoutQuestionRoot, layoutAnswersRoot, fragmentQuizatorMainBinding);
+
             }
 
 
@@ -150,64 +150,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         initRadioGroupHelper();
 
 
-        // TODO EDIT THE ANIMATION
-        float[] scaleAnimationFromXYToXY = new float[]{
-            1f,
-            1f,
-            1.2f,
-            1.2f
-        };
-//        float scaleAnimationFromX=1f;
-//        float scaleAnimationFromY=1f;
-//        float scaleAnimationToX=1.2f;
-//        float scaleAnimationToY=1.2f;
 
-        ScaleAnimation secondScaleAnimationFotQuestionNumberEditText = ScaleAnimationHelper.createAnimation(scaleAnimationFromXYToXY[0],scaleAnimationFromXYToXY[2],scaleAnimationFromXYToXY[1],scaleAnimationFromXYToXY[3],600);
-
-        secondScaleAnimationFotQuestionNumberEditText.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                textViewQuestionNumber.setBackground(getResources().getDrawable(R.drawable.main_layout_gradient_start));
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                textViewQuestionNumber.setBackground(getResources().getDrawable(R.drawable.radio_button_background_inactive_state));
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        ScaleAnimation firstScaleAnimationFotQuestionNumberEditText = ScaleAnimationHelper.createAnimation(scaleAnimationFromXYToXY[2],scaleAnimationFromXYToXY[0],scaleAnimationFromXYToXY[3],scaleAnimationFromXYToXY[1],400);
-
-        AlphaAnimation alphaAnimationFotQuestionNumberEditText = AlphaAnimationHelper.createAlphaAnimation(1,0,100);
-
-        AnimationSet animationSetForQuestionNumberEditText = AnimationSetHelper.createAnimationSet(true,450,new Animation[]{
-                firstScaleAnimationFotQuestionNumberEditText,alphaAnimationFotQuestionNumberEditText
-        });
-
-        firstScaleAnimationFotQuestionNumberEditText.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-                textViewQuestionNumber.startAnimation(secondScaleAnimationFotQuestionNumberEditText);
-                setTextViewQuestionNumberText(quiz.getCurrentQuestionNumber());
-//                textViewQuestionNumber.setText(String.valueOf(quiz.getCurrentQuestionNumber()));
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
 
 
 
@@ -227,15 +170,20 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                     bundle.putInt("player_score",quizPlayer.getScore());
                     Navigation.findNavController(view).navigate(R.id.action_quizatorMainFragment_to_resultFragment,bundle);
                 }else{
-                    if(Questor.isPlayerAnswerCorrect(questions.get(quiz.getCurrentQuestionNumber()),radioGroupHelper.getCheckedAnswerFromPlayer())){
+                    if(
+                        quizQuestor.isPlayerAnswerCorrect()
+//                            Questor.isPlayerAnswerCorrect(questions.get(quiz.getCurrentQuestionNumber()),radioGroupHelper.getCheckedAnswerFromPlayer())
+                    ){
                         quizPlayer.setScore(quizPlayer.incrementScoreByOne());
                     }
 
                     quiz.incrementQuestionNumber();
+                    fragmentQuizatorMainBinding.setQuestion(questions.get(quiz.getCurrentQuestionNumber()));
+                    setTextViewQuestionNumberText(quiz.getCurrentQuestionNumber());
 
-                    alphaAnimationHelperForLayoutQuestionAndAnswers.setQuestionForAnimation(quiz.getQuestionBesideCurrentQuestionNumber(quiz.getCurrentQuestionNumber()));
-                    alphaAnimationHelperForLayoutQuestionAndAnswers.startAnimation();
-                    textViewQuestionNumber.startAnimation(animationSetForQuestionNumberEditText);
+
+
+
 
                 }
             }

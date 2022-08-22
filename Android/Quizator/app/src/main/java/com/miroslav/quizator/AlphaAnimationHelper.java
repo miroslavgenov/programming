@@ -31,26 +31,6 @@ public class AlphaAnimationHelper {
         this.fragmentQuizatorMainBinding = fragmentQuizatorMainBinding;
         fadeInForQuestionAndAnswersRootLayout = createAlphaAnimation(1,0,ANIMATION_DURATION);
         fadeOutForQuestionAndAnswersRootLayout = createAlphaAnimation(0,1,ANIMATION_DURATION/2);
-
-        fadeInForQuestionAndAnswersRootLayout.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                fragmentQuizatorMainBinding.setQuestion(getQuestion());
-                layoutQuestionRoot.startAnimation(fadeOutForQuestionAndAnswersRootLayout);
-                layoutAnswersRoot.startAnimation(fadeOutForQuestionAndAnswersRootLayout);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
     }
 
     public static AlphaAnimation createAlphaAnimation(int fromAlpha, int toAlpha, int animationDuration) {
@@ -74,6 +54,7 @@ public class AlphaAnimationHelper {
      public void startAnimation() {
         layoutQuestionRoot.startAnimation(fadeInForQuestionAndAnswersRootLayout);
         layoutAnswersRoot.startAnimation(fadeInForQuestionAndAnswersRootLayout);
+
     }
 
 }
