@@ -61,6 +61,10 @@ cout<<"!"<<endl;
 	return target;
 }
 
+bool isEmpty(){
+	return root==nullptr;
+}
+
 int main(){
 	init();
 
@@ -69,8 +73,9 @@ int main(){
 	push(n);
 	push(n1);
 	
-get();get();
+get();get();get();
 print();
+cout<<isEmpty()<<endl;
 
 	
 
