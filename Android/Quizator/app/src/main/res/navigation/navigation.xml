@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_start" >
         <action
             android:id="@+id/action_startFragment_to_quizatorMainFragment"
-            app:destination="@id/quizatorMainFragment" />
+            app:destination="@id/quizatorMainFragment"
+            app:enterAnim="@anim/translate_enter" />
     </fragment>
     <fragment
         android:id="@+id/quizatorMainFragment"

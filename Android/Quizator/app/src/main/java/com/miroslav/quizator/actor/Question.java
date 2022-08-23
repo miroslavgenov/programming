@@ -20,9 +20,8 @@ public class Question {
         for(int i=0;i<questionAnswersShuffled.length;i++){
             questionAnswersShuffled[i]=questionAnswers[i];
         }
+
         Collections.shuffle(Arrays.asList(questionAnswersShuffled));
-
-
     }
 
     public void setQuestionTitle(String questionTitle) {
