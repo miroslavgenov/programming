@@ -30,6 +30,9 @@ public class Questions {
     public Question getCurrentQuestion(){
         return questions.get(currentQuestionIndex);
     }
+    public int getQuestionSize(){
+        return this.questions.size();
+    }
 
     public int incrementCurrentQuestionIndexByOne(){
         return currentQuestionIndex+1;

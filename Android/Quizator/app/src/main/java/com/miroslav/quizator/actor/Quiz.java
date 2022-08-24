@@ -15,47 +15,21 @@ public class Quiz {
         return this.questionsForQuiz.getFirstQuestion();
     }
 
-//    public Quiz(ArrayList<Question> questions) {
-//        this.questions = questions;
-//        setQuestionNumberToFirst(FIRST_QUESTION_NUMBER);
-//    }
-
-//    public void setQuestionNumberToFirst(int questionNumber) {
-//        this.questionNumber = questionNumber;
-//    }
-
-
-//    public Question getFirstQuestion() {
-//        return questions.get(FIRST_QUESTION_NUMBER);
-//    }
-//    public Question getQuestionBesideCurrentQuestionNumber(int currentQuestionNumber){
-//        return getQuestions().get(currentQuestionNumber);
-//    }
-
-    //TODO : return int and use it to setQustioNumber
-//    public void incrementQuestionNumber() {
-//        this.questionNumber+= 1;
-//    }
-
-//    public boolean isQuizCompleted() {
-//        return isCurrentQuestionNumberEqualToQuestionSizeMinusOne();
-//    }
-
-//    public boolean isCurrentQuestionNumberEqualToQuestionSizeMinusOne(){
-//        return getCurrentQuestionIndex() == getQuestionsSizeMinusOne();
-//    }
-
     public int getCurrentQuestionIndex() {
         return questionsForQuiz.getCurrentQuestionIndex();
     }
 
-//    public int getQuestionsSizeMinusOne(){
-//        return getQuestions().size()-1;
-//    }
+    public int toNextQuestionNumber(){
+        questionsForQuiz.setCurrentQuestionIndex(questionsForQuiz.incrementCurrentQuestionIndexByOne());
+        return questionsForQuiz.getCurrentQuestionIndex();
+    }
+    public boolean isQuizComplete(){
+        return getCurrentQuestionIndex() == questionsForQuiz.getQuestionSize()-1;
+    }
+    public Question getCurrentQuestion(){
+        return questionsForQuiz.getCurrentQuestion();
+    }
 
-//    public ArrayList<Question> getQuestions() {
-//        return questions;
-//    }
 }
 
 

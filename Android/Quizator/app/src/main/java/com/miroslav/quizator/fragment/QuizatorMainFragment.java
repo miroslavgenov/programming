@@ -10,14 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.miroslav.quizator.Binding;
 import com.miroslav.quizator.Questions;
 import com.miroslav.quizator.R;
-import com.miroslav.quizator.RadioGroupHelper;
+import com.miroslav.quizator.QuizatorMainXMLHelper;
 import com.miroslav.quizator.actor.Player;
 import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.actor.Questor;
@@ -28,15 +25,11 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     FragmentQuizatorMainBinding fragmentQuizatorMainBinding;
     FragmentQuizatorMainBinding dataBindingUtilContent;
     final int LAYOUT_QUIZATOR_MAIN_FRAGMENT_ID=  R.layout.fragment_quizator_main;
-    ImageButton imageButtonToNextQuestion;
-    LinearLayout layoutQuestionRoot;
-    LinearLayout layoutAnswersRoot;
-    TextView textViewQuestionNumber;
     Player quizPlayer;
     Questor quizQuestor;
-    RadioGroupHelper radioGroupHelper;
     Questions questionsForQuiz;
     Quiz quiz;
+    QuizatorMainXMLHelper quizatorMainXMLHelper;
     Bundle bundlePlayerScore;
 
     @Override
@@ -55,13 +48,11 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     private void onCreateViewClassParametersInit(LayoutInflater inflater, ViewGroup container) {
         initFragmentDataBindingUtilContent(inflater,container);
         setBinding();
+        quizatorMainXMLHelper = new QuizatorMainXMLHelper(fragmentQuizatorMainBinding);
+        quizatorMainXMLHelper.initAllQuizatorMainXMLElements();
         initQuestions();
         initQuestor();
         initQuizPlayer();
-        initImageButtonToNextQuestion();
-        initLayoutQuestionRoot();
-        initLayoutAnswersRoot();
-        initTextViewQuestionNumber();
     }
 
     @Override
@@ -86,80 +77,35 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         quizPlayer=new Player();
     }
 
-    private void initImageButtonToNextQuestion() {
-        imageButtonToNextQuestion = fragmentQuizatorMainBinding.imageButtonToNextQuestion;
-    }
-
-
-    private void initLayoutQuestionRoot() {
-        layoutQuestionRoot = fragmentQuizatorMainBinding.layoutQuestionRoot;
-    }
-
-    private void initLayoutAnswersRoot() {
-        layoutAnswersRoot = fragmentQuizatorMainBinding.layoutAnswersRoot;
-    }
-
-    private void initTextViewQuestionNumber() {
-        textViewQuestionNumber = fragmentQuizatorMainBinding.textViewQuestionNumber;
-    }
-
-
-
-
-
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         appendQuestions();
         quizInit();
-        setTextViewQuestionNumberText(quiz.getCurrentQuestionIndex());
-        setFirstQuestionToUI();
-        setFirstQuestionNumberUI();
-        initRadioGroupHelper();
+        quizatorMainXMLHelper.setQuestionNumberToUI(quiz.getCurrentQuestionIndex());
+        quizatorMainXMLHelper.setQuestionToUI(quiz.getFirstQuestion());
         onImageButtonToNextQuestionClick();
-    }
-
-    private void setFirstQuestionNumberUI() {
-        setTextViewQuestionNumberText(quiz.getCurrentQuestionIndex());
     }
 
     void quizInit(){
         this.quiz = new Quiz(this.questionsForQuiz);
     }
 
-    public void setTextViewQuestionNumberText(int questionNumber) {
-        this.textViewQuestionNumber.setText(String.valueOf(questionNumber));
-    }
-
-    void setTextViewQuestionNumberText(String number){
-        fragmentQuizatorMainBinding.textViewQuestionNumber.setText(number);
-    }
-
-    private void setFirstQuestionToUI() {
-        //TODO: FIRST START FROM HERE
-                fragmentQuizatorMainBinding.setQuestion(quiz.getFirstQuestion());
-    }
-
-
-
-    private void initRadioGroupHelper() {
-        radioGroupHelper = new RadioGroupHelper(fragmentQuizatorMainBinding.radioGroupAnswers);
-    }
-
     private void onImageButtonToNextQuestionClick() {
-        this.imageButtonToNextQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gameLogic();
-            }
-        });
+        quizatorMainXMLHelper.getImageButtonToNextQuestion().setOnClickListener(view-> gameLogic());
     }
 
     private void gameLogic() {
         //TODO: xxx
+        if(quiz.isQuizComplete()){
+
+        }else{
+            quizatorMainXMLHelper.setTextViewQuestionNumberText(quiz.toNextQuestionNumber());
+            quizatorMainXMLHelper.setQuestionToUI(quiz.getCurrentQuestion());
+        }
+
+
     }
 
     public void appendQuestions() {
@@ -170,7 +116,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         questionsForQuiz.appendQuestion(new Question("C++","How you can write a comment in C++ ?",new String[]{"//","#"}));
         questionsForQuiz.shuffleQuestions();
     }
-
 
 
     @Override
