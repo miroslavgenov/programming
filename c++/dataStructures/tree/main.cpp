@@ -17,27 +17,28 @@ void init(int value){
 void append(node * root ,node *value){
 	
 	if(root->num>value->num){
-		cout<<root->num<<" > "<<value->num<<endl;
+//		cout<<root->num<<" > "<<value->num<<endl;
 		if(root->left){
-			cout<<"left not empty: "<< root->left->num<<endl;
-			cout<<"append(root->left, value);"<<endl;
+//			cout<<"left not empty: "<< root->left->num<<endl;
+//			cout<<"append(root->left, value);"<<endl;
 			append(root->left,value);
 		}else{
-			cout<<"left is empty"<<endl;
+//			cout<<"left is empty"<<endl;
 			root->left=value;
 		}
 	}else{
-		cout<<root->num<<" < "<<value->num<<endl;
+//		cout<<root->num<<" < "<<value->num<<endl;
 		if(root->right){
-			cout<<"right not empty: "<< root->right->num<<endl;
-			cout<<"append(root->right, value);"<<endl;
+//			cout<<"right not empty: "<< root->right->num<<endl;
+//			cout<<"append(root->right, value);"<<endl;
 			append(root->right, value);
 			
 		}else{
-			cout<<"right empty"<<endl;
+//			cout<<"right empty"<<endl;
 			root->right = value;
 		}
-	}cout<<endl;
+	}
+//	cout<<endl;
 }
 
 void print(node *root){
@@ -53,6 +54,24 @@ void print(node *root){
 
 void search(node *root, int num){
 	
+	if(!root){
+		cout<<num<<" not found"<<endl;
+		return;
+	}else{
+		if(root->num==num){
+			cout<<root->num<<" == "<<num<<endl;
+			cout<<"found"<<endl;
+			return;
+		}else if(root->num>num){
+			cout<<root->num<<" > "<<num<<endl;
+			cout<<"search(root->left,num)"<<endl;
+			search(root->left, num);
+		}else if(root->num < num){
+			cout<<root->num<<" < "<<num<<endl;
+			cout<<"search(root->right,num)"<<endl;
+			search(root->right,num);
+		}
+	}
 }
 
 
@@ -62,6 +81,7 @@ int main(){
 	node *n3 = new node{1, nullptr, nullptr};
 	node *n4 = new node{2, nullptr, nullptr};
 	node* n5 = new node{6, nullptr, nullptr};
+	node* n6 = new node{7, nullptr, nullptr};
 	
 	init(4);
 	append(root, n2);
@@ -69,11 +89,46 @@ int main(){
 	append(root, n3);
 	append(root, n4);
 	append(root, n5);
+	append(root, n6);
 	
-	print(root);
+	search(root, 7);
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
