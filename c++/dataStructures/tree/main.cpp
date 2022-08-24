@@ -52,16 +52,16 @@ void print(node *root){
 	
 }
 
-void search(node *root, int num){
+node* search(node *root, int num){
 	
 	if(!root){
-		cout<<num<<" not found"<<endl;
-		return;
+//		cout<<num<<" not found"<<endl;
+		return root;
 	}else{
 		if(root->num==num){
 			cout<<root->num<<" == "<<num<<endl;
-			cout<<"found"<<endl;
-			return;
+//			cout<<"found"<<endl;
+			return root;
 		}else if(root->num>num){
 			cout<<root->num<<" > "<<num<<endl;
 			cout<<"search(root->left,num)"<<endl;
@@ -72,8 +72,31 @@ void search(node *root, int num){
 			search(root->right,num);
 		}
 	}
+	
 }
 
+void dp(int val){
+	
+	node* t= search(root,val);
+	if(t){
+		cout<<"found"<<endl;
+		if(t->left && t->right){
+			cout<<"have left and right child"<<endl;
+		}else if(t->left && !t->right){
+			cout<<"have only left child"<<endl;
+		}else if(!t->left && t->right){
+			cout<<"have only right child"<<endl;
+		}else if(!t->left && !t->right){
+			cout<<"dont have child"<<endl;
+			cout<<t->num<<endl;
+			
+		}
+	}else{
+		cout<<"not found"<<endl;
+	}
+	
+
+}
 
 int main(){
 	node *n1 = new node{3, nullptr, nullptr};	
@@ -90,8 +113,13 @@ int main(){
 	append(root, n4);
 	append(root, n5);
 	append(root, n6);
+	dp(2);
+	print(root);
 	
-	search(root, 7);
+	
+	
+//	search(root, 7);
+//	dp(1);
 	
 	
 }
