@@ -9,6 +9,9 @@ import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
 
 public class QuizatorMainXMLHelper {
     ImageButton imageButtonToNextQuestion;
+    ImageButtonInitializer imageButtonInitializer;
+    LinearLayoutInitializer linearLayoutInitializer;
+    TextViewInitializer textViewInitializer;
     LinearLayout layoutQuestionRoot;
     LinearLayout layoutAnswersRoot;
     TextView textViewQuestionNumber;
@@ -18,12 +21,15 @@ public class QuizatorMainXMLHelper {
 
     public QuizatorMainXMLHelper(FragmentQuizatorMainBinding binding) {
         this.binding=binding;
+        imageButtonInitializer = new ImageButtonInitializer(binding);
+        linearLayoutInitializer = new LinearLayoutInitializer(binding);
+        textViewInitializer = new TextViewInitializer(binding);
     }
     public void initAllQuizatorMainXMLElements(){
-        setImageButtonToNextQuestion(binding.imageButtonToNextQuestion);
-        setLayoutQuestionRoot(binding.layoutQuestionRoot);
-        setLayoutAnswersRoot(binding.layoutAnswersRoot);
-        setTextViewQuestionNumber(binding.textViewQuestionNumber);
+        imageButtonToNextQuestion = imageButtonInitializer.initImageButtonToNextQuestion();
+        layoutQuestionRoot = linearLayoutInitializer.initLinearLayoutQuestionsRoot();
+        layoutAnswersRoot = linearLayoutInitializer.initLinearLayoutAnswersRoot();
+        textViewQuestionNumber = textViewInitializer.initTextViewQuestionNumber();
         initRadioGroupHelper();
     }
     public void setQuestionToUI(Question question){
@@ -32,6 +38,7 @@ public class QuizatorMainXMLHelper {
     public void setQuestionNumberToUI(int number){
         setTextViewQuestionNumberText(number);
     }
+
     public void initRadioGroupHelper() {
         this.radioGroupHelper = new RadioGroupHelper(binding.radioGroupAnswers);
     }
@@ -42,22 +49,6 @@ public class QuizatorMainXMLHelper {
 
     public void setTextViewQuestionNumberText(int questionNumber) {
         this.textViewQuestionNumber.setText(String.valueOf(questionNumber));
-    }
-
-    public void setImageButtonToNextQuestion(ImageButton imageButtonToNextQuestion) {
-        this.imageButtonToNextQuestion = imageButtonToNextQuestion;
-    }
-
-    public void setLayoutQuestionRoot(LinearLayout layoutQuestionRoot) {
-        this.layoutQuestionRoot = layoutQuestionRoot;
-    }
-
-    public void setLayoutAnswersRoot(LinearLayout layoutAnswersRoot) {
-        this.layoutAnswersRoot = layoutAnswersRoot;
-    }
-
-    public void setTextViewQuestionNumber(TextView textViewQuestionNumber) {
-        this.textViewQuestionNumber = textViewQuestionNumber;
     }
 
     public void setBinding(FragmentQuizatorMainBinding binding) {

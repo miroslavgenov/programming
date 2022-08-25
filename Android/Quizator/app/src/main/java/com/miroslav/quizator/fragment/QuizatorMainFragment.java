@@ -10,13 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.miroslav.quizator.Binding;
-import com.miroslav.quizator.Questions;
 import com.miroslav.quizator.R;
 import com.miroslav.quizator.QuizatorMainXMLHelper;
 import com.miroslav.quizator.actor.Player;
-import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.actor.Questor;
 import com.miroslav.quizator.actor.Quiz;
 import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
@@ -27,7 +24,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     final int LAYOUT_QUIZATOR_MAIN_FRAGMENT_ID=  R.layout.fragment_quizator_main;
     Player quizPlayer;
     Questor quizQuestor;
-    Questions questionsForQuiz;
     Quiz quiz;
     QuizatorMainXMLHelper quizatorMainXMLHelper;
     Bundle bundlePlayerScore;
@@ -50,7 +46,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         setBinding();
         quizatorMainXMLHelper = new QuizatorMainXMLHelper(fragmentQuizatorMainBinding);
         quizatorMainXMLHelper.initAllQuizatorMainXMLElements();
-        initQuestions();
         initQuestor();
         initQuizPlayer();
     }
@@ -65,10 +60,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         fragmentQuizatorMainBinding = dataBindingUtilContent;
     }
 
-    public void initQuestions(){
-        this.questionsForQuiz = new Questions();
-    }
-
     public void initQuestor(){
         quizQuestor = new Questor();
     }
@@ -81,7 +72,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        appendQuestions();
         quizInit();
         quizatorMainXMLHelper.setQuestionNumberToUI(quiz.getCurrentQuestionIndex());
         quizatorMainXMLHelper.setQuestionToUI(quiz.getFirstQuestion());
@@ -89,7 +79,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     }
 
     void quizInit(){
-        this.quiz = new Quiz(this.questionsForQuiz);
+        this.quiz = new Quiz();
     }
 
     private void onImageButtonToNextQuestionClick() {
@@ -107,16 +97,6 @@ public class QuizatorMainFragment extends Fragment implements Binding {
 
 
     }
-
-    public void appendQuestions() {
-        questionsForQuiz.appendQuestion(new Question("Software development","What is Agile ?",new String[]{"Project management methodology","Programming language"}));
-        questionsForQuiz.appendQuestion(new Question("Computing","How many bit's 1 byte have ?",new String[]{"8","16"}));
-        questionsForQuiz.appendQuestion(new Question("Roblox","Which language is used to program games in Roblox Studio?",new String[]{"Lua","C++"}));
-        questionsForQuiz.appendQuestion(new Question("Web development","What is HTML ?",new String[]{"Markup language","File format"}));
-        questionsForQuiz.appendQuestion(new Question("C++","How you can write a comment in C++ ?",new String[]{"//","#"}));
-        questionsForQuiz.shuffleQuestions();
-    }
-
 
     @Override
     public void initActivityDataBindingUtilContent() {
