@@ -1,4 +1,4 @@
-package com.miroslav.quizator;
+package com.miroslav.quizator.initializer;
 
 import android.widget.LinearLayout;
 

@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
+import com.miroslav.quizator.initializer.ImageButtonInitializer;
+import com.miroslav.quizator.initializer.LinearLayoutInitializer;
+import com.miroslav.quizator.initializer.TextViewInitializer;
 
 public class QuizatorMainXMLHelper {
     ImageButton imageButtonToNextQuestion;

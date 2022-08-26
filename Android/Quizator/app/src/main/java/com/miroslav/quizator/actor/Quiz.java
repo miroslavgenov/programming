@@ -27,10 +27,13 @@ public class Quiz {
         return questionsForQuiz.getCurrentQuestionIndex();
     }
 
-    public int toNextQuestionNumber(){
-        questionsForQuiz.setCurrentQuestionIndex(questionsForQuiz.incrementCurrentQuestionIndexByOne());
-        return questionsForQuiz.getCurrentQuestionIndex();
+    public int incrementCurrentQuestionIndexByOne(){
+        return questionsForQuiz.incrementCurrentQuestionIndexByOne();
     }
+    public void setCurrentQuestionIndex(int number){
+        questionsForQuiz.setCurrentQuestionIndex(number);
+    }
+
     public boolean isQuizComplete(){
         return getCurrentQuestionIndex() == questionsForQuiz.getQuestionSize()-1;
     }
