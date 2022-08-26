@@ -306,9 +306,20 @@ stack* popStack(stack* root){
 void dfs(){
 	if(!isStackEmpty()){
 //		cout<<rootStack->node->right->num<<endl;
-		stack* s1= popStack(rootStack);
-		cout<<s1->node->right->num;
-		//TODO DFS
+		stack* popedStack= popStack(rootStack);
+		cout<<popedStack->node->num<<" ";
+		
+		if(popedStack->node->right){
+			appendStack(rootStack , new stack{popedStack->node->right,nullptr,nullptr});
+		}
+		
+		if(popedStack->node->left){
+			appendStack(rootStack, new stack{popedStack->node->left ,nullptr,nullptr});
+		}
+		
+		
+		
+		dfs();
 		
 		
 	}else{cout<<"stack empty"<<endl;
@@ -319,40 +330,42 @@ void dfs(){
 int main(){
 	
 	
-	initTree(10);
-	treeNode *t1 = new treeNode{5,nullptr,nullptr};
-	treeNode *t2 = new treeNode{1,nullptr,nullptr};
-	treeNode *t3 = new treeNode{2,nullptr,nullptr};
-	treeNode *t4 = new treeNode{4,nullptr,nullptr};
-	treeNode *t5 = new treeNode{7,nullptr,nullptr};
-	treeNode *t6 = new treeNode{6,nullptr,nullptr};
-	treeNode *t7 = new treeNode{8,nullptr,nullptr};
-	treeNode *t8 = new treeNode{9,nullptr,nullptr};
-	treeNode *t9 = new treeNode{15,nullptr,nullptr};
-	treeNode *t10 = new treeNode{11,nullptr,nullptr};
-	treeNode *t11 = new treeNode{17,nullptr,nullptr};
-	treeNode *t12 = new treeNode{12,nullptr,nullptr};
-	treeNode *t13 = new treeNode{14,nullptr,nullptr};
-	treeNode *t14 = new treeNode{13,nullptr,nullptr};
-	treeNode *t15 = new treeNode{18,nullptr,nullptr};
+	initTree(2);
+	treeNode *t1 = new treeNode{1,nullptr,nullptr};
+	treeNode *t2 = new treeNode{3,nullptr,nullptr};
+	
+	treeNode *t3 = new treeNode{0,nullptr,nullptr};
+//	treeNode *t4 = new treeNode{25,nullptr,nullptr};
+
+//	treeNode *t5 = new treeNode{32,nullptr,nullptr};
+//	treeNode *t6 = new treeNode{48,nullptr,nullptr};
+//	treeNode *t7 = new treeNode{8,nullptr,nullptr};
+//	treeNode *t8 = new treeNode{9,nullptr,nullptr};
+//	treeNode *t9 = new treeNode{15,nullptr,nullptr};
+//	treeNode *t10 = new treeNode{11,nullptr,nullptr};
+//	treeNode *t11 = new treeNode{17,nullptr,nullptr};
+//	treeNode *t12 = new treeNode{12,nullptr,nullptr};
+//	treeNode *t13 = new treeNode{14,nullptr,nullptr};
+//	treeNode *t14 = new treeNode{13,nullptr,nullptr};
+//	treeNode *t15 = new treeNode{18,nullptr,nullptr};
 	
 	appendTreeNode(rootTree,t1);
 	appendTreeNode(rootTree,t2);
 	appendTreeNode(rootTree,t3);
-	appendTreeNode(rootTree,t4);
-	appendTreeNode(rootTree,t5);
-	appendTreeNode(rootTree,t6);
-	appendTreeNode(rootTree,t7);
-	appendTreeNode(rootTree,t8);
-	appendTreeNode(rootTree,t9);
-	appendTreeNode(rootTree,t10);
-	appendTreeNode(rootTree,t11);
-	appendTreeNode(rootTree,t12);
-	appendTreeNode(rootTree,t13);
-	appendTreeNode(rootTree,t14);
-	appendTreeNode(rootTree,t15);
+//	appendTreeNode(rootTree,t4);
+//	appendTreeNode(rootTree,t5);
+//	appendTreeNode(rootTree,t6);
+//	appendTreeNode(rootTree,t7);
+//	appendTreeNode(rootTree,t8);
+//	appendTreeNode(rootTree,t9);
+//	appendTreeNode(rootTree,t10);
+//	appendTreeNode(rootTree,t11);
+//	appendTreeNode(rootTree,t12);
+//	appendTreeNode(rootTree,t13);
+//	appendTreeNode(rootTree,t14);
+//	appendTreeNode(rootTree,t15);
 
-	
+//	printTree(rootTree);
 
 	appendStack(rootStack , new stack{rootTree,nullptr,nullptr});
 	
@@ -376,6 +389,34 @@ int main(){
 	
 		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
