@@ -232,27 +232,66 @@ void clearTreeNodeRight(treeNode* rootTree){
 
 
 struct queue{
-	string name;
+	treeNode* node;
 	queue* next;
-	queue *prev;
+	queue* prev;
 };
 
 
 queue *firstInQueue=nullptr;
 queue *lastInQueue= nullptr;
+
 void initQueue(queue *);
+bool isQueueEmpty();
 void appendQueue(queue *);
 queue* popQueue();
 void printQueue();
 bool isNull(queue * value){return value==nullptr;}
 
 
+void bfs(){
+	if(firstInQueue && lastInQueue){
+		
+		queue *f = popQueue();
+		cout<<f->node->num<<" ";
+		
+		if(f->node->left){
+			appendQueue(new queue{f->node->left,nullptr,nullptr});
+		}
+		if(f->node->right){
+			appendQueue(new queue{f->node->right,nullptr,nullptr});
+		}
+
+		bfs();
+			
+		
+	}
+	
+	
+	
+	
+}
+
 int main(){
 
-	appendQueue(new queue{"ivan",nullptr,nullptr});
-    appendQueue(new queue{"alex",nullptr,nullptr});
-    appendQueue(new queue{"jojo",nullptr,nullptr});
-    printQueue();
+	initTree(3);
+	treeNode *t1 = new treeNode{1,nullptr,nullptr};
+	treeNode *t2 = new treeNode{5,nullptr,nullptr};
+	
+	
+	appendTreeNode(rootTree,t1);
+	appendTreeNode(rootTree,t2);
+
+
+	
+//	printTree(rootTree);
+	initQueue(new queue{rootTree,nullptr,nullptr});
+	
+	bfs();
+	cout<<endl;
+
+    
+    
 	
 }
 
@@ -260,18 +299,21 @@ int main(){
 
 queue *popQueue(){
 	queue* poped=nullptr;
-	
-	if(isNull(firstInQueue->prev)){
-		poped = new queue{firstInQueue->name,nullptr,nullptr};
+	if(firstInQueue){
+			if(isNull(firstInQueue->prev)){
+		poped = new queue{firstInQueue->node,nullptr,nullptr};
 		firstInQueue=nullptr;
 		lastInQueue=nullptr;
 		return poped;
 	}else{
-		poped = new queue{firstInQueue->name,nullptr,nullptr};
+		poped = new queue{firstInQueue->node,nullptr,nullptr};
 		firstInQueue=firstInQueue->prev;
 		firstInQueue->next=nullptr;
 		return poped;
+	}		
 	}
+
+	return poped;
 	
 }
 
@@ -293,12 +335,16 @@ void appendQueue(queue *value){
 }
 
 void printQueue(){
-	queue * point = lastInQueue;
-	
-	while(point){
-		cout<<point->name<<"  ";
+	queue * point = nullptr;
+	if(lastInQueue){
+		point = lastInQueue;
+		
+		while(point){
+		cout<<point->node->num<<"  ";
 		point=point->next;
 	}
+	}
+	
 }
 
 
