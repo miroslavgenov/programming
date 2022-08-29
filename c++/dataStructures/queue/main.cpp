@@ -3,80 +3,85 @@
 using namespace std;
 
 
-struct node{
+struct queue{
 	string name;
-	node* next;
-	node *prev;
+	queue* next;
+	queue *prev;
 };
 
 
-node *first=nullptr;
-node *last= nullptr;
+queue *firstInQueue=nullptr;
+queue *lastInQueue= nullptr;
 
 
-void init(node *);
+void initQueue(queue *);
 
-void append(node *);
+void appendQueue(queue *);
 
-node* pop();
+queue* popQueue();
 
-void print();
-bool isNull(node * value){return value==nullptr;}
+void printQueue();
+bool isNull(queue * value){return value==nullptr;}
 
 int main(){
 
-	node *n = new node{"admin",nullptr,nullptr};
-	init(n);
+	queue *n = new queue{"admin",nullptr,nullptr};
+	initQueue(n);
 	
 	
-	node *n1 = new node{"ivan",nullptr,nullptr};
-	node *n2 = new node {"jojo", nullptr, nullptr};
-	append(n1);
-	append(n2);
-	print();
-	pop();
+	queue *n1 = new queue{"ivan",nullptr,nullptr};
+	queue *n2 = new queue {"jojo", nullptr, nullptr};
+	appendQueue(n1);
+	appendQueue(n2);
+	printQueue();
+	popQueue();
 	cout<<endl;
-	print();
-	pop();
+	printQueue();
+	popQueue();
 	cout<<endl;
-	print();
+	printQueue();
 	cout<<endl;
-	pop();
-	print();
+	popQueue();
+	printQueue();
 	
 }
 
-node *pop(){
-	node* poped=nullptr;
+queue *popQueue(){
+	queue* poped=nullptr;
 	
-	if(isNull(first->prev)){
-		poped = new node{first->name,nullptr,nullptr};
-		first=nullptr;
-		last=nullptr;
+	if(isNull(firstInQueue->prev)){
+		poped = new queue{firstInQueue->name,nullptr,nullptr};
+		firstInQueue=nullptr;
+		lastInQueue=nullptr;
 		return poped;
 	}else{
-		poped = new node{first->name,nullptr,nullptr};
-		first=first->prev;
-		first->next=nullptr;
+		poped = new queue{firstInQueue->name,nullptr,nullptr};
+		firstInQueue=firstInQueue->prev;
+		firstInQueue->next=nullptr;
 		return poped;
 	}
 	
 }
 
-void init(node *root){
-	last=root;
-	first=root;
+void initQueue(queue *root){
+	lastInQueue=root;
+	firstInQueue=root;
 }
 
-void append(node *value){
-	value->next=last;
-	last->prev=value;
-	value->prev=nullptr;
-	last=value;	
+void appendQueue(queue *value){
+	if(!firstInQueue && !lastInQueue){
+		initQueue(value);
+	}else{
+		value->next=lastInQueue;
+		lastInQueue->prev=value;
+		value->prev=nullptr;
+		lastInQueue=value;	
+	}
+	
 }
 
-void print(){
-	node * point = last;
+void printQueue(){
+	queue * point = lastInQueue;
 	
 	while(point){
 		cout<<point->name<<"  ";
