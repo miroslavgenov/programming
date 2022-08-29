@@ -2,86 +2,87 @@
 
 using namespace std;
 
-class MyException{
-	string msg;
-	public:
-		MyException(string msg):msg(msg){}
-		string what(){return msg;}
-};
-
-
-struct node{
+struct stack{
 	string name;
-	node * next;
+	stack* next;
+	stack* prev;
 };
 
-node *root;
+stack* stackRoot=nullptr;
 
-void init(){root=new node{"admin",nullptr};}
+bool isStackEmpty(){
+	return ::stackRoot==nullptr;
+}
 
-void push(node * value){
-	node * point = root;
+void appendStack(stack* root,stack* value){
+	stack* point = nullptr;
+	if(isStackEmpty()){
+		stackRoot = new stack{value->name,nullptr,nullptr};
+		
+	}else{
+		point = root;
 	while(point->next){
 		point=point->next;
 	}
-	
 	point->next = value;
+	value->prev = point;	
+	}
 	
 }
 
-void print(){
-	node *point = root;
+void printStack(stack* root){
+	if(!isStackEmpty()){
+		stack* point = root;
 	while(point){
 		cout<<point->name<<" ";
-		point=point->next; 
-	}
-}
-
-node* get(){
-	node *point  = root;
-	
-	node *target = nullptr;
-	
-	if(root->next == nullptr && point){
-cout<<"!"<<endl;
-		target = new node{root->name,nullptr};
-		root=nullptr;
-		return target;
-
-		
-	}
-	
-	while(point->next->next){
 		point=point->next;
-		
+	}	
 	}
-	target=point->next;
-
-	point->next=nullptr;
-	return target;
+	else
+	{
+		cout<<"STACK IS EMPTY"<<endl;	
+	}
+	
+	
 }
 
-bool isEmpty(){
-	return root==nullptr;
+stack* popStack(stack* root){
+
+	string stackName ="";
+
+	if(!root){
+		return stackRoot;
+	}
+	else if(!root->prev && !root->next){
+		stackName = stackRoot->name;
+		stackRoot=nullptr;
+		return new stack{stackName,nullptr,nullptr};
+	}else{
+		stack* stackPoint = root;
+		while(stackPoint->next){
+			stackPoint=stackPoint->next;
+		}
+
+		stackName = stackPoint->name;
+		
+		stackPoint->prev->next=nullptr;
+		stackPoint=nullptr;
+		return new stack{stackName,nullptr,nullptr};
+	}
+	return stackRoot;
 }
 
 int main(){
-	init();
-
-	node * n = new node{"ivan",nullptr};
-	node *n1 = new node{"alex",nullptr};
-	push(n);
-	push(n1);
 	
-get();get();get();
-print();
-cout<<isEmpty()<<endl;
-
 	
 
 
 	
 }
+
+
+
+
 
 
 

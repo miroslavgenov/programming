@@ -1,7 +1,16 @@
+/**
+ * @file myGraphTraversal.cpp
+ * @author your name (you@domain.com)
+ * @brief My graph traversal
+ * @version 0.1
+ * @date 2022-08-29
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <iostream>
-
 #include <vector>
-
 
 using namespace std;
 
@@ -26,6 +35,7 @@ void printV(vector<T>v){
 }
 const int s=5;
 void printGraphEdgeArc(int [][s]);
+
 int main(){
 	vector<int> v;
 	v.push_back(0);
