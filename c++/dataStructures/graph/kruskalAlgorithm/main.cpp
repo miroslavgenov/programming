@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const int s = 5;
+const int s = 4;
 vector<int> vstack;
 
 void printGraph(int g[][s]);
@@ -214,7 +214,7 @@ void clearVisitedEdges(){
 }
 vector<int> edgeVisited;
 
-void dfs(int g[][s],int i){
+void dfs(int gr[][s],int i){
 	if(visitedEdges[i] == 0){
 		cout<<"edge: "<<i<<endl;
 		visitedEdges[i]=1;
@@ -223,13 +223,13 @@ void dfs(int g[][s],int i){
 		edgeVisited.push_back(i);
 		
 		for(int j =0; j<s; j++){
-			if(g[i][j] == 1){
+			if(gr[i][j] != 0){
 				if(visitedEdges[j]==0){
 
 					vstack.push_back(j);
 					cout<<i<<" ednge appended: "<<j<<endl;
 					
-					dfs(g,vstack[vstack.size()-1]);
+					dfs(gr,vstack[vstack.size()-1]);
 					vstack.pop_back();
 				}
 
@@ -240,15 +240,14 @@ void dfs(int g[][s],int i){
 	
 }
 
-bool isEdgeInTheSameGraphInSpan(int span[][s],int e){
-	for(int i=0;i<s;i++){
-		for(int j=0;j<s;j++){
-			if(span[i][j] == e){
-				return true;
-			}
+bool isEdgeInTheSameGraphInSpan(vector<int> edgeVisited,int e){
+	for(int i=0;i<edgeVisited.size();i++){
+		if(edgeVisited[i] == e){
+			return true;
 		}
 	}
 	return false;
+	
 }
 
 // TODO EDIT this function
@@ -260,59 +259,64 @@ void kruskal(int g[][s], int span[][s]){
 		cout<<"done"<<endl;
 	}else{
 		if(isSpanEmpty(span)){
+			
 			cout<<"span is empty"<<endl;
-			printSpan(span);
-			
-			ed = getShortesConnectionAndIncrementTotalConnections(gCon);
-			
-			appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
-			clearConnection(::gCon,ed);
-      
-      		cout<<"remove the added connectio"<<endl;
-      		printGraph(::gCon);
+			cout<<"totalVeriticies are: "<<totalVerticies<<endl;
+			ed = getShortesConnectionAndIncrementTotalConnections(::gCon);
+			cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
+			appendToSpan(span, ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
+			printGraph(span);
+			cout<<"edge visited"<<endl;
+			for(int i=0;i<edgeVisited.size();i++)cout<<edgeVisited[i]<<" ";
+			clearVisitedEdges();
+						
+//			cout<<"gCon"<<endl;
+			clearConnection(gCon,ed);
+			printGraph(gCon);
+			cout<<"totalVeriticies are: "<<totalVerticies<<endl;
       		kruskal(g,span);
 			
 			
 		}else{
-			cout<<"span is not empty"<<endl;
+			cout<<endl<<"span is not empty"<<endl;
+			cout<<"totalVeriticies are: "<<totalVerticies<<endl;
 			//TOTO check if the edge is part of existing group if it is then find next
-			
-			
-			
 			ed = getShortesConnectionAndIncrementTotalConnections(gCon);
-			cout<<"check if fromEdge and toEdge is in the same group"<<endl;
+			cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
 			dfs(span,ed->fromEdgeNumber);
-			if(edgeVisited.size()<2){
-				cout<<"can be connected"<<endl;
-				edgeVisited.clear();
+			if(edgeVisited.size()==1){
+				cout<<"size==1"<<endl;
 				clearVisitedEdges();
+				edgeVisited.clear();
+				clearConnection(gCon,ed);
 				appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
-				clearConnection(::gCon,ed);
-				printGraph(::gCon);cout<<endl;
-				printGraph(span);cout<<endl;
-				
-				
+				printGraph(span);
+				printGraph(gCon);
 				
 			}else{
-				cout<<"check if the fromEdge is in tha same group as toEdge"<<endl;
-//				cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
-				if(isEdgeInTheSameGraphInSpan(span,ed->toEdgeNumber)){
-					cout<<"there will be loop\n skip those connection's"<<endl;
-          
-        	}else{
-        		cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
-          		cout<<"you can add them"<<endl;
-          		appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
-          		edgeVisited.clear();
-          		clearVisitedEdges();
-          		clearConnection(::gCon, ed);
-          		
-        	}
+				cout<<"size> 1"<<endl;
+				cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
+
+				if(isEdgeInTheSameGraphInSpan(edgeVisited,ed->fromEdgeNumber) && isEdgeInTheSameGraphInSpan(edgeVisited,ed->toEdgeNumber)){
+					cout<<"there is looop"<<endl;
+					totalVerticies--;
+					edgeVisited.clear();
+					clearVisitedEdges();
+					clearConnection(gCon,ed);
+					printGraph(gCon);
+				}else{
+					cout<<"totalVeriticies are: "<<totalVerticies<<endl;
+					cout<<"you can add it"<<endl;
+					edgeVisited.clear();
+					clearVisitedEdges();
+					clearConnection(gCon,ed);
+					appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
+				}
+			
 			}
-	
-			
-			
+
 			kruskal(g,span);
+			
 		}
 		
 	}
@@ -343,11 +347,12 @@ void dfsPr(int span[][s],int i){
 
 int main(){
 	int g[s][s] = {
-		{0,1,3,2,0},
-		{1,0,0,0,2},
-		{3,0,0,4,1},
-		{2,0,4,0,0},
-		{0,2,1,0,0}
+			{0,10,6,5},
+			{10,0,0,15},
+			{6,0,0,4},
+			{5,15,4,0}
+
+
 	};
 	
   // copyGraph(int src[][s], int dst[][s]);
@@ -360,7 +365,8 @@ int main(){
 	
 //	printGraph(gCon);
 	kruskal(g,span);
-  clearVisitedEdges();
+	
+
 	dfsPr(span,0);
 	cout<<spanWeight<<endl;
 	
