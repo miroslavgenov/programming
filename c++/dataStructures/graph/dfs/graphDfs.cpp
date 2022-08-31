@@ -1,6 +1,9 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
+
+vector<int> vstack;
 
 struct stack{
 	int edge;
@@ -102,12 +105,17 @@ void dfs(int g[][s],int i){
 		cout<<"edge: "<<i<<endl;
 		visitedNodes[i]=1;
 		appendStack(stackRoot,new stack{i,nullptr,nullptr});
+//		vstack.push_back(i);
+		
 		for(int j =0; j<s; j++){
 			if(g[i][j] == 1){
 				if(visitedNodes[j]==0){
 					appendStack(stackRoot,new stack{j,nullptr,nullptr});
+//					vstack.push_back(j);
 					cout<<i<<" ednge appended: "<<j<<endl;
 					dfs(g,popStack(stackRoot)->edge);
+//					dfs(g,vstack[vstack.size()-1]);
+//					vstack.pop_back();
 				}
 
 			}

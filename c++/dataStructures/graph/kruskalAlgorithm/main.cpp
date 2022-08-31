@@ -1,0 +1,447 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int s = 5;
+vector<int> vstack;
+
+void printGraph(int g[][s]);
+
+struct edgeConnection{
+	int fromEdgeNumber;
+	int toEdgeNumber;
+	int value;
+};
+
+struct stack{
+	edgeConnection* edgeConnection;
+	stack* next;
+	stack* prev;
+};
+
+stack* stackRoot=nullptr;
+
+bool isStackEmpty(){
+	return ::stackRoot==nullptr;
+}
+
+void appendStack(stack* stackRoot,stack* value){
+	stack* point = nullptr;
+	if(isStackEmpty()){
+		
+		::stackRoot = new stack{value->edgeConnection,nullptr,nullptr};
+		
+	}else{
+		point = stackRoot;
+	while(point->next){
+		point=point->next;
+	}
+	point->next = value;
+	value->prev = point;	
+	}
+	
+}
+
+void printStack(stack* root){
+	if(!isStackEmpty()){
+		stack* point = root;
+		while(point){
+			cout<<point->edgeConnection->value<<" ";
+			point=point->next;
+		}	
+	}
+	else
+	{
+		cout<<"STACK IS EMPTY"<<endl;	
+	}
+	
+	
+}
+
+stack* popStack(stack* root){
+
+	int fromEdge,toEdge,value;
+
+	if(!root){
+		return stackRoot;
+	}
+	else if(!root->prev && !root->next){
+		fromEdge = stackRoot->edgeConnection->fromEdgeNumber;
+		toEdge = stackRoot->edgeConnection->toEdgeNumber;
+		value = stackRoot->edgeConnection->value;
+		stackRoot=nullptr;
+		return new stack{new edgeConnection{fromEdge,toEdge,value} ,nullptr,nullptr};
+	}else{
+		stack* stackPoint = root;
+		while(stackPoint->next){
+			stackPoint=stackPoint->next;
+		}
+
+		fromEdge = stackPoint->edgeConnection->fromEdgeNumber;
+		toEdge = stackPoint->edgeConnection->toEdgeNumber;
+		value = stackPoint->edgeConnection->value;
+		
+		stackPoint->prev->next=nullptr;
+		stackPoint=nullptr;
+		return new stack{new edgeConnection{fromEdge,toEdge,value},nullptr,nullptr};
+	}
+	return stackRoot;
+}
+
+
+
+
+
+
+int totalVerticies=0;
+
+int span[s][s]{0}; // contains the minimum path
+int gCon[s][s]{0};
+
+
+stack* createNewStack(int fromEdge, int toEdge, int value){
+  return new stack{new edgeConnection{fromEdge,toEdge,value}, nullptr, nullptr};
+  
+}
+
+stack* getStackElement(int index){
+	stack* point = stackRoot;
+	int count = 0;
+
+	while(point){
+		if(count == index){
+			return point;
+		}
+		count++;
+		point = point->next;
+	}
+	return nullptr;
+	
+	
+}
+
+edgeConnection* getShortesConnectionAndIncrementTotalConnections(int g[][s]){
+	cout<<endl<<"getShortesConnection"<<endl;
+	int *min = nullptr;
+	int *edgeNumber = nullptr;
+	int *fromEdge = nullptr;
+  	
+	
+		
+		for(int i = 0; i < s; i++){
+			for(int j=0; j<s; j++){
+				if(g[i][j] != 0){
+					if(min == nullptr){
+						min = new int{g[i][j]};
+						edgeNumber = new int{j};
+						fromEdge = new int{i};
+					}else{
+						if(*min > g[i][j]){
+							min = new int{g[i][j]};
+							fromEdge = new int{i};
+							edgeNumber = new int{j};
+						}
+					}
+				}
+			} 
+		}
+		::totalVerticies++;
+		appendStack(stackRoot, createNewStack(*fromEdge,*edgeNumber,*min));
+		return new edgeConnection{*fromEdge, *edgeNumber, *min};
+}
+
+void printShortesConnectionInGraph(int g[][s]){
+  int *min = nullptr;
+  int *edgeNumber = nullptr;
+  int *fromEdge = nullptr;
+  
+  for(int i = 0; i < s; i++){
+    for(int j=0; j<s; j++){
+      if(g[i][j] != 0){
+    	if(min == nullptr){
+        min = new int{g[i][j]};
+        edgeNumber = new int{j};
+        fromEdge = new int{i};
+      }else{
+        if(*min > g[i][j]){
+          min = new int{g[i][j]};
+          fromEdge = new int{i};
+          edgeNumber = new int{j};
+        }
+      }
+    }
+    }
+    
+  }
+  cout<<"from: "<<*fromEdge<<" to: "<<*edgeNumber<<" is: "<<*min<<endl;
+  
+  delete fromEdge;
+  delete edgeNumber;
+  delete min;
+  
+}
+
+bool isSpanEmpty(int span[][s]){
+	for(int i=0;i<s;i++){
+		for(int j=0;j<s;j++){
+			if(span[i][j] !=0){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+void printSpan(int [][s]);
+
+void appendToSpan(int span[][s], int fromEdge , int toEdge, int value){
+	span[fromEdge][toEdge] = value;
+	span[toEdge][fromEdge] = value;
+}
+
+
+
+void clearConnection(int [][s], edgeConnection*);
+
+
+
+bool visitedEdges[s]{0};
+void clearVisitedEdges(){
+	for(int i=0;i<s;i++){
+		visitedEdges[i]=0;
+	}
+}
+vector<int> edgeVisited;
+
+void dfs(int g[][s],int i){
+	if(visitedEdges[i] == 0){
+		cout<<"edge: "<<i<<endl;
+		visitedEdges[i]=1;
+
+		vstack.push_back(i);
+		edgeVisited.push_back(i);
+		
+		for(int j =0; j<s; j++){
+			if(g[i][j] == 1){
+				if(visitedEdges[j]==0){
+
+					vstack.push_back(j);
+					cout<<i<<" ednge appended: "<<j<<endl;
+					
+					dfs(g,vstack[vstack.size()-1]);
+					vstack.pop_back();
+				}
+
+			}
+		}
+	}
+	
+	
+}
+
+bool isEdgeInTheSameGraphInSpan(int span[][s],int e){
+	for(int i=0;i<s;i++){
+		for(int j=0;j<s;j++){
+			if(span[i][j] == e){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+// TODO EDIT this function
+void kruskal(int g[][s], int span[][s]){
+	cout<<endl<<"kruskal"<<endl;
+	edgeConnection *ed = nullptr;
+	
+	if(totalVerticies == s-1){
+		cout<<"done"<<endl;
+	}else{
+		if(isSpanEmpty(span)){
+			cout<<"span is empty"<<endl;
+			printSpan(span);
+			
+			ed = getShortesConnectionAndIncrementTotalConnections(gCon);
+			
+			appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
+			clearConnection(::gCon,ed);
+      
+      		cout<<"remove the added connectio"<<endl;
+      		printGraph(::gCon);
+      		kruskal(g,span);
+			
+			
+		}else{
+			cout<<"span is not empty"<<endl;
+			//TOTO check if the edge is part of existing group if it is then find next
+			
+			
+			
+			ed = getShortesConnectionAndIncrementTotalConnections(gCon);
+			cout<<"check if fromEdge and toEdge is in the same group"<<endl;
+			dfs(span,ed->fromEdgeNumber);
+			if(edgeVisited.size()<2){
+				cout<<"can be connected"<<endl;
+				edgeVisited.clear();
+				clearVisitedEdges();
+				appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
+				clearConnection(::gCon,ed);
+				printGraph(::gCon);cout<<endl;
+				printGraph(span);cout<<endl;
+				
+				
+				
+			}else{
+				cout<<"check if the fromEdge is in tha same group as toEdge"<<endl;
+//				cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
+				if(isEdgeInTheSameGraphInSpan(span,ed->toEdgeNumber)){
+					cout<<"there will be loop\n skip those connection's"<<endl;
+          
+        	}else{
+        		cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
+          		cout<<"you can add them"<<endl;
+          		appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
+          		edgeVisited.clear();
+          		clearVisitedEdges();
+          		clearConnection(::gCon, ed);
+          		
+        	}
+			}
+	
+			
+			
+			kruskal(g,span);
+		}
+		
+	}
+	
+}
+
+vector<int> ssteck;
+int spanWeight=0;
+void dfsPr(int span[][s],int i){
+  if(visitedEdges[i] == 0){
+    visitedEdges[i] = 1;
+    ssteck.push_back(i);
+    
+    
+    for(int j=0;j<s;j++){
+      if(span[i][j] !=0 && visitedEdges[j] == 0)
+      {
+        cout<<"from: "<<i<<" to: "<<j<<" = "<<span[i][j]<<endl;
+        spanWeight += span[i][j];
+		ssteck.push_back(j);
+      dfsPr(span,ssteck[ssteck.size()-1]);
+      ssteck.pop_back();
+      }
+    }
+    
+  }
+}
+
+int main(){
+	int g[s][s] = {
+		{0,1,3,2,0},
+		{1,0,0,0,2},
+		{3,0,0,4,1},
+		{2,0,4,0,0},
+		{0,2,1,0,0}
+	};
+	
+  // copyGraph(int src[][s], int dst[][s]);
+  for(int i=0;i<s;i++){
+		for(int j=0;j<s;j++){
+			::gCon[i][j] = g[i][j];
+			
+		}
+	}
+	
+//	printGraph(gCon);
+	kruskal(g,span);
+  clearVisitedEdges();
+	dfsPr(span,0);
+	cout<<spanWeight<<endl;
+	
+	
+	
+	
+}
+
+void printSpan(int span[][s]){
+	cout<<endl;
+	for(int i=0;i<s;i++){
+		for(int j=0;j<s;j++){
+			cout<<span[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+
+void clearConnection(int gCon[][s], edgeConnection* ed){
+  gCon[ed->fromEdgeNumber][ed->toEdgeNumber] = 0;
+      		gCon[ed->toEdgeNumber][ed->fromEdgeNumber] = 0;
+}
+
+void printGraph(int g[][s]){
+  cout<<endl;
+  for(int i=0;i<s;i++){
+    for(int j=0;j<s;j++){
+      cout<<g[i][j]<<" ";
+    }cout<<endl;
+  }
+  cout<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
