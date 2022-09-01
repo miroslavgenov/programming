@@ -4,7 +4,7 @@
 using namespace std;
 
 const int s = 4;
-vector<int> vstack;
+
 
 void printGraph(int g[][s]);
 
@@ -215,8 +215,46 @@ void clearVisitedEdges(){
 		visitedEdges[i]=0;
 	}
 }
-vector<int> edgeVisited;
 
+
+vector<int> edgeFullPath;
+vector<int> currentEdge;
+void getTheFullPathFromSpecificEdge(int graph[][s],int targetEdge, vector<int> edgeFullPath){
+  if(visitedEdges[targetEdge] == 0){
+    visitedEdges[targetEdge] = 1;
+    currentEdge.push_back(targetEdge);
+    edgeFullPath.push_back(targetEdge);
+    
+    for(int i=0;i<s;i++){
+      if(graph[targetEdge][i] != 0){
+				if(visitedEdges[i]==0){
+
+					currentEdge.push_back(i);
+					cout<<targetEdge<<" ednge appended: "<<i<<endl;
+					
+					getTheFullPathFromSpecificEdge(graph,currentEdge[currentEdge.size()-1],edgeFullPath);
+					currentEdge.pop_back();
+				}
+    }
+    
+  }
+}
+}
+
+
+
+int getGraphTargetedEdgePathLenght(int graph[][s] , int targetEdge){
+  getTheFullPathFromSpecificEdge(graph,targetEdge,::edgeFullPath);
+  return ::edgeFullPath.size();
+}
+
+
+
+
+vector<int> edgeVisited;
+// stack to implement dfs
+vector<int> vstack;
+// this dfs check if graph have connections
 void dfs(int gr[][s],int i){
 	if(visitedEdges[i] == 0){
 		cout<<"edge: "<<i<<endl;
@@ -224,6 +262,7 @@ void dfs(int gr[][s],int i){
 
 		vstack.push_back(i);
 		edgeVisited.push_back(i);
+    edgeFullPath.push_back(i);
 		
 		for(int j =0; j<s; j++){
 			if(gr[i][j] != 0){
