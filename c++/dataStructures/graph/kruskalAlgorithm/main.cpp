@@ -8,8 +8,11 @@ vector<int> vstack;
 
 void printGraph(int g[][s]);
 
+
 struct edgeConnection{
+	//TODO: rename fromEdgeNumber to fromVertexNumber
 	int fromEdgeNumber;
+		//TODO: rename fromEdgeNumber to toVertexNumber
 	int toEdgeNumber;
 	int value;
 };
@@ -193,7 +196,7 @@ bool isSpanEmpty(int span[][s]){
 	return true;
 }
 
-void printSpan(int [][s]);
+
 
 void appendToSpan(int span[][s], int fromEdge , int toEdge, int value){
 	span[fromEdge][toEdge] = value;
@@ -363,7 +366,7 @@ int main(){
 		}
 	}
 	
-//	printGraph(gCon);
+
 	kruskal(g,span);
 	
 
@@ -373,17 +376,6 @@ int main(){
 	
 	
 	
-}
-
-void printSpan(int span[][s]){
-	cout<<endl;
-	for(int i=0;i<s;i++){
-		for(int j=0;j<s;j++){
-			cout<<span[i][j]<<" ";
-		}
-		cout<<endl;
-	}
-	cout<<endl;
 }
 
 void clearConnection(int gCon[][s], edgeConnection* ed){
