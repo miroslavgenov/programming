@@ -43,7 +43,7 @@ public class QuizatorMainXMLHelper {
     }
 
     public void initRadioGroupHelper() {
-        this.radioGroupHelper = new RadioGroupHelper(binding.radioGroupAnswers);
+        this.radioGroupHelper = new RadioGroupHelper(binding);
     }
 
     public RadioGroupHelper getRadioGroupHelper() {

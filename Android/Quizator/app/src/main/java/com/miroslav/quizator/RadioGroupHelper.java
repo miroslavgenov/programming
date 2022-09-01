@@ -4,39 +4,37 @@ import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
+import com.miroslav.quizator.initializer.RadioGroupInitializer;
+
 /**
  * Author Miroslav Genov
  */
 public class RadioGroupHelper {
     RadioGroup radioGroupAnswer;
     RadioButton[] radioButtonsAnswer;
+    RadioGroupInitializer radioGroupInitializer;
 
-    public RadioGroupHelper(RadioGroup radioGroupAnswer) {
-        setRadioGroupAnswer(radioGroupAnswer);
+
+    public RadioGroupHelper(FragmentQuizatorMainBinding binding){
+        radioGroupInitializer = new RadioGroupInitializer(binding);
+        this.radioGroupAnswer = radioGroupInitializer.getRadioGroupAnswers();
         setRadioButtonsAnswer(radioGroupAnswer);
     }
 
-    public void setRadioGroupAnswer(RadioGroup radioGroupAnswer) {
-        this.radioGroupAnswer = radioGroupAnswer;
-    }
-    
-    void setRadioButtonsAnswerSize(int size){
+    void setRadioButtonsAnswerContainerSize(int size){
         radioButtonsAnswer = new RadioButton[size];
     }
 
-    public int getRadioGroupAnswerSize(){
-        return radioGroupAnswer.getChildCount();
-    }
-
     public void setRadioButtonsAnswer(RadioGroup radioGroupAnswer) {
-        setRadioButtonsAnswerSize(getRadioGroupAnswerSize());
+        setRadioButtonsAnswerContainerSize(radioGroupInitializer.getRadioGroupAnswerChildCount());
 
-        for (int i = 0; i < getRadioButtonsAnswerLength(); i++) {
+        for (int i = 0; i < getRadioButtonsAnswerContainerLength(); i++) {
             setRadioButtonAnswer(i,(RadioButton) radioGroupAnswer.getChildAt(i));
         }
     }
 
-    int getRadioButtonsAnswerLength(){
+    int getRadioButtonsAnswerContainerLength(){
         return radioButtonsAnswer.length;
     }
     
@@ -45,37 +43,14 @@ public class RadioGroupHelper {
     }
 
     public String getCheckedAnswerFromPlayer() {
-        int checkedButton = radioGroupAnswer.getCheckedRadioButtonId();
+        int checkedRadioButtonId = radioGroupAnswer.getCheckedRadioButtonId();
         for (RadioButton radioButtonAnswer : radioButtonsAnswer) {
-
-            if(radioButtonAnswer.getId()== checkedButton){
+            if(radioButtonAnswer.getId()== checkedRadioButtonId){
                 return radioButtonAnswer.getText().toString();
-//                Log.d("MyQue",radioButtonAnswer.getText().toString());
             }
-            //            return getCheckedRadioButtonTextString(radioButtonAnswer);
         }
         Log.d("MyGym","RadioGroupHelper.getCheckedAnswerFormPlayer().ERROR!!!!!");
         return "";
-    }
-
-    public String getCheckedRadioButtonTextString(RadioButton radioButton) {
-        if (isButtonChecked(radioButton)) {
-            return getRadioButtonTextString(radioButton);
-        }
-        return "";
-    }
-
-    public boolean isButtonChecked(RadioButton radioButton) {
-        Log.d("MyQue",radioButton.getId()+ " "+ radioGroupAnswer.getCheckedRadioButtonId());
-        return radioButton.getId() == getCheckedButtonIdFromRadioGroup();
-    }
-
-    public int getCheckedButtonIdFromRadioGroup() {
-        return radioGroupAnswer.getCheckedRadioButtonId();
-    }
-
-    public String getRadioButtonTextString(RadioButton radioButton) {
-        return radioButton.getText().toString();
     }
 }
 
