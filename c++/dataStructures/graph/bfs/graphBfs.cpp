@@ -23,7 +23,7 @@ queue* popQueue();
 void printQueue();
 bool isNull(queue * value){return value==nullptr;}
 
-const int s=5;
+const int s=8;
 bool visitedEdges[s]{0};
 
 void bfs(int g[][s],int i){
@@ -36,19 +36,22 @@ void bfs(int g[][s],int i){
                 appendQueue(new queue{j,nullptr,nullptr});
             }
         }
-        bfs(g,popQueue()->edgeNumber);
+       
     }
-    
+     bfs(g,popQueue()->edgeNumber);
 }
 
 int main(){
 	
 	int g[s][s]={
-		{0,1,0,0,1},
-		{1,0,1,1,0},
-		{0,1,0,1,0},
-		{0,1,1,0,0},
-		{1,0,0,0,0},
+		{0,	1,	1,	0,	0,	0,	0,	0},
+		{1,	0,	1,	1,	0,	0,	0,	0},
+		{1,	1,	0,	0,	1,	0,	0,	1},
+		{0,	1,	0,	0,	1,	0,	0,	0},
+		{0,	0,	1,	1,	0,	1,	0,	0},
+		{0,	0,	0,	0,	1,	0,	1,	0},
+		{0,	0,	0,	0,	0,	1,	0,	1},
+		{0,	0,	1,	0,	0,	0,	1,	0}
 
 
 		
