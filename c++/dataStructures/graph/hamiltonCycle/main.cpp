@@ -35,7 +35,7 @@
 
 using namespace std;
 
-const int graphSize = 4;
+const int graphSize = 7;
 bool visitedVerticies[graphSize]{0};
 
 void printGraph(int graph[][graphSize], int size){
@@ -46,6 +46,11 @@ void printGraph(int graph[][graphSize], int size){
 		}cout<<endl;
 	}
 	cout<<endl;
+}
+void clearEdgesOfVertex(int graph[][graphSize], int vertex){
+	for(int i=0;i<graphSize;i++){
+		graph[vertex][i] = 0;
+	}
 }
 
 vector<int> visitedVerticiesHistory;
@@ -62,10 +67,9 @@ void dfs(int graph[][graphSize], int vertex){
 			if(graph[vertex][i] !=0 && visitedVerticies[i] == 0){
 
 				currentVertex.push_back(i);
-				graph[vertex][i] = 0;
-				graph[i][vertex] = 0;
 				cout<<"from: "<<vertex<<" to: "<<i<<endl;
-				printGraph(graph,graphSize);
+				clearEdgesOfVertex(graph,vertex);
+//				printGraph(graph,graphSize);
 				dfs(graph,currentVertex[currentVertex.size()-1]);
 				currentVertex.pop_back();
 			}
@@ -74,22 +78,33 @@ void dfs(int graph[][graphSize], int vertex){
 	}
 }
 
-bool isHamiltonCycle(int graph[][graphSize], int startVertext){
-	return graph[startVertext][visitedVerticiesHistory[visitedVerticiesHistory.size()-1]] &&
-		graph[visitedVerticiesHistory[visitedVerticiesHistory.size()-1]][startVertext];
+bool isHamiltonCycle(int graph[][graphSize], int startVertex){
+	return graph[visitedVerticiesHistory[visitedVerticiesHistory.size()-1]][startVertex];
 }
 
 int main(){
 	int graph[graphSize][graphSize] = {
-		{0,1,1,1},
-		{1,0,1,0},
-		{1,1,0,1},
-		{1,0,1,0}
+		   { 0, 3, 0, 0, 0, 5, 2 },
+  { 3, 0, 2, 0, 7, 0, 1 },
+ 
+  { 0, 2, 0, 3, 6, 0, 0 },
+ 
+  { 0, 0, 3, 0, 4, 0, 0 },
+  
+  { 0, 7, 6, 4, 0, 4, 0 },
+  
+  { 5, 0, 0, 0, 4, 0, 3 },
+  
+  { 2, 1, 0, 0, 0, 3, 0 }
 	};
+	//TODO if not all verticies are visited print to start with startVertext of 0
 	int startVertex = 0;
 	dfs(graph,startVertex);
-	
+	printGraph(graph,graphSize);
 	cout<<isHamiltonCycle(graph,startVertex);
+	
+	
+	
 	
 }
 
