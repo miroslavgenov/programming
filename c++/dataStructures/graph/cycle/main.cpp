@@ -113,25 +113,14 @@ void dfs(int g[][s], int i){
 		cout<<i<<" ";
 		isThereLoop(g,i);
 		
-		
 		for(int j=0; j<s;j++){
 			if(g[i][j] == 1 && visitedEdges[j] == 0){
-
 				h.push_back(i);
 				appendStack(stackRoot,new stack{j,nullptr,nullptr});
-				
 				dfs(g,popStack(stackRoot)->edgeNumber);
-				
 			}
-			
-		}
-				
+		}		
 	}
-	
-
-
-		
-
 }
 
 int main(){
