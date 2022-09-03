@@ -3,8 +3,11 @@
 using namespace std;
 
 
+constexpr size_t GRAPH_SIZE=8;
+bool visitedEdges[GRAPH_SIZE]{0};
+
 struct queue{
-	int edgeNumber;
+	int vertexNumber;
 	queue* next;
 	queue *prev;
 };
@@ -21,29 +24,33 @@ void appendQueue(queue *);
 queue* popQueue();
 
 void printQueue();
-bool isNull(queue * value){return value==nullptr;}
+bool isNull(queue * value){return value == nullptr;}
 
-const int s=8;
-bool visitedEdges[s]{0};
 
-void bfs(int g[][s],int i){
-	if(visitedEdges[i]==0){
-		visitedEdges[i]=1;
+bool isCurrentVertextConnectedToThisVertex(const int GRAPH[][GRAPH_SIZE], const int vertex, const int thisVertex){
+	return GRAPH[vertex][thisVertex];
+}
+
+void bfs(const int GRAPH[][GRAPH_SIZE],const int currentVertex){
+	if(visitedEdges[currentVertex] == 0){
+		visitedEdges[currentVertex] = 1;
         
-        cout<<"edge: "<<i<<endl;
-        for(int j = 0; j<s; j++){
-            if(g[i][j] == 1 && visitedEdges[j]==0){
-                appendQueue(new queue{j,nullptr,nullptr});
+        cout<<"currentVertex: "<<currentVertex<<endl;
+        for(int vertex = 0; vertex < GRAPH_SIZE; vertex++){
+            if(isCurrentVertextConnectedToThisVertex(GRAPH, currentVertex, vertex) && visitedEdges[vertex] == 0){
+                appendQueue(new queue{vertex, nullptr, nullptr});
             }
         }
        
     }
-     bfs(g,popQueue()->edgeNumber);
+     if(firstInQueue){
+     	bfs(GRAPH, popQueue()->vertexNumber);	
+     }
+     
 }
 
 int main(){
-	
-	int g[s][s]={
+	constexpr int GRAPH[GRAPH_SIZE][GRAPH_SIZE]={
 		{0,	1,	1,	0,	0,	0,	0,	0},
 		{1,	0,	1,	1,	0,	0,	0,	0},
 		{1,	1,	0,	0,	1,	0,	0,	1},
@@ -52,29 +59,24 @@ int main(){
 		{0,	0,	0,	0,	1,	0,	1,	0},
 		{0,	0,	0,	0,	0,	1,	0,	1},
 		{0,	0,	1,	0,	0,	0,	1,	0}
-
-
-		
 	};
-	bfs(g,0);
-	
+
+	bfs(GRAPH,0);
 }
 
 queue *popQueue(){
 	queue* poped=nullptr;
 	
 	if(isNull(firstInQueue->prev)){
-		poped = new queue{firstInQueue->edgeNumber,nullptr,nullptr};
+		poped = new queue{firstInQueue->vertexNumber,nullptr,nullptr};
 		firstInQueue=nullptr;
 		lastInQueue=nullptr;
-		return poped;
 	}else{
-		poped = new queue{firstInQueue->edgeNumber,nullptr,nullptr};
+		poped = new queue{firstInQueue->vertexNumber,nullptr,nullptr};
 		firstInQueue=firstInQueue->prev;
 		firstInQueue->next=nullptr;
-		return poped;
 	}
-	
+	return poped;
 }
 
 void initQueue(queue *root){
@@ -98,7 +100,7 @@ void printQueue(){
 	queue * point = lastInQueue;
 	
 	while(point){
-		cout<<point->edgeNumber<<"  ";
+		cout<<point->vertexNumber<<"  ";
 		point=point->next;
 	}
 }
