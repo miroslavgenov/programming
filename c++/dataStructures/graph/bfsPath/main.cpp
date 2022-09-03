@@ -63,25 +63,61 @@ void printQueue(){
 	}
 }
 
-vector<int> path;
+bool isInQueue(int value){
+	queue* point = lastInQueue;
 
+	if(point){
+		while(point){
+			if(point->edge==value){
+				// cout<<" found: "<<point->edge<<endl;
+				return true;
+			}
+			point = point->next;
+		}
+		// cout<<"not found"<<endl;
+	}
+	return false;
+}
+
+
+struct parent{
+	int parentNumber;
+	vector<int> childs;
+};
+
+vector<parent*> parents;
+
+std::vector<int> path;
 void bfs(int graph[][graphSize] ,int vertex,int target){
 	
 		if(visitedVerticies[vertex] == 0){
 		visitedVerticies[vertex] = 1;
 		path.push_back(vertex);
 		
-		
+		parents.push_back(new parent{vertex});
+		cout<<"!!! parent: "<<parents[parents.size()-1]->parentNumber<<endl;
 		
 		for(int i=0;i<graphSize;i++){
 			if(graph[vertex][i] !=0 && visitedVerticies[i] == 0){
-//				cout<<"vertex: "<<vertex<<" append: "<<i<<endl;
-				if(target == i){
-					path.push_back(i);
-					isTargetFound= true;
-					return;
+				cout<<"parent: "<<vertex<<" will append: "<<endl;
+				if(lastInQueue){
+					cout<<"queue is not empty"<<endl;
+					cout<<"edge to be appende: "<<i<<endl;
+					cout<<"check if: "<<i<<" is in the queue"<<endl;
+					if(isInQueue(i)){
+						cout<<"edge: "<<i<<" is in the queue! Don't add it"<<endl;
+					}else{
+						cout<<"edge: "<<i<<" is not in the queue"<<endl;
+						parents[parents.size()-1]->childs.push_back(i);
+						appendQueue(new queue{i,nullptr,nullptr});
+					}
+				}else if(!lastInQueue){
+					cout<<"queue is empty"<<endl;
+					cout<<"appende edge is: "<<i<<endl;
+					parents[parents.size()-1]->childs.push_back(i);
+					appendQueue(new queue{i,nullptr,nullptr});
 				}
-				appendQueue(new queue{i,nullptr,nullptr});
+				
 			}
 		}
 		
@@ -104,45 +140,48 @@ void searchBfsPathFromVertextToVertextAndShow(int graph[][graphSize], int fromVe
 	
 }
 
+bool isNumberInVector(int number,vector<int> numbers){
+	for(int i=0;i<numbers.size();i++){
+		if(number == numbers[i]){
+			return true;
+		}
+	}
+	return false;
+}
+
 int main(){
 	int graph[graphSize][graphSize] = {
 
-{0,	0,	0,	1,	0,	1,	0},
-{0,	0,	1,	1,	0,	0,	0},
-{0,	1,	0,	0,	0,	0,	0},
-{1,	1,	0,	0,	1,	0,	1},
-{0,	0,	0,	1,	0,	1,	0},
-{1,	0,	0,	0,	1,	0,	0},
-{0,	0,	0,	1,	0,	0,	0}
+
+{0,	1,	1,	0,	0,	0,	0,	0},
+{1,	0,	1,	1,	0,	0,	0,	0},
+{1,	1,	0,	0,	1,	0,	0,	1},
+{0,	1,	0,	0,	1,	0,	0,	0},
+{0,	0,	1,	1,	0,	1,	0,	0},
+{0,	0,	0,	0,	1,	0,	1,	0},
+{0,	0,	0,	0,	0,	1,	0,	1},
+{0,	0,	1,	0,	0,	0,	1,	0}
 	};
 
 	
-	bfs(graph, 1,6);
-	bool pointToNext[path.size()]{0};
-	int count = 0;
-
-	for(int i = 1 ; i<path.size();i++){
-
-		if(graph[path[i-1]][path[i]]== 1){
-			pointToNext[count] = 1;
-		}else{
-			
-		}
-			
-		if(i == path.size()-1){
-			if(graph[path[i]][path[i-1]]){
-				count++;
-				pointToNext[i] =1;
-			}
-		}
-		count++;
+	bfs(graph, 0,6);
+	vector<parent*> reverseParents;
+	for(int i=parents.size()-1;i>=0;i--){
+		reverseParents.push_back(parents[i]);
 	}
-		
-	for(int i= 0;i<path.size();i++){
-		if(path[i]!=-1)
-			cout<<path[i]<<" ";
 
-	}
+	for(int i=0;i<reverseParents.size();i++)cout<<reverseParents[i]->parentNumber<<' ';
+	cout<<" is num: "<<isNumberInVector(reverseParents[0]->parentNumber,reverseParents[2]->childs)<<endl;
+	cout<<reverseParents[0]->parentNumber<<endl;
+	cout<<reverseParents[2]->parentNumber<<endl;
+	
+	
+
+
+	
+	
+
+
 
 }
 
