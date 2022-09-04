@@ -1,13 +1,16 @@
 #include <iostream>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
 const int graphSize = 9;
 int verticiesDistance[graphSize]{0};
+bool visitedVerticies[graphSize]{0};
 
 
 struct stack{
+	int prevVertex;
 	int vertexNumber;
 	int edgeWeight;
 	stack* next;
@@ -29,7 +32,7 @@ void appendStack(stack* stackRoot,stack* value){
 	stack* point = nullptr;
 	if(isStackEmpty()){
 		
-		::stackRoot = new stack{value->vertexNumber, value->edgeWeight, nullptr, nullptr};
+		::stackRoot = new stack{value->prevVertex,value->vertexNumber, value->edgeWeight, nullptr, nullptr};
 		
 	}else{
 		point = stackRoot;
@@ -46,7 +49,7 @@ void printStack(stack* root){
 	if(!isStackEmpty()){
 		stack* point = root;
 		while(point){
-			cout<<point->vertexNumber<<" "<<point->edgeWeight<<endl;
+			cout<<point->prevVertex<<" "<<point->vertexNumber<<" "<<point->edgeWeight<<endl;
 			point=point->next;
 		}	
 	}
@@ -60,6 +63,7 @@ void printStack(stack* root){
 
 stack* popStack(stack* root){
 
+	int prevVertex;
 	int vertexNumber;
 	int edgeWeight;
 
@@ -67,22 +71,23 @@ stack* popStack(stack* root){
 		return stackRoot;
 	}
 	else if(!root->prev && !root->next){
+		prevVertex = stackRoot->prevVertex;
 		vertexNumber = stackRoot->vertexNumber;
 		edgeWeight = stackRoot->edgeWeight;
 		stackRoot=nullptr;
-		return new stack{vertexNumber, edgeWeight,nullptr,nullptr};
+		return new stack{prevVertex,vertexNumber, edgeWeight,nullptr,nullptr};
 	}else{
 		stack* stackPoint = root;
 		while(stackPoint->next){
 			stackPoint=stackPoint->next;
 		}
-
+		prevVertex = stackRoot->prevVertex;
 		vertexNumber= stackPoint->vertexNumber;
 		edgeWeight = stackRoot->edgeWeight;
 		
 		stackPoint->prev->next=nullptr;
 		stackPoint=nullptr;
-		return new stack{vertexNumber, edgeWeight,nullptr,nullptr};
+		return new stack{prevVertex, vertexNumber, edgeWeight,nullptr,nullptr};
 	}
 	return stackRoot;
 }
@@ -105,6 +110,7 @@ bool isVertexInStack(int vertexNumber){
 
 stack* findMinWeight(stack* stackRoot){
 	stack* point = nullptr;
+	int prevVertex;
 	int *edgeMinWeight = nullptr;
 	int *vertexNumber = nullptr;
 	
@@ -112,18 +118,21 @@ stack* findMinWeight(stack* stackRoot){
 
 		point = stackRoot;
 		
+		prevVertex = point->prevVertex;
 		vertexNumber = new int{point->vertexNumber};
 		edgeMinWeight = new int{point->edgeWeight};
 
 		while(point){
 			if(*edgeMinWeight > point->edgeWeight){
+				prevVertex = point->prevVertex;
 				edgeMinWeight = new int{point->edgeWeight};
 				vertexNumber = new int{point->vertexNumber};
 			}
 			point = point->next;
 		}
+		visitedVerticies[*vertexNumber] = 1;
 	}
-	return new stack{*vertexNumber,*edgeMinWeight,nullptr,nullptr};
+	return new stack{prevVertex,*vertexNumber,*edgeMinWeight,nullptr,nullptr};
 }
 
 void removeFromStack(int vertexNumber, int edgeWeight){
@@ -183,106 +192,89 @@ bool isVerticiesDistanceEmpty(){
 	}
 	return true;
 }
+
+template <typename T>
+void print(T array[], size_t size){
+	for(int i=0;i<size;i++){
+		cout<<array[i]<<" ";
+	}
+}
+
+void fillVerticiesDistanceWithInfinity(){
+	int infinity = std::numeric_limits<int>::max();
+	
+	for(int i= 0;i<graphSize;i++){
+		verticiesDistance[i] = infinity;
+	}
+}
+
+template <typename T>
+void print(vector<T> list){
+	for(int i=0;i<list.size();i++){
+		cout<<list[i]<<" ";
+	}
+}
+
+
+
 vector<int> path;
 void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
+	verticiesDistance[startVertex] = 0;
+	// print(verticiesDistance,graphSize);
+	appendStack(stackRoot, new stack{-1,startVertex,verticiesDistance[startVertex],nullptr, nullptr});
+	
+	stack* s =  nullptr;
+	while(stackRoot){
+		s = findMinWeight(stackRoot);
 
-    if (isVerticiesDistanceEmpty()) {
-        cout << "verticiesDistance is empty" << endl;
-        verticiesDistance[startVertex] = 1;
-        path.push_back(startVertex);
+		for(int i=0;i<graphSize;i++){
+			if(graph[s->vertexNumber][i] != 0 && visitedVerticies[i] == 0){
+				cout<<"from: "<<s->vertexNumber<<" to: "<<i<<" dst is: " <<graph[s->vertexNumber][i]<<endl;
+				appendStack(stackRoot, new stack{s->vertexNumber, i, graph[s->vertexNumber][i]});
+			}
+		}
 
-        cout << "parent: " << startVertex << " childs: ";
-        for (int i = 0; i < graphSize; i++) {
-            if (graph[startVertex][i] != 0) {
-                cout << "from parent: " << startVertex << " to child: " << i << " weight: " << (verticiesDistance[startVertex] + graph[startVertex][i]) << endl;
-                if (verticiesDistance[i] == 0) {
-                    cout << "child: " << i << " don't have distance from: " << startVertex << endl;
-                    verticiesDistance[i] = verticiesDistance[startVertex] + graph[startVertex][i];
-                    appendStack(stackRoot, new stack {
-                        i,
-                        verticiesDistance[i],
-                        nullptr,
-                        nullptr
-                    });
-                } else {
-                    cout << "child: " << i << " already have weight compare and update if new value is less" << endl;
-                }
+		break;
+	}
 
-            }
-
-        }
-
-        dijkstra(graph, startVertex, targetVertex);
-
-    } else {
-    	
-        cout << "verticiesDistance is not empty" << endl;
-        stack * minEdge = findMinWeight(stackRoot);
-        path.push_back(minEdge->vertexNumber);
-        
-        if(minEdge->vertexNumber == targetVertex){
-        	cout<<" found"<<endl;
-        	return;
-        }
-
-        removeFromStack(minEdge -> vertexNumber, minEdge -> edgeWeight);
-        // printStack(stackRoot);
-        cout << "startVertex: " << minEdge -> vertexNumber << endl;
-        for (int i = 0; i < graphSize; i++) {
-            if (graph[minEdge -> vertexNumber][i] != 0) {
-                if (verticiesDistance[i] != 0) {
-                    cout << i << " have distance of" << verticiesDistance[i] << endl;
-                    cout << "check if vertex: " << minEdge -> vertexNumber << " edge distance" << (minEdge -> edgeWeight + graph[minEdge -> vertexNumber][i]) << " to: " << i << " is less distance from: " << verticiesDistance[i] << endl;
-                    if ((minEdge -> edgeWeight + graph[minEdge -> vertexNumber][i]) < verticiesDistance[i]) {
-                        cout << " yes it's less distance" << endl;
-                    } else {
-                        cout << " not it's not less distance" << endl;
-                    }
-                } else {
-                    cout << "from: " << minEdge -> vertexNumber << " to: " << i << " don't have distance" << endl;
-                    cout << "the distance will be: " << (minEdge -> edgeWeight + graph[minEdge -> vertexNumber][i]) << endl;
-                    verticiesDistance[i] = minEdge -> edgeWeight + graph[minEdge -> vertexNumber][i];
-                    appendStack(stackRoot, new stack {
-                        i,
-                        verticiesDistance[i],
-                        nullptr,
-                        nullptr
-                    });
-                }
-            }
-        }
-        if (stackRoot) {
-            dijkstra(graph, startVertex, targetVertex);
-        } else {
-            return;
-        }
-    }
 
 }
 
 
+
+
+
+
+
 int main(){
 	int graph[graphSize][graphSize]={
-		{ 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+        { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
         { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
         { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
         { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
         { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
         { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
         { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
-    	{ 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+        { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
         { 0, 0, 2, 0, 0, 0, 6, 7, 0 }
 	};
 
+	fillVerticiesDistanceWithInfinity();
 	dijkstra(graph,0,4);
+
+	
+
+	
+
 
 	// for(int i=0;i<graphSize;i++){
 	// 	cout<<verticiesDistance[i]<<" ";
 	// }
 	// printStack(stackRoot);
-	for(int i=0;i<path.size();i++){
-		cout<<path[i]<<" ";
-	}
+	
+	// for(int i=0;i<path.size();i++){
+	// 	cout<<path[i]<<" ";
+ //  	}
 
 }
 
