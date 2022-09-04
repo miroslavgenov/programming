@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int graphSize = 9;
+const int graphSize = 7;
 int verticiesDistance[graphSize]{0};
 bool visitedVerticies[graphSize]{0};
 
@@ -130,7 +130,7 @@ stack* findMinWeight(stack* stackRoot){
 			}
 			point = point->next;
 		}
-		visitedVerticies[*vertexNumber] = 1;
+		
 	}
 	return new stack{prevVertex,*vertexNumber,*edgeMinWeight,nullptr,nullptr};
 }
@@ -138,13 +138,13 @@ stack* findMinWeight(stack* stackRoot){
 void removeFromStack(int vertexNumber, int edgeWeight){
 	stack* point = nullptr;
 	if(stackRoot){
-		cout<<"stack root is not empty"<<endl;
-		cout<<"find value: vertexNumber: "<<vertexNumber<<" edgeWeight: "<<edgeWeight<<endl;
+//		cout<<"stack root is not empty"<<endl;
+//		cout<<"find value: vertexNumber: "<<vertexNumber<<" edgeWeight: "<<edgeWeight<<endl;
 		point = stackRoot;
 		while(point){
 			if(point->vertexNumber == vertexNumber && point->edgeWeight == edgeWeight){
 				cout<<point->vertexNumber<<" "<<point->edgeWeight<<endl;
-				cout<<"found"<<endl;
+//				cout<<"found"<<endl;
 				break;
 			}else{
 				point= point->next;	
@@ -153,28 +153,28 @@ void removeFromStack(int vertexNumber, int edgeWeight){
 		}
 
 		if(point){
-			cout<<"found: "<<point->vertexNumber<<"  weight: "<<point->edgeWeight<<endl;
+//			cout<<"found: "<<point->vertexNumber<<"  weight: "<<point->edgeWeight<<endl;
 			if(!point->prev && !point->next){
-				cout<<"point dont have prev and next"<<endl;
+//				cout<<"point dont have prev and next"<<endl;
 				stackRoot = nullptr;
 			}else{
-				cout<<"point have prev or next"<<endl;
+//				cout<<"point have prev or next"<<endl;
 				if(point->prev && point->next){
-					cout<<"point have prev and next"<<endl;
+//					cout<<"point have prev and next"<<endl;
 					point->prev->next = point->next;
 					point->next->prev = point->prev;
 				}else if(point->prev && !point->next){
-					cout<<"point have prev but don't have next"<<endl;
+//					cout<<"point have prev but don't have next"<<endl;
 					point->prev->next=nullptr;
 				}else if(!point->prev && point->next){
-					cout<<"point have next but don't have prev"<<endl;
+//					cout<<"point have next but don't have prev"<<endl;
 					stackRoot = stackRoot->next;
 					stackRoot->prev=nullptr;
 
 				}
 			}
 		}else{
-			cout<<" don't found"<<endl;
+//			cout<<" don't found"<<endl;
 		}
 		
 		
@@ -219,23 +219,43 @@ void print(vector<T> list){
 
 vector<int> path;
 void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
-	verticiesDistance[startVertex] = 0;
-	// print(verticiesDistance,graphSize);
-	appendStack(stackRoot, new stack{-1,startVertex,verticiesDistance[startVertex],nullptr, nullptr});
 	
-	stack* s =  nullptr;
-	while(stackRoot){
-		s = findMinWeight(stackRoot);
+	
+	
+	if(stackRoot){
+		stack* s =  nullptr;
+	s = findMinWeight(stackRoot);
+	removeFromStack(s->vertexNumber,s->edgeWeight);
+	
+		if(visitedVerticies[s->vertexNumber] == true){
+		cout<<"vertex: "<<s->vertexNumber<<" is visited visited"<<endl;
+		cout<<"check if the weight is less!"<<endl;
+	}else{
+		cout<<"vertex: "<<s->vertexNumber<<" is not visited"<<endl;
+		
+		cout<<s->edgeWeight<<endl;
+		verticiesDistance[s->vertexNumber] = s->edgeWeight;
+		cout<<"append the neighbours of: "<<s->vertexNumber<<endl;
 
-		for(int i=0;i<graphSize;i++){
+		for (int i = 0; i < graphSize; ++i)
+		{
 			if(graph[s->vertexNumber][i] != 0 && visitedVerticies[i] == 0){
-				cout<<"from: "<<s->vertexNumber<<" to: "<<i<<" dst is: " <<graph[s->vertexNumber][i]<<endl;
-				appendStack(stackRoot, new stack{s->vertexNumber, i, graph[s->vertexNumber][i]});
+				cout<<graph[s->vertexNumber][i]<<" ";
+				appendStack(stackRoot, new stack{s->vertexNumber,i,verticiesDistance[s->vertexNumber]+graph[s->vertexNumber][i],nullptr,nullptr});
+			}else if(graph[s->vertexNumber][i] != 0 && visitedVerticies[i] == 1){
+				cout<<"vertext: "<<i<<" is "<<endl;
 			}
+			
 		}
 
-		break;
+	}	
 	}
+	
+	
+	
+
+	
+	
 
 
 }
@@ -248,19 +268,24 @@ void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
 
 int main(){
 	int graph[graphSize][graphSize]={
-        { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
-        { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
-        { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
-        { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
-        { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
-        { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
-        { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
-        { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
-        { 0, 0, 2, 0, 0, 0, 6, 7, 0 }
+		{0,	1,	4,	0,	0,	0,	0,},
+		{1,	0,	1,	2,	1,	0,	0,},
+		{4,	1,	0,	0,	2,	4,	0,},
+		{0,	2,	0,	0,	0,	0,	0,},
+		{0,	1,	2,	0,	0,	0,	2,},
+		{0,	0,	4,	0,	0,	0,	3,},
+		{0,	0,	0,	0,	2,	3,	0,}
+
 	};
 
 	fillVerticiesDistanceWithInfinity();
-	dijkstra(graph,0,4);
+	verticiesDistance[0] = 0;
+	appendStack(stackRoot, new stack{-1,0,verticiesDistance[0],nullptr, nullptr});
+	dijkstra(graph,0,6);
+	dijkstra(graph,0,6);
+
+
+	
 
 	
 
