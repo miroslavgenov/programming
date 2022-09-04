@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        p{
+            font-size: calc(1rem + 1vw);
+        }
+        
+        
+        @media screen and (max-width:480px) {
+            
+            .container{
+                
+                grid-template-columns: 1fr;
+            }
+            /* p{
+                font-size: calc(1.5rem + 3vw);
+            } */
+
+
+  }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vel distinctio quos est in ea, ex dolor eum voluptates nam praesentium, quidem alias aliquid consectetur corrupti deleniti dicta quo? Dolorum.</p>
+        </div>
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, ratione. Quibusdam deserunt, neque minus cum temporibus delectus officiis nostrum atque illum tempore maxime id optio fuga eum animi aut necessitatibus?</p>
+        </div>
+    </div>
+</body>
+</html>

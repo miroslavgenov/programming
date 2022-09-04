@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Events</title>
+			<style>
+				input {
+					width: 400px;
+					height: 50px;
+					position: absolute;
+					top:100px;
+					left:150px;
+				}
+			</style>
+		</head>
+		<body>
+		  <input type="button" id="btn1" value="Click me">
+		  <script>
+		  	 var myBtn=document.getElementById("btn1");
+		  	 myBtn.addEventListener("click", checkEvent);
+
+		  //	 myBtn.addEventListener("dblclick", checkEvent);
+		  	
+		  	 function checkEvent(e)  //e - event object
+		  	 {
+		  	 	console.log(e.type);
+		  	 	console.log(e.clientX+", "+e.clientY);// spyamo window
+		  	 	console.log(e.offsetX+", "+e.offsetY);//spyamo butona
+
+		  	 }
+             
+		    	
+		  </script>
+		</body>
+		</html>		

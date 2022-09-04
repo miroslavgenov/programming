@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    
+        <title>Click event</title>
+     
+    </head>
+    <body>
+    	<button id="btn1">Кажи здравей</button>
+        
+        <script>
+        	//1. Получаване на референция към DOM елемента
+            var btnHello= document.querySelector("#btn1");
+            btn1.addEventListener("click", function(e){
+                  console.log("здравей!");
+                  alert("Здравей!")
+                  console.log("Tip:"+e.type);
+                  console.log("currentTarget:"+e.currentTarget);
+                  console.log("target:"+e.target);
+
+            });
+        </script>
+    </body>
+</html>

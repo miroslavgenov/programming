@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>Промяна  на класа на елементите</title>
+ <style>
+  #div1 {
+    display: none;
+    width: 200px;
+    height: 20px;
+    border: 3px solid HotPink;
+  }
+
+  #div1.active {
+    display: block;
+  }
+  #div1.painted {
+    background-color: MistyRose;
+  }
+  button {
+    display: none;
+  }
+  button.active{
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div id="div1">Learning JavaScript</div>
+  <br />
+  <button id="btn1" class="active">Покажи div</button>
+  <button id="btn2">Добави фон</button>
+
+  
+  <script>
+  	var btn1= document.querySelector("#btn1");
+    var btn2= document.querySelector("#btn2");
+    var div1= document.querySelector("#div1");
+
+    function showDiv(){
+    	div1.classList.add("active");
+      btn1.classList.remove("active");
+      btn2.classList.add("active");
+    }
+
+    function addBG(){
+      div1.classList.add("painted");
+      btn2.classList.remove("active");
+    }
+
+    btn1.addEventListener("click", showDiv);
+    btn2.addEventListener("click", addBG);
+  </script>
+</body>
+</html>

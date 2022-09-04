@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+   
+        <title>Untitled</title>
+      
+    </head>
+    <body>
+    	<input type="text" id="txt">
+        
+        <script>
+        	var text= document.querySelector("#txt");
+        	['keydown', 'keypress', 'keyup'].forEach(event=>
+        		document.addEventListener(event, function(event)
+        		{
+        			if(event.type=='keydown'){
+        				console.log("Натиснат е произволен клавиш");
+        			}
+        			else if(event.type=='keypress'){
+        				console.log("Натиснат е символен клавиш");
+        			}
+        			else if(event.type=='keyup'){
+        				console.log("Отпуснат е клавиш");
+        			}
+        		}));
+        
+        </script>
+    </body>
+</html>

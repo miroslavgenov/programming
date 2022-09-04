@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+}
+.container {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
+.bLogo {
+  width: 20%;
+  margin-top: 2%;
+  /* padding-right: 6%; */
+  /* padding-bottom: 3%; */
+}
+.slide {
+  /* display: flex; */
+  /* background-color: lightcyan; */
+  /* border-bottom-style: ridge; */
+  width: 700px;
+  height: 120px;
+  margin: 0 auto;
+  /* text-align: center; */
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes slide0 {
+  from {
+    transform: translateX(0%);
+    left: -25%;
+  }
+  to {
+    transform: translateX(0%);
+    left: 0%;
+  }
+}
+
+@keyframes slide1 {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 40%;
+  }
+}
+
+@keyframes slide2 {
+  from {
+    left: 40%;
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes slide3 {
+  from {
+    left: 40%;
+  }
+  to {
+    left: 60%;
+  }
+}
+
+#bl0 {
+  /* transform: translateX(0%); */
+  left: -25%;
+  position: absolute;
+  animation-name: slide0;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+
+#bl1 {
+  transform: translateX(0%);
+  position: absolute;
+  animation-name: slide1;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+#bl2 {
+  /* transform: translateX(100%); */
+  /* justify-content: center; */
+  padding-top: 4%;
+  position: absolute;
+  left: 40%;
+  animation-name: slide2;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+#bl3 {
+  left: 40%;
+  transform: translateX(200%);
+  position: absolute;
+  animation-name: slide3;
+  animation-iteration-count: infinite;
+  animation-duration: 5s;
+}
+
+img {
+  width: 100%;
+}

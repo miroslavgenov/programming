@@ -1,0 +1,60 @@
+#orderListPreview {
+  /* height: 400px; */
+  /* background-color: red; */
+  width: 500px;
+  position: absolute;
+  top: 15px;
+  border-radius: 40px;
+  /* border: 10px ; */
+  border: dashed 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.2);
+  left: 500px;
+  text-align: center;
+}
+
+hr {
+  width: 70%;
+}
+
+#imgPreview {
+  position: absolute;
+  margin-top: -25px;
+  margin-left: 10px;
+  height: 50px;
+  width: 50px;
+}
+img.show {
+  position: absolute;
+  left: 300px;
+}
+img.hide {
+  display: none;
+}
+button {
+  margin-top: 10px;
+}
+
+form {
+  width: 450px;
+}
+
+#mylbl,
+#endButton {
+  margin-top: 10px;
+  top: 0;
+  left: 50%;
+  position: sticky;
+}
+
+#divCheckBox,
+#divRadioShirtColor,
+#divInputAddress,
+#divInputTel {
+  margin-top: 80px;
+}
+
+button {
+  margin-top: 30px;
+  margin-left: 140px;
+  padding: 40px;
+}

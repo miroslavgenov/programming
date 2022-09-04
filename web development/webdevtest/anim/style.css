@@ -1,0 +1,47 @@
+.container {
+  width: 760px;
+  height: 341px;
+  position: relative;
+  background-color: red;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide1 {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+#imgslide2 {
+  position: absolute;
+  transform: translateX(-100%);
+  z-index: 1;
+  animation-name: slide1;
+  animation-duration: 5s;
+  width: 760px;
+  height: 341px;
+  animation-iteration-count: infinite;
+}
+#imgslide1 {
+  width: 760px;
+  height: 341px;
+  position: absolute;
+  transform: translateX(0%);
+  z-index: 2;
+  animation-name: slide;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}

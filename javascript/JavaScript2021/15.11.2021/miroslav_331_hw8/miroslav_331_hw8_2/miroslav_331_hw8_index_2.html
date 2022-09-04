@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="miroslav_331_hw8_style_2.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div id="divTimer">
+        <h1 id="h1Time">10</h1>
+    </div>
+
+
+    <form action="#" name="myForm">
+        <fieldset>
+            <legend>Пред Коледен Tест</legend>
+            
+            <div class="question">
+                <label>Какво е името на теста: 
+                    <input type="text" name="answ0" id="answ0">
+                </label>
+            </div>
+            <br>
+            
+            <div class="question">
+                <label for="">Кой са гласните в думата "Коледа"
+                    <textarea name="answ1" id="" cols="50" rows="2"></textarea>
+                </label>
+            </div>
+            <br>
+            
+            
+            
+            <div class="question">
+                <label for="">Изберете подходящата комбинация "Дядо ..."
+                    <div id="divRadioGroup">
+                        <label><input type="radio" name="myRadio" value="0" id="">Мраз</label>
+                        <label><input type="radio" name="myRadio" value="1" id="">Коледа</label>
+                        <label><input type="radio" name="myRadio" value="0" id="">Иван</label>
+
+                    </div>
+                </label>
+            </div><br>
+            <br>
+
+
+            <div class="question">
+                <label for="">Кой от сладкишите е коледен:
+                    <br>
+                    <label> <input type="checkbox" name="checkbox" id="" value="0">Великденско яйце</label>
+                    <label> <input type="checkbox" name="checkbox" id="" value="1">Коледни бонбони</label>
+                    <label> <input type="checkbox" name="checkbox" id="" value="1">Коледен торта</label>
+                    
+                </label>
+
+            </div><br>
+
+            <div class="question">
+
+                <label for="">През кой месец се празнува Коледа?
+                    
+                    <select name="answ4" id="">
+                        <option value="0">Януари</option>
+                        <option value="0">Февруари</option>
+                        <option value="1">Декември</option>
+                    </select>
+                    
+                    
+                </label>
+            </div><br>
+            
+            <div class="question">
+
+                <label for="">В какъв цвят е костюма на дядо Коледа?
+                    <input type="color" name="answ5" id="" value="#000000">
+                </label>
+            </div><br>
+            
+            <div class="question">
+
+                <label for="">Колко са елените на дядо Коледа
+                    <input type="range" min="0" max="10" name="answ6" value='0'; id="">
+                    <output name="result6">0</output>
+                </label>
+            </div><br>
+            
+            <div class="question">
+
+                <label for="">Колко дни има месец Декември?
+                    <input type="number" name="answ7">
+                    
+                </label>
+            </div><br>
+            
+            <div class="question">
+
+                <label for="">Изберете подходящите имена
+    
+                    <select name="answ8" id="" multiple>
+                        <option value="1">Дядо Коледа</option>
+                        <option value="1">Баба Коледа</option>
+                        <option value="0">Фродо</option>
+                    </select>
+                </label>
+            </div><br>
+
+            
+        </fieldset>
+    </form>
+    <button id="btn">Провери резултата</button>
+    
+    <script src="miroslav_331_hw8_main_2.js"></script>
+</body>
+
+</html>

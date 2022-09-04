@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+	<title>Промяна  на класа на елементите</title>
+ <style>
+    .title {
+      width: 300px;
+      height: 30px;
+      font-size: 20px;
+      text-align:center; 
+      background-color: #ffffee;
+    }
+    .border{
+      border: 2px solid pink;
+    }
+ </style>
+</head>
+<body>
+  <div id="div1">Learning JavaScript</div>
+  <button id="btn1">Форматирай заглавието</button>
+  <button id="btn2">Добави рамка</button>
+ 
+  
+  <script>
+  	var btn1= document.querySelector("#btn1");
+    var btn2= document.querySelector("#btn2");
+    var div1= document.querySelector("#div1");
+
+    function formatTitle(){
+    	div1.className="title";
+    }
+
+     function addBorder(){
+      div1.className +=" border";
+    }
+
+
+ 
+    btn1.addEventListener("click", formatTitle);
+    btn2.addEventListener("click", addBorder);
+  </script>
+</body>
+</html>

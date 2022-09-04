@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+
+<html>
+
+ <head>
+  <meta charset='utf-8'>
+  <title>Конструкции в JavaScript</title>
+ </head>
+
+ <body>
+  <script>
+   'use strict';
+
+   let x = 1;
+   document.write(`<h3>x = ${x}</h3>`);
+   if (x != 0)
+   document.write('x != 0<br>');
+   else
+   document.write('x = 0<br>');
+
+   x = 2;
+   document.write(`<h3>x = ${x}</h3>`);
+   let message;
+   if (x % 2 == 0)
+   {
+     x = 0;
+     message = 'четно';
+   }
+   else
+   {
+     x = 1;
+     message = 'нечетно';
+   }
+   document.write(message);
+   x = 3;
+   document.write(`<h3>x = ${x}</h3>`);
+   message = (x % 2 == 0) ? 'четно' : 'нечетно';
+   document.write(message);
+  </script>
+ </body>
+
+</html>

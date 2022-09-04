@@ -1,0 +1,18 @@
+@keyframes my_ch {
+  from {
+    content: "Hello";
+  }
+  to {
+    content: "Hello world!";
+  }
+}
+
+h1 {
+  animation-name: my_ch;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+body {
+  text-align: center;
+}

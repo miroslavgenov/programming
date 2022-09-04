@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+       
+        <title>Делегиране на събития</title>
+      
+    </head>
+    <body>
+        <button>Натисни ме</button><br />
+        <input type="text"><br />
+        <div  style="width:200px; height:300px; border:1px solid red">Toва е div</div>
+        <script>
+        	var body = document.body;
+            body.addEventListener("click", function(e){
+                console.log("e.currentTarget:", e.currentTarget);
+                console.log("e.target:", e.target);
+                console.log("e.target.tagName:", e.target.tagName);
+
+                if(e.target.tagName==="DIV"){
+                    e.target.innerHTML += " <i>с добавен текст</i>";
+                }
+            });
+
+        	
+        </script>
+    </body>
+</html>

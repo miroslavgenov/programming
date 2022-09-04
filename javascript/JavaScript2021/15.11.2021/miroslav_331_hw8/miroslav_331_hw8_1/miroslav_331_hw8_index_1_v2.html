@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>miroslav 331 hw8 1 </title>
+    <link rel="stylesheet" href="miroslav_331_hw8_style_1.css">
+</head>
+<body>
+    <form action="#" name="orderForm">
+        <fieldset>
+            <legend>T shirt</legend>
+            <div id="order">
+            <label id="mylbl"class="hide" for="price" name="mylabelPrice" >Price: 
+                <input id="show" type="text" name="inputPriceText" readonly="readonly">
+            <!-- </label><br> -->
+            
+        </div>
+            <select name="selectSizes">
+                <option value="30">XS</option>
+                <option value="31">X</option>
+                <option value="32">M</option>
+                <option value="33">L</option>
+            </select>
+
+            <div id="divRadioShirtColor">
+                <label for="redColor">
+                    <input type="radio" name="radioShirtColor" value="red">red
+                </label>
+
+                <label for="blueColor">
+                    <input type="radio" name="radioShirtColor" value="blue">blue
+                </label>
+                <label for="greenColor">
+                    <input type="radio" name="radioShirtColor" value="green">green
+                </label>
+                <img src="" class="show">
+            </div>
+
+            <div id="divCheckBox">
+                <label>
+                    <input type="checkbox" name="checkboxExtra" value="10">Gift Box
+                </label>
+
+                <label>
+                    <input type="checkbox" name="checkboxExtra" value="5">Add Stamp
+                </label>
+                <label>
+                    <input type="checkbox" name="checkboxExtra" value="4">Home delivery
+                </label>
+                
+            </div>
+            <div id="divInputAddress">
+
+                <label for="address">Address: 
+                    <input type="text" name="inputAddress">
+                </label>
+            </div>
+            <br>
+            <div id="divInputTel">
+                <p>Пример: 0000 00 00 00 или 0000 000000</p>
+                <label for="tel">Tel: 
+                    <input type="tel" name="inputTel" placeholder="e.g 0878 12 32 56">
+                </label>
+            </div>
+            
+        </fieldset>
+    </form>
+    <button>Submit</button>
+
+
+<script src="miroslav_331_hw8_main_1.js"></script>
+</body>
+</html>

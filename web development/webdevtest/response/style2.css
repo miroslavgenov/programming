@@ -1,0 +1,14 @@
+.col1 {
+  /* float: left; */
+  width: 300px;
+}
+
+.col2 {
+  /* float: right; */
+  width: 700px;
+  font-size: 2vh;
+}
+
+.col2P {
+  width: 200px;
+}

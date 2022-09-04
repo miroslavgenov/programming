@@ -1,0 +1,2 @@
+the model work with the database
+and make the qury and return the result

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Кеyboard events</title>
+			<style>
+				input {
+					width: 400px;
+					height: 50px;
+					position: absolute;
+					top:100px;
+					left:150px;
+				}
+			</style>
+		</head>
+		<body>
+		   <textarea id="ta"></textarea>
+		   <script>
+		  	 
+             var ta=document.querySelector("#ta");
+			 
+			 // keydown - дава клавиатурните кодове (key codes)
+			 // не се различават малки и главни букви и кирилица 
+			 // т.к. разположението им на клавиатурата е едно и също
+		     ta.addEventListener("keydown",checkEvent);
+		     ta.addEventListener("keyup",checkEvent);
+			 
+			// keypress -дава Unicode  кодовете на символите
+            ta.addEventListener("keypress",checkEvent);
+          
+		  	 function checkEvent(e)  //e - event object
+		  	 {
+		  	 	console.log("event.type:", e.type);
+		  	 	console.log("event.key:", e.key);
+		  	 	console.log("event.keyCode:", e.keyCode);
+		  	 	//console.log("event.which:", e.which);
+		  	 	console.log("event.code", e.code);
+				console.log("event.charCode", e.charCode);
+			
+			
+				//    var symbol= String.fromCharCode(e.which);
+				//    console.log("String.fromCharCode(event.which):", symbol);
+			
+		
+			 }
+             
+		    	
+		  </script>
+		</body>
+		</html>

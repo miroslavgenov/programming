@@ -1,0 +1,28 @@
+Working with mysql in command line in Xampp;
+
+start Apache , MySQL to check the result;
+
+Open shell then go to cd c:\xampp\mysql\bin 
+then type
+commands:
+
+mysql -hlocalhost -uroot // vliza s admin user
+
+create database si13; //pravi tablica
+
+create user "SI13"@"localhost" identified by "123"; // pravi user
+
+grant all on si13.* to "SI13"@"localhost"; // dava prava na vsichki tablici v basa si13 inache sled si13. se izboqvat sys zapetaq tablicite
+
+show databases; // show all data bases
+
+quit // izliza ot mysql
+
+mysql -hlocalhost -uSI13 -p // vlizame kato user SI13 i -p iska parola 
+show databases; // samo si13 tablica show
+
+use si13; // use the si13 database
+
+create table departments; // create table departments
+
+

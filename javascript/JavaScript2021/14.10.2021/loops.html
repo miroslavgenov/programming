@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+
+<html>
+
+ <head>
+  <meta charset='utf-8'>
+  <title>Цикли в JavaScript</title>
+ </head>
+
+ <body>
+  <script>
+   'use strict';
+
+   let k;
+   for (k = 0; k % 2 == 0; k += 2)
+   {
+     if (k > 10)
+     break;
+     if (k % 3 == 0)
+     continue;
+     document.write(`${k}<br>`);
+   }
+
+   document.write('<h3>for ... in</h3>');
+   let a = [20, 30, , 40, , 50];
+   for (k in a)
+   document.write(`${k} --> ${a[k]}<br>`);
+
+   document.write('<h3>while</h3>');
+   k = 0;
+   while(k < 2)
+   {
+     document.write(`${k} --> ${a[k]}<br>`);
+     k++;
+   }
+
+   document.write('<h3>do .. while</h3>');
+   k = 0;
+   do
+   {
+     document.write(`${k} --> ${a[k]}<br>`);
+     k++;
+   } while (k < 2);
+  </script>
+ </body>
+
+</html>

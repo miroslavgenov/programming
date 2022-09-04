@@ -1,0 +1,13 @@
+we have 3 components
+Controller (classove)- osushtestwava vrukata m/y modela i izgleda
+ideqta e da se razdeli sudurjanieto na saita ot vizualnoto
+predstavqna
+
+Kak raboti
+potrebitelq dava zaqvka , koqto se poema ot kontrolera
+kontrolera iziskva dannite za izpulnenie na tazi zaqvka 
+ot modela koqto raboti s baza danni i poluchenite danni
+se vrushtat otnovo na kontrolera i polychenite dannite se 
+podavat kym izgleda za da move da se predstavqt vuv stranicata
+i da se vurnat kato otgovor kym potrebitelqt 
+

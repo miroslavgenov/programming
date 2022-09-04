@@ -1,0 +1,126 @@
+html {
+  font-size: 0.8em;
+}
+
+body {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+/* h1 { */
+/* text-align: center; */
+/* } */
+.h1Text {
+  position: absolute;
+  font-size: 3vw;
+  color: white;
+  text-align: center;
+  margin-top: 15%;
+  margin-left: 20%;
+}
+#h1Supplement {
+  margin-left: 17%;
+}
+
+#container {
+  font-size: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+#h1Diet {
+  margin-left: 25%;
+}
+
+#h1Plan {
+  margin-left: 21%;
+}
+@media screen and (max-width: 600px) {
+  #h1Exercise {
+    margin-left: 35%;
+  }
+  #container {
+    grid-template-columns: 1fr;
+  }
+  #ulSocial {
+    text-align: center;
+  }
+  .liSocial {
+    display: inline;
+  }
+  .liLocation {
+    /* display: inline; */
+    padding-left: 40%;
+  }
+
+  .h1Text {
+    margin-top: 30%;
+    margin-left: 45%;
+    font-size: 3rem;
+    /* text-align: center; */
+  }
+  #h1Supplement {
+    margin-left: 30%;
+  }
+  #h1Plan {
+    margin-left: 42%;
+  }
+  #h1Diet {
+    margin-left: 42%;
+  }
+}
+
+img {
+  width: 100%;
+}
+
+.brandLogo {
+  width: 20%;
+}
+ul#ulLogo {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  text-align: center;
+}
+
+li.liLogo {
+  padding-right: 10%;
+  list-style-type: none;
+  display: inline;
+}
+
+.icons {
+  width: calc(0.7rem + 2%);
+}
+
+.liLocation {
+  list-style-type: none;
+}
+#ulLocation {
+  padding-top: 2%;
+}
+ul {
+  margin: 0;
+}
+
+#ulSocial {
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+.liSocial {
+  list-style-type: none;
+  display: inline;
+  padding-right: 1%;
+}
+
+span {
+  position: absolute;
+  padding-top: 0.2%;
+  padding-left: 0.5%;
+  font-size: calc(0.7rem + 1vw);
+  color: white;
+}
+
+#divFooter {
+  background-color: #3bfdff;
+}

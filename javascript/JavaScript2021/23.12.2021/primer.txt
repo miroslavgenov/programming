@@ -1,0 +1,39 @@
+$mysqli = mysqli_init();
+if (!$mysqli) {
+    die('<p>mysqli_init завърши неуспешно</p>');
+}
+
+if (!$mysqli->options(MYSQLI_INIT_COMMAND, 'SET AUTOCOMMIT = 0')) {
+    die('<p>задаването на MYSQLI_INIT_COMMAND е неуспешно</P>');
+}
+
+if (!$mysqli->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5)) {
+    die('<p>задаването на MYSQLI_OPT_CONNECT_TIMEOUT е неуспешно</p>');
+}
+
+if (!$mysqli->real_connect('localhost', 'root', '', 'example3')) {
+    die('<p>грешка при свързване ('.mysqli_connect_errno().')<br>'.mysqli_connect_error()).'</p>';
+}
+
+$mysqli->query('insert into Cities(name) values("Pekin")');
+$mysqli->query('insert into Countries(name) values("China")');
+
+$query = "SELECT name as country from Countries;";
+$query .= "SELECT name as city from Cities LIMIT 20, 5;";
+$query .= "select now()";
+
+$mysqli->multi_query($query);
+do {
+    if ($result = $mysqli->store_result()) {
+        while ($row = $result->fetch_row()) {
+            echo "<p>$row[0]</p>";
+        }
+    }
+    if ($mysqli->more_results()) {
+        echo '<p>--------</p>';
+    }
+} while ($mysqli->next_result());
+
+$result->free_result();
+
+$mysqli->close();
