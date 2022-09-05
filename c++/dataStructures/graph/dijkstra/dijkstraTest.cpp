@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int graphSize = 7;
+const int graphSize = 9;//7;
 int verticiesDistance[graphSize]{0};
 bool visitedVerticies[graphSize]{0};
 
@@ -212,44 +212,71 @@ template <typename T>
 void print(vector<T> list){
 	for(int i=0;i<list.size();i++){
 		cout<<list[i]<<" ";
-	}
+	}cout<<endl;
 }
 
 
 
-vector<int> path;
+void printMinEdgeInfo(stack* mv){
+	cout<<"the min Edge is from parent: "<<mv->prevVertex<<" to child: "<<mv->vertexNumber<<" distance: "<<mv->edgeWeight<<endl;
+}
+
+vector<stack*> path;
+
 void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
 	
 	
-	
 	if(stackRoot){
-		stack* s =  nullptr;
-	s = findMinWeight(stackRoot);
-	removeFromStack(s->vertexNumber,s->edgeWeight);
-	
-		if(visitedVerticies[s->vertexNumber] == true){
-		cout<<"vertex: "<<s->vertexNumber<<" is visited visited"<<endl;
-		cout<<"check if the weight is less!"<<endl;
-	}else{
-		cout<<"vertex: "<<s->vertexNumber<<" is not visited"<<endl;
-		
-		cout<<s->edgeWeight<<endl;
-		verticiesDistance[s->vertexNumber] = s->edgeWeight;
-		cout<<"append the neighbours of: "<<s->vertexNumber<<endl;
+		cout<<"stack is not empty"<<endl;
+		stack* mv = findMinWeight(stackRoot);
+		removeFromStack(mv->vertexNumber,mv->edgeWeight);
+		printMinEdgeInfo(mv);
+		if(visitedVerticies[mv->vertexNumber] == 0){
+			if(mv->prevVertex!=-1){
+				verticiesDistance[mv->vertexNumber] = mv->edgeWeight;
+				visitedVerticies[mv->vertexNumber] = 1;
+				path.push_back(mv);
 
-		for (int i = 0; i < graphSize; ++i)
-		{
-			if(graph[s->vertexNumber][i] != 0 && visitedVerticies[i] == 0){
-				cout<<graph[s->vertexNumber][i]<<" ";
-				appendStack(stackRoot, new stack{s->vertexNumber,i,verticiesDistance[s->vertexNumber]+graph[s->vertexNumber][i],nullptr,nullptr});
-			}else if(graph[s->vertexNumber][i] != 0 && visitedVerticies[i] == 1){
-				cout<<"vertext: "<<i<<" is "<<endl;
+			}else{
+				verticiesDistance[mv->vertexNumber] = 0;
+				path.push_back(mv);
+				visitedVerticies[mv->vertexNumber] = 1;
 			}
+			cout<<"vertex: "<<mv->vertexNumber<<" is not visited"<<endl;
+			cout<<"you can look all of his child's"<<endl;
 			
-		}
+			for(int i=0;i<graphSize;i++){
+				if(graph[mv->vertexNumber][i] != 0){
+					cout<<"vertext: "<<mv->vertexNumber<<" to child : "<<i<<" distance is: "<<verticiesDistance[mv->vertexNumber] + graph[mv->vertexNumber][i]<<endl;
+					appendStack(stackRoot, new stack{mv->vertexNumber, i, verticiesDistance[mv->vertexNumber] + graph[mv->vertexNumber][i]});
+				}	
+			}cout<<endl;
+					
+		}else{
+			// if next min vertex is visited
+			cout<<"vertex: "<<mv->vertexNumber<<" is visited check if the distance is less than current distance!"<<endl;
+			cout<<"current weight distance to: "<<mv->vertexNumber<<" is: "<<verticiesDistance[mv->vertexNumber]<<" new weight distance is: "<<mv->edgeWeight <<endl;
+			cout<<"check if new distance is less than current weight distance!"<<endl;
+			if(verticiesDistance[mv->vertexNumber] > mv->edgeWeight){
+				cout<<"current edge weight: "<<verticiesDistance[mv->vertexNumber]<<" on: "<<mv->vertexNumber<<" is greater than new: "<<mv->edgeWeight<<" from vertex: "<<mv->prevVertex<<" update!"<<endl;
+				verticiesDistance[mv->vertexNumber] = mv->edgeWeight;
+				cout<<"!!!!!!!!!!!!!! UPDATE THE PATH !!!!!!!!!!!!!!!!!!!"<<endl;
+				cout<<"!!!!!!!!!!!!!! find the previous weight and remove it !!!!!!!!!!!!!!!!!!!"<<endl;
+			}else{
+				cout<<"current edge weight: "<<verticiesDistance[mv->vertexNumber]<<" on: "<<mv->vertexNumber<<" is lesser than new: "<<mv->edgeWeight<<" from vertex: "<<mv->prevVertex<<" don't update"<<endl;
+			}
 
-	}	
+		}
+		if(mv->vertexNumber == targetVertex){
+			cout<<"targetVertex: "<<mv->vertexNumber<<" is found tha min path is: "<<verticiesDistance[mv->vertexNumber]<<endl;
+			return;
+		}else{
+			dijkstra(graph, mv->vertexNumber, targetVertex);
+		}
+		
+		
 	}
+	
 	
 	
 	
@@ -268,38 +295,78 @@ void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
 
 int main(){
 	int graph[graphSize][graphSize]={
-		{0,	1,	4,	0,	0,	0,	0,},
-		{1,	0,	1,	2,	1,	0,	0,},
-		{4,	1,	0,	0,	2,	4,	0,},
-		{0,	2,	0,	0,	0,	0,	0,},
-		{0,	1,	2,	0,	0,	0,	2,},
-		{0,	0,	4,	0,	0,	0,	3,},
-		{0,	0,	0,	0,	2,	3,	0,}
+		// {0,	1,	4,	0,	0,	0,	0,},
+		// {1,	0,	1,	2,	1,	0,	0,},
+		// {4,	1,	0,	0,	2,	4,	0,},
+		// {0,	2,	0,	0,	0,	0,	0,},
+		// {0,	1,	2,	0,	0,	0,	2,},
+		// {0,	0,	4,	0,	0,	0,	3,},
+		// {0,	0,	0,	0,	2,	3,	0,}
+		{ 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+        { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+        { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+        { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+        { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+        { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+        { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+        { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+        { 0, 0, 2, 0, 0, 0, 6, 7, 0 }
 
 	};
 
 	fillVerticiesDistanceWithInfinity();
-	verticiesDistance[0] = 0;
+	
 	appendStack(stackRoot, new stack{-1,0,verticiesDistance[0],nullptr, nullptr});
-	dijkstra(graph,0,6);
-	dijkstra(graph,0,6);
-
-
+	dijkstra(graph,0,8);
+	
+	for(int i=0;i<graphSize;i++){
+		cout<<verticiesDistance[i]<<" ";
+	}
 	
 
-	
-
-	
-
-
-	// for(int i=0;i<graphSize;i++){
-	// 	cout<<verticiesDistance[i]<<" ";
-	// }
-	// printStack(stackRoot);
-	
+	cout<<endl;
 	// for(int i=0;i<path.size();i++){
-	// 	cout<<path[i]<<" ";
+	// 	cout<<path[i]->prevVertex<<" "<<path[i]->vertexNumber<<endl;
  //  	}
+
+	
+  	vector<stack*> reversePath;
+  	for(int i=path.size()-1; i>=0; i--){
+  		reversePath.push_back(path[i]);
+  	}cout<<endl;
+  	
+  	// filter path
+  	int vertexParent ;
+  	vector<int> reverseFilteredPath;
+  	for(int i=0;i<reversePath.size();i++){
+		if(i == 0){
+			vertexParent = reversePath[i]->prevVertex;
+			cout<<reversePath[i]->vertexNumber<<" ";
+			reverseFilteredPath.push_back(reversePath[i]->vertexNumber);
+		}else{
+			if(vertexParent == reversePath[i]->vertexNumber){
+			cout<<reversePath[i]->vertexNumber<<" ";
+			// cout<<reversePath[i]->prevVertex<<" "<<reversePath[i]->vertexNumber<<endl;	
+			vertexParent = reversePath[i]->prevVertex;
+			reverseFilteredPath.push_back(reversePath[i]->vertexNumber);
+			if(vertexParent == -1){
+				break;
+			}
+		}	
+		}	
+	}	
+	
+	// final Path
+	vector<int> finalPath;
+	for(int i= reverseFilteredPath.size()-1; i>=0;i--){
+		finalPath.push_back(reverseFilteredPath[i]);
+	}
+
+	cout<<endl;
+  	for(int i=0;i<finalPath.size(); i++){
+  		cout<<finalPath[i]<<" ";
+  	}
+
 
 }
 
