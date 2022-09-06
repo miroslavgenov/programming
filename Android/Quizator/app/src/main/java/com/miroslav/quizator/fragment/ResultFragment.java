@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 
 import com.miroslav.quizator.AlphaAnimationHelper;
+import com.miroslav.quizator.Layout;
 import com.miroslav.quizator.R;
 import com.miroslav.quizator.databinding.FragmentResultBinding;
 
@@ -18,10 +19,11 @@ import com.miroslav.quizator.databinding.FragmentResultBinding;
 public class ResultFragment extends Fragment {
     FragmentResultBinding fragmentResultBinding;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentResultBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_result,container,false);
+        fragmentResultBinding = DataBindingUtil.inflate(inflater, Layout.ResultFragment.toInt(), container,false);
 
         Bundle bundlePlayerScoreResult = getArguments();
         final int PLAYER_SCORE_RESULT =bundlePlayerScoreResult.getInt("player_score");

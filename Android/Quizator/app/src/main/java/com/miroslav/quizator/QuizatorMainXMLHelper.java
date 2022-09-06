@@ -65,18 +65,6 @@ public class QuizatorMainXMLHelper {
     public ImageButton getImageButtonToNextQuestion() {
         return imageButtonToNextQuestion;
     }
-
-    public LinearLayout getLayoutAnswersRoot() {
-        return layoutAnswersRoot;
-    }
-
-    public LinearLayout getLayoutQuestionRoot() {
-        return layoutQuestionRoot;
-    }
-
-    public TextView getTextViewQuestionNumber() {
-        return textViewQuestionNumber;
-    }
 }
 
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.miroslav.quizator.AlphaAnimationHelper;
 import com.miroslav.quizator.Binding;
+import com.miroslav.quizator.Layout;
 import com.miroslav.quizator.R;
 import com.miroslav.quizator.databinding.FragmentStartBinding;
 
@@ -21,8 +22,7 @@ import com.miroslav.quizator.databinding.FragmentStartBinding;
 public class StartFragment extends Fragment implements Binding {
     FragmentStartBinding fragmentStartBinding;
     FragmentStartBinding dataBindingUtilContent;
-    final int LAYOUT_START_FRAGMENT_ID = R.layout.fragment_start;
-    final int CURRENT_TO_QUIZATOR_MAIN_FRAGMENT_ID = R.id.action_startFragment_to_quizatorMainFragment;
+    int TO_QUIZATOR_MAIN_FRAGMENT_ID = R.id.action_startFragment_to_quizatorMainFragment;
 
 
     @Override
@@ -36,7 +36,7 @@ public class StartFragment extends Fragment implements Binding {
 
     @Override
     public void initFragmentDataBindingUtilContent(LayoutInflater inflater, ViewGroup container) {
-        this.dataBindingUtilContent = DataBindingUtil.inflate(inflater, LAYOUT_START_FRAGMENT_ID, container, false);
+        this.dataBindingUtilContent = DataBindingUtil.inflate(inflater, Layout.StartFragment.toInt(), container, false);
     }
 
     @Override
@@ -47,26 +47,14 @@ public class StartFragment extends Fragment implements Binding {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        iniAnimationForButtonPlay();
+        initAnimationForButtonPlay();
 
-        fragmentStartBinding.buttonPlay.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(CURRENT_TO_QUIZATOR_MAIN_FRAGMENT_ID));
+        fragmentStartBinding.buttonPlay.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(TO_QUIZATOR_MAIN_FRAGMENT_ID));
     }
 
-    private void iniAnimationForButtonPlay() {
+    private void initAnimationForButtonPlay() {
         new AlphaAnimationHelper(fragmentStartBinding.buttonPlay,0,1,1200);
     }
-
-    @Override
-    public <T> T getBinding() {
-        return (T) fragmentStartBinding;
-    }
-
-
-
-
-    @Override
-    public void initActivityDataBindingUtilContent() {}
-
 }
 
 

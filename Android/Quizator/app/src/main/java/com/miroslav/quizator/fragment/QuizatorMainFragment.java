@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miroslav.quizator.Binding;
+import com.miroslav.quizator.QuizGame;
+import com.miroslav.quizator.Layout;
 import com.miroslav.quizator.R;
 import com.miroslav.quizator.QuizatorMainXMLHelper;
 import com.miroslav.quizator.actor.Player;
@@ -23,10 +25,10 @@ import com.miroslav.quizator.databinding.FragmentQuizatorMainBinding;
 public class QuizatorMainFragment extends Fragment implements Binding {
     FragmentQuizatorMainBinding fragmentQuizatorMainBinding;
     FragmentQuizatorMainBinding dataBindingUtilContent;
-    final int LAYOUT_QUIZATOR_MAIN_FRAGMENT_ID = R.layout.fragment_quizator_main;
     Player quizPlayer;
     Questor quizQuestor;
     Quiz quiz;
+    QuizGame quizGame;
     QuizatorMainXMLHelper quizatorMainXMLHelper;
     Bundle bundlePlayerScore;
 
@@ -39,7 +41,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         onCreateViewClassParametersInit(inflater, container);
-
+        quizGame = new QuizGame();
         return fragmentQuizatorMainBinding.getRoot();
     }
 
@@ -55,7 +57,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     @Override
     public void initFragmentDataBindingUtilContent(LayoutInflater inflater, ViewGroup container) {
         dataBindingUtilContent = DataBindingUtil.inflate(
-                inflater, LAYOUT_QUIZATOR_MAIN_FRAGMENT_ID, container, false);
+                inflater, Layout.QuizatorMainFragment.toInt(), container, false);
     }
 
     @Override
@@ -92,7 +94,9 @@ public class QuizatorMainFragment extends Fragment implements Binding {
     }
 
     private void gameLogic() {
+
         quizQuestor.setQuestionGivenToPlayer(quiz.getCurrentQuestion());
+//        quizGame.setQuestionGivenToPlayer(quiz.getCurrentQuestion());
         quizQuestor.setQuestionAnswerPassedFromPlayer(
                 quizatorMainXMLHelper.getRadioGroupHelper().getCheckedAnswerFromPlayer());
 
@@ -120,15 +124,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
         }
     }
 
-    @Override
-    public void initActivityDataBindingUtilContent() {
 
-    }
-
-    @Override
-    public <T> T getBinding() {
-        return (T) fragmentQuizatorMainBinding;
-    }
 
 
 }
