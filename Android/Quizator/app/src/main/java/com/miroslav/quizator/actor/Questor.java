@@ -10,8 +10,8 @@ public class Questor {
     public Questor() {
     }
 
-    public void setQuestionAnswerPassedFromPlayer(String questionAnswerPassedFromPlayer) {
-        this.questionAnswerPassedFromPlayer = questionAnswerPassedFromPlayer;
+    public void setQuestionAnswerPassedFromPlayer(String checkedAnswerFromPlayer) {
+        this.questionAnswerPassedFromPlayer = checkedAnswerFromPlayer;
     }
 
     public void setQuestionGivenToPlayer(Question questionGivenToPlayer) {

@@ -53,7 +53,9 @@ public class QuizatorMainXMLHelper {
     public void setTextViewQuestionNumberText(int questionNumber) {
         this.textViewQuestionNumber.setText(String.valueOf(questionNumber));
     }
-
+    public String getCheckedAnswerFromPlayer(){
+        return radioGroupHelper.getCheckedAnswerFromPlayer();
+    }
     public void setBinding(FragmentQuizatorMainBinding binding) {
         this.binding = binding;
     }
