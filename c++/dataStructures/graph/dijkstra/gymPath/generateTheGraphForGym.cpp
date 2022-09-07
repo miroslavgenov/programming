@@ -3,40 +3,43 @@
 
 using namespace std;
 
+bool isVerticiesIteratorInRange(int iterator, int totalVerticies){
+	return iterator < totalVerticies;
+}
+
 int main(){
-	std::ofstream of("numbers.txt");
-	size_t lenght = 25;
-	int num[] = {
- 22 ,
- 23 
-
-
-
+	std::ofstream writeInThisFile("numbersAndWeightOfVerticiesConnectedToThatVertext.txt");
+	const size_t TOTAL_VERTICIES_FROM_GRAPH = 25;
+	constexpr bool NO_CONNECTION_TO_VERTEX = 0;
+	int verticiesConnectedToThatVertex[] = {
+		22,
+		23 
 	};
-	int val[] = {
- 100,
- 	92
+	int edgeWeightsOfVerticiesConnectedToThatVertex[] = {
+ 		100,
+ 		92
 	};
 
 
 	
-	int idx=0;
-	size_t size = sizeof(num)/sizeof(*num);
-	for(int i=0;i<lenght;i++){
-		of<<i<<"\t";
-	}of<<endl;
+	int verticiesConnectedToThatVertexIterator = 0;
+	size_t totalVerticiesConnectedToThatVertex = sizeof(verticiesConnectedToThatVertex)/sizeof(*verticiesConnectedToThatVertex);
 	
+	for(int i=0;i<TOTAL_VERTICIES_FROM_GRAPH;i++){
+		writeInThisFile<<i<<"\t";
+	}writeInThisFile<<endl;
 	
-	for(int i = 0; i < lenght; i++){
-		if(idx<size){
-			if(i == num[idx]){
-				of<<val[idx]<<"\t";
-				idx++;
+
+	for(int i = 0; i < TOTAL_VERTICIES_FROM_GRAPH; i++){
+		if(isVerticiesIteratorInRange(verticiesConnectedToThatVertexIterator,totalVerticiesConnectedToThatVertex)){
+			if(i == verticiesConnectedToThatVertex[verticiesConnectedToThatVertexIterator]){
+				writeInThisFile<<edgeWeightsOfVerticiesConnectedToThatVertex[verticiesConnectedToThatVertexIterator]<<"\t";
+				verticiesConnectedToThatVertexIterator++;
 				continue;
 			}
 			
 		}
-		of<<"0"<<"\t";
+		writeInThisFile<<NO_CONNECTION_TO_VERTEX<<"\t";
 	}
 	
 		
