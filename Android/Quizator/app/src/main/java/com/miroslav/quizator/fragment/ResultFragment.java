@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 
 import com.miroslav.quizator.AlphaAnimationHelper;
 import com.miroslav.quizator.Layout;
-import com.miroslav.quizator.R;
 import com.miroslav.quizator.databinding.FragmentResultBinding;
 
 
 public class ResultFragment extends Fragment {
     FragmentResultBinding fragmentResultBinding;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,7 +26,7 @@ public class ResultFragment extends Fragment {
         Bundle bundlePlayerScoreResult = getArguments();
         final int PLAYER_SCORE_RESULT =bundlePlayerScoreResult.getInt("player_score");
 
-        new AlphaAnimationHelper(fragmentResultBinding.textViewPlayerScore,0,1,1200);
+        AlphaAnimationHelper.makeAlphaAnimation(fragmentResultBinding.textViewPlayerScore,0,1,1200);
         fragmentResultBinding.textViewPlayerScore.setText(String.valueOf(PLAYER_SCORE_RESULT));
 
         return fragmentResultBinding.getRoot();

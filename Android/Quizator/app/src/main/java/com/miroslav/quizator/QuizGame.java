@@ -1,5 +1,7 @@
 package com.miroslav.quizator;
 
+import android.util.Log;
+
 import com.miroslav.quizator.actor.Player;
 import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.actor.Questor;
@@ -7,7 +9,6 @@ import com.miroslav.quizator.actor.Quiz;
 import com.miroslav.quizator.initializer.GameUtilInitializer;
 
 public class QuizGame {
-    public static final boolean QUIZ_COMPLETED = true;
     Player quizPlayer;
     Questor quizQuestor;
     Quiz quiz;
@@ -30,7 +31,11 @@ public class QuizGame {
         return quizPlayer.getScore();
     }
 
-    public boolean quizGameLogic() {
+    public boolean isQuizCompleted(){
+        return quiz.isQuizComplete();
+    }
+
+    public void quizGameLogic() {
         quizQuestor.setQuestionAnswerPassedFromPlayer(quizatorMainXMLHelper.getCheckedAnswerFromPlayer());
         quizQuestor.setQuestionGivenToPlayer(quiz.getCurrentQuestion());
 
@@ -38,13 +43,9 @@ public class QuizGame {
             quizPlayer.setScore(quizPlayer.incrementScoreByOne());
         }
 
-        if(quiz.isQuizComplete()){
-            return true;
-        }else{
+        if(!quiz.isQuizComplete()){
             toNextQuestion();
         }
-
-        return false;
     }
 
     private void toNextQuestion() {

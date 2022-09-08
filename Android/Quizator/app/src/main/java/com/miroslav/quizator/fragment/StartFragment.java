@@ -53,7 +53,7 @@ public class StartFragment extends Fragment implements Binding {
     }
 
     private void initAnimationForButtonPlay() {
-        new AlphaAnimationHelper(fragmentStartBinding.buttonPlay,0,1,1200);
+        AlphaAnimationHelper.makeAlphaAnimation(fragmentStartBinding.buttonPlay,0,1,1200);
     }
 }
 
