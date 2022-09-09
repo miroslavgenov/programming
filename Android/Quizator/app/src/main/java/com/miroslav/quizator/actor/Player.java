@@ -4,7 +4,9 @@ public class Player {
     int score;
 
     public int incrementScoreByOne() {
-        return this.score += 1;
+        //TODO Encapsulate Boundary Conditions
+
+        return this.score + 1;
     }
     public void setScore(int score) {
         this.score = score;

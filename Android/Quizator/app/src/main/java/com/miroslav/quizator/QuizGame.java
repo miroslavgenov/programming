@@ -4,7 +4,7 @@ import com.miroslav.quizator.actor.Player;
 import com.miroslav.quizator.actor.Questor;
 import com.miroslav.quizator.actor.Quiz;
 import com.miroslav.quizator.initializer.GameUtilInitializer;
-
+// TODO MAKE GAME UTILIZER PRIVET HERE only to be used for QuizGame class but not in the class
 public class QuizGame {
     Player quizPlayer;
     Questor quizQuestor;
@@ -26,7 +26,7 @@ public class QuizGame {
 
     public void quizGameLogic() {
         setQuestorAnswerAndQuestionToCheck();
-        shouldIncreasePlayerScore();
+
         shouldGoToNextQuestion();
     }
 
@@ -41,7 +41,9 @@ public class QuizGame {
         }
     }
 
+	//TODO change the name of shouldGoToNextQuestion
     private void shouldGoToNextQuestion() {
+        shouldIncreasePlayerScore();
         if(!quiz.isQuizComplete()){
             toNextQuestion();
         }

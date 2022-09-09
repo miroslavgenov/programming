@@ -24,6 +24,7 @@ public class ResultFragment extends Fragment {
         fragmentResultBinding = DataBindingUtil.inflate(inflater, Layout.ResultFragment.toInt(), container,false);
 
         Bundle bundlePlayerScoreResult = getArguments();
+        //TODO make player_score constant enum
         final int PLAYER_SCORE_RESULT =bundlePlayerScoreResult.getInt("player_score");
 
         AlphaAnimationHelper.makeAlphaAnimationAndStartTheAnimation(fragmentResultBinding.textViewPlayerScore,0,1,1200);

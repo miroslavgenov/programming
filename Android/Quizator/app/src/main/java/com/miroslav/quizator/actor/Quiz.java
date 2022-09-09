@@ -25,6 +25,7 @@ public class Quiz {
     }
 
     public boolean isQuizComplete(){
+        //TODO Encapsulate Boundary Conditions
         return getCurrentQuestionIndex() == questionsForQuiz.getQuestionSize()-1;
     }
 

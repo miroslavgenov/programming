@@ -71,6 +71,7 @@ public class QuizatorMainFragment extends Fragment implements Binding {
                 if(quizGame.isQuizCompleted()){
                     quizGame.quizGameLogic();
                     bundlePlayerScore = new Bundle();
+                    //TODO make player_score constant enum
                     bundlePlayerScore.putInt("player_score",quizGame.getPlayerScore());
                     int toResultFragment = MyNav.TO_RESULT_FRAGMENT.toInt();
                     Navigation.findNavController(view).navigate(toResultFragment,bundlePlayerScore);

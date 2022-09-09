@@ -53,7 +53,7 @@ vector<Fraction*> findEgyptianFraction(Fraction* currentFraction){
 }
 
 int main(){	
-	Fraction* currentFraction = new Fraction{12, 13};
+	Fraction* currentFraction = new Fraction{7,8};
 	
 	findEgyptianFraction(currentFraction);
 	
