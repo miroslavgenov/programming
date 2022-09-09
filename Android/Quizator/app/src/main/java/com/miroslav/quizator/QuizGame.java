@@ -22,10 +22,14 @@ public class QuizGame {
         loadFirstQuestion();
     }
 
+    //TODO move this in quizatorMainXMLHelper class
+    // LoadQuestion
     public void loadFirstQuestion(){
         quizatorMainXMLHelper.setQuestionNumberToUI(quiz.getCurrentQuestionIndex());
         quizatorMainXMLHelper.setQuestionToUI(quiz.getFirstQuestion());
     }
+    //here LoadFirstQuestion (){ ...quizatorMainXMLHelper.loadQuestion(quiz.GetCurrentQuestionIndex,quiz.getFirstQuestion) }
+
 
     public int getPlayerScore(){
         return quizPlayer.getScore();
@@ -48,8 +52,11 @@ public class QuizGame {
         }
     }
 
+    // TODO move this to QuizatorMainXMLHelper without quiz.setCurrentQuestionIndex(quiz.incrementCurrentQuestionIndexByOne());
     private void toNextQuestion() {
         quiz.setCurrentQuestionIndex(quiz.incrementCurrentQuestionIndexByOne());
+
+        //same as loadQuestion
         quizatorMainXMLHelper.setTextViewQuestionNumberText(quiz.getCurrentQuestionIndex());
         quizatorMainXMLHelper.setQuestionToUI(quiz.getCurrentQuestion());
     }
