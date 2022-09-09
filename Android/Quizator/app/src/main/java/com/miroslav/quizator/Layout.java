@@ -8,9 +8,11 @@ public enum Layout {
 
 
     private int layout_id;
+
     Layout(int layout_id){
         this.layout_id = layout_id;
     }
+
     public int toInt(){
         return this.layout_id;
     }

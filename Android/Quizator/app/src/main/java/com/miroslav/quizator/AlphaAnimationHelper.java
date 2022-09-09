@@ -5,7 +5,7 @@ import android.view.animation.AlphaAnimation;
 
 
 public class AlphaAnimationHelper {
-    public static  void makeAlphaAnimation(View targetViewToStartAnimation, int fromAlpha, int toAlpha, int animationDuration) {
+    public static  void makeAlphaAnimationAndStartTheAnimation(View targetViewToStartAnimation, int fromAlpha, int toAlpha, int animationDuration) {
         targetViewToStartAnimation.startAnimation(makeAlphaAnimation(fromAlpha, toAlpha, animationDuration));
     }
 

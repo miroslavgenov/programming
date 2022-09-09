@@ -1,7 +1,5 @@
 package com.miroslav.quizator.actor;
 
-import com.miroslav.quizator.Questions;
-
 public class Quiz {
     Questions questionsForQuiz;
 
@@ -19,14 +17,6 @@ public class Quiz {
         questionsForQuiz.shuffleQuestions();
     }
 
-    public Question getFirstQuestion(){
-        return this.questionsForQuiz.getFirstQuestion();
-    }
-
-    public int getCurrentQuestionIndex() {
-        return questionsForQuiz.getCurrentQuestionIndex();
-    }
-
     public int incrementCurrentQuestionIndexByOne(){
         return questionsForQuiz.incrementCurrentQuestionIndexByOne();
     }
@@ -37,10 +27,18 @@ public class Quiz {
     public boolean isQuizComplete(){
         return getCurrentQuestionIndex() == questionsForQuiz.getQuestionSize()-1;
     }
+
+    public int getCurrentQuestionIndex() {
+        return questionsForQuiz.getCurrentQuestionIndex();
+    }
+
+    public Question getFirstQuestion(){
+        return this.questionsForQuiz.getFirstQuestion();
+    }
+
     public Question getCurrentQuestion(){
         return questionsForQuiz.getCurrentQuestion();
     }
-
 }
 
 

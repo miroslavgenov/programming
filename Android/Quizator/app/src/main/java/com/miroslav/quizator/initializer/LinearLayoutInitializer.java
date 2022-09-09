@@ -9,10 +9,10 @@ public class LinearLayoutInitializer extends QuizatorMainFragmentInitializer{
     public LinearLayoutInitializer(FragmentQuizatorMainBinding binding) {
         super(binding);
     }
-    public LinearLayout initLinearLayoutAnswersRoot(){
+    public LinearLayout getLinearLayoutAnswersRootFromBinding(){
         return super.binding.layoutAnswersRoot;
     }
-    public LinearLayout initLinearLayoutQuestionsRoot(){
+    public LinearLayout getLinearLayoutQuestionsRootFromBinding(){
         return super.binding.layoutQuestionRoot;
     }
 }

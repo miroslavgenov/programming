@@ -10,7 +10,7 @@ public class TextViewInitializer extends QuizatorMainFragmentInitializer {
         super(binding);
     }
 
-    public TextView initTextViewQuestionNumber(){
+    public TextView getTextViewQuestionNumberFromBinding(){
         return super.binding.textViewQuestionNumber;
     }
 

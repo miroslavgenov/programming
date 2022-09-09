@@ -14,9 +14,9 @@ public class QuizatorMainXMLHelper {
     ImageButton imageButtonToNextQuestion;
     ImageButtonInitializer imageButtonInitializer;
     LinearLayoutInitializer linearLayoutInitializer;
-    TextViewInitializer textViewInitializer;
     LinearLayout layoutQuestionRoot;
     LinearLayout layoutAnswersRoot;
+    TextViewInitializer textViewInitializer;
     TextView textViewQuestionNumber;
     FragmentQuizatorMainBinding binding;
     RadioGroupHelper radioGroupHelper;
@@ -24,44 +24,40 @@ public class QuizatorMainXMLHelper {
 
     public QuizatorMainXMLHelper(FragmentQuizatorMainBinding binding) {
         this.binding=binding;
+        initializeInitializers();
+    }
+    void initializeInitializers(){
         imageButtonInitializer = new ImageButtonInitializer(binding);
         linearLayoutInitializer = new LinearLayoutInitializer(binding);
         textViewInitializer = new TextViewInitializer(binding);
     }
+
     public void initAllQuizatorMainXMLElements(){
-        imageButtonToNextQuestion = imageButtonInitializer.initImageButtonToNextQuestion();
-        layoutQuestionRoot = linearLayoutInitializer.initLinearLayoutQuestionsRoot();
-        layoutAnswersRoot = linearLayoutInitializer.initLinearLayoutAnswersRoot();
-        textViewQuestionNumber = textViewInitializer.initTextViewQuestionNumber();
+        imageButtonToNextQuestion = imageButtonInitializer.getImageButtonToNextQuestionFromBinding();
+        layoutQuestionRoot = linearLayoutInitializer.getLinearLayoutQuestionsRootFromBinding();
+        layoutAnswersRoot = linearLayoutInitializer.getLinearLayoutAnswersRootFromBinding();
+        textViewQuestionNumber = textViewInitializer.getTextViewQuestionNumberFromBinding();
         initRadioGroupHelper();
     }
-    public void setQuestionToUI(Question question){
-        binding.setQuestion(question);
-    }
-    public void setQuestionNumberToUI(int number){
-        setTextViewQuestionNumberText(number);
-    }
 
-    public void initRadioGroupHelper() {
+    void initRadioGroupHelper() {
         this.radioGroupHelper = new RadioGroupHelper(binding);
     }
 
-    public RadioGroupHelper getRadioGroupHelper() {
-        return radioGroupHelper;
+    public void setQuestionToUI(Question question){
+        binding.setQuestion(question);
+    }
+
+    public void setQuestionNumberToUI(int number){
+        setTextViewQuestionNumberText(number);
     }
 
     public void setTextViewQuestionNumberText(int questionNumber) {
         this.textViewQuestionNumber.setText(String.valueOf(questionNumber));
     }
+
     public String getCheckedAnswerFromPlayer(){
         return radioGroupHelper.getCheckedAnswerFromPlayer();
-    }
-    public void setBinding(FragmentQuizatorMainBinding binding) {
-        this.binding = binding;
-    }
-
-    public FragmentQuizatorMainBinding getBinding() {
-        return binding;
     }
 
     public ImageButton getImageButtonToNextQuestion() {

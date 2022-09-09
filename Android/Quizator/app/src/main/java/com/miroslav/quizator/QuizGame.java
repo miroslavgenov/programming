@@ -1,9 +1,6 @@
 package com.miroslav.quizator;
 
-import android.util.Log;
-
 import com.miroslav.quizator.actor.Player;
-import com.miroslav.quizator.actor.Question;
 import com.miroslav.quizator.actor.Questor;
 import com.miroslav.quizator.actor.Quiz;
 import com.miroslav.quizator.initializer.GameUtilInitializer;
@@ -22,14 +19,38 @@ public class QuizGame {
         loadFirstQuestion();
     }
 
-    //TODO move this in quizatorMainXMLHelper class
-    // LoadQuestion
     public void loadFirstQuestion(){
         quizatorMainXMLHelper.setQuestionNumberToUI(quiz.getCurrentQuestionIndex());
         quizatorMainXMLHelper.setQuestionToUI(quiz.getFirstQuestion());
     }
-    //here LoadFirstQuestion (){ ...quizatorMainXMLHelper.loadQuestion(quiz.GetCurrentQuestionIndex,quiz.getFirstQuestion) }
 
+    public void quizGameLogic() {
+        setQuestorAnswerAndQuestionToCheck();
+        shouldIncreasePlayerScore();
+        shouldGoToNextQuestion();
+    }
+
+    private void setQuestorAnswerAndQuestionToCheck() {
+        quizQuestor.setQuestionAnswerPassedFromPlayer(quizatorMainXMLHelper.getCheckedAnswerFromPlayer());
+        quizQuestor.setQuestionGivenToPlayer(quiz.getCurrentQuestion());
+    }
+
+    private void shouldIncreasePlayerScore() {
+        if(quizQuestor.isPlayerAnswerCorrect()){
+            quizPlayer.setScore(quizPlayer.incrementScoreByOne());
+        }
+    }
+
+    private void shouldGoToNextQuestion() {
+        if(!quiz.isQuizComplete()){
+            toNextQuestion();
+        }
+    }
+    private void toNextQuestion() {
+        quiz.setCurrentQuestionIndex(quiz.incrementCurrentQuestionIndexByOne());
+        quizatorMainXMLHelper.setTextViewQuestionNumberText(quiz.getCurrentQuestionIndex());
+        quizatorMainXMLHelper.setQuestionToUI(quiz.getCurrentQuestion());
+    }
 
     public int getPlayerScore(){
         return quizPlayer.getScore();
@@ -37,28 +58,6 @@ public class QuizGame {
 
     public boolean isQuizCompleted(){
         return quiz.isQuizComplete();
-    }
-
-    public void quizGameLogic() {
-        quizQuestor.setQuestionAnswerPassedFromPlayer(quizatorMainXMLHelper.getCheckedAnswerFromPlayer());
-        quizQuestor.setQuestionGivenToPlayer(quiz.getCurrentQuestion());
-
-        if(quizQuestor.isPlayerAnswerCorrect()){
-            quizPlayer.setScore(quizPlayer.incrementScoreByOne());
-        }
-
-        if(!quiz.isQuizComplete()){
-            toNextQuestion();
-        }
-    }
-
-    // TODO move this to QuizatorMainXMLHelper without quiz.setCurrentQuestionIndex(quiz.incrementCurrentQuestionIndexByOne());
-    private void toNextQuestion() {
-        quiz.setCurrentQuestionIndex(quiz.incrementCurrentQuestionIndexByOne());
-
-        //same as loadQuestion
-        quizatorMainXMLHelper.setTextViewQuestionNumberText(quiz.getCurrentQuestionIndex());
-        quizatorMainXMLHelper.setQuestionToUI(quiz.getCurrentQuestion());
     }
 
 }

@@ -22,16 +22,16 @@ public class RadioGroupHelper {
         setRadioButtonsAnswer(radioGroupAnswer);
     }
 
-    void setRadioButtonsAnswerContainerSize(int size){
-        radioButtonsAnswer = new RadioButton[size];
-    }
-
-    public void setRadioButtonsAnswer(RadioGroup radioGroupAnswer) {
+    void setRadioButtonsAnswer(RadioGroup radioGroupAnswer) {
         setRadioButtonsAnswerContainerSize(radioGroupInitializer.getRadioGroupAnswerChildCount());
 
         for (int i = 0; i < getRadioButtonsAnswerContainerLength(); i++) {
             setRadioButtonAnswer(i,(RadioButton) radioGroupAnswer.getChildAt(i));
         }
+    }
+
+    void setRadioButtonsAnswerContainerSize(int size){
+        radioButtonsAnswer = new RadioButton[size];
     }
 
     int getRadioButtonsAnswerContainerLength(){
@@ -49,7 +49,7 @@ public class RadioGroupHelper {
                 return radioButtonAnswer.getText().toString();
             }
         }
-        Log.d("MyGym","RadioGroupHelper.getCheckedAnswerFormPlayer().ERROR!!!!!");
+        Log.d("MyQuiz","RadioGroupHelper.getCheckedAnswerFormPlayer().ERROR!!!!!");
         return "";
     }
 }

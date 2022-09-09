@@ -9,7 +9,7 @@ public class ImageButtonInitializer extends QuizatorMainFragmentInitializer{
         super(binding);
     }
 
-    public ImageButton initImageButtonToNextQuestion(){
+    public ImageButton getImageButtonToNextQuestionFromBinding(){
         return super.binding.imageButtonToNextQuestion;
     }
 

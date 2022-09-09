@@ -26,7 +26,7 @@ public class ResultFragment extends Fragment {
         Bundle bundlePlayerScoreResult = getArguments();
         final int PLAYER_SCORE_RESULT =bundlePlayerScoreResult.getInt("player_score");
 
-        AlphaAnimationHelper.makeAlphaAnimation(fragmentResultBinding.textViewPlayerScore,0,1,1200);
+        AlphaAnimationHelper.makeAlphaAnimationAndStartTheAnimation(fragmentResultBinding.textViewPlayerScore,0,1,1200);
         fragmentResultBinding.textViewPlayerScore.setText(String.valueOf(PLAYER_SCORE_RESULT));
 
         return fragmentResultBinding.getRoot();
