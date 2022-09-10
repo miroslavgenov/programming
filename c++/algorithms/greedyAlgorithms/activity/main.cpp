@@ -4,17 +4,13 @@
 
 using namespace std;
 
-
 struct stack{
 	int startAt;
 	int endAt;
 	stack* next;
 	stack* prev;
 };
-
 vector<stack*> activityHistory;
-
-
 stack* stackRoot=nullptr;
 
 bool isStackEmpty(){
