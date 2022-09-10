@@ -1,11 +1,8 @@
 package com.miroslav.quizator.initializer;
 
-import com.miroslav.quizator.actor.Player;
-import com.miroslav.quizator.actor.Questor;
-import com.miroslav.quizator.actor.Quiz;
+import com.miroslav.quizator.actor.*;
 
 public class GameUtilInitializer {
-
     public static Questor createQuestor() {
         return new Questor();
     }

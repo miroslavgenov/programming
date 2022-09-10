@@ -1,10 +1,9 @@
 package com.miroslav.quizator;
 
-import com.miroslav.quizator.actor.Player;
-import com.miroslav.quizator.actor.Questor;
-import com.miroslav.quizator.actor.Quiz;
+import com.miroslav.quizator.actor.*;
 import com.miroslav.quizator.initializer.GameUtilInitializer;
 // TODO MAKE GAME UTILIZER PRIVET HERE only to be used for QuizGame class but not in the class
+
 public class QuizGame {
     Player quizPlayer;
     Questor quizQuestor;
