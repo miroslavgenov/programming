@@ -1,3 +1,8 @@
+/*
+	GREADY APROACH NOT giving the correct
+	answer
+*/
+
 #include <iostream>
 
 using namespace std;
