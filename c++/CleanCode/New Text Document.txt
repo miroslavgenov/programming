@@ -1,0 +1,47 @@
+one thing
+single resposible
+descriptive names
+use expresive function names
+function no arguments or 1, 2 ,3 if more then array
+max 5 lines in function
+no hard code
+instead constants use enum
+
+import quizator.actor.*
+
+one level of obstarction
+
+top down
+move set and get to different class
+
+remove duplication
+
+
+write like story
+the boy scout method
+no train calls
+don't pass bool, don't return false , true return descriptive names
+
+domain specific names
+
+class functions must have strong coupling uses all the variables in one functions if the don't use it there is potential to create new classes
+
+break large classes into smaller ones
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
