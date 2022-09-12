@@ -1,2 +1,2 @@
-g++ -o main1 main1.cpp
-./main1
+g++ -o main3 main3.cpp
+./main3
