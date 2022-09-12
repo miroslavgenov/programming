@@ -2,13 +2,12 @@
 
 const int NUMBER_TWO = 2;
 
-bool isNumberDividable(int source_number);
-bool isNumberGreatherThanTwo(int *source_number);
-bool isNumberNullptr(int *source_number);
-bool isNumberNotNullAndGreaterThanTwo(int *source_number);
 bool isNumberPrime(int *source_number);
+bool isNumberNotNullAndGreaterThanTwo(int *source_number);
 bool isTheNumberSuitableToContinue(int *number);
-
+bool isNumberNullptr(int *source_number);
+bool isNumberGreatherThanTwo(int *source_number);
+bool isNumberDividable(int source_number);
 
 int main(){	
 	int *number=new int(11);
