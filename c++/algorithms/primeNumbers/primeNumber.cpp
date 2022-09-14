@@ -1,47 +1,131 @@
 #include <iostream>
+using namespace std;
 
 const int NUMBER_TWO = 2;
 
-bool isNumberPrime(int *source_number);
-bool isNumberNotNullAndGreaterThanTwo(int *source_number);
-bool isTheNumberSuitableToContinue(int *number);
-bool isNumberNullptr(int *source_number);
-bool isNumberGreatherThanTwo(int *source_number);
-bool isNumberDividable(int source_number);
+class NaturalNumberController;
 
-int main(){	
-	int *number=new int(11);
-	std::cout<<isNumberPrime(number);
+class NaturalNumber{
+private:
+	int number;
+	friend NaturalNumberController;
+
+public:
+	NaturalNumber(int );
+
+	friend std::ostream& operator<<(std::ostream&, const NaturalNumber&);
+};
+
+NaturalNumber::NaturalNumber(int number):number(number){}
+
+
+std::ostream& operator<<(std::ostream& os ,const  NaturalNumber& naturalNumber){
+	os<<naturalNumber.number;
+	return os;
 }
 
-bool isNumberPrime(int *source_number){
-	return isNumberNotNullAndGreaterThanTwo(source_number) && !isNumberDividable(*source_number);
+class NaturalNumberController{
+public:
+	static int getNaturaNumberNumber(NaturalNumber naturalNumberObject){
+		return naturalNumberObject.number;
+	}
+
+	static int getNaturaNumberNumber(NaturalNumber* naturalNumberObject){
+		return naturalNumberObject->number;
+	}
+};
+
+class PrimeNumberChecker{
+private:
+	int* number;
+
+public:
+	PrimeNumberChecker(NaturalNumber* );
+	
+	PrimeNumberChecker(NaturalNumber );
+
+	~PrimeNumberChecker();
+		
+	bool isNumberPrime(NaturalNumber );
+	
+	bool isNumberPrime(NaturalNumber *);
+	 
+	bool isNumberPrime();
+		
+private:
+	bool isNumberNotNullAndGreaterThanTwo();
+
+	bool isTheNumberSuitableToContinueTheAlgorithm();
+	
+	bool isNumberNullptr();
+	
+	bool isNumberGreatherThanTwo();
+	
+	bool isNumberDividable();
+};
+
+PrimeNumberChecker::PrimeNumberChecker(NaturalNumber* naturalNumber){
+	this->number = new int{NaturalNumberController::getNaturaNumberNumber(naturalNumber)};
 }
 
-bool isNumberNotNullAndGreaterThanTwo(int *source_number){
-	return isTheNumberSuitableToContinue(source_number);
+PrimeNumberChecker::PrimeNumberChecker(NaturalNumber naturalNumber){
+	this->number = new int{NaturalNumberController::getNaturaNumberNumber(naturalNumber)};
 }
 
-bool isTheNumberSuitableToContinue(int *number){
-	return !isNumberNullptr(number) && isNumberGreatherThanTwo(number);
+PrimeNumberChecker::~PrimeNumberChecker(){
+	delete this->number;
 }
 
-bool isNumberNullptr(int *source_number){
-	return source_number == nullptr;
+bool PrimeNumberChecker::isNumberPrime(NaturalNumber naturalNumber){
+	this->number = new int{NaturalNumberController::getNaturaNumberNumber(naturalNumber)};
+	return isNumberPrime();
 }
 
-bool isNumberGreatherThanTwo(int *source_number){
-	return *source_number > NUMBER_TWO;
+bool PrimeNumberChecker::isNumberPrime(NaturalNumber * naturalNumber){
+	this->number = new int{NaturalNumberController::getNaturaNumberNumber(naturalNumber)};
+	return isNumberPrime();
 }
 
-bool isNumberDividable(int source_number){
-	for(int i = 2; i < source_number; i++){
-		if(source_number%i == 0){
-			 return true;	
-		}
+bool PrimeNumberChecker::isNumberPrime(){
+	return isNumberNotNullAndGreaterThanTwo() && !isNumberDividable();
+}
+
+bool PrimeNumberChecker::isNumberNotNullAndGreaterThanTwo(){
+		return isTheNumberSuitableToContinueTheAlgorithm();
+	}
+
+bool PrimeNumberChecker::isTheNumberSuitableToContinueTheAlgorithm(){
+	return !isNumberNullptr() && isNumberGreatherThanTwo();
+}
+
+bool PrimeNumberChecker::isNumberNullptr(){
+	return number == nullptr;
+}
+
+bool PrimeNumberChecker::isNumberGreatherThanTwo(){
+	return *this->number > NUMBER_TWO;
+}
+
+bool PrimeNumberChecker::isNumberDividable(){
+	for(int i = 2; i < *this->number; i++){
+		 return *this->number%i == 0;	
 	}
 	return false;
 }
+
+
+int main(){	
+	
+	NaturalNumber *naturalNumber  = new NaturalNumber(5);
+	PrimeNumberChecker *primeNumberChecker = new PrimeNumberChecker(naturalNumber);
+	
+	cout<<primeNumberChecker->isNumberPrime(naturalNumber)<<endl;
+
+
+	
+}
+
+
 
 
 
