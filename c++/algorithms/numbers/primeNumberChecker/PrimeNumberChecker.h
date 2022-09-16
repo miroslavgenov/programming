@@ -1,12 +1,10 @@
 #pragma once
-#include "nullptrChecker.h"
-#include "naturalNumber.cpp"
-
-
+#include "/home/home/Desktop/programming/c++/algorithms/numbers/NaturalNumber.cpp"
+#include "/home/home/Desktop/programming/c++/algorithms/numbers/NullptrChecker.h"
+#include "/home/home/Desktop/programming/c++/algorithms/numbers/NumberChecker.h"
 
 class PrimeNumberChecker{
 private:
-	const int NUMBER_TWO = 2;
 	int* number;
 
 public:
@@ -29,12 +27,6 @@ public:
 	bool isNumberPrime();
 
 private:
-	bool isNumberNotNullAndGreaterThanTwo();
-
-	bool isTheNumberSuitableToContinueTheAlgorithm();
-	
-	bool isNumberGreatherThanTwo();
-	
 	bool isNumberDividable();
 };
 

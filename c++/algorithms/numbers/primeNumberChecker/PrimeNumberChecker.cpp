@@ -1,4 +1,4 @@
-#include "primeNumberChecker.h"
+#include "PrimeNumberChecker.h"
 
 PrimeNumberChecker::PrimeNumberChecker(int number){
 	this->number = new int{number};
@@ -19,7 +19,6 @@ PrimeNumberChecker::~PrimeNumberChecker(){
 bool PrimeNumberChecker::isNumberPrime(int number){
 	this->number = new int{number};
 	return isNumberPrime();
-
 }
 
 bool PrimeNumberChecker::isNumberPrime(NaturalNumber naturalNumber){
@@ -33,19 +32,7 @@ bool PrimeNumberChecker::isNumberPrime(NaturalNumber * naturalNumber){
 }
 
 bool PrimeNumberChecker::isNumberPrime(){
-	return isNumberNotNullAndGreaterThanTwo() && !isNumberDividable();
-}
-
-bool PrimeNumberChecker::isNumberNotNullAndGreaterThanTwo(){
-		return isTheNumberSuitableToContinueTheAlgorithm();
-	}
-
-bool PrimeNumberChecker::isTheNumberSuitableToContinueTheAlgorithm(){
-	return !NullptrChecker::isNumberNullptr(this->number) && isNumberGreatherThanTwo();
-}
-
-bool PrimeNumberChecker::isNumberGreatherThanTwo(){
-	return *this->number > NUMBER_TWO;
+	return NumberChecker::isNumberAcceptableForPrimeNumberCheckerAlgorithm(number) && !isNumberDividable();
 }
 
 bool PrimeNumberChecker::isNumberDividable(){

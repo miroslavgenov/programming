@@ -1,4 +1,4 @@
-#include "naturalNumber.h"
+#include "NaturalNumber.h"
 
 NaturalNumber::NaturalNumber(int number):number(number){}
 
