@@ -10,6 +10,4 @@ int main(){
 
     PrimeNumberChecker *primeNumberChecker = new PrimeNumberChecker(5);
     cout<<primeNumberChecker->isNumberPrime()<<endl;
-
-
 }
