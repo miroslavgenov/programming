@@ -29,9 +29,6 @@ void sort(int a[],int s){
 	}
 }
 
-void insertion_sort(int a[],int n){
-	
-}
 
 int main(){
     int s=7;

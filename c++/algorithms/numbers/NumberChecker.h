@@ -12,6 +12,12 @@ public:
 	}
 	
 	static bool isNumberGreatherThanTwo(int *number){
-		return *number > NUMBER_TWO;
+		return isTheNumberGreaterThan(number, new int{NUMBER_TWO});
+		
 	}
+
+	static bool isTheNumberGreaterThan(int *firstNumber, int* secondNumber){
+		return *firstNumber > *secondNumber;
+	}
+
 };
