@@ -16,9 +16,6 @@ class NumberSorter{
 
     virtual void sort() = 0;
     private:
-    virtual void sortAllNumbers() = 0;
-    
-    virtual void sortNumber() = 0;
     
     virtual void shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser) = 0;
     

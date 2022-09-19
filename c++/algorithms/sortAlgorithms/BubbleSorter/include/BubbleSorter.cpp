@@ -1,4 +1,4 @@
-#include "BubbleSorter.h"
+#include "../src/BubbleSorter.h"
 
 BubbleSorter::BubbleSorter(int numbers[],int numberSize):NumberSorter(numbers,numberSize){}
 
