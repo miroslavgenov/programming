@@ -24,6 +24,8 @@ void InsertionSorter::loopBackWardsFromTheCurrentSwapAndShouldSwapGreaterNumberW
         }
 }
 
+
+
 void InsertionSorter::printNumbers(){
     NumberSorter::printNumbers();
 }    

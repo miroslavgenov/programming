@@ -12,11 +12,18 @@ class InsertionSorter : NumberSorter{
     private:
     void shouldSwapTheGreaterNumberWithLesserNumber(int* ,int *);
 
+
+
     void sortAllNumbers(){}
     
     void sortNumber(){}
     
+    
     public:
     void printNumbers();
+    
+    std::vector<int> getNumbers(){
+        return NumberSorter::getNumbers();
+    }
 
 };

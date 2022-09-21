@@ -15,6 +15,9 @@ class NumberSorter{
     void printNumbers();
 
     virtual void sort() = 0;
+    
+    std::vector<int> getNumbers(){return numbers;}
+
     private:
     
     virtual void shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser) = 0;
