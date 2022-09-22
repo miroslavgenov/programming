@@ -1,4 +1,4 @@
-#include "../src/InsertionSorter.h"
+#include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/InsertionSorter/src/InsertionSorter.h"
 
 InsertionSorter::InsertionSorter(int numbers[], 
     size_t numbersSize):NumberSorter(numbers, numbersSize){}
@@ -19,8 +19,8 @@ void InsertionSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater,in
 }
 
 void InsertionSorter::loopBackWardsFromTheCurrentSwapAndShouldSwapGreaterNumberWithLesserNumber(int loopBackFromThisIndex){
-    for(int j=loopBackFromThisIndex , z = j-1; z >= 0 && j >= 0;j--,z--){
-            shouldSwapTheGreaterNumberWithLesserNumber(&numbers[z],&numbers[j]);
+    for(int j = loopBackFromThisIndex; j - 1 >= 0; j--){
+            shouldSwapTheGreaterNumberWithLesserNumber(&numbers[j-1],&numbers[j]);
         }
 }
 
