@@ -6,7 +6,7 @@
 
 using namespace std;
 
-size_t numbersSize = 10;
+
 
 void print(int a[], int s){
     for(int i=0;i<s;i++){
@@ -15,10 +15,7 @@ void print(int a[], int s){
     cout<<endl;
 }
 
-    vector<int> lesserNumbers;
-    vector<int> greaterNumbers;
-
-bool isLeftSotered = false;
+    
 
 void print(int numbers[],int from, int size){
     for(int i=from;i<size;i++){
@@ -26,94 +23,72 @@ void print(int numbers[],int from, int size){
     }cout<<endl;
 }
 
-void fs(int l,int r ,int numbers[]){
-    lesserNumbers.clear();
-    greaterNumbers.clear();
-    int left =l;
-    int right = r;
-    int mid = (left+right)/2;
-    int midNumberValue = numbers[mid];
-    // cout<<"leftIdx: "<<left<<" midIdx: "<<mid<<" rightIdx: "<<right<<endl;
-    
-    int i=left,j=right;
-    // do{
-        while(numbers[i]<midNumberValue){
-            i++;
-        }
-        while(numbers[j]>midNumberValue){
-            j--;
-        }
-        cout<<numbers[i]<<" "<<numbers[mid]<<" "<<numbers[j]<<endl;
-        // NumberSwapper::swapTwoNumbersValue(&numbers[i],numbers[j]);
-        int temp = numbers[i];
-        numbers[i] = numbers[j];
-        numbers[j] = temp;
-    // }while(i<j);
-    
 
-    // move lesser numbers than mid value in lesserNumbers and greater in greaterNumbers
-    // for(int i=0;i<right;i++){
-    //     if(numbers[i]<numbers[mid]){
-    //         lesserNumbers.push_back(numbers[i]);
-    //     }
-    //     else if(numbers[i]> numbers[mid]){
-    //         if(mid != i){
-    //             greaterNumbers.push_back(numbers[i]);
-    //         }
-            
-    //     }
+
+
+void fs(int numbers[],int left, int right){
+    if(left>right){
+        // cout<<"exit"<<endl;
+        return;}
+
+
+    int pivotIdx = (left+right) / 2;
+    // cout<<endl<<"start fs"<<endl;
+    int pivotValue = numbers[pivotIdx];
+    int i = left, j = right;
+    // cout<<"left: "<<left<<" pivotIdx: "<<pivotIdx <<" right: "<<right<<endl;
+    // cout<<"i: "<<i<<" j: "<<j<<endl;
+    // cout<<"pivotValue: "<<pivotValue<<endl;
+
+    // cout<<" while numbers[i] < pivotValue "<<endl;
+    while(numbers[i] < pivotValue){
+        // cout<<numbers[i]<<" < "<<pivotValue<<endl;
+        i++;
+    }
+    // cout<<"after while numbers[i] < pivotValue "<<endl;
+    // cout<<numbers[i]<<" !< "<<pivotValue<<endl;
+
+    // cout<<"while(numbers[j] > pivotValue"<<endl;
+    while(numbers[j] > pivotValue){
+        // cout<<numbers[j]<<" > "<<pivotValue<<endl;
+        j--;
+    }
+    // cout<<"after while numbers[j] > pivotValue "<<endl;
+    // cout<<numbers[j] <<" !> "<<pivotValue <<endl;
+    // cout<<"after finding greater from left and lesser from right"<<endl;
+    // cout<<"i: "<<i<<" j: "<<j<<endl;
+    // cout<<"swaping the numbers"<<endl;
+    NumberSwapper::swapTwoNumbersValue(&numbers[i],&numbers[j]);
+    i++;
+    j--;
+    // cout<<"i: "<<i<<" j: "<<j<<endl;
+    fs(numbers,left,j);
+    // cout<<"back track"<<endl;
+    // cout<<"i: "<<i<<" j: "<<j<<endl;
+    // cout<<"sorting the right"<<endl;
+    
+    // if(i<right){
+        fs(numbers,i,right);
     // }
 
 
-    // update the new array
-    // for(int i=0;i<lesserNumbers.size();i++){
-    
-    //     numbers[i] = lesserNumbers[i];
-    // }
-    
-    // numbers[lesserNumbers.size()] = midNumberValue;
-    
-    // for(int i=0, j = lesserNumbers.size()+1;i<greaterNumbers.size();i++,j++){
-    //     numbers[j] = greaterNumbers[i];
-    // }
-    // cout<<l<<" "<<r<<endl;
-    // print(numbers,left,right);
 
-    // if(left < right){
-        // fs(left,(left+right)/2,numbers);
-    // }
-    
-    // if(mid < r-1){
-        // fs(mid,r,numbers);
-    // }    
-}
+}   
 
 int main(){  
     srand(time(0));
-
+    size_t numbersSize = rand() % 50;
     
-    int numbers[numbersSize] = {25,35,81,83,99,75,96,39,1,28};
+    int numbers[numbersSize];
     
-    // for(int i=0; i<numbersSize;i++){
-    //     numbers[i] = rand()% 100;
-    // }
+    for(int i=0; i<numbersSize;i++){
+        numbers[i] = rand() % 200;
+    }
+    
+    
     
     print(numbers,numbersSize);
-    fs(0,numbersSize,numbers);
+    fs(numbers,0,numbersSize-1);
     print(numbers,numbersSize);
-    
-    // if(ns == 1){
-    //     cout<<"ns == 1 can't compare only one number.Left part is done"<<endl; 
-    // }
-    
-
-    // returning
-    
-
-
-    
-    
-
-    
 
 }
