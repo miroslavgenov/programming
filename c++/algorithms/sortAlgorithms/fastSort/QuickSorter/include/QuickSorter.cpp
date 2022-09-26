@@ -9,38 +9,33 @@ void QuickSorter::sort(){
 
 // don't know how to use with separe functions
 void QuickSorter::quickSort(int left, int right){
-    if(left > right){
-        return;
-    }
+    if(left>=right){return;}
+    int l = left ;
+    int r = right;
+    int pivot = numbers[(l+r)/2];
+    
+    
+    int i  = l;
+    int j = r;
 
-    int pivotValue = numbers[(left+right)/2] , i = left, j = right;
-
-    // function1
-    // find index of the first greater number than pivot from left
-    while(numbers[i] < pivotValue){
-        i++;
+    while(i<j){
+        while(numbers[i] < pivot){  
+            i++;
+        }
+        while(numbers[j] > pivot){
+            j--;
+        }
+        
+        if(i<=j){
+            NumberSwapper::swapTwoNumbersValue(&numbers[i], &numbers[j]);    
+            i++;
+            j--;
+        }
+        
     }
     
-    //function 2
-    // find index of the first lesser number than pivot from right
-    while(numbers[j] > pivotValue){
-        j--;
-    }
-
-    //function 3
-    // swap numbers 
-    NumberSwapper::swapTwoNumbersValue(&numbers[i], &numbers[j]);
-    
-    // function 4
-    //partition the array
-    i++;
-    j--;
-
-    // repeat the step for the left part only
-    quickSort(left,j);
-
-    // then back track and repeat the step for the right part only
-    quickSort(i,right);
+    quickSort(l,j);
+    quickSort(i,r);
 }
 
 
