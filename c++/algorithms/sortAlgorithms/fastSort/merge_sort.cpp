@@ -20,52 +20,58 @@ void swap(int &greaterNumber , int &lesserNumber){
 
 }
 
-void merge(int A[],int left,int mid,int right,int* B){
+
 	
-    int l = left;
-	int m = mid+1;
-	int r = right;
-	int z=left;
-	while(l<=mid && m<=right){
-		if(A[l]>A[m]){
-			B[z]=A[m];
-			m++;z++;
-		}
-		else{
-			B[z]=A[l];
-			l++;
-			z++;
-		}
-		
-	}
-	while(l<=mid){
-		B[z] = A[l];
-		l++;z++;
-	}
-	while(m<=right){
-		B[z]=A[m];
-		m++;z++;
-	}
-    for(int i=left;i<=right;i++){
-        A[i]=B[i];
+  void merge(int numbers[],int b[], int left,int right){
+    int i = left;
+    int mid = (left+right)/2;
+    int j = mid+1;
+    int k = left;
+    while(i<=mid && j<=right){
+        if(numbers[i]> numbers[j]){
+            b[k] = numbers[j];
+            k++;
+            // cout<<numbers[j]<<" ";
+            j++;
+        }
+        if(numbers[j] > numbers[i]){
+            // cout<<numbers[i]<<" ";
+            b[k] = numbers[i];
+            k++;
+            i++;
+        }
     }
-	
-	
-	
-	
+
+    while(i<=mid){
+        // cout<<numbers[i]<<" ";
+        b[k] = numbers[i];
+        k++;
+        i++;
+    }
+    while(j<=right){
+        // cout<<numbers[j]<<" ";
+        b[k] = numbers[j];
+        k++;
+        j++;
+    }
+    // cout<<endl;
+    for(int i = left ; i<=right;i++){
+        numbers[i] = b[i];
+    }
+
 	
 
 }
 
 
-void mergeSort(int a[],int left,int right,int *b){
+void mergeSort(int a[],int left,int right,int b[]){
 
     if(left==right)return;
     int mid = (left+right)/2;
 
     mergeSort(a,left,mid,b); 
     mergeSort(a,mid+1,right,b);
-    merge(a,left,mid,right,b);
+    merge(a,b,left,right);
 
     
     
@@ -80,7 +86,7 @@ void mergeSort(int a[],int left,int right,int *b){
 int main(){
     int size=9;
     int arr[size]={7,6,1,3,5,4,8,2,9};
-    int *b = new int[size];
+    int b[size];
     mergeSort(arr,0,size-1,b);
     for(int i=0;i<size;i++)cout<<arr[i]<<" ";
     

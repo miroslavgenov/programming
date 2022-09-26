@@ -4,14 +4,7 @@
 
 using namespace std;
 
-const size_t numbersSize = 2; //rand()%20;
-int numbers[numbersSize]{2,1};
 
-void print(){
-    for(int i=0;i<numbersSize;i++){
-        cout<<numbers[i]<<' ';
-    }cout<<endl;
-}
 
 void print(int n[], int s){
     for(int i=0;i<s;i++){
@@ -20,70 +13,74 @@ void print(int n[], int s){
     cout<<endl;
 }
 
-bool isIndexInRange(int index, int range){
-    return index < range;
-}
 
-bool isTwoIndexesInRange(int firstIndex, int firstRange, int secondIndex, int secondRange){
-    return isIndexInRange(firstIndex, firstRange) && isIndexInRange(secondIndex, secondRange);
-}
+  void merge(int numbers[],int b[], int left,int right){
+    int i = left;
+    int mid = (left+right)/2;
+    int j = mid + 1;
+    int k = left;
 
-int main(){  
-    // srand(time(0));
-    int l = 0;
-    int r = numbersSize;
-    int mid = (l+r)/2;
-    int b[numbersSize];
-    int i= 0;
-    int j = mid;
-    int it = 0;
-    cout<<numbers[mid]<<endl;
-    
-    
-    while(i<mid && j<r
-        //isTwoIndexesInRange(i,mid,j,r)
-        //isIndexInRange(i,mid) && isIndexInRange(j,r)
-    ){
-        
-        if(numbers[i] > numbers[j]){
-            b[it] = numbers[j];
-            it++;
-            // cout<<numbers[j]<<endl;
+    while(i<=mid && j<=right){
+        if(numbers[i]>= numbers[j]){
+            b[k] = numbers[j];
+            k++;
+            // cout<<numbers[j]<<" ";
             j++;
         }
-
-        if(numbers[i] < numbers[j]){
-            // cout<<numbers[i]<<endl;
-            b[it] = numbers[i];
-            it++;
+        if(numbers[j] >= numbers[i]){
+            // cout<<numbers[i]<<" ";
+            b[k] = numbers[i];
+            k++;
             i++;
         }
     }
 
-    // is i not out of range
-    if(i<mid
-        //isIndexInRange(i,mid)
-        ){
-        for(int z = i;z<mid;z++){
-            // fill the remaining numbers
-            b[it] = numbers[z];
-            it++;
-        }
+    while(i<=mid){
+        // cout<<numbers[i]<<" ";
+        b[k] = numbers[i];
+        k++;
+        i++;
+    }
+    while(j<=right){
+        // cout<<numbers[j]<<" ";
+        b[k] = numbers[j];
+        k++;
+        j++;
+    }
+    // cout<<endl;
+    for(int i = left ; i<=right;i++){
+        numbers[i] = b[i];
     }
 
-    // is j not out of range
-    if( j<r
-        //isIndexInRange(j,r)
-        ){
-        // fill the remaining numbers
-        for(int z = j; z<r;z++){
-            b[it] = numbers[z];
-            it++;
-        }
-    }
+	
+
+}
+    
+
+
+void split(int numbers[], int b[], int left, int right){
+
+        if(left == right){return;}
+        int mid = (left+right)/2;
+        // cout<<left<<" "<<right<<endl;
+        split(numbers,b,left,mid);
+        split(numbers,b,mid+1,right);
+        merge(numbers,b,left,right);
+}
+
+int main(){
+    srand(time(0));
+    size_t numbersSize  = 1000000;
+    int numbers[numbersSize];// = {9,20,10,1,10,2,3,4,5,6};
+    for(int i=0;i<numbersSize;i++) numbers[i] = rand();
+    
+    int b[numbersSize];
+    split(numbers,b,0,numbersSize-1);
+
 
     print(b,numbersSize);
-
+    
+    
 
 
     
