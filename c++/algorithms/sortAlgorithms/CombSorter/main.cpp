@@ -5,20 +5,7 @@
 
 using namespace std;
 
-void print(int numbers[], int size){
-    for(int i=0;i<size;i++){
-        cout<<numbers[i]<<" ";
-    }cout<<endl;
-}
-
-bool isArraySorted(int numbers[], int numbersSize){
-    for(int i=1;i<numbersSize;i++){
-        if(numbers[i-1] > numbers[i]){
-            return false;
-        }
-    }
-    return true;
-}
+//TODO refactor , clean
 
 class CombSorter : NumberSorter{
     private:
