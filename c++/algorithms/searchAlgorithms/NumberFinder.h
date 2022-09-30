@@ -4,7 +4,7 @@
 class NumberFinder{
     public:
     
-    static int findMinimumNumberFromArray(std::vector<int> numbers){
+    static int findMinimumNumberFromUnsortedVector(std::vector<int> numbers){
         int minimumNumber = numbers[0];
         for(int i = 0; i < numbers.size();i++){
             if(minimumNumber > numbers[i]){
@@ -14,7 +14,7 @@ class NumberFinder{
         return minimumNumber;
     }
 
-    static int findMinimumNumberFromArray(int numbers[], int numbersSize){
+    static int findMinimumNumberFromUnsortedArray(int numbers[], int numbersSize){
         int minimumNumber = numbers[0];
         for(int i = 0; i < numbersSize;i++){
             if(minimumNumber > numbers[i]){
@@ -24,7 +24,7 @@ class NumberFinder{
         return minimumNumber;
     }
 
-    static int findMaximumNumberFromArray(std::vector<int> numbers){
+    static int findMaximumNumberFromUnsortedVector(std::vector<int> numbers){
         int maximumNumber = numbers[0];
 
         for(int i=0;i<numbers.size();i++){
@@ -35,7 +35,7 @@ class NumberFinder{
         return maximumNumber;
     }
 
-    static int findMaximumNumberFromArray(int numbers[], int numbersSize){
+    static int findMaximumNumberFromUnsortedArray(int numbers[], int numbersSize){
         int maximumNumber = numbers[0];
 
         for(int i=0;i<numbersSize;i++){

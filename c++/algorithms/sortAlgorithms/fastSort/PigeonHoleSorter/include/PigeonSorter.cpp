@@ -13,11 +13,11 @@ PigeonHoleSorter::PigeonHoleSorter(int numbers[], size_t numbersSize):NumberSort
 	}
 
 	void PigeonHoleSorter::setMaximumNumber(){
-		maximumNumber = NumberFinder::findMaximumNumberFromArray(numbers);
+		maximumNumber = NumberFinder::findMaximumNumberFromUnsortedVector(numbers);
 	}
 	
 	void PigeonHoleSorter::setMinimumNumber(){
-		minimumNumber = NumberFinder::findMinimumNumberFromArray(numbers);
+		minimumNumber = NumberFinder::findMinimumNumberFromUnsortedVector(numbers);
 	}
 	
 	
