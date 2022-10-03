@@ -20,6 +20,14 @@ public:
 		return *firstNumber > *secondNumber;
 	}
 
+	static bool isTheNumberGreaterThan(int firstNumber, int secondNumber){
+		return firstNumber > secondNumber;
+	}
+
+	static bool isTheNumberLesserThan(int firstNumber, int secondNumber){
+		return firstNumber < secondNumber;
+	}
+
 	static bool isTheNumberGreaterOrEqual(int firstNumber, int secondNumber){
 		return firstNumber >= secondNumber;
 	}
