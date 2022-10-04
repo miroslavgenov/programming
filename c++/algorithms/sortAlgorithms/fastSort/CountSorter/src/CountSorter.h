@@ -31,6 +31,7 @@ private:
     void replaceUnsortedNumberThatTimesHowMuchNumberRepeats(int ,int ,int &);
 
 public:
+    std::vector<int> getNumbers(){ return NumberSorter::getNumbers();}
     void printNumbers();
 
 private:

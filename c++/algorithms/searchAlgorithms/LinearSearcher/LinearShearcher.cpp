@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 using namespace std;
 
 class LinearSearcher{
@@ -11,6 +12,7 @@ public:
 		this->numbersSize = numbersSize;
 		this->numbers = numbers;
 		this->givenNumber = givenNumber;
+		
 	}
 
 	bool areNumbersEqual(int firstNumber, int secondNumber){
