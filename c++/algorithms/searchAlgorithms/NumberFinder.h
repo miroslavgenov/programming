@@ -2,7 +2,21 @@
 #include <vector>
 
 class NumberFinder{
-    public:
+public:
+    static constexpr int theNumberIndexIsNotFound = -1;
+    static int findTheIndexOfNumberFromArray(int numbers[], int numbersSize, int findThisNumber){
+        
+        int foundIndex;
+
+        for(int i = 0; i<numbersSize; i++){
+            if(numbers[i] == findThisNumber){
+                foundIndex = i;
+                return foundIndex;
+            }
+        }
+        return theNumberIndexIsNotFound;
+
+    }
     
     static int findTheParentWithTheMaximumNumberFromAllParents(std::vector<int> numbers, int heapSize){
         // to clean
@@ -19,6 +33,8 @@ class NumberFinder{
     }
     return currentMaximumParentIndex;
 }
+
+
 
     static int findMinimumNumberFromUnsortedVector(std::vector<int> numbers){
         int minimumNumber = numbers[0];
