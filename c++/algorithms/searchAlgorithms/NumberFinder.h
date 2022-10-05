@@ -4,6 +4,16 @@
 class NumberFinder{
 public:
     static constexpr int theNumberIndexIsNotFound = -1;
+
+    static int findTheIndexOfNumberFromArrayInReverseOrder(int numbers[], int numbersSize, int startIndex, int stopIndex, int findThisNumber){
+        for(int i = startIndex; i>= stopIndex; i--){
+            if(numbers[i] == findThisNumber){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     static int findTheIndexOfNumberFromArray(int numbers[], int numbersSize, int findThisNumber){
         
         int foundIndex;

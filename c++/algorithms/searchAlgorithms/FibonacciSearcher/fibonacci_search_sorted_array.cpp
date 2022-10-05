@@ -1,5 +1,8 @@
 #include <iostream>
+
 using namespace std;
+
+// DON'T UNDERSTAND HOW FIBONACI SEARCH WORKS
 
 const int size_fib_seq=20;
 int arr_fib_seq[size_fib_seq];
