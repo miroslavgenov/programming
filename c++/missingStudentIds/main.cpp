@@ -23,6 +23,7 @@ int main(){
             382,430,323,248,178,179,230,177,342,360,75,336,339,4,176,81,364,386,394,144,
             218,233,238,276,148,425,113,354,175,237,363,419,426
         };
+
     size_t totalStudentIdsSize = sizeof(totalStudentIds)/sizeof(*totalStudentIds);
     
     
