@@ -2,7 +2,10 @@
 
 
 
-
+JumpSearcher::JumpSearcher(int numbers[], size_t numbersSize, int findThisNumber):NumberSearcher(numbers,numbersSize,findThisNumber){
+	this->findThisNumber = findThisNumber;
+	jumpSize = sqrt(this->numbersSize);
+}
 
 JumpSearcher::JumpSearcher(int numbers[], size_t numbersSize):NumberSearcher(numbers, numbersSize){
 	jumpSize = sqrt(this->numbersSize);	
@@ -13,6 +16,12 @@ bool JumpSearcher::canYouJumpSearch(){
 }
 
 int JumpSearcher::jumpSearch(int findThisNumber){
+	setFindThisNumber(findThisNumber);
+	return this->jumpSearch();
+}
+
+int JumpSearcher::jumpSearch(){
+	
 	if(canYouJumpSearch()){
 		
 		for(int i = 0; i < numbersSize; i+=jumpSize){
@@ -34,5 +43,6 @@ int JumpSearcher::jumpSearch(int findThisNumber){
 
 	return indexIsNotFound;
 }
+
 
 

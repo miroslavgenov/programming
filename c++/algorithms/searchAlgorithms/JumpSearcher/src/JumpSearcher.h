@@ -8,9 +8,13 @@ class JumpSearcher:NumberSearcher{
 	int jumpSize;
 
 public:
+	JumpSearcher(int [], size_t, int);
+
 	JumpSearcher(int [], size_t);
 
 	bool canYouJumpSearch();
 
 	int jumpSearch(int);
+	
+	int jumpSearch();
 };

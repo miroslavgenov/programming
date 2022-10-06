@@ -21,4 +21,8 @@ public:
 	NumberSearcher(int numbers[], size_t numbersSize, int findThisNumber):NumberSearcher(numbers, numbersSize){
 		this->findThisNumber = findThisNumber;
 	}
+protected:
+	void setFindThisNumber(int numberToBeFound){
+		this->findThisNumber = numberToBeFound;
+	}
 };

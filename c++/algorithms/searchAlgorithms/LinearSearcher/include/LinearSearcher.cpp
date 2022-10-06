@@ -23,7 +23,12 @@ int LinearSearcher::linearSearchIndexOfFindThisNumberWithArrayShiftByOneToRightA
 	return indexIsNotFound;
 	
 }
-	
+
+int LinearSearcher::linearSearchIndexOfFindThisNumber(int findThisNumber){
+	setFindThisNumber(findThisNumber);
+	return this->linearSearchIndexOfFindThisNumber();
+}
+
 int LinearSearcher::linearSearchIndexOfFindThisNumber(){
 	for(int i = 0; i < numbersSize; i++){
 		if(numbers[i] == findThisNumber){

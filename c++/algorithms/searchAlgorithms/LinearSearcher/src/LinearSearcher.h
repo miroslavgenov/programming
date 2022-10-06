@@ -10,7 +10,11 @@ public:
 	
 	int linearSearchIndexOfFindThisNumberWithArrayShiftByOneToRightAndMakeTheFoundNumberFirst(int);
 
+	int linearSearchIndexOfFindThisNumber(int);
+
 	int linearSearchIndexOfFindThisNumber();
 
 	int linearSearchIndexOfFindThisNumberBackwards(int, int);
+	
+		
 };
