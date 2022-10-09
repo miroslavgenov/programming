@@ -60,6 +60,9 @@ public:
 	T* pop(){
 		return linkedList->deleteFromEnd();
 	}
+	bool isEmpty(){
+		return linkedList->totalListElements == 0;
+	}
 
 	template<typename X>
 	friend ostream& operator<<(ostream& , Stack<X>* );

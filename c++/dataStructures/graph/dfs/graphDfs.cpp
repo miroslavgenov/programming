@@ -20,21 +20,78 @@ void dfs(int graph[][GRAPH_SIZE], int vertex){
 	}
 }
 
-int main(){
-	
-	
-	int graph[GRAPH_SIZE][GRAPH_SIZE]={
-		{0,1,1,0,1,0},
-		{1,0,1,1,0,0},
-		{1,1,0,0,0,0},
-		{0,1,0,0,0,0},
-		{1,0,0,0,0,1},
-		{0,0,0,0,1,0}
-	};
+struct edge{
+	int edgeNumber;
+	vector<int> edgeIsConnectedTo;
+};
 
-	int startFromThisVertex=  2;
-	sStack = new Stack<int>();
-	dfs(graph, startFromThisVertex);
+class Graph{
+
+};
+
+
+
+int main(){
+	int size = 4;
+	
+
+	edge* list[size] = {
+		new edge{0,{1}},
+		new edge{1,{0,2,3}},
+		new edge{2,{1,3}},
+		new edge{3,{1,2}}
+	};
+	int** g = new int*[size];
+
+	int graph[size][size];
+	// {0,1,0,0}
+	// {1,0,1,1}
+	// {0,1,0,1}
+	// {0,1,1,0}
+	
+	int minEdge = list[0]->edgeNumber;
+	int maxEdge = list[0]->edgeNumber;
+	
+	for(int i=0;i<size;i++){
+		if(list[i]->edgeNumber < minEdge){
+			minEdge = list[i]->edgeNumber;
+		}
+		if(list[i]->edgeNumber > maxEdge){
+			maxEdge= list[i]->edgeNumber;
+		}
+	}
+
+	// cout<<minEdge<<" "<<maxEdge<<endl;
+	// graphCreater
+	int iterator = 0;
+	for(int i = minEdge; i<=maxEdge;i++){
+		if(i == list[i]->edgeNumber){
+			
+			for(int j = 0;j<=maxEdge;j++){
+				if(iterator < list[i]->edgeIsConnectedTo.size()){
+					if(j == list[i]->edgeIsConnectedTo[iterator]){
+						cout<<1<<" ";
+						iterator++;
+						graph[i][j] = 1;
+						continue;
+					}
+				}
+				cout<<0<<" ";
+				graph[i][j] = 0;
+			}cout<<endl;
+			iterator = 0;
+
+		}
+		
+	}
+	
+	cout<<endl;
+
+	for(int i = 0 ; i <size;i++){
+		for(int j = 0 ;j<size;j++){
+			cout<<graph[i][j]<<" ";
+		}cout<<endl;
+	}
 	
 
 

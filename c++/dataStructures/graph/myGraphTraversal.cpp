@@ -71,7 +71,7 @@ int main(){
 void printGraphEdgeArc(int g[][s]){
 	cout<<endl;
 	for(int i=0;i<s;i++){
-		cout<<"edge: "<<i<<" arc: ";
+		cout<<"vertex: "<<i<<" connection to: ";
 		for(int j=0;j<s;j++){
 			if(g[i][j] == 1){
 				cout<<j<<" ";
