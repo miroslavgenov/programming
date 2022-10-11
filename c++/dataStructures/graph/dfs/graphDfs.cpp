@@ -28,56 +28,74 @@ struct edge{
 class Graph{
 	int** graph = nullptr;
 	int graphSize;
+
 public:
 	Graph(edge* edges[], int edgesSize){
+		// set up the graph
+		// set the graph capacite
 		graph = new int*[edgesSize];
-		graphSize = edgesSize;
-	
+		// set the inner arrays capacity
 		for(int i=0;i<edgesSize;i++){
 			graph[i] = new int[edgesSize];
 		}
+		// set the graphSize
+		graphSize = edgesSize;
+		
+		
 
-
+		// NumberFinder::findTheMaximumNumberFromEdges
 		// who is the minimum edge number
-		int minEdge = edges[0]->edgeNumber;
+		// int minEdge = edges[0]->edgeNumber;
 		
 		// who is the maximum edge number
-	int maxEdge = edges[0]->edgeNumber;
+		int maxEdge = edges[0]->edgeNumber;
 		
-	// algorithm to find the minimum and maximum edge number
-	for(int i=0;i<edgesSize;i++){
 
-		if(edges[i]->edgeNumber < minEdge){
-			minEdge = edges[i]->edgeNumber;
-		}
-		
-		if(edges[i]->edgeNumber > maxEdge){
-			maxEdge= edges[i]->edgeNumber;
-		}
-	}
+		// algorithm to find the minimum and maximum edge number
+		for(int i=0;i<edgesSize;i++){
 
-	// cout<<minEdge<<" "<<maxEdge<<endl;
-	// graphCreater
+		// if(edges[i]->edgeNumber < minEdge){
+		// 	minEdge = edges[i]->edgeNumber;
+		// }
+			if(edges[i]->edgeNumber > maxEdge){
+				maxEdge= edges[i]->edgeNumber;
+			}
+		}
+		// end 		NumberFinder::findTheMaximumNumberFromEdges
+
+
+	
+	// algorithm to fill the graph where there is connection
 	int iterator = 0;
-	for(int i = minEdge; i<=maxEdge;i++){
-		if(i == edges[i]->edgeNumber){
+	for(int i = 0; i<=maxEdge;i++){
+		
 			
 			for(int j = 0;j<=maxEdge;j++){
+
+				// is the iterator lesser than the size of the connected edges
 				if(iterator < edges[i]->edgeIsConnectedTo.size()){
+					
+					// if the j is equal to element from edgeIsConnectedTo[iterator]
+					// make the connection in the graph
+					// and continue
+					// else add 0 
 					if(j == edges[i]->edgeIsConnectedTo[iterator]){
-						// cout<<1<<" ";
+						
+						//increase the iterator
 						iterator++;
+						// write connection 
 						graph[i][j] = 1;
 						continue;
 					}
 				}
-				// cout<<0<<" ";
+				// write there is no connection
 				graph[i][j] = 0;
 			}
-			// cout<<endl;
+			
+			// prepare the iterator so the data about the next edge can ge written
 			iterator = 0;
 
-		}
+		
 		
 	}
 
@@ -97,7 +115,9 @@ public:
 	}
 };
 
-
+// todo: clear the graph clas
+// test
+// make test and make separe files
 
 int main(){
 	int size = 4;
@@ -113,74 +133,14 @@ int main(){
 	Graph* g  = new Graph(list, size);
 
 	int**gg = g->getGraph();
+	
+	// Printer::printGraph
 	for(int i=0;i<size;i++){
 		for(int j = 0;j<size;j++){
 			cout<<gg[i][j]<<" ";
 		}cout<<endl;
 	}
-cout<<endl;
-	int** graph =nullptr;
-	graph = new int*[size];
 
-	
-	
-	for(int i=0 ;i<size;i++){
-		graph[i] = new int[size];
-	}
-
-	// int graph[size][size];
-	// {0,1,0,0}
-	// {1,0,1,1}
-	// {0,1,0,1}
-	// {0,1,1,0}
-	
-	int minEdge = list[0]->edgeNumber;
-	int maxEdge = list[0]->edgeNumber;
-	
-	for(int i=0;i<size;i++){
-		if(list[i]->edgeNumber < minEdge){
-			minEdge = list[i]->edgeNumber;
-		}
-		if(list[i]->edgeNumber > maxEdge){
-			maxEdge= list[i]->edgeNumber;
-		}
-	}
-
-	// cout<<minEdge<<" "<<maxEdge<<endl;
-	// graphCreater
-	int iterator = 0;
-	for(int i = minEdge; i<=maxEdge;i++){
-		if(i == list[i]->edgeNumber){
-			
-			for(int j = 0;j<=maxEdge;j++){
-				if(iterator < list[i]->edgeIsConnectedTo.size()){
-					if(j == list[i]->edgeIsConnectedTo[iterator]){
-						cout<<1<<" ";
-						iterator++;
-						graph[i][j] = 1;
-						continue;
-					}
-				}
-				cout<<0<<" ";
-				graph[i][j] = 0;
-			}cout<<endl;
-			iterator = 0;
-
-		}
-		
-	}
-	
-	cout<<endl;
-
-	for(int i = 0 ; i <size;i++){
-		for(int j = 0 ;j<size;j++){
-			cout<<graph[i][j]<<" ";
-		}cout<<endl;
-	}
-	
-
-
-	
 }
 
 
