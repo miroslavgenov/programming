@@ -1,9 +1,22 @@
 #pragma once
 #include <vector>
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/Vertex.h"
 
 class NumberFinder{
 public:
     static constexpr int theNumberIndexIsNotFound = -1;
+
+    static int findTheMaximumVertexNumberInGraph(Vertex* verticies[], const size_t TOTAL_VERTICIES){
+        int maximumVertexNumber = verticies[0]->vertexNumber;
+
+        for(int i = 0 ;i < TOTAL_VERTICIES; i++){
+            if(maximumVertexNumber < verticies[i]->vertexNumber){
+                maximumVertexNumber = verticies[i]->vertexNumber;
+            }
+        }
+        return maximumVertexNumber;
+
+    }
 
     static int findTheIndexOfNumberFromArrayInReverseOrder(int numbers[], int numbersSize, int startIndex, int stopIndex, int findThisNumber){
         for(int i = startIndex; i>= stopIndex; i--){
