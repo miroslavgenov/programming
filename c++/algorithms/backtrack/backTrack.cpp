@@ -65,7 +65,7 @@ void backTrack(int maze[][MAZE_SIZE], int i, int j){
 			backTrack(maze, i, j + 1);
 		}
 		if(j < MAZE_SIZE && i < MAZE_SIZE){
-			maze[i][j] = 1;
+				maze[i][j] = 1;
 			
 			backTrack(maze, i, j + 1);
 			
