@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/Stack.cpp"
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/Stack/include/Stack.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph/include/Graph.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 
 using namespace std;
@@ -22,13 +22,6 @@ void dfs(int graph[][GRAPH_SIZE], int vertex){
 	}
 }
 
-
-
-
-
-// todo: clear the graph clas
-// test
-// make test and make separe files
 
 int main(){
 	int size = 4;
