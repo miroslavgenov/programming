@@ -41,7 +41,3 @@ void QuickSorter::quickSort(int left, int right){
 
 
 void QuickSorter::shouldSwapTheGreaterNumberWithLesserNumber(int *greater, int *lesser){}
-
-void QuickSorter::printNumbers(){
-    NumberSorter::printNumbers();
-}

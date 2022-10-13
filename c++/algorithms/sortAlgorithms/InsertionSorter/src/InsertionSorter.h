@@ -19,9 +19,7 @@ class InsertionSorter : NumberSorter{
     void sortNumber(){}
     
     
-    public:
-    void printNumbers();
-    
+    public:    
     std::vector<int> getNumbers(){
         return NumberSorter::getNumbers();
     }

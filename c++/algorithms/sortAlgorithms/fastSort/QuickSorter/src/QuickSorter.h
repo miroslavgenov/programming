@@ -15,9 +15,9 @@ class QuickSorter : NumberSorter{
     
         void shouldSwapTheGreaterNumberWithLesserNumber(int *, int *);
 
-    public:
-        void printNumbers();
-
+        std::vector<int> QuickSorter::getNumbers(){
+    return NumberSorter::getNumbers();
+}
 
     
 };

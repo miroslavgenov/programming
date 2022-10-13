@@ -32,9 +32,3 @@ void ShellSorter::shouldSwapTheGreaterNumberWithLesserNumber(int *greater, int* 
         NumberSwapper::swapTwoNumbersValue(greater, lesser);
     }
 }
-
-
-void ShellSorter::printNumbers(){
-    NumberSorter::printNumbers();
-    
-}

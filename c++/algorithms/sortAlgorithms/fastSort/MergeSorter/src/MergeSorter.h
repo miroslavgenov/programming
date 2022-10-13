@@ -40,5 +40,9 @@ class MergeSorter : NumberSorter{
         void shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser){}
 
     public:
-        void printNumbers();
+        std::vector<int> MergeSorter::getNumbers(){
+    return NumberSorter::getNumbers();
+}
+
+    
 };

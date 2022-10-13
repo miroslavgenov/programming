@@ -56,8 +56,4 @@ void CountSorter::replaceUnsortedNumberThatTimesHowMuchNumberRepeats(int current
     }
 }
 
-void CountSorter::printNumbers(){
-    NumberSorter::printNumbers();
-}
-
 void CountSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater, int* lesser){}

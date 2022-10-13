@@ -28,10 +28,10 @@ class PigeonHoleSorter : NumberSorter{
 
 		int getMinimumNumber();
 
-	public:
-		void printNumbers();
-
-	private:
 		void shouldSwapTheGreaterNumberWithLesserNumber(int* greater, int *lesser){}	
+	public:
+		std::vector<int> PigeonHoleSorter::getNumbers(){
+    return NumberSorter::getNumbers();
+}
 
 };

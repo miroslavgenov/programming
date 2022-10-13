@@ -23,7 +23,3 @@ void BubbleSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greaterNumber
             NumberSwapper::swapTwoNumbersValue(greaterNumber,lesserNumber);
         }
 }
-
-void BubbleSorter::printNumbers(){
-    NumberSorter::printNumbers();
-}

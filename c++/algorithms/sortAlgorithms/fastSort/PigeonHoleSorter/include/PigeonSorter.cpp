@@ -48,9 +48,3 @@ PigeonHoleSorter::PigeonHoleSorter(int numbers[], size_t numbersSize):NumberSort
 	int PigeonHoleSorter::getMinimumNumber(){
 		return minimumNumber;
 	}
-
-	
-	
-	void PigeonHoleSorter::printNumbers(){
-		NumberSorter::printNumbers();
-	}

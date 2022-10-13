@@ -34,6 +34,6 @@ void ShakeSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *l
     }
 }
 
-void ShakeSorter::printNumbers(){
-    NumberSorter::printNumbers();
+std::vector<int> ShakeSorter::getNumbers(){
+    return NumberSorter::getNumbers();
 }

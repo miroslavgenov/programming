@@ -19,6 +19,9 @@ private:
 
     void shouldSwapTheGreaterNumberWithLesserNumber(int*, int *);
 
-public:
-    void printNumbers();
+    std::vector<int> HeapSorter::getNumbers(){
+    return NumberSorter::getNumbers();
+}
+
+
 };

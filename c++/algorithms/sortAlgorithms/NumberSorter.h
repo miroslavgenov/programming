@@ -15,7 +15,7 @@ private:
 
 public:
     virtual void sort() = 0;
-    
+
     std::vector<int> getNumbers(){return numbers;}
 
 private:

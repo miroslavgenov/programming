@@ -12,7 +12,7 @@ class SelectionSorter:NumberSorter{
     int getTheIndexOfTheNumberThatIsLessThanTheCurrentNumberAndIsInTheUnsortedPartOfTheArray(int , int );
 
     void shouldSwapTheGreaterNumberWithLesserNumber(int* greater, int* lesser){}
-    
     public:
-    void printNumbers();
+        std::vector<int> getNumbers();
+    
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ShakeSorter/include/ShakeSorter.cpp"
+#include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 #include <ctime>
 #include <cstdlib>
 
@@ -16,8 +17,8 @@ int main(){
     }
 
     ShakeSorter* shakeSorter = new ShakeSorter(numbers , numbersSize);
-    shakeSorter->printNumbers();
+    Printer::printNumbers(shakeSorter->getNumbers());
     shakeSorter->sort();
-    shakeSorter->printNumbers();
+    Printer::printNumbers(shakeSorter->getNumbers());
 
 }

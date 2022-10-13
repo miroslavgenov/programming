@@ -23,9 +23,3 @@ void InsertionSorter::loopBackWardsFromTheCurrentSwapAndShouldSwapGreaterNumberW
             shouldSwapTheGreaterNumberWithLesserNumber(&numbers[j-1],&numbers[j]);
         }
 }
-
-
-
-void InsertionSorter::printNumbers(){
-    NumberSorter::printNumbers();
-}    

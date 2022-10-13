@@ -64,7 +64,4 @@ void MergeSorter::merge(int left,int right){
     
     
 }
-    
-void MergeSorter::printNumbers(){
-    NumberSorter::printNumbers();
-}
+ 

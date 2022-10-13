@@ -15,6 +15,4 @@ class BubbleSorter : NumberSorter{
 
     void shouldSwapTheGreaterNumberWithLesserNumber(int* ,int *);
     
-    void printNumbers();
-
 };

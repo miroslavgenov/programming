@@ -51,7 +51,4 @@ void HeapSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater, int *l
         NumberSwapper::swapTwoNumbersValue(greater, lesser);
     }
 }
-    
-void HeapSorter::printNumbers(){
-    NumberSorter::printNumbers();
-}
+ 

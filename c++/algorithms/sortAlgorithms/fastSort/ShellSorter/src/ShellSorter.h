@@ -16,7 +16,8 @@ class ShellSorter : NumberSorter{
         void sortBackwardsFromCurrentSwapIndexWithShellStep(int , int );
 
         void shouldSwapTheGreaterNumberWithLesserNumber(int *, int* );
-    
-    public:
-        void printNumbers();
+
+        std::vector<int> ShellSorter::getNumbers(){
+            return NumberSorter::getNumbers();
+        }
 };

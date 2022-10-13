@@ -27,6 +27,6 @@ int SelectionSorter::getTheIndexOfTheNumberThatIsLessThanTheCurrentNumberAndIsIn
     return theIndexOfTheMinimumNumber;
 }
 
-void SelectionSorter::printNumbers(){
-    NumberSorter::printNumbers();
+std::vector<int> SelectionSorter::getNumbers(){
+    return NumberSorter::getNumbers();
 }
