@@ -4,23 +4,22 @@
 #include "/home/home/Desktop/programming/c++/algorithms/numbers/NumberChecker.h"
 
 class NumberSorter{
-    protected:
+protected:
     std::vector<int> numbers;
 
-    void setNumbers(int [], int );
-
-    public:
+public:
     NumberSorter(int [],size_t );
 
-    void printNumbers();
+private:
+    void setNumbers(int [], int );
 
+public:
     virtual void sort() = 0;
     
     std::vector<int> getNumbers(){return numbers;}
 
-    private:
-    
-    virtual void shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser) = 0;
+private:
+    virtual void shouldSwapTheGreaterNumberWithLesserNumber(int* , int *) = 0;
     
 };
 

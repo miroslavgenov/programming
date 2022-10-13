@@ -9,25 +9,3 @@ void NumberSorter::setNumbers(int numbers[], int numberSize){
         this->numbers.push_back(numbers[i]);
     }
 }
-
-void NumberSorter::printNumbers(){
-    std::cout<<std::endl;
-    for(int i=0;i<numbers.size();i++){
-        std::cout<<numbers[i]<<" ";
-    }
-    std::cout<<std::endl;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-    

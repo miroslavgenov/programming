@@ -1,8 +1,15 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 class Printer{
 public:
+	static void printNumbers(std::vector<int> numbers){
+		for(int i=0;i<numbers.size();i++){
+			std::cout<<numbers[i]<<" ";
+		}std::cout<<std::endl;
+	}
+
 	static void printNumbers(int numbers[], const size_t NUMBERS_SIZE){
 		for(int i = 0; i < NUMBERS_SIZE; i++){
 			std::cout<<numbers[i]<<" ";
