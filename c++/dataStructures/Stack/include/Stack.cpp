@@ -14,28 +14,21 @@ void Stack<T>::push(T data){
 	}	
 }
 
-template <typename T>
+template <typename T>	
 T* Stack<T>::getTop(){
-	LinkedList<T>* iterator = linkedList;
-	
-
-	while(iterator->next){
-		iterator = iterator->next;
-	}
-
-	top = new T{*iterator->data};
-	return top;
+	return linkedList->getTop();
 }
+
 
 template <typename T>	
 T* Stack<T>::pop(){
 	return linkedList->deleteFromEnd();
 }
-	
-template <typename T>
-bool Stack<T>::isEmpty(){
-	return linkedList->totalListElements == 0;
+
+bool Stack<T> isEmpty(){
+	return linkedList->isEmpty();
 }
+
 
 template <typename X>
 std::ostream& operator<<(std::ostream& os, Stack<X>* stack){

@@ -4,9 +4,6 @@
 
 template <typename T>
 class Stack{
-private:
-	T* top = nullptr;
-
 public:
 	LinkedList<T> *linkedList = nullptr;
 	
@@ -19,9 +16,7 @@ public:
 	T* getTop();
 	
 	T* pop();
-
 	bool isEmpty();
-
 	template<typename X>
 	friend std::ostream& operator<<(std::ostream&, Stack<X>*);
 };

@@ -7,6 +7,7 @@ public:
 	const int EMPTY_SIZE_LENGTH = 0;
 	static int totalListElements;
 	T* data = nullptr;
+	T* top = nullptr;
 	LinkedList* root = nullptr;
 	LinkedList* next = nullptr;
 
@@ -231,7 +232,24 @@ public:
 		return nullptr;
 	}
 
+	T* getTop(){
+		LinkedList<T> *iterator = this;
+		while(iterator->next){
+			iterator = iterator->next;
+		}
+		top = new T{*iterator->data};
+		return top;
+	}
 	
+	bool isEmpty(){
+		return this->totalListElements == 0;
+	}
+
+	// deleteValue
+	// first -> search the value if is in the list
+	// then -> find the index and use delete index
+	// done
+
 	template<typename X>
 	friend std::ostream& operator<<(std::ostream& , LinkedList<X>*);	
 

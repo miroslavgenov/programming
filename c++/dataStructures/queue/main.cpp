@@ -2,133 +2,53 @@
 #include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
 using namespace std;
 
+template <typename T>
+class Queue{
+	LinkedList<T>* linkedList = nullptr;
+public:
+	
+	Queue(T data){
+		linkedList = new LinkedList(data);
+	}
+	
+	void push(T data){
+		linkedList->appendAtBeggining(data);
+	}
+	
+	T* pop(){
+		return linkedList->deleteFromEnd();
+	}
 
-struct queue{
-	string name;
-	queue* next;
-	queue *prev;
+	T* getTop(){
+		return linkedList->getTop();
+	}
+
+	bool isEmpty(){
+		return linkedList->isEmpty();
+	}
+
+	template <typename X>
+	friend ostream& operator<<(ostream& , Queue<X>*);
 };
 
 
-queue *firstInQueue=nullptr;
-queue *lastInQueue= nullptr;
 
+template <typename X>
+ostream& operator<<(ostream& os, Queue<X>* queue){
+	os<<queue->linkedList;
+	return os;
+}
 
-void initQueue(queue *);
-
-void appendQueue(queue *);
-
-queue* popQueue();
-
-void printQueue();
-bool isNull(queue * value){return value==nullptr;}
 
 int main(){
+	Queue<int> *q = new Queue(3);
+	q->push(4);
+	cout<<q<<endl;
+	cout<<*q->pop();
+	cout<<"top: "<<*q->getTop()<<endl;
+	cout<<q<<endl;
+	q->pop();
+	cout<<q->isEmpty()<<endl;
 
-	queue *n = new queue{"admin",nullptr,nullptr};
-	initQueue(n);
-	
-	
-	queue *n1 = new queue{"ivan",nullptr,nullptr};
-	queue *n2 = new queue {"jojo", nullptr, nullptr};
-	appendQueue(n1);
-	appendQueue(n2);
-	printQueue();
-	popQueue();
-	cout<<endl;
-	printQueue();
-	popQueue();
-	cout<<endl;
-	printQueue();
-	cout<<endl;
-	popQueue();
-	printQueue();
 	
 }
-
-queue *popQueue(){
-	queue* poped=nullptr;
-	
-	if(isNull(firstInQueue->prev)){
-		poped = new queue{firstInQueue->name,nullptr,nullptr};
-		firstInQueue=nullptr;
-		lastInQueue=nullptr;
-		return poped;
-	}else{
-		poped = new queue{firstInQueue->name,nullptr,nullptr};
-		firstInQueue=firstInQueue->prev;
-		firstInQueue->next=nullptr;
-		return poped;
-	}
-	
-}
-
-void initQueue(queue *root){
-	lastInQueue=root;
-	firstInQueue=root;
-}
-
-void appendQueue(queue *value){
-	if(!firstInQueue && !lastInQueue){
-		initQueue(value);
-	}else{
-		value->next=lastInQueue;
-		lastInQueue->prev=value;
-		value->prev=nullptr;
-		lastInQueue=value;	
-	}
-	
-}
-
-void printQueue(){
-	queue * point = lastInQueue;
-	
-	while(point){
-		cout<<point->name<<"  ";
-		point=point->next;
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
