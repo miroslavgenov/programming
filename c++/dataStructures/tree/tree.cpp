@@ -87,6 +87,7 @@ treeNode* search(treeNode *rootTree, int num){
 			search(rootTree->right,num);
 		}
 	}
+	return rootTree;
 	
 }
 
@@ -257,21 +258,7 @@ int main(){
 	appendTreeNode(rootTree, n10);
 	
 	deleteTreeNode(rootTree,7);
-	printTree(rootTree);
-	
-	
-		
-
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
+	printTree(rootTree);	
 }
 
 
