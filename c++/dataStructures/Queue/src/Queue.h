@@ -5,17 +5,17 @@
 template <typename T>
 class Queue{
 	LinkedList<T>* linkedList = nullptr;
+
 public:
-	
 	Queue(T);
 	
 	void push(T data);
 	
+	bool isEmpty();
+
 	T* pop();
 
 	T* getTop();
-
-	bool isEmpty();
 
 	template <typename X>
 	friend std::ostream& operator<<(std::ostream& , Queue<X>*);

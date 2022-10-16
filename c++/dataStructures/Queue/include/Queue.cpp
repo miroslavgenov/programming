@@ -11,6 +11,11 @@ void Queue<T>::push(T data){
 }
 
 template <typename T>
+bool Queue<T>::isEmpty(){
+	return linkedList->isEmpty();
+}
+
+template <typename T>
 T* Queue<T>::pop(){
 	return linkedList->deleteFromEnd();
 }
@@ -18,11 +23,6 @@ T* Queue<T>::pop(){
 template <typename T>
 T* Queue<T>::getTop(){
 	return linkedList->getTop();
-}
-
-template <typename T>
-bool Queue<T>::isEmpty(){
-	return linkedList->isEmpty();
 }
 
 template <typename X>

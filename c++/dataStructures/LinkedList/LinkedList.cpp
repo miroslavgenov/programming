@@ -53,80 +53,6 @@ public:
 		}
 	}
 
-	void appendAtEnd(T data){
-		LinkedList* linkedListIterator = nullptr;
-		
-		if(this->totalListElements == this->EMPTY_SIZE_LENGTH){
-			this->data = new T {data};
-			totalListElements++;	
-		}else{
-
-			linkedListIterator = this;
-
-			// go to the last element from the list
-			while(linkedListIterator->next){
-				linkedListIterator = linkedListIterator->next;
-			}
-
-			linkedListIterator->next = new LinkedList(data);	
-		}
-	}
-
-	T* deleteFromEnd(){
-		LinkedList* iterator = this;
-		T* dataFromEnd = nullptr;
-
-		if(totalListElements > 1){
-			// std::cout<<"totalListElements>1"<<std::endl;
-			// go before before the end
-			while(iterator->next->next){
-				iterator = iterator->next;
-			}
-	
-			
-			// T* data = new T{iterator->next->data};
-			dataFromEnd  = new T{*iterator->next->data};
-
-			// null the pointer that is pointing to the end
-			iterator->next = nullptr;	
-
-			this->totalListElements--;
-
-			return dataFromEnd;
-
-
-		}else{
-			// std::cout<<"delete from end"<<std::endl;
-			
-			dataFromEnd = new T{*data};
-			totalListElements = 0;
-			return dataFromEnd;
-		}
-		return nullptr;
-	}
-
-	T* deleteFromBegining(){
-		T* dataFromBegining = nullptr;
-
-		if(totalListElements > EMPTY_SIZE_LENGTH){
-			if(this->next){
-				dataFromBegining = new T{*this->data};
-
-				*this->data = *this->next->data;
-				this->next = this->next->next;
-				totalListElements--;
-
-				return dataFromBegining;
-				
-			}else{
-				dataFromBegining  = new T{*this->data};
-				totalListElements = 0;
-				return dataFromBegining;
-			}
-
-		}
-		return nullptr;
-	}
 
 	void appendAtIndex(int targetIndex, T data){
 		if(targetIndex >= 0 ){
@@ -152,6 +78,52 @@ public:
 		}
 		
 	}
+
+
+	void appendAtEnd(T data){
+		LinkedList* linkedListIterator = nullptr;
+		
+		if(this->totalListElements == this->EMPTY_SIZE_LENGTH){
+			this->data = new T {data};
+			totalListElements++;	
+		}else{
+
+			linkedListIterator = this;
+
+			// go to the last element from the list
+			while(linkedListIterator->next){
+				linkedListIterator = linkedListIterator->next;
+			}
+
+			linkedListIterator->next = new LinkedList(data);	
+		}
+	}
+
+	T* deleteFromBegining(){
+		T* dataFromBegining = nullptr;
+
+		if(totalListElements > EMPTY_SIZE_LENGTH){
+			if(this->next){
+				dataFromBegining = new T{*this->data};
+
+				*this->data = *this->next->data;
+				this->next = this->next->next;
+				totalListElements--;
+
+				return dataFromBegining;
+				
+			}else{
+				dataFromBegining  = new T{*this->data};
+				totalListElements = 0;
+				return dataFromBegining;
+			}
+
+		}
+		return nullptr;
+	}
+
+
+
 
 	T* deleteAtIndex(int targetIndex){
 		T* dataAtIndex = nullptr;
@@ -232,6 +204,40 @@ public:
 		return nullptr;
 	}
 
+
+	T* deleteFromEnd(){
+		LinkedList* iterator = this;
+		T* dataFromEnd = nullptr;
+
+		if(totalListElements > 1){
+			// std::cout<<"totalListElements>1"<<std::endl;
+			// go before before the end
+			while(iterator->next->next){
+				iterator = iterator->next;
+			}
+	
+			
+			// T* data = new T{iterator->next->data};
+			dataFromEnd  = new T{*iterator->next->data};
+
+			// null the pointer that is pointing to the end
+			iterator->next = nullptr;	
+
+			this->totalListElements--;
+
+			return dataFromEnd;
+
+
+		}else{
+			// std::cout<<"delete from end"<<std::endl;
+			
+			dataFromEnd = new T{*data};
+			totalListElements = 0;
+			return dataFromEnd;
+		}
+		return nullptr;
+	}	
+
 	T* getTop(){
 		LinkedList<T> *iterator = this;
 		while(iterator->next){
@@ -271,4 +277,3 @@ std::ostream& operator<<(std::ostream& os, LinkedList<X>* currentRoot){
 
 template<typename T>
 int LinkedList<T>::totalListElements= 0;
-

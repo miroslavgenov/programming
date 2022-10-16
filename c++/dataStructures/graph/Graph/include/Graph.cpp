@@ -1,14 +1,11 @@
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph/src/Graph.h"
 
-
-
 Graph::Graph(Vertex* verticies[], size_t VERTICIES_SIZE){		
 	this->verticies = verticies;
 	setUpTheGraph(VERTICIES_SIZE);		
 	setTheGreatesVertexNumber();
 	shouldWriteAllTheVerticiesConnectionsToGraph();
 }
-
 
 void Graph::setUpTheGraph(int size){
 		setGraphSizeAndGraphCapacity(size);
