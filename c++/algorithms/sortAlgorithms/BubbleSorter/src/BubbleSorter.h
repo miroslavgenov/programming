@@ -5,14 +5,13 @@ class BubbleSorter : NumberSorter{
     public:
 
     BubbleSorter(int [],int );
-    
-    void sort();
 
+    void sort();
 
     void sortAllNumbers();
 
     void sortNumber();
 
     void shouldSwapTheGreaterNumberWithLesserNumber(int* ,int *);
-    
+
 };
