@@ -14,12 +14,14 @@ private:
     void setNumbers(int [], int );
 
 public:
-    virtual void sort() = 0;
+    virtual void sort(){}
 
     std::vector<int> getNumbers(){return numbers;}
 
-private:
-    virtual void shouldSwapTheGreaterNumberWithLesserNumber(int* , int *) = 0;
-    
+protected:
+    void shouldSwapTheGreaterNumberWithLesserNumber(int* greaterNumber,int *lesserNumber){
+    if(NumberChecker::isTheNumberGreaterThan(greaterNumber,lesserNumber)){
+            NumberSwapper::swapTwoNumbersValue(greaterNumber,lesserNumber);
+        }
+    }
 };
-

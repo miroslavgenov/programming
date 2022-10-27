@@ -1,6 +1,6 @@
 #include "NumberSorter.h"
 
-NumberSorter::NumberSorter(int numbers[],size_t numberSize){
+NumberSorter::NumberSorter(int numbers[], size_t numberSize){
     setNumbers(numbers,numberSize);
 }
 

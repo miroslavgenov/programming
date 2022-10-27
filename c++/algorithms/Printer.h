@@ -12,9 +12,17 @@ public:
 			std::cout<<numbers[i]<<" ";
 		}std::cout<<std::endl;
 	}
+
 	template <typename T>
 	static void printArray(T array[], size_t SIZE){
 		for(int i = 0; i < SIZE; i++){
+			std::cout<<array[i]<<" ";
+		}std::cout<<std::endl;
+	}
+
+	template <typename T>
+	static void printArray(std::vector<T> array){
+		for(int i = 0; i < array.size(); i++){
 			std::cout<<array[i]<<" ";
 		}std::cout<<std::endl;
 	}

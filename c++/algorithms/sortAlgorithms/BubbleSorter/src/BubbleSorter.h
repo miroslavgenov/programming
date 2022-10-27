@@ -12,6 +12,6 @@ class BubbleSorter : NumberSorter{
 
     void sortNumber();
 
-    void shouldSwapTheGreaterNumberWithLesserNumber(int* ,int *);
+    std::vector<int> getNumbers(){return NumberSorter::getNumbers();}
 
 };

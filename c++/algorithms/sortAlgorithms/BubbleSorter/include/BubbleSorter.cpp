@@ -17,9 +17,3 @@ void BubbleSorter::sortNumber(){
         shouldSwapTheGreaterNumberWithLesserNumber(&numbers[i-1],&numbers[i]);
     }
 }
-
-void BubbleSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greaterNumber,int *lesserNumber){
-    if(NumberChecker::isTheNumberGreaterThan(greaterNumber,lesserNumber)){
-            NumberSwapper::swapTwoNumbersValue(greaterNumber,lesserNumber);
-        }
-}
