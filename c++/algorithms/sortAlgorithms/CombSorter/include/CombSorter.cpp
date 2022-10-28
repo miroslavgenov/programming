@@ -40,12 +40,6 @@ void CombSorter::setGap(int newDecreasedGap){
     gap = newDecreasedGap;
 }
 
-void CombSorter::shouldSwapTheGreaterNumberWithLesserNumber(int *greater, int* lesser){
-    if(NumberChecker::isTheNumberGreaterThan(greater, lesser)){
-        NumberSwapper::swapTwoNumbersValue(greater, lesser);
-    }
-}
-
 std::vector<int> CombSorter::getNumbers(){
     return NumberSorter::getNumbers();
 }

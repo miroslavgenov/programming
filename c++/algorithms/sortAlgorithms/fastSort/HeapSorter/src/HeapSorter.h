@@ -17,11 +17,8 @@ private:
 
     void buildMaxHeap(int );
 
-    void shouldSwapTheGreaterNumberWithLesserNumber(int*, int *);
-
-    std::vector<int> HeapSorter::getNumbers(){
-    return NumberSorter::getNumbers();
-}
-
-
+public:
+    std::vector<int> getNumbers(){
+        return NumberSorter::getNumbers();
+    }
 };

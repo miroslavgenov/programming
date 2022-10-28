@@ -1,5 +1,5 @@
 #include <iostream>
-#include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/BubbleSorter/include/BubbleSorter.cpp"
+#include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/ShakeSorter/include/ShakeSorter.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 #include <ctime>
 #include <cstdlib>
@@ -17,7 +17,7 @@ int main(){
         numbers[i] = rand()% 100;
     }
 
-    BubbleSorter* b = new BubbleSorter(numbers,numbersSize);
+    ShakeSorter* b= new ShakeSorter(numbers,numbersSize);
     b->sort();
 
     Printer::printArray(b->getNumbers());

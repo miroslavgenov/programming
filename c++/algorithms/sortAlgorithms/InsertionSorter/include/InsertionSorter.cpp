@@ -12,12 +12,6 @@ void InsertionSorter::sort(){
     }
 }
 
-void InsertionSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser){
-    if(NumberChecker::isTheNumberGreaterThan(greater,lesser)){
-        NumberSwapper::swapTwoNumbersValue(greater,lesser);
-    }
-}
-
 void InsertionSorter::loopBackWardsFromTheCurrentSwapAndShouldSwapGreaterNumberWithLesserNumber(int loopBackFromThisIndex){
     for(int j = loopBackFromThisIndex; j - 1 >= 0; j--){
             shouldSwapTheGreaterNumberWithLesserNumber(&numbers[j-1],&numbers[j]);

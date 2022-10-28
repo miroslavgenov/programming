@@ -26,9 +26,3 @@ void ShellSorter::sortBackwardsFromCurrentSwapIndexWithShellStep(int currentSwap
         shouldSwapTheGreaterNumberWithLesserNumber(&numbers[z-currentShellStep], &numbers[z]);
     }
 }
-
-void ShellSorter::shouldSwapTheGreaterNumberWithLesserNumber(int *greater, int* lesser){
-    if(*greater > *lesser){
-        NumberSwapper::swapTwoNumbersValue(greater, lesser);
-    }
-}

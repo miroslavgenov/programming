@@ -1,24 +1,18 @@
 #pragma once
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 
-
 class QuickSorter : NumberSorter{
     
-    public:
+public:
         QuickSorter(int [], size_t );
         
         void sort();
 
-    private:    
+private:    
         void quickSort(int , int );
-
-    
-        void shouldSwapTheGreaterNumberWithLesserNumber(int *, int *);
-
-        std::vector<int> QuickSorter::getNumbers(){
-    return NumberSorter::getNumbers();
-}
-
-    
+ 
+public:
+    std::vector<int> getNumbers(){
+        return NumberSorter::getNumbers();
+    }
 };
-

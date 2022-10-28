@@ -14,9 +14,6 @@ class ShakeSorter : NumberSorter{
 
         void sortNumbersBackwards();
     
-        void shouldSwapTheGreaterNumberWithLesserNumber(int* ,int *);
-    
     public:
         std::vector<int> getNumbers();
-
 };

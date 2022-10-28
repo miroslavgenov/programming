@@ -32,8 +32,5 @@ private:
 
 public:
     std::vector<int> getNumbers(){ return NumberSorter::getNumbers();}
-
-private:
-    void shouldSwapTheGreaterNumberWithLesserNumber(int* , int* );
         
 };

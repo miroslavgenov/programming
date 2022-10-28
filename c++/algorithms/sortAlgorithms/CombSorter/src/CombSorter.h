@@ -23,8 +23,6 @@ private:
 
         void setGap(int);
 
-        void shouldSwapTheGreaterNumberWithLesserNumber(int *, int*);
-
 public:
     std::vector<int> getNumbers();
 };

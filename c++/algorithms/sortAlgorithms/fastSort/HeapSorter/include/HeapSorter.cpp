@@ -45,10 +45,3 @@ void HeapSorter::buildMaxHeap(int parentIndex){
     buildMaxHeap(parentIndex+1);
     
 }
-
-void HeapSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater, int *lesser){
-    if(*greater > *lesser){
-        NumberSwapper::swapTwoNumbersValue(greater, lesser);
-    }
-}
- 

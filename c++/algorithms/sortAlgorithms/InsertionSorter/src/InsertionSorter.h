@@ -10,7 +10,6 @@ class InsertionSorter : NumberSorter{
     void loopBackWardsFromTheCurrentSwapAndShouldSwapGreaterNumberWithLesserNumber(int );
 
     private:
-    void shouldSwapTheGreaterNumberWithLesserNumber(int* ,int *);
 
 
 

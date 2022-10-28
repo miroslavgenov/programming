@@ -34,15 +34,8 @@ class MergeSorter : NumberSorter{
             return NumberChecker::isTheNumberLesserOrEqual(index,range);
         }
 
-
-        
-
-        void shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser){}
-
-    public:
-        std::vector<int> MergeSorter::getNumbers(){
-    return NumberSorter::getNumbers();
-}
-
-    
+public:
+    std::vector<int> getNumbers(){
+        return NumberSorter::getNumbers();
+    }
 };

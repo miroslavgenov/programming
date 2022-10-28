@@ -11,13 +11,12 @@ class ShellSorter : NumberSorter{
         void sort();
 
     private:
-        void sortForwardAndBackwardsWithShellStep(int );
+        void sortForwardAndBackwardsWithShellStep(int);
 
-        void sortBackwardsFromCurrentSwapIndexWithShellStep(int , int );
+        void sortBackwardsFromCurrentSwapIndexWithShellStep(int, int);
 
-        void shouldSwapTheGreaterNumberWithLesserNumber(int *, int* );
-
-        std::vector<int> ShellSorter::getNumbers(){
+public:
+        std::vector<int> getNumbers(){
             return NumberSorter::getNumbers();
         }
 };

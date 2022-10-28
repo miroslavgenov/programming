@@ -1,4 +1,4 @@
-#include "../src/ShakeSorter.h"
+#include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/ShakeSorter/src/ShakeSorter.h"
 
 ShakeSorter::ShakeSorter(int numbers[],int numbersSize):NumberSorter(numbers,numbersSize){
     isThereASwap = false;
@@ -27,12 +27,6 @@ void ShakeSorter::sortNumbersBackwards(){
         shouldSwapTheGreaterNumberWithLesserNumber(&numbers[i-1] , &numbers[i]);
     }
 }    
-
-void ShakeSorter::shouldSwapTheGreaterNumberWithLesserNumber(int* greater,int *lesser){
-    if(*greater > * lesser){
-        NumberSwapper::swapTwoNumbersValue(greater,lesser);
-    }
-}
 
 std::vector<int> ShakeSorter::getNumbers(){
     return NumberSorter::getNumbers();

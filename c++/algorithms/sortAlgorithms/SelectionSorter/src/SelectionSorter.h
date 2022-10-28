@@ -11,7 +11,6 @@ class SelectionSorter:NumberSorter{
     // TODO: implement binary search instead of linear search
     int getTheIndexOfTheNumberThatIsLessThanTheCurrentNumberAndIsInTheUnsortedPartOfTheArray(int , int );
 
-    void shouldSwapTheGreaterNumberWithLesserNumber(int* greater, int* lesser){}
     public:
         std::vector<int> getNumbers();
     
