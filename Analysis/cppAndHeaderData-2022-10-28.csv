@@ -51,7 +51,6 @@ filePath,totalLines,wordCount,totalByteCount,maxLineWidth
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/HeapSorter/include/HeapSorter.cpp,46,88,1636,123
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/MergeSorter/main.cpp,24,40,535,116
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/MergeSorter/include/MergeSorter.cpp,66,111,1840,110
-/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/PigeonHoleSorter/include/PigeonSorter.cpp,
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/QuickSorter/include/QuickSorter.cpp,39,71,880,110
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/ShellSorter/include/ShellSorter.cpp,27,71,1110,110
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/hw/isArrayMonotonouseInreasing.cpp,87,65,566,53
@@ -119,7 +118,6 @@ filePath,totalLines,wordCount,totalByteCount,maxLineWidth
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/CountSorter/src/CountSorter.h,35,53,875,90
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/HeapSorter/src/HeapSorter.h,23,33,528,88
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/MergeSorter/src/MergeSorter.h,40,81,1263,129
-/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/PigeonHoleSorter/src/PigeonSorter.h,
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/QuickSorter/src/QuickSorter.h,17,28,364,88
 /home/home/Desktop/programming/c++/algorithms/sortAlgorithms/fastSort/ShellSorter/src/ShellSorter.h,21,29,494,88
 /home/home/Desktop/programming/c++/dataStructures/Deque/src/Deque.h,25,40,432,86
