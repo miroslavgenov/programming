@@ -1,7 +1,7 @@
 #pragma once
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 
-class InsertionSorter : NumberSorter{
+class InsertionSorter : public NumberSorter{
     public:
     InsertionSorter(int [], size_t );
 
@@ -18,9 +18,4 @@ class InsertionSorter : NumberSorter{
     void sortNumber(){}
     
     
-    public:    
-    std::vector<int> getNumbers(){
-        return NumberSorter::getNumbers();
-    }
-
 };

@@ -2,7 +2,7 @@
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/searchAlgorithms/NumberFinder.h"
 
-class HeapSorter:NumberSorter{
+class HeapSorter: public NumberSorter{
     int heapSize;
     int theIndexOfTheMaximumParentValue;
     int theMaximumParentValue;
@@ -17,8 +17,4 @@ private:
 
     void buildMaxHeap(int );
 
-public:
-    std::vector<int> getNumbers(){
-        return NumberSorter::getNumbers();
-    }
 };

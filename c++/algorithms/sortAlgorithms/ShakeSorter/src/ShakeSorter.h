@@ -1,7 +1,7 @@
 #pragma once
 #include "../../NumberSorter.cpp"
 
-class ShakeSorter : NumberSorter{
+class ShakeSorter : public NumberSorter{
     private:
         bool isThereASwap;
     public:
@@ -14,6 +14,5 @@ class ShakeSorter : NumberSorter{
 
         void sortNumbersBackwards();
     
-    public:
-        std::vector<int> getNumbers();
+
 };

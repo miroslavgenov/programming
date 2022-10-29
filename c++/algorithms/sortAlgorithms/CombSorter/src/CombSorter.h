@@ -2,7 +2,7 @@
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/ArrayChecker.cpp"
 
-class CombSorter : NumberSorter{
+class CombSorter : public NumberSorter{
     private:
         const double gapShrinkFactor = 1.3;
         int gap;
@@ -23,6 +23,4 @@ private:
 
         void setGap(int);
 
-public:
-    std::vector<int> getNumbers();
 };

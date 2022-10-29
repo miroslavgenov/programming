@@ -2,35 +2,16 @@
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/searchAlgorithms/NumberFinder.cpp"
 
-class CountSorter : NumberSorter{
-private:
-    int maximumNumberFromUnsortedArray;
-    int* countOfNumbersRepeated = nullptr;
-    int countOfNumbersRepeatedSize;
 
+class CountSorter : public NumberSorter {
+    int *countedNumbers;
+    size_t countedNumbersSize;
 public:
-    CountSorter(int [], size_t );
-
+    CountSorter(int numbers[], size_t numbersSize);
 private:
-    void setCountOfNumbersRepeatedSize();
-
-    int getAGreaterNumberThanMaximumNumberByOne();
-
-public:
-    ~CountSorter();
-
+    void countNumbers();
+    
+    public:
     void sort();
-
-private:
-    void loopTheUnsortedNumbersAndAddOneToHisValue();
-
-    void useCurrentNumberAsKeyToAddOneToHisValue(int );
-
-    bool isNumberRepeated(int );
-
-    void replaceUnsortedNumberThatTimesHowMuchNumberRepeats(int ,int ,int &);
-
-public:
-    std::vector<int> getNumbers(){ return NumberSorter::getNumbers();}
-        
+     
 };

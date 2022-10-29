@@ -40,6 +40,3 @@ void CombSorter::setGap(int newDecreasedGap){
     gap = newDecreasedGap;
 }
 
-std::vector<int> CombSorter::getNumbers(){
-    return NumberSorter::getNumbers();
-}

@@ -9,9 +9,9 @@ protected:
 
 public:
     NumberSorter(int [],size_t );
+    NumberSorter(){}
 
-private:
-    void setNumbers(int [], int );
+
 
 public:
     virtual void sort(){}
@@ -19,6 +19,8 @@ public:
     std::vector<int> getNumbers(){return numbers;}
 
 protected:
+    void setNumbers(int [], int );
+
     void shouldSwapTheGreaterNumberWithLesserNumber(int* greaterNumber,int *lesserNumber){
     if(NumberChecker::isTheNumberGreaterThan(greaterNumber,lesserNumber)){
             NumberSwapper::swapTwoNumbersValue(greaterNumber,lesserNumber);

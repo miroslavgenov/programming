@@ -1,7 +1,7 @@
 #pragma once
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 
-class QuickSorter : NumberSorter{
+class QuickSorter :public NumberSorter{
     
 public:
         QuickSorter(int [], size_t );
@@ -11,8 +11,4 @@ public:
 private:    
         void quickSort(int , int );
  
-public:
-    std::vector<int> getNumbers(){
-        return NumberSorter::getNumbers();
-    }
 };

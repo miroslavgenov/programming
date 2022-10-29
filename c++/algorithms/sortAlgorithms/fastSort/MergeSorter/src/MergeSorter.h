@@ -3,7 +3,7 @@
 
 //TODO: MERGE SORTER IS NOT CLEAN
 
-class MergeSorter : NumberSorter{
+class MergeSorter :public NumberSorter{
     private:
         int *arrayToStoreSortedNumbers = nullptr;
     
@@ -34,8 +34,4 @@ class MergeSorter : NumberSorter{
             return NumberChecker::isTheNumberLesserOrEqual(index,range);
         }
 
-public:
-    std::vector<int> getNumbers(){
-        return NumberSorter::getNumbers();
-    }
 };

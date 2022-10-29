@@ -3,7 +3,7 @@
 #include "/home/home/Desktop/programming/c++/algorithms/searchAlgorithms/NumberFinder.cpp"
 
 
-class PigeonHoleSorter : NumberSorter{
+class PigeonHoleSorter : public NumberSorter{
 	private:
 		std::vector<std::vector<int>> pigeonHoles;
 		int minimumNumber;
@@ -28,9 +28,5 @@ class PigeonHoleSorter : NumberSorter{
 
 		int getMinimumNumber();
 
-	public:
-		std::vector<int> getNumbers(){
-    return NumberSorter::getNumbers();
-}
 
 };

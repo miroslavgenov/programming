@@ -1,7 +1,7 @@
 #pragma once
 #include "/home/home/Desktop/programming/c++/algorithms/sortAlgorithms/NumberSorter.cpp"
 
-class ShellSorter : NumberSorter{
+class ShellSorter : public NumberSorter{
     private:
         int shellStep;
     
@@ -15,8 +15,4 @@ class ShellSorter : NumberSorter{
 
         void sortBackwardsFromCurrentSwapIndexWithShellStep(int, int);
 
-public:
-        std::vector<int> getNumbers(){
-            return NumberSorter::getNumbers();
-        }
 };

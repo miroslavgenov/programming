@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/Vertex.h"
+#include <iostream>
 
 class NumberFinder{
 public:
@@ -81,12 +82,15 @@ public:
 
     static int findMaximumNumberFromUnsortedVector(std::vector<int> numbers){
         int maximumNumber = numbers[0];
-
-        for(int i=0;i<numbers.size();i++){
-            if(maximumNumber< numbers[i]){
+ 
+        for(int i=0;i<numbers.size();i++)
+        {
+            if(maximumNumber < numbers[i])
+            {
                 maximumNumber = numbers[i];
             }
         }
+        
         return maximumNumber;
     }
 
@@ -101,5 +105,4 @@ public:
         return maximumNumber;
     }
 };
-
 

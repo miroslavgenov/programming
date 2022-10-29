@@ -27,7 +27,3 @@ void ShakeSorter::sortNumbersBackwards(){
         shouldSwapTheGreaterNumberWithLesserNumber(&numbers[i-1] , &numbers[i]);
     }
 }    
-
-std::vector<int> ShakeSorter::getNumbers(){
-    return NumberSorter::getNumbers();
-}
