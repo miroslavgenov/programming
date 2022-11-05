@@ -29,29 +29,33 @@ void initTree(int value){
 	rootTree = new treeNode{value, nullptr, nullptr};
 }
 
-void appendTreeNode(treeNode * rootTree ,treeNode *value){
-	
-	if(rootTree->num>value->num){
-
-		if(rootTree->left){
-
-
+void shouldAppendALeftNode(treeNode* rootTree, treeNode* value){
+	if(rootTree->left){
 			appendTreeNode(rootTree->left,value);
 		}else{
 
 			rootTree->left=value;
-		}
-	}else{
-
-		if(rootTree->right){
+		}	
+}
 
 
-			appendTreeNode(rootTree->right, value);
-			
+void shouldAppendARightNode(treeNode* rootTree, treeNode* value){
+	if(rootTree->right){
+			appendTreeNode(rootTree->right,value);
 		}else{
+			rootTree->right=value;
+		}	
+}
 
-			rootTree->right = value;
-		}
+
+
+void appendTreeNode(treeNode * rootTree ,treeNode *value){
+	
+	if(rootTree->num>value->num){
+		shouldAppendALeftNode(rootTree,value);
+
+	}else{
+		shouldAppendARightNode(rootTree,value);
 	}
 
 }
