@@ -11,12 +11,10 @@ class Tree{
 	
 public:
 	Leaf* root=nullptr;
-	// Leaf* rootPointer=nullptr;
 
 	Tree(int data){
 		root=new Leaf{data,nullptr,nullptr};
 	}
-
 
 	void appendLeaf(Leaf* startLeaf, Leaf* leaf){
 		if(startLeaf->data > leaf->data){

@@ -5,17 +5,21 @@
 using namespace std;
 	
 template <typename T>
-void bfs(queue<T> &q){
-	if(q.size()>0){
-		cout<<q.front()->data<<endl;
-		if(q.front()->left){
-			q.push(q.front()->left);
+void bfs(queue<T> &queueWithData){
+	if(queueWithData.size() > 0){
+
+		cout<<queueWithData.front()->data<<endl;
+
+		if(queueWithData.front()->left){
+			queueWithData.push(queueWithData.front()->left);
 		}
-		if(q.front()->right){
-			q.push(q.front()->right);
+
+		if(queueWithData.front()->right){
+			queueWithData.push(queueWithData.front()->right);
 		}
-		q.pop();
-	bfs(q);
+		
+		queueWithData.pop();
+		bfs(queueWithData);
 	}
 }
 	
