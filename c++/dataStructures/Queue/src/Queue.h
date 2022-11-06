@@ -6,7 +6,11 @@ template <typename T>
 class Queue{
 	LinkedList<T>* linkedList = nullptr;
 
+
 public:
+	T* firstInQueue=nullptr;
+	T* lastInQueue=nullptr;
+
 	Queue(T);
 	
 	void push(T data);

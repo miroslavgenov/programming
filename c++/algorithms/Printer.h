@@ -1,11 +1,21 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "/home/home/Desktop/programming/c++/dataStructures/Tree/Leaf.h"
+
 
 class Printer{
 public:
 	//TODO: make template printArray<T array[], SIZE) and remove
 	// the duplication
+
+	static void printTree(Leaf* leaf){
+		if(leaf){
+			printTree(leaf->left);
+			std::cout<<leaf->data<<std::endl;
+			printTree(leaf->right);
+		}
+	}
 
 	static void printNumbers(std::vector<int> numbers){
 		for(int i=0;i<numbers.size();i++){
