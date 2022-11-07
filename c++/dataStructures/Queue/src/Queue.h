@@ -21,6 +21,10 @@ public:
 
 	T* getTop();
 
+	// int size(){
+	// 	return linkedList->size();
+	// }
+
 	template <typename X>
 	friend std::ostream& operator<<(std::ostream& , Queue<X>*);
 };

@@ -11,7 +11,10 @@ public:
 	LinkedList* root = nullptr;
 	LinkedList* next = nullptr;
 
-	
+	// int size(){
+	// 	return this->totalListElements;
+	// }
+
 	LinkedList(T data){
 		totalListElements++;
 

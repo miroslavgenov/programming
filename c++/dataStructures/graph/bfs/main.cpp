@@ -2,15 +2,34 @@
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph/include/Graph.cpp"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/Vertex.h"
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
-#include "/home/home/Desktop/programming/c++/dataStructures/Queue/include/Queue.cpp"
+#include <queue>
 
 using namespace std;
 
 bool visitedVerticies[7]{};
 
-void bfs(int** graph, int currentVertex, int size){
-	visitedVerticies[currentVertex] = 1;
-    Printer::printBooleans(visitedVerticies,7);
+void bfs(Vertex** verticies , queue<Vertex*>& q,int graphSize){
+	if(q.size()>0){
+			if(visitedVerticies[q.front()->vertexNumber]==0){
+				Vertex* currentVertex = q.front();
+				cout<<"-> "<<currentVertex->vertexNumber<<endl;
+				q.pop();
+
+				visitedVerticies[currentVertex->vertexNumber]=1;
+
+		
+				for(int i=0;i<currentVertex->connectedVerticies.size();i++){
+
+					if(visitedVerticies[currentVertex->connectedVerticies[i]] == 0){
+						q.push(verticies[currentVertex->connectedVerticies[i]]);
+					}
+	
+				}
+
+				bfs(verticies,q,graphSize);
+
+		}
+	}
 	
 }
 
@@ -28,8 +47,12 @@ int main(){
 
 	Graph *g = new Graph(verticies,GRAPH_SIZE);
     
-    Queue<int> *q = new Queue(verticies[0]->vertexNumber);
-    cout<<q<<endl;
-    bfs(g->getGraph(), verticies[0]->vertexNumber,7);
+    queue<Vertex*> q;
+	q.push(verticies[0]);
+    
+	
+    bfs(verticies, q, GRAPH_SIZE);
+
+	
     
 }

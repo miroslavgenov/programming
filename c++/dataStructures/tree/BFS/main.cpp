@@ -1,5 +1,5 @@
 #include <iostream>
-#include "/home/home/Desktop/programming/c++/dataStructures/Tree/main.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/tree/main.cpp"
 #include <queue>
 
 using namespace std;
