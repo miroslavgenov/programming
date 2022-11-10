@@ -6,6 +6,7 @@ class LinkedList{
 public:
 	const int EMPTY_SIZE_LENGTH = 0;
 	static int totalListElements;
+	// clean the variables
 	T* data = nullptr;
 	T* top = nullptr;
 	LinkedList* root = nullptr;
@@ -157,11 +158,12 @@ public:
 					if(iterator->next->next){
 						dataAtIndex = new T{*iterator->next->data};
 						iterator->next = iterator->next->next;
+						totalListElements--;
 						return dataAtIndex;
 					}else{
 						std::cout<<"delete at index error check i element have only next"<<std::endl;
 					}
-					totalListElements--;
+					// totalListElements--;
 				}  
 
 			}
@@ -254,10 +256,41 @@ public:
 		return this->totalListElements == 0;
 	}
 
-	// deleteValue
+	// Todo: deleteValue
 	// first -> search the value if is in the list
 	// then -> find the index and use delete index
 	// done
+	
+	T* deleteByValue(T targetValue){
+		// std::cout<<"Hello from deleteByValue"<<std::endl;
+		LinkedList<T>* rootPointer = this;
+		// std::cout<<"Total elements: "<<totalListElements<<std::endl;
+		bool isTargetValueFound=false;
+		int targetValueIndex=0;
+
+		// search the target value and get the index
+		while(rootPointer){
+			targetValueIndex+=1;
+			if(*rootPointer->data == targetValue){
+				
+				// std::cout<<"value is in the list"<<std::endl;
+				// std::cout<<*rootPointer->data<<std::endl;
+				isTargetValueFound=true;
+				break;
+			}
+			rootPointer = rootPointer->next;	
+		}
+
+		if(isTargetValueFound == true){
+			targetValueIndex-=1;
+			// std::cout<<"targetValue:"<<targetValue<<" is found at index: "<<targetValueIndex<<" and can be deleted"<<std::endl;
+			return deleteAtIndex(targetValueIndex);
+
+		}else{
+			std::cout<<"targetValue is not found and can't be deleted"<<std::endl;
+		}
+		return nullptr;
+	}
 
 	template<typename X>
 	friend std::ostream& operator<<(std::ostream& , LinkedList<X>*);	

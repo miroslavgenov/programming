@@ -2,196 +2,132 @@
 #include <iostream>
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/Leaf.h"
-
+#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
+#include "/home/home/Desktop/programming/c++/algorithms/numbers/NullptrChecker.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/tree/TreeFinderUtil.cpp"
 
 using namespace std;
 
-
 class Tree{
-	
+
 public:
-	Leaf* root=nullptr;
-	bool isLeafFound=false;
-	int minimumLeafValueFromLeft;
-	int maximumLeafValueFromRight;
+	Leaf* rootLeaf = nullptr;
+	LinkedList<int>* listWithTheLeafValues = nullptr;
 
 	Tree(int data){
-		root=new Leaf{data,nullptr,nullptr};
+		setRootLeaf(data);
+		initializeListWithTheLeafValues(data);
 	}
 
-	void appendLeaf(Leaf* startLeaf, Leaf* leaf){
-		if(startLeaf->data > leaf->data){
-			shouldAppendALeftNode(startLeaf,leaf);
+	void setRootLeaf(int data){
+		rootLeaf = new Leaf{data, nullptr, nullptr};
+	}
+
+	void initializeListWithTheLeafValues(int data){
+		listWithTheLeafValues = new LinkedList(data);
+	}
+
+	void appendLeaf(Leaf* parentLeaf, Leaf* leaf){
+		if(!NullptrChecker::isLeafNullptr(leaf)){
+			if(parentLeaf->data > leaf->data){
+				shouldAppendALeftNode(parentLeaf,leaf);
+			}else{
+				shouldAppendARightNode(parentLeaf, leaf);
+			}	
+		}
+	}
+
+private:
+	void shouldAppendALeftNode(Leaf* parentLeaf, Leaf* leaf){
+		//not single responsigle
+		if(parentLeaf->left){
+			appendLeaf(parentLeaf->left, leaf);
 		}else{
-			shouldAppendARightNode(startLeaf, leaf);
-		}	
-	}
-private:
-	void shouldAppendARightNode(Leaf* startLeaf, Leaf* leaf){
-		if(startLeaf->right){
-				appendLeaf(startLeaf->right, leaf);
-			}else{
-				startLeaf->right=new Leaf{leaf->data,leaf->left,leaf->right};
-			}
-	}
-
-	void shouldAppendALeftNode(Leaf* startLeaf, Leaf* leaf){
-		if(startLeaf->left){
-				appendLeaf(startLeaf->left, leaf);
-			}else{
-				startLeaf->left=new Leaf{leaf->data,leaf->left,leaf->right};
-
-			}
-	}
-public:
-	bool isLeafInTree(Leaf* startLeaf, int data){
-		search(startLeaf,data);
-		return isLeafFound;
-	}
-
-	void prepareFindAndSetTheMaximumLeafValueFromRight(){
-		Leaf* pointer = root;
-		maximumLeafValueFromRight = pointer->data;
-
-		findAndSetTheMaxiumumLeafValueFromLeft(pointer);
-	}
-
-	int getTheMaximumLeafValueFromRight(){
-		return maximumLeafValueFromRight;
-	}	
-
-private:
-	void findAndSetTheMaxiumumLeafValueFromLeft(Leaf* currentLeaf){
-		if(currentLeaf != nullptr){
-			if(maximumLeafValueFromRight < currentLeaf->data){
-				maximumLeafValueFromRight = currentLeaf->data;
-			}
-
-			findAndSetTheMaxiumumLeafValueFromLeft(currentLeaf->right);
+			parentLeaf->left=new Leaf{leaf->data,leaf->left,leaf->right};
+			listWithTheLeafValues->appendAtEnd(leaf->data);
 		}
 	}
 
+void shouldAppendARightNode(Leaf* parentLeaf, Leaf* leaf){
+// not single resposible
+	if(parentLeaf->right){
+		appendLeaf(parentLeaf->right, leaf);
+	}else{
+		parentLeaf->right=new Leaf{leaf->data,leaf->left,leaf->right};
+		listWithTheLeafValues->appendAtEnd(leaf->data);
+	}
+}
+
 public:
+	bool isLeafDataInTree(int dataToBeSearched){
+		TreeFinderUtil::searchLeafByData(rootLeaf,dataToBeSearched);
+		return TreeFinderUtil::isLeafFound;
+	}
 
-
-	void prepareFindAndSetTheMinimumLeafValueFromLeft(){
-		Leaf* pointer = root;
-		minimumLeafValueFromLeft = pointer->data;
+public:
+	void deleteLeafByValue(int targetLeafValue){	
+		if(!NullptrChecker::isLeafNullptr(rootLeaf)){
+			// first check if the targetLeafValue is in the stack
+			listWithTheLeafValues->deleteByValue(targetLeafValue);
+			updateTree();
+		}
+	}
+	
+private:
+// too big function
+	void updateTree(){
+		int totalNumberOfLeafs = listWithTheLeafValues->totalListElements;
+		int leafValues[totalNumberOfLeafs]{0};
 		
-		findAndSetTheMinumumLeafValueFromLeft(pointer);
-	}
+		//make function		
+		for(size_t i = 0; i < totalNumberOfLeafs; i++){
+			leafValues[i] = *listWithTheLeafValues->deleteFromBegining();
+		}
 
-	int getTheMinimumLeafValueFromLeft(){
-		return minimumLeafValueFromLeft;
-	}	
+		setRootLeaf(new Leaf{leafValues[0], nullptr, nullptr});
 
-private:
-	void findAndSetTheMinumumLeafValueFromLeft(Leaf* currentLeaf){
-		if(currentLeaf){
-			if(minimumLeafValueFromLeft > currentLeaf->data){
-				minimumLeafValueFromLeft = currentLeaf->data;
-			}
-
-			findAndSetTheMinumumLeafValueFromLeft(currentLeaf->left);
+		//make function				
+		for(size_t i = 1; i < totalNumberOfLeafs; i++){
+			appendLeaf(rootLeaf, new Leaf{leafValues[i], nullptr, nullptr});
 		}
 	}
 
-private:
-	void search(Leaf* startLeaf, int data){
-		isLeafFound=false;
-		if(startLeaf){
-			if(startLeaf->data == data){
-				isLeafFound=true;
-				return ;
-			}else if(startLeaf->data > data){
-				search(startLeaf->left,data);
-			}else if(startLeaf->data < data){
-				search(startLeaf->right,data);
-			}
-		}
-
+	void setRootLeaf(Leaf* sourceLeaf){
+		rootLeaf->data = sourceLeaf->data;
+		rootLeaf->left = sourceLeaf->left;
+		rootLeaf->right = sourceLeaf->right;
 	}
 
 public:
-// Leaf* deleteLeafPointer=root;
-
-void deleteLeafWithValue(Leaf* rootPointer, int value){
-	if(rootPointer)	
-	{	
-		// check if the parent have no child and delete the parent
-
-		// check if parent have two child and check their values
-		// left and right
-		if(doParentLeafHaveTwoChilds(rootPointer)){
-			cout<<"parentLeaf have left and right child"<<endl;
-		}
-		// check if parent have one child and check his value
-		// left or right
-		else if(doParentLeafHaveOneChild(rootPointer)){
-			cout<<"parentChild have left or right child"<<endl;
-			if(rootPointer->left != nullptr && rootPointer->left->data == value){
-				cout<<"data found: "<<rootPointer->left->data<<endl;
-				rootPointer->left=nullptr;
-				// check if the target leaf have childs
-			}else if(rootPointer->right != nullptr && rootPointer->right->data == value){
-				cout<<"data found: "<<rootPointer->right->data<<endl;
-				rootPointer->right=nullptr;
-				// check if the target leaf have child
-			}
-		}
-
-
-
-		// search for the value
-		deleteLeafWithValue(rootPointer->left,value);
-		deleteLeafWithValue(rootPointer->right,value);
+	int getTheDataFromLeaf(Leaf* leaf){
+		return leaf->data;
 	}
-}
 
-
-
-bool doParentLeafHaveTwoChilds(Leaf* parentLeaf){
-return parentLeaf->left != nullptr && parentLeaf->right != nullptr;
-}
-
-bool doParentLeafHaveOneChild(Leaf* parentLeaf){
-return parentLeaf->left != nullptr || parentLeaf->right != nullptr;
-}
-
-
-bool doParentLeafHaveAnyChilds(Leaf* parentLeaf){
-	return doParentLeafHaveOneChild(parentLeaf);
-}
-
-
+	friend ostream& operator<<(ostream&, const Tree*);
 };
 
-
-
+ostream& operator<<(ostream& os, const Tree* tree){
+	os<<tree->listWithTheLeafValues;
+	return os;
+}
 
 int main(){
 	Tree* t = new Tree(5);
-	
-	t->appendLeaf(t->root,new Leaf{3, nullptr, nullptr});
-	t->appendLeaf(t->root,new Leaf{2, nullptr, nullptr});
-	t->appendLeaf(t->root,new Leaf{4, nullptr, nullptr});
-	t->appendLeaf(t->root,new Leaf{1, nullptr, nullptr});
-	t->appendLeaf(t->root,new Leaf{0, nullptr, nullptr});
-	t->appendLeaf(t->root,new Leaf{7, nullptr,nullptr});
-	t->appendLeaf(t->root,new Leaf{8, nullptr,nullptr});
-	t->appendLeaf(t->root,new Leaf{10, nullptr,nullptr});
-	t->appendLeaf(t->root,new Leaf{9, nullptr, nullptr});
-	t->appendLeaf(t->root,new Leaf{6, nullptr, nullptr});
-	
 
-	t->prepareFindAndSetTheMinimumLeafValueFromLeft();
-	cout<<"minimum Leaf value is: "<<t->getTheMinimumLeafValueFromLeft()<<endl;
-	
-	// t->prepareFindAndSetTheMaximumLeafValueFromRight();
-	// cout<<t->getTheMaximumLeafValueFromRight()<<endl;
-	t->deleteLeafWithValue(t->root, 0);
-	
-	Printer::printTree(t->root);
+	t->appendLeaf(t->rootLeaf,new Leaf{3, nullptr, nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{2, nullptr, nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{4, nullptr, nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{1, nullptr, nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{0, nullptr, nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{7, nullptr,nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{8, nullptr,nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{10, nullptr,nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{9, nullptr, nullptr});
+	t->appendLeaf(t->rootLeaf,new Leaf{6, nullptr, nullptr});
 
+	t->deleteLeafByValue(2);
+
+	Printer::printTree(t->rootLeaf);
+
+	
 }
-
