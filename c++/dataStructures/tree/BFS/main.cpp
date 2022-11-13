@@ -26,16 +26,16 @@ void bfs(queue<T> &queueWithData){
 int main(){
 
 	Tree* rt = new Tree(3);
-	rt->appendLeaf(rt->root,new Leaf{4,nullptr,nullptr});
-	rt->appendLeaf(rt->root,new Leaf{1,nullptr,nullptr});
-	rt->appendLeaf(rt->root,new Leaf{2,nullptr,nullptr});
-	rt->appendLeaf(rt->root,new Leaf{7,nullptr,nullptr});
+	rt->appendLeaf(rt->rootLeaf,new Leaf{4,nullptr,nullptr});
+	rt->appendLeaf(rt->rootLeaf,new Leaf{1,nullptr,nullptr});
+	rt->appendLeaf(rt->rootLeaf,new Leaf{2,nullptr,nullptr});
+	rt->appendLeaf(rt->rootLeaf,new Leaf{7,nullptr,nullptr});
 	
-	Printer::printTree(rt->root);
+	Printer::printTree(rt->rootLeaf);
 	cout<<endl;
 	
 	queue<Leaf*> q;
-	q.push(rt->root);
+	q.push(rt->rootLeaf);
 	bfs(q);
 	
 	

@@ -1,5 +1,18 @@
 #pragma once
 #include <iostream>
+#include <vector>
+
+// Issue: can assign head data in to the construtor
+// Issue: if i make more than one LinkedList object in one file there will be conflict with the 
+// 		  totalListelements variables
+
+
+
+//TODO: redesign the class
+//		make structure and dont use the class as a Linked list use the class as a helper
+// 		who can add , delete , etc. This will remove the conflict
+
+//Issue: the redesign will be follow up by the other child classes
 
 template<typename T>
 class LinkedList{
@@ -11,10 +24,13 @@ public:
 	T* top = nullptr;
 	LinkedList* root = nullptr;
 	LinkedList* next = nullptr;
+	std::vector<T> linkedListsDatas;
 
-	// int size(){
-	// 	return this->totalListElements;
-	// }
+	
+
+	int size(){
+		return this->totalListElements;
+	}
 
 	LinkedList(T data){
 		totalListElements++;
@@ -35,8 +51,6 @@ public:
 		delete root;
 		delete data;
 	}
-
-
 
 	void appendAtBeggining(T data){
 		LinkedList* currentRoot = nullptr;

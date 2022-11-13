@@ -6,6 +6,11 @@ class TreeFinderUtil{
 
     static bool isLeafFound;
 
+	static bool isLeafDataInTree(Leaf* rootLeaf, int dataToBeSearched){
+		TreeFinderUtil::searchLeafByData(rootLeaf,dataToBeSearched);
+		return TreeFinderUtil::isLeafFound;
+	}
+
     static void searchLeafByData(Leaf* parentLeaf, int data){
 		if(parentLeaf){
 			if(parentLeaf->data == data){

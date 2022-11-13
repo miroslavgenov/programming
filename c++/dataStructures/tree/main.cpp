@@ -5,6 +5,7 @@
 #include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/numbers/NullptrChecker.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/TreeFinderUtil.cpp"
+#include <vector>
 
 using namespace std;
 
@@ -13,13 +14,14 @@ class Tree{
 public:
 	Leaf* rootLeaf = nullptr;
 	LinkedList<int>* listWithTheLeafValues = nullptr;
+	vector<int> leafValues;
 
 	Tree(int data){
-		setRootLeaf(data);
+		initializeRootLeaf(data);
 		initializeListWithTheLeafValues(data);
 	}
 
-	void setRootLeaf(int data){
+	void initializeRootLeaf(int data){
 		rootLeaf = new Leaf{data, nullptr, nullptr};
 	}
 
@@ -39,7 +41,6 @@ public:
 
 private:
 	void shouldAppendALeftNode(Leaf* parentLeaf, Leaf* leaf){
-		//not single responsigle
 		if(parentLeaf->left){
 			appendLeaf(parentLeaf->left, leaf);
 		}else{
@@ -48,51 +49,50 @@ private:
 		}
 	}
 
-void shouldAppendARightNode(Leaf* parentLeaf, Leaf* leaf){
-// not single resposible
-	if(parentLeaf->right){
-		appendLeaf(parentLeaf->right, leaf);
-	}else{
-		parentLeaf->right=new Leaf{leaf->data,leaf->left,leaf->right};
-		listWithTheLeafValues->appendAtEnd(leaf->data);
-	}
-}
-
-public:
-	bool isLeafDataInTree(int dataToBeSearched){
-		TreeFinderUtil::searchLeafByData(rootLeaf,dataToBeSearched);
-		return TreeFinderUtil::isLeafFound;
+	void shouldAppendARightNode(Leaf* parentLeaf, Leaf* leaf){
+		if(parentLeaf->right){
+			appendLeaf(parentLeaf->right, leaf);
+		}else{
+			parentLeaf->right=new Leaf{leaf->data,leaf->left,leaf->right};
+			listWithTheLeafValues->appendAtEnd(leaf->data);
+		}
 	}
 
 public:
-	void deleteLeafByValue(int targetLeafValue){	
-		if(!NullptrChecker::isLeafNullptr(rootLeaf)){
-			// first check if the targetLeafValue is in the stack
-			listWithTheLeafValues->deleteByValue(targetLeafValue);
+	void deleteLeafByData(int targetLeafData){	
+		if(isTreeAndLeafDataPresent(targetLeafData)){
+			listWithTheLeafValues->deleteByValue(targetLeafData);
 			updateTree();
 		}
 	}
 	
+	bool isTreeAndLeafDataPresent(int targetLeafData){
+		return !NullptrChecker::isLeafNullptr(rootLeaf) && 
+			TreeFinderUtil::isLeafDataInTree(rootLeaf, targetLeafData);
+	}
+
 private:
-// too big function
-	void updateTree(){
-		int totalNumberOfLeafs = listWithTheLeafValues->totalListElements;
-		int leafValues[totalNumberOfLeafs]{0};
-		
-		//make function		
-		for(size_t i = 0; i < totalNumberOfLeafs; i++){
-			leafValues[i] = *listWithTheLeafValues->deleteFromBegining();
+	void updateTree(){					
+		transferTheLeafValuesAndEmptyTheList(listWithTheLeafValues->size());
+		appendTheRemainingLeafsToTheTree();
+
+		leafValues.clear();
+	}
+
+	void transferTheLeafValuesAndEmptyTheList(int listWithLeafSize){
+		for(size_t i = 0; i < listWithLeafSize; i++){
+			leafValues.push_back(*listWithTheLeafValues->deleteFromBegining());
 		}
+	}
+	void appendTheRemainingLeafsToTheTree(){
+		initializeRootLeaf(new Leaf{leafValues[0], nullptr, nullptr});
 
-		setRootLeaf(new Leaf{leafValues[0], nullptr, nullptr});
-
-		//make function				
-		for(size_t i = 1; i < totalNumberOfLeafs; i++){
+		for(size_t i = 1; i < leafValues.size(); i++){
 			appendLeaf(rootLeaf, new Leaf{leafValues[i], nullptr, nullptr});
 		}
 	}
 
-	void setRootLeaf(Leaf* sourceLeaf){
+	void initializeRootLeaf(Leaf* sourceLeaf){
 		rootLeaf->data = sourceLeaf->data;
 		rootLeaf->left = sourceLeaf->left;
 		rootLeaf->right = sourceLeaf->right;
@@ -125,7 +125,7 @@ int main(){
 	t->appendLeaf(t->rootLeaf,new Leaf{9, nullptr, nullptr});
 	t->appendLeaf(t->rootLeaf,new Leaf{6, nullptr, nullptr});
 
-	t->deleteLeafByValue(2);
+	t->deleteLeafByData(2);
 
 	Printer::printTree(t->rootLeaf);
 

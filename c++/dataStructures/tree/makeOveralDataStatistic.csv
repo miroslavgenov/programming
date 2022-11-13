@@ -1,0 +1,5 @@
+#!/bin/bash/env bash
+file="overalData.csv"
+
+head -n 1 info2.csv > $file
+cat info* | sed -n '0~2p' >> $file
