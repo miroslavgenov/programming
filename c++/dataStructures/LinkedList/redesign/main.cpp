@@ -4,6 +4,8 @@
 #include <type_traits>
 
 
+#include <vector>
+
 using namespace std;
 
 template <typename T>
@@ -43,32 +45,94 @@ class LinkedListGetter{
     
 };
 
+class LinkedListChecker{
+    public:
+    static bool isListEmpty(int size){
+        return size == 0;
+    }
+};
+
 class LinkedListAppender{
     public:
 
+    template <typename T>
+    static void appendAtEnd(linkedListStruct<T>** rootElementFromList, T data){
+        linkedListStruct<T>* lastElementFromList = 
+            LinkedListGetter::getTheLastElementFromTheLinkedList(rootElementFromList);
+        LinkedListSetter::setAndInitListElement(&lastElementFromList->next, data);
+    }
 };
+
+class LinkedListSizeHelper{
+    int size=0; 
+    static const int EMPTY_SIZE_LENGTH = 0;  
+    public:
+
+    LinkedListSizeHelper(){
+        this->incrementSize();
+    }
+
+    void incrementSize(){
+        size++;
+    }
+
+    int getSize(){
+        return size;
+    }
+};
+
+class LinkedListHandler{
+    public:
+    static const string CONSTRUCTOR_ERROR;
+};
+
+const string LinkedListHandler::CONSTRUCTOR_ERROR="LinkedListHelper constructor: the data must be pointer";
+
+class LinkedListPrinter{
+    
+};
+
 
 template <typename T>
 class LinkedListHelper{
+    LinkedListSizeHelper *linkedListSizer = nullptr;
 
     public:
         linkedListStruct<T> *linkedListRoot = nullptr;
         
+        
         LinkedListHelper(T data){   
             if(is_pointer<T>::value){
                 LinkedListSetter::setAndInitListElement(&linkedListRoot, data);
-                        
+                linkedListSizer = new LinkedListSizeHelper();
             }else{
-                cout<<"LinkedListHelper constructor: the data must be pointer"<<endl;
+                cout<<LinkedListHandler::CONSTRUCTOR_ERROR<<endl;
             }
         }
         
-        T getTheDataAtTheTop(){
+        T top(){
             return LinkedListGetter::getTheLastElementFromTheLinkedList(&linkedListRoot)->data;
         }
 
+        int size(){
+            return linkedListSizer->getSize();
+        }
+
         void appendAtEnd(T data){
-            LinkedListSetter::setAndInitListElement(&LinkedListGetter::getTheLastElementFromTheLinkedList(&linkedListRoot)->next, data);
+            LinkedListAppender::appendAtEnd(&linkedListRoot, data);
+            linkedListSizer->incrementSize();
+        }
+
+        bool isListEmpty(){
+            return LinkedListChecker::isListEmpty(size());
+        }
+
+        void appendAtBegining(T data){
+            if(isListEmpty()){
+                cout<<"yes"<<endl;
+            }else{
+                cout<<"no"<<endl;
+            }
         }
         
         
@@ -76,12 +140,9 @@ class LinkedListHelper{
 
 
 int main(){    
-    LinkedListHelper<int*> * l = new LinkedListHelper(new int{3});
-    l->appendAtEnd(new int{4});
-    l->appendAtEnd(new int{5});
-    
-    cout<<*l->getTheDataAtTheTop()<<endl;
-    
+    LinkedListHelper<int*>* l  = new LinkedListHelper(new int{3});
+
+    l->appendAtBegining(new int{4});
     
     
 }
