@@ -101,23 +101,36 @@ class LinkedListAppender{
 
 
 
-class LinkedListHandler{
+class LinkedListException{
     public:
+    string exceptionMessage;
     static const string CONSTRUCTOR_ERROR;
+    static const string OUT_OF_RANGE;
+
+    LinkedListException(string _exceptionMessage):exceptionMessage(_exceptionMessage){
+    }
+
+    string what(){
+        return exceptionMessage;
+    }
 };
 
-const string LinkedListHandler::CONSTRUCTOR_ERROR="LinkedListHelper constructor: the data must be pointer";
+const string LinkedListException::CONSTRUCTOR_ERROR="LinkedListHelper constructor: the data must be pointer";
+const string LinkedListException::OUT_OF_RANGE="error at deleteAtEnd(): there are no elements to be deleted! size == 0";
 
 class LinkedListPrinter{
     public:
     template <typename T>
     static void printElementsData(linkedListStruct<T>* theRootElement){
-        // linkedListStruct<T>* pointer = theRootElement;
+        
+            linkedListStruct<T>* pointer = theRootElement;
         // cout<<"hello"<<endl;
-        // while(pointer->next){
-        //     std::cout<<pointer->data<<" ";
-        //     pointer = pointer->next;
-        // }
+        while(pointer){
+            std::cout<<*pointer->data<<" ";
+            pointer = pointer->next;
+        }
+        
+        
 
     }
 
@@ -137,7 +150,7 @@ class LinkedListHelper{
 
     public:
         linkedListStruct<T> *linkedListRoot = nullptr;
-        static linkedListStruct<T> *linkedListNullElement;
+        
         
         
         LinkedListHelper(T data){   
@@ -145,7 +158,7 @@ class LinkedListHelper{
                 LinkedListSetter::setAndInitListElement(&linkedListRoot, data);
                 linkedListSizer = new LinkedListSizeHelper();
             }else{
-                cout<<LinkedListHandler::CONSTRUCTOR_ERROR<<endl;
+                cout<<LinkedListException::CONSTRUCTOR_ERROR<<endl;
             }
         }
         
@@ -163,19 +176,35 @@ class LinkedListHelper{
             linkedListSizer->incrementSize();
         }
 
-        T deleteAtEnd(){
-            
+        //LinkedListDeleter
+        T deleteAtEnd() noexcept(false){
+            if(isListEmpty()){
+                throw LinkedListException("error at deleteAtEnd(): size == 0 there are no elements!");
+                throw LinkedListException(LinkedListException::OUT_OF_RANGE);
+            }
             // Issue throw exception if the size is 0
-            if(size() == 1){
+            else if(size() == 1){
                 cout<<"There is only one element in the stack."<<endl;
                 linkedListRoot->next = nullptr;
                 linkedListSizer->decrementSize();
                 return linkedListRoot->data;
             }else if(size() > 1){
                 cout<<"deleteAtEnd(): There are more elements in the stack!"<<endl;
+
+                linkedListStruct<T>* pointer = linkedListRoot;
+                // cout<<*pointer->next->next->data<<endl;
+                while(pointer->next->next){
+                    pointer = pointer->next;
+                }
+                T dataFromDeletedTarget = pointer->next->data;
+                pointer->next->next=nullptr;
+                delete pointer->next->next;
+                pointer->next = nullptr;
+                linkedListSizer->decrementSize();
+                return dataFromDeletedTarget;
             }
             
-            return linkedListNullElement->data;
+            return nullptr;//linkedListNullElement->data;
         }
 
         bool isListEmpty(){
@@ -199,35 +228,66 @@ class LinkedListHelper{
                 linkedListRoot->data = data;
                 linkedListRoot->next = next;
 
-                cout<<*linkedListRoot->data<<" "<<*linkedListRoot->next->data<<endl;
+                // cout<<*linkedListRoot->data<<" "<<*linkedListRoot->next->data<<endl;
+                linkedListSizer->incrementSize();
     
             }
         }
+
+        void print(){
+            if(!isListEmpty()){
+                LinkedListPrinter::printElementsData(linkedListRoot);
+            }
+        }
+
         
         
 };
 
-template <typename T>
-linkedListStruct<T> * LinkedListHelper<T>::linkedListNullElement = nullptr;
+
 
 
 int main(){    
     LinkedListHelper<int*>* l  = new LinkedListHelper(new int{3});
     cout<<l->size()<<endl;
     cout<<*l->deleteAtEnd()<<endl;
+    cout<<l->size()<<endl;
+    
     
 
-    cout<<l->size()<<endl;
+    // cout<<l->size()<<endl;
 
     l->appendAtBegining(new int{5});
+    cout<<l->size()<<endl;
+    // cout<<*l->deleteAtEnd()<<endl;
+    // cout<<l->size()<<endl;
+    // l->deleteAtEnd();
+
     l->appendAtBegining(new int{4});
-
-    // l->appendAtBegining(new int{3});
-
-
-    // LinkedListPrinter::printElementData(l->linkedListRoot);
-    // l->appendAtBegining(new int{4});
-    // LinkedListPrinter::print(l->linkedListRoot);
     
+    l->appendAtBegining(new int{6});
+    l->appendAtBegining(new int{6});
+cout<<l->size()<<endl;
+l->print();
+l->deleteAtEnd();
+l->print();
+
+l->deleteAtEnd();
+l->print();
+
+cout<<"size: "<<l->size()<<endl;
+l->deleteAtEnd();
+l->print();
+cout<<"size: "<<l->size()<<endl;
+
+l->deleteAtEnd();
+l->print();
+cout<<"size: "<<l->size()<<endl;
+
+// l->deleteAtEnd();
+// l->print();
+
+    // LinkedListPrinter::printElementsData(l->linkedListRoot,l->size());
+    // l->print();
     
 }
