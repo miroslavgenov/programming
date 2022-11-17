@@ -1,22 +1,54 @@
 #pragma once
 #include <iostream>
-#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/redesign/main.cpp"
 
 template <typename T>
 class Stack{
 public:
-	LinkedList<T> *linkedList = nullptr;
+	LinkedListHelper<T>* linkedListHelper = nullptr;
 	
 	Stack(){}
 	
-	Stack(T );
+	Stack(T data){
+		linkedListHelper = new LinkedListHelper(data);
+	}
 	
-	void push(T);
+	void push(T data){
+		if(linkedListHelper == nullptr){
+			linkedListHelper = new LinkedListHelper(data);
+		}else{
+			linkedListHelper->appendAtEnd(data);
+		}
+		
+	}
 
-	T* getTop();
+	T getTop(){
+		return linkedListHelper->top();
+	}
 	
-	T* pop();
-	bool isEmpty();
+	T pop(){
+		return linkedListHelper->deleteAtEnd();
+	}
+
+	int size(){
+		return linkedListHelper->size();
+	}
+
+	bool isEmpty(){
+		return linkedListHelper->isListEmpty();
+	}
+
+	void print(){
+		linkedListHelper->print();
+	}
+
+
 	template<typename X>
 	friend std::ostream& operator<<(std::ostream&, Stack<X>*);
 };
+
+template <typename X>
+std::ostream& operator<<(std::ostream& os, Stack<X>* stack){
+	stack->print();
+	return os;
+}
