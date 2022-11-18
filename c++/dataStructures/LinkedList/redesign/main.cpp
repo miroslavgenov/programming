@@ -3,9 +3,6 @@
 #include <cstring>
 #include <type_traits>
 
-
-#include <vector>
-
 using namespace std;
 
 template <typename T>
@@ -28,10 +25,21 @@ class LinkedListSetter{
         linkedListStruct<T>* pointerToRoot = *linkedListRoot;
         pointerToRoot->next = nullptr;
     }
+    template <typename T>
+    static void setAndInitListElement(linkedListStruct<T>** linkedListElement, T data , linkedListStruct<T>* nextElement){
+        *linkedListElement = new linkedListStruct{data};
+        linkedListStruct<T>* pointerToElement = *linkedListElement;
+        pointerToElement->next = nextElement;
+    }
 
     template <typename T>
     static void setElementData(linkedListStruct<T> *pointer, T data){
         pointer->data = data;
+    }
+
+    template <typename T>
+    static void setTheNextElementOfTheCurrentElementTo(linkedListStruct<T>* currentElement, linkedListStruct<T> * pointToThatElement = nullptr){
+        currentElement->next = pointToThatElement;
     }
 };
 
@@ -100,6 +108,16 @@ class LinkedListAppender{
             LinkedListGetter::getTheLastElementFromTheLinkedList(rootElementFromList);
         LinkedListSetter::setAndInitListElement(&lastElementFromList->next, data);
     }
+
+    template <typename T>
+    static void appendAtBegining(linkedListStruct<T>* rootElement, T data){
+        linkedListStruct<T>* next = nullptr;
+        LinkedListSetter::setAndInitListElement(&next, rootElement->data, rootElement->next);
+
+        LinkedListSetter::setElementData(rootElement,data);
+        LinkedListSetter::setTheNextElementOfTheCurrentElementTo(rootElement, next); 
+    }
+
 };
 
 
@@ -126,15 +144,12 @@ class LinkedListPrinter{
     template <typename T>
     static void printElementsData(linkedListStruct<T>* theRootElement){
         
-            linkedListStruct<T>* pointer = theRootElement;
-        // cout<<"hello"<<endl;
+        linkedListStruct<T>* pointer = theRootElement;
+
         while(pointer){
             std::cout<<*pointer->data<<" ";
             pointer = pointer->next;
         }
-        
-        
-
     }
 
     template <typename T>
@@ -174,12 +189,12 @@ class LinkedListHelper{
         }
 
         void appendAtEnd(T data){
-            // Issue: If the stack is empty then append the data to the root element
             if(isListEmpty()){
                 LinkedListSetter::setElementData(linkedListRoot,data);
             }else{
                 LinkedListAppender::appendAtEnd(&linkedListRoot, data);
             }
+
             linkedListSizer->incrementSize();
         }
 
@@ -190,29 +205,28 @@ class LinkedListHelper{
             }
             // Issue throw exception if the size is 0
             else if(size() == 1){
-                cout<<"There is only one element in the stack."<<endl;
-                linkedListRoot->next = nullptr;
+                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(linkedListRoot);
                 linkedListSizer->decrementSize();
                 return linkedListRoot->data;
             }else if(size() > 1){
-                cout<<"deleteAtEnd(): There are more elements in the stack!"<<endl;
+                
 
                 linkedListStruct<T>* pointer = linkedListRoot;
-                // cout<<*pointer->next->next->data<<endl;
                 
+                // get the previous element before the lat element
                 while(pointer->next->next){
                     pointer = pointer->next;
                 }
 
                 T dataFromDeletedTarget = pointer->next->data;
-                pointer->next->next=nullptr;
+                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(pointer->next);
                 delete pointer->next->next;
-                pointer->next = nullptr;
+                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(pointer);                
                 linkedListSizer->decrementSize();
                 return dataFromDeletedTarget;
             }
             
-            return nullptr;//linkedListNullElement->data;
+            return nullptr;
         }
 
         T deleteAtBeginning() noexcept(false) {
@@ -228,7 +242,7 @@ class LinkedListHelper{
                     LinkedListSetter::setElementData(linkedListRoot, linkedListRoot->next->data);
                     
             
-                    setTheNextElementOfTheCurrentElementTo(linkedListRoot, linkedListRoot->next->next);
+                    LinkedListSetter::setTheNextElementOfTheCurrentElementTo(linkedListRoot, linkedListRoot->next->next);
                     
 
                 }
@@ -247,21 +261,13 @@ class LinkedListHelper{
             if(isListEmpty()){
                 LinkedListSetter::setElementData(linkedListRoot, data);
             }else{
-                
-                linkedListStruct<T>* next = nullptr;
-                LinkedListSetter::setAndInitListElement(&next, linkedListRoot->data);
-                setTheNextElementOfTheCurrentElementTo(next, linkedListRoot->next);
-
-                LinkedListSetter::setElementData(linkedListRoot,data);
-                setTheNextElementOfTheCurrentElementTo(linkedListRoot, next); 
+                LinkedListAppender::appendAtBegining(linkedListRoot,data);   
             }
-                linkedListSizer->incrementSize();
+
+            linkedListSizer->incrementSize();
         }
 
-        void setTheNextElementOfTheCurrentElementTo(linkedListStruct<T>* currentElement, linkedListStruct<T> * pointToThatElement){
-            currentElement->next = pointToThatElement;
-        }
-
+        
         void print(){
             if(!isListEmpty()){
                 LinkedListPrinter::printElementsData(linkedListRoot);
@@ -272,14 +278,29 @@ class LinkedListHelper{
         
 };
 
+template <typename T>
+linkedListStruct<T> * getThePreviouseElementBeforeTheLastElement(linkedListStruct<T> * root){
+    linkedListStruct<T>* p = root;
+    while(p->next->next){
+        p = p->next;
+    }
+
+    return nullptr;
+}
 
 
-
-// int main(){    
-//     LinkedListHelper<int*>* l  = new LinkedListHelper(new int{3});
-//     l->appendAtBegining(new int{2});
+int main(){    
+    LinkedListHelper<int*>* l  = new LinkedListHelper(new int{3});
+    l->appendAtBegining(new int{2});
+    l->print();
+    l->deleteAtEnd();
+    l->print();
 
     
 
+
     
-// }
+
+
+    
+}

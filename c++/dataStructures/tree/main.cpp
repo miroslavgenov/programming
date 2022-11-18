@@ -1,18 +1,26 @@
 // #pragma once
 #include <iostream>
+#include <vector>
+
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/Leaf.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/numbers/NullptrChecker.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/TreeFinderUtil.cpp"
-#include <vector>
 
 using namespace std;
 
+template <typename T>
+class TreeHelper{
+	public:
+	Leaf<T>* rootLeaf = nullptr;
+};
+
+template <typename T>
 class Tree{
 
 public:
-	Leaf* rootLeaf = nullptr;
+	Leaf<T>* rootLeaf = nullptr;
 	LinkedList<int>* listWithTheLeafValues = nullptr;
 	vector<int> leafValues;
 
@@ -109,25 +117,4 @@ public:
 ostream& operator<<(ostream& os, const Tree* tree){
 	os<<tree->listWithTheLeafValues;
 	return os;
-}
-
-int main(){
-	Tree* t = new Tree(5);
-
-	t->appendLeaf(t->rootLeaf,new Leaf{3, nullptr, nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{2, nullptr, nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{4, nullptr, nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{1, nullptr, nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{0, nullptr, nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{7, nullptr,nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{8, nullptr,nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{10, nullptr,nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{9, nullptr, nullptr});
-	t->appendLeaf(t->rootLeaf,new Leaf{6, nullptr, nullptr});
-
-	t->deleteLeafByData(2);
-
-	Printer::printTree(t->rootLeaf);
-
-	
 }

@@ -1,7 +1,8 @@
 #pragma once
 
+template <typename T>
 struct Leaf{
-	int data;
+	T data;
 	Leaf* left;
 	Leaf* right;
 };
