@@ -38,8 +38,7 @@ class LinkedListSetter{
     }
 
     template <typename T>
-    static void setTheNextElementOfTheCurrentElementTo(
-        linkedListStruct<T>* currentElement, linkedListStruct<T> * pointToThatElement = nullptr){
+    static void setTheNextElementOfTheCurrentElementTo(linkedListStruct<T>* currentElement, linkedListStruct<T> * pointToThatElement = nullptr){
         currentElement->next = pointToThatElement;
     }
 };
@@ -56,20 +55,6 @@ class LinkedListGetter{
         }
         return pointer;
     }
-
-    template <typename T>
-    static linkedListStruct<T> * getThePreviouseElementBeforeTheLastElement(linkedListStruct<T> * root){
-        linkedListStruct<T>* pointer = root;
-        
-        while(pointer->next->next){
-            pointer = pointer->next;
-        }
-        
-        // cout<<*pointer->data<<endl;
-
-        return pointer;
-    }
-
     
 };
 
@@ -175,47 +160,8 @@ class LinkedListPrinter{
 };
 
 
-class LinkedListDeleter{
-    public:
-    template <typename T>
-    static T deleteAtBeginning(linkedListStruct<T>* linkedListRoot) noexcept(false) {
-            T data = nullptr;
-                
-
-                if(LinkedListChecker::isElementNullptr(linkedListRoot->next)){
-                    data = linkedListRoot->data;
-                }else{
-                    
-                    data = linkedListRoot->data;
-                    LinkedListSetter::setElementData(linkedListRoot, linkedListRoot->next->data);
-                    LinkedListSetter::setTheNextElementOfTheCurrentElementTo(linkedListRoot, linkedListRoot->next->next);
-                }
-
-            
-            return data;
-
-        }
-    template <typename T>
-    static T deleteAtEnd(linkedListStruct<T>* linkedListRoot) noexcept(false){
-         
-           
-         
-                  
-                linkedListStruct<T>* pointer = LinkedListGetter::getThePreviouseElementBeforeTheLastElement(linkedListRoot);
-                
-                T dataFromDeletedTarget = pointer->next->data;
-                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(pointer->next);
-                delete pointer->next->next;
-                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(pointer);                
-                
-                return dataFromDeletedTarget;
-            
-            
-            
-        }
-};
-
-
+//Issue if the size is 0 then dont delete , get , set enything
+// only you can append
 template <typename T>
 class LinkedListHelper{
     LinkedListSizeHelper *linkedListSizer = nullptr;
@@ -257,30 +203,56 @@ class LinkedListHelper{
             if(isListEmpty()){
                 throw LinkedListException(LinkedListException::OUT_OF_RANGE);
             }
-            else{
-                if(size() == 1){
-                    LinkedListSetter::setTheNextElementOfTheCurrentElementTo(linkedListRoot);
-                    linkedListSizer->decrementSize();
-                    return linkedListRoot->data;
-                }else if(size() > 1){
-                    linkedListSizer->decrementSize();
-                    return LinkedListDeleter::deleteAtEnd(linkedListRoot);
+            // Issue throw exception if the size is 0
+            else if(size() == 1){
+                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(linkedListRoot);
+                linkedListSizer->decrementSize();
+                return linkedListRoot->data;
+            }else if(size() > 1){
+                
+
+                linkedListStruct<T>* pointer = linkedListRoot;
+                
+                // get the previous element before the lat element
+                while(pointer->next->next){
+                    pointer = pointer->next;
                 }
+
+                T dataFromDeletedTarget = pointer->next->data;
+                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(pointer->next);
+                delete pointer->next->next;
+                LinkedListSetter::setTheNextElementOfTheCurrentElementTo(pointer);                
+                linkedListSizer->decrementSize();
+                return dataFromDeletedTarget;
             }
             
             return nullptr;
         }
 
-        T deleteAtBegining(){
+        T deleteAtBeginning() noexcept(false) {
+            T data = nullptr;
+            
             if(isListEmpty()){
                 throw LinkedListException("deleteAtBegining(): size==0");
             }else{
-                linkedListSizer->decrementSize();
-                return LinkedListDeleter::deleteAtBeginning(linkedListRoot);
+                if(!LinkedListChecker::isElementNullptr(linkedListRoot->next)){
+                    data = linkedListRoot->data;
+                }else{
+                    data = linkedListRoot->next->data;
+                    LinkedListSetter::setElementData(linkedListRoot, linkedListRoot->next->data);
+                    
+            
+                    LinkedListSetter::setTheNextElementOfTheCurrentElementTo(linkedListRoot, linkedListRoot->next->next);
+                    
+
+                }
+                    linkedListSizer->decrementSize();
+                
+
             }
-            return nullptr;
+            
+            return data;
         }
-        
         bool isListEmpty(){
             return LinkedListChecker::isListEmpty(size());
         }
@@ -306,21 +278,24 @@ class LinkedListHelper{
         
 };
 
+template <typename T>
+linkedListStruct<T> * getThePreviouseElementBeforeTheLastElement(linkedListStruct<T> * root){
+    linkedListStruct<T>* p = root;
+    while(p->next->next){
+        p = p->next;
+    }
+
+    return nullptr;
+}
+
+
 int main(){    
     LinkedListHelper<int*>* l  = new LinkedListHelper(new int{3});
     l->appendAtBegining(new int{2});
-    
     l->print();
-    cout<<endl;
-
     l->deleteAtEnd();
-    l->deleteAtEnd();
-    
-
     l->print();
-    cout<<endl;
 
-    
     
 
 
