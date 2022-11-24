@@ -25,9 +25,6 @@ class LinkedListDeleter{
     template <typename T>
     static T deleteAtEnd(linkedListStruct<T>* linkedListRoot) noexcept(false){
          
-           
-         
-                  
                 linkedListStruct<T>* pointer = LinkedListGetter::getThePreviouseElementBeforeTheLastElement(linkedListRoot);
                 
                 T dataFromDeletedTarget = pointer->next->data;
