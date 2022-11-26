@@ -4,7 +4,7 @@
 
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/Leaf.h"
-#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/include/LinkedListHelper.cpp"
 #include "/home/home/Desktop/programming/c++/algorithms/numbers/NullptrChecker.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/TreeFinderUtil.cpp"
 

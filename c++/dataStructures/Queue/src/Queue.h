@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
-#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/LinkedList.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/include/LinkedListHelper.cpp"
 
 template <typename T>
 class Queue{
+	
 	LinkedList<T>* linkedList = nullptr;
 
 
