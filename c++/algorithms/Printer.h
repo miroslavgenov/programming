@@ -9,7 +9,8 @@ public:
 	//TODO: make template printArray<T array[], SIZE) and remove
 	// the duplication
 
-	static void printTree(Leaf* leaf){
+	template <typename T>
+	static void printTree(Leaf<T>* leaf){
 		if(leaf){
 			printTree(leaf->left);
 			std::cout<<leaf->data<<std::endl;

@@ -6,12 +6,15 @@ class TreeFinderUtil{
 
     static bool isLeafFound;
 
-	static bool isLeafDataInTree(Leaf* rootLeaf, int dataToBeSearched){
+
+	template <typename T>
+	static bool isLeafDataInTree(Leaf<T>* rootLeaf, int dataToBeSearched){
 		TreeFinderUtil::searchLeafByData(rootLeaf,dataToBeSearched);
 		return TreeFinderUtil::isLeafFound;
 	}
 
-    static void searchLeafByData(Leaf* parentLeaf, int data){
+	template <typename T>
+    static void searchLeafByData(Leaf<T>* parentLeaf, int data){
 		if(parentLeaf){
 			if(parentLeaf->data == data){
 				isLeafFound = true;

@@ -3,17 +3,17 @@
 
 class NullptrChecker{
 public:	
-	static Leaf* nullptrLeaf;
+	
 
 	static bool isNumberNullptr(int* number){
 		return number == nullptr;
 	}
 
-	static bool isLeafNullptr(Leaf* targetLeaf){
-		return targetLeaf == nullptrLeaf;
+	template <typename T>
+	static bool isLeafNullptr(Leaf<T>* targetLeaf){
+		return targetLeaf == nullptr;
 	}
 
 };
 
-Leaf* NullptrChecker::nullptrLeaf = nullptr;
 
