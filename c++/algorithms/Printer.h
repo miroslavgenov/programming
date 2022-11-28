@@ -13,7 +13,7 @@ public:
 	static void printTree(Leaf<T>* leaf){
 		if(leaf){
 			printTree(leaf->left);
-			std::cout<<leaf->data<<std::endl;
+			std::cout<<*leaf->data<<std::endl;
 			printTree(leaf->right);
 		}
 	}
