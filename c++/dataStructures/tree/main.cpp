@@ -1,4 +1,4 @@
-#pragma once
+// #pragma once
 #include <iostream>
 
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
@@ -44,33 +44,51 @@ public:
 		if(listWithTheLeafValues->size() == 0){
 			rootLeaf->data = new int{*leaf->data};
 		}else{
-			shouldAppendLeftLeaf(rootLeaf,leaf);
-			shouldAppendRightLeaf(rootLeaf,leaf);
+			shouldAppend(rootLeaf, leaf);
+			// shouldAppendLeftLeaf(rootLeaf,leaf);
+			// shouldAppendRightLeaf(rootLeaf,leaf);
 		}
 	}
 
-//TO DO: clear this duplication
-	void shouldAppendRightLeaf(Leaf<T>* rootLeaf, Leaf<T>* leaf){
-		if(*rootLeaf->data < *leaf->data){
-			if(rootLeaf->right == nullptr){		
-				rootLeaf->right = leaf;
-				listWithTheLeafValues->appendAtEnd(leaf->data);
-			}
-			else{
-				appendLeaf(rootLeaf->right,leaf);
-			}
-		}
-	}
-	void shouldAppendLeftLeaf(Leaf<T>* rootLeaf, Leaf<T>* leaf){
+	
+
+	void shouldAppend(Leaf<T>* rootLeaf, Leaf<T>* leaf){
+		
 		if(*rootLeaf->data > *leaf->data){
-			if(rootLeaf->left == nullptr){
+			if(canAppendLeaf(rootLeaf->left)){
 				rootLeaf->left = leaf;
-				listWithTheLeafValues->appendAtEnd(leaf->data);				
-			}else{
-				appendLeaf(rootLeaf->left,leaf);
 			}
-		}
 	}
+	}
+	
+
+	bool canAppendLeaf(Leaf<T>* leaf){
+		return leaf == nullptr;
+	}
+
+
+//TO DO: clear this duplication
+	// void shouldAppendRightLeaf(Leaf<T>* rootLeaf, Leaf<T>* leaf){
+	// 	if(*rootLeaf->data < *leaf->data){
+	// 		if(rootLeaf->right == nullptr){		
+	// 			rootLeaf->right = leaf;
+	// 			listWithTheLeafValues->appendAtEnd(leaf->data);
+	// 		}
+	// 		else{
+	// 			appendLeaf(rootLeaf->right,leaf);
+	// 		}
+	// 	}
+	// }
+	// void shouldAppendLeftLeaf(Leaf<T>* rootLeaf, Leaf<T>* leaf){
+	// 	if(*rootLeaf->data > *leaf->data){
+	// 		if(rootLeaf->left == nullptr){
+	// 			rootLeaf->left = leaf;
+	// 			listWithTheLeafValues->appendAtEnd(leaf->data);				
+	// 		}else{
+	// 			appendLeaf(rootLeaf->left,leaf);
+	// 		}
+	// 	}
+	// }
 
 	
 
@@ -91,4 +109,11 @@ template <typename T>
 ostream& operator<<(ostream& os, const Tree<T>& tree){
 	tree.listWithTheLeafValues->print();
 	return os;
+}
+
+int main(){
+	Tree<int*> *t  = new Tree(new int{5});
+	t->appendLeaf(new Leaf(new int{3}));
+	// t->appendLeaf(new Leaf(new int{4}));
+	Printer::printTree(t->rootLeaf);
 }
