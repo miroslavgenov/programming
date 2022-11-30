@@ -1,5 +1,5 @@
 #include <iostream>
-#include "/home/home/Desktop/programming/c++/dataStructures/tree/main.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/tree/tree.cpp"
 #include <queue>
 
 using namespace std;
@@ -24,19 +24,21 @@ void bfs(queue<T> &queueWithData){
 }
 	
 int main(){
-
-	Tree* rt = new Tree(3);
-	rt->appendLeaf(rt->rootLeaf,new Leaf{4,nullptr,nullptr});
-	rt->appendLeaf(rt->rootLeaf,new Leaf{1,nullptr,nullptr});
-	rt->appendLeaf(rt->rootLeaf,new Leaf{2,nullptr,nullptr});
-	rt->appendLeaf(rt->rootLeaf,new Leaf{7,nullptr,nullptr});
+	
+	
+	Tree<int*>* rt = new Tree(new int{3});
+	
+	rt->appendLeaf(new Leaf(new int{4}));
+	rt->appendLeaf(new Leaf(new int{1}));
+	rt->appendLeaf(new Leaf(new int{2}));
+	rt->appendLeaf(new Leaf(new int{7}));
 	
 	Printer::printTree(rt->rootLeaf);
-	cout<<endl;
+	// cout<<endl;
 	
-	queue<Leaf*> q;
-	q.push(rt->rootLeaf);
-	bfs(q);
+	// queue<Leaf*> q;
+	// q.push(rt->rootLeaf);
+	// bfs(q);
 	
 	
 	
