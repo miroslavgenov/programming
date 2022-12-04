@@ -4,27 +4,25 @@
 
 template <typename T>
 class Queue{
+	LinkedListHelper<T> *linkedList = nullptr;
 	
-	LinkedList<T>* linkedList = nullptr;
 
 
 public:
 	T* firstInQueue=nullptr;
 	T* lastInQueue=nullptr;
-
-	Queue(T);
+	Queue(T );
+	// Queue(T);
 	
 	void push(T data);
 	
 	bool isEmpty();
 
-	T* pop();
+	T pop();
 
-	T* getTop();
+	T getTop();
 
-	// int size(){
-	// 	return linkedList->size();
-	// }
+	int size();
 
 	template <typename X>
 	friend std::ostream& operator<<(std::ostream& , Queue<X>*);
