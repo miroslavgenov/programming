@@ -3,13 +3,13 @@
 template <typename T>
 Queue<T>::Queue(T data){
 	linkedList = new LinkedListHelper(data);
-	firstInQueue = new T{data};
-	lastInQueue = new T{data};
+	firstInQueue = data;
+	lastInQueue = data;
 }
 
 template <typename T>
 void Queue<T>::push(T data){
-	lastInQueue=new T{data};
+	lastInQueue= data;
     linkedList->appendAtBegining(data);
 }
 
@@ -20,7 +20,7 @@ bool Queue<T>::isEmpty(){
 
 template <typename T>
 T Queue<T>::pop(){
-
+	
     if(linkedList->size() - 1 == 0){
 		firstInQueue=nullptr;
 		lastInQueue=nullptr;
@@ -31,19 +31,14 @@ T Queue<T>::pop(){
 	return linkedList->deleteAtEnd();
 }
 
+
 template <typename T>
-T Queue<T>::getTop(){
-    // todo make getTop(); for linked List
-	return linkedList->getTop();
+int Queue<T>::size(){
+	return linkedList->size();
 }
 
-// template <typename T>
-// int Queue<T>::size(){
-// 	return linkedList->size();
-// }
-
-// template <typename X>
-// std::ostream& operator<<(std::ostream& os, Queue<X>* queue){
-// 	os<<queue->linkedList;
-// 	return os;
-// }
+template <typename X>
+std::ostream& operator<<(std::ostream& os, Queue<X>* queue){
+	queue->linkedList->print();
+	return os;
+}

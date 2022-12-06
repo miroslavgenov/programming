@@ -67,12 +67,12 @@ template <typename X>
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Tree<T>* tree){
-	tree->listWithTheLeafValues->print();
+	Printer::printTree(tree->rootLeaf);
 	return os;
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const Tree<T>& tree){
-	tree.listWithTheLeafValues->print();
+	Printer::printTree(tree.rootLeaf);
 	return os;
 }

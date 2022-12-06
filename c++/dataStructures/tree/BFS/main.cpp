@@ -1,61 +1,62 @@
 #include <iostream>
-// #include "/home/home/Desktop/programming/c++/dataStructures/tree/tree.cpp"
-#include "/home/home/Desktop/programming/c++/dataStructures/Queue/include/Queue.cpp"
+#include <queue>
+#include <vector>
+
+#include "/home/home/Desktop/programming/c++/dataStructures/tree/tree.cpp"
 
 using namespace std;
-	
-// template <typename T>
-// void bfs(queue<T> &queueWithData){
-// 	if(queueWithData.size() > 0){
 
-// 		cout<<queueWithData.front()->data<<endl;
+template <typename T>
+class BFS{
+	public:
+	vector<T> thePathOfTheSearch;
+	queue<T> queueForBfs;
 
-// 		if(queueWithData.front()->left){
-// 			queueWithData.push(queueWithData.front()->left);
-// 		}
+	BFS(T root){
+		// need to fix this if the user pass other than rootLeaf
+		queueForBfs.push(root);
+	}
 
-// 		if(queueWithData.front()->right){
-// 			queueWithData.push(queueWithData.front()->right);
-// 		}
-		
-// 		queueWithData.pop();
-// 		bfs(queueWithData);
-// 	}
-// }
+	void bfs(){
+		if(queueForBfs.empty() == false){
+			cout<<*queueForBfs.front()->data<<endl;
 
-// template <typename T>
-// class BFS{
-// 	public:
-// 	Tree<T> *tree = nullptr;
+			shouldAppendLeafToQueue(queueForBfs.front()->left);
+			shouldAppendLeafToQueue(queueForBfs.front()->right);
+			
 
-// };
+			if(queueForBfs.empty() == false){
+				queueForBfs.pop();
+				bfs();
+			}
+		}
+	}
 
-// template <typename T>
-// void BFS(Tree<T> tree){
+	void shouldAppendLeafToQueue(T leaf){
+		if(leaf){
+			queueForBfs.push(leaf);
+		}
+	}
 
-// }
+
+};
 
 
 int main(){
 	
 	
-	// Tree<int*>* myt = new Tree(new int{3});
+	Tree<int*>* myt = new Tree(new int{3});
 	
-	// myt->appendLeaf(new Leaf(new int{4}));
-	// myt->appendLeaf(new Leaf(new int{1}));
-	// myt->appendLeaf(new Leaf(new int{2}));
-	// myt->appendLeaf(new Leaf(new int{7}));
+
+	myt->appendLeaf(new Leaf(new int{4}));
+	myt->appendLeaf(new Leaf(new int{1}));
+	myt->appendLeaf(new Leaf(new int{2}));
+	myt->appendLeaf(new Leaf(new int{7}));
 	
-	Queue<int*> *q = new Queue(new int{4});
-	q->push(new int{5});
-	q->pop();
-	// Printer::printTree(rt->rootLeaf);
-	// cout<<endl;
+
+	BFS<Leaf<int*>*>* t = new BFS(myt->rootLeaf);
 	
-	// queue<Leaf*> q;
-	// q.push(rt->rootLeaf);
-	// bfs(q);
-	
+	t->bfs();
 	
 	
 

@@ -40,4 +40,8 @@ public:
     void appendAtBegining(T );
     
     void print();
+
+    linkedListStruct<T>* getTop(){
+        return LinkedListGetter::getTheLastElementFromTheLinkedList(&linkedListRoot);
+    }
 };

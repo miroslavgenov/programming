@@ -9,8 +9,8 @@ class Queue{
 
 
 public:
-	T* firstInQueue=nullptr;
-	T* lastInQueue=nullptr;
+	T firstInQueue=nullptr;
+	T lastInQueue=nullptr;
 	Queue(T );
 	// Queue(T);
 	
@@ -20,10 +20,13 @@ public:
 
 	T pop();
 
-	T getTop();
+	T getTop(){
+		return linkedList->getTop()->data;
+	}
 
 	int size();
 
 	template <typename X>
 	friend std::ostream& operator<<(std::ostream& , Queue<X>*);
+
 };
