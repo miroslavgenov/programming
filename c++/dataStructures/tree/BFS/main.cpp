@@ -12,14 +12,15 @@ class BFS{
 	vector<T> thePathOfTheSearch;
 	queue<T> queueForBfs;
 
-	BFS(T root){
+	BFS(T rootLeaf){
 		// need to fix this if the user pass other than rootLeaf
-		queueForBfs.push(root);
+		queueForBfs.push(rootLeaf);
 	}
 
 	void bfs(){
 		if(queueForBfs.empty() == false){
 			cout<<*queueForBfs.front()->data<<endl;
+			thePathOfTheSearch.push_back(queueForBfs.front()->data);
 
 			shouldAppendLeafToQueue(queueForBfs.front()->left);
 			shouldAppendLeafToQueue(queueForBfs.front()->right);
@@ -38,6 +39,10 @@ class BFS{
 		}
 	}
 
+	vector<T> getPath(){
+		return thePathOfTheSearch;
+	}
+
 
 };
 
@@ -45,19 +50,21 @@ class BFS{
 int main(){
 	
 	
-	Tree<int*>* myt = new Tree(new int{3});
+	Tree<int*>* tree = new Tree(new int{3});
 	
 
-	myt->appendLeaf(new Leaf(new int{4}));
-	myt->appendLeaf(new Leaf(new int{1}));
-	myt->appendLeaf(new Leaf(new int{2}));
-	myt->appendLeaf(new Leaf(new int{7}));
+	tree->appendLeaf(new Leaf(new int{4}));
+	tree->appendLeaf(new Leaf(new int{1}));
+	tree->appendLeaf(new Leaf(new int{2}));
+	tree->appendLeaf(new Leaf(new int{7}));
 	
 
-	BFS<Leaf<int*>*>* t = new BFS(myt->rootLeaf);
+	BFS<Leaf<int*>*>* t = new BFS(tree->rootLeaf);
 	
 	t->bfs();
-	
+	vector<Leaf<int*>*> g  = t->getPath();
+
+
 	
 
 }
