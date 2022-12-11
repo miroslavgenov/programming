@@ -12,37 +12,40 @@ class DFS{
     
     vector<T> stack;
     vector<T> storedPath;
+    int theIndexOfTheLastElement;
 
     DFS(T rootLeaf){
         stack.push_back(rootLeaf);
+        theIndexOfTheLastElement = stack.size()-1;
     }   
 
+    
     void dfs(){
         if(stack.empty() == false){
-            if(stack.back()->left){
-                stack.push_back(stack.back()->left);
+            cout<<*stack[theIndexOfTheLastElement]->data<<endl;
+        
+            shouldAppendLeafToStack(stack[theIndexOfTheLastElement]->left);
+            shouldAppendLeafToStack(stack[theIndexOfTheLastElement]->right);
+        
+            if(stack.empty() == false){
+                stack.erase(stack.begin()+theIndexOfTheLastElement);
+                dfs();
             }
-
-             
-            // if(stack.back()->left){
-            //     stack.push_back(stack.back()->left);
-            // }
-            // if(stack.back()->right){
-            //     stack.push_back(stack.back()->right);
-            // }
-
-            // if(stack.empty() == false){
-            //     stack.pop_back();
-            //     dfs();
-            // }
+        }
+        
+        
+    }
+    
+    void shouldAppendLeafToStack(T leaf){
+        if(leaf){
+            stack.push_back(leaf);
         }
     }
+
 
     vector<T> getPath(){
         return storedPath;
     }
-
-
 
 };
 
@@ -56,6 +59,7 @@ int main(){
     
     DFS<Leaf<int*>*>* dfs = new DFS(tree->rootLeaf);
     dfs->dfs();
+
 
 
 }
