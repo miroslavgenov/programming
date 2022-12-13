@@ -4,12 +4,13 @@
 
 #include "/home/home/Desktop/programming/c++/dataStructures/tree/tree.cpp"
 
+#include "/home/home/Desktop/programming/c++/dataStructures/tree/FirstSearchUtil.h"
+
 using namespace std;
 
 template <typename T>
 class BFS{
 	public:
-	vector<T> thePathOfTheSearch;
 	queue<T> queueForBfs;
 
 	BFS(T rootLeaf){
@@ -20,7 +21,6 @@ class BFS{
 	void bfs(){
 		if(queueForBfs.empty() == false){
 			cout<<*queueForBfs.front()->data<<endl;
-			thePathOfTheSearch.push_back(queueForBfs.front()->data);
 
 			shouldAppendLeafToQueue(queueForBfs.front()->left);
 			shouldAppendLeafToQueue(queueForBfs.front()->right);
@@ -39,9 +39,6 @@ class BFS{
 		}
 	}
 
-	vector<T> getPath(){
-		return thePathOfTheSearch;
-	}
 
 
 };
@@ -62,7 +59,6 @@ int main(){
 	BFS<Leaf<int*>*>* t = new BFS(tree->rootLeaf);
 	
 	t->bfs();
-	vector<Leaf<int*>*> g  = t->getPath();
 
 
 	

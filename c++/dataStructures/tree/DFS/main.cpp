@@ -11,7 +11,6 @@ class DFS{
     public:
     
     vector<T> stack;
-    vector<T> storedPath;
     int theIndexOfTheLastElement;
 
     DFS(T rootLeaf){
@@ -43,9 +42,6 @@ class DFS{
     }
 
 
-    vector<T> getPath(){
-        return storedPath;
-    }
 
 };
 
