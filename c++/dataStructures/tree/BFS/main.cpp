@@ -21,9 +21,9 @@ class BFS{
 	void bfs(){
 		if(queueForBfs.empty() == false){
 			cout<<*queueForBfs.front()->data<<endl;
-
-			shouldAppendLeafToQueue(queueForBfs.front()->left);
-			shouldAppendLeafToQueue(queueForBfs.front()->right);
+			
+			FirstSearchUtil::shouldAppendLeafTo(queueForBfs.front()->left,queueForBfs);
+			FirstSearchUtil::shouldAppendLeafTo(queueForBfs.front()->right, queueForBfs);
 			
 
 			if(queueForBfs.empty() == false){
@@ -33,11 +33,11 @@ class BFS{
 		}
 	}
 
-	void shouldAppendLeafToQueue(T leaf){
-		if(leaf){
-			queueForBfs.push(leaf);
-		}
-	}
+	// void shouldAppendLeafToQueue(T leaf){
+	// 	if(leaf){
+	// 		queueForBfs.push(leaf);
+	// 	}
+	// }
 
 
 

@@ -23,8 +23,8 @@ class DFS{
         if(stack.empty() == false){
             cout<<*stack[theIndexOfTheLastElement]->data<<endl;
         
-            shouldAppendLeafToStack(stack[theIndexOfTheLastElement]->left);
-            shouldAppendLeafToStack(stack[theIndexOfTheLastElement]->right);
+            FirstSearchUtil::shouldAppendLeafTo(stack[theIndexOfTheLastElement]->left, stack);
+            FirstSearchUtil::shouldAppendLeafTo(stack[theIndexOfTheLastElement]->right, stack);
         
             if(stack.empty() == false){
                 stack.erase(stack.begin()+theIndexOfTheLastElement);
@@ -35,11 +35,11 @@ class DFS{
         
     }
     
-    void shouldAppendLeafToStack(T leaf){
-        if(leaf){
-            stack.push_back(leaf);
-        }
-    }
+    // void shouldAppendLeafToStack(T leaf){
+        // if(leaf){
+            // stack.push_back(leaf);
+        // }
+    // }
 
 
 
