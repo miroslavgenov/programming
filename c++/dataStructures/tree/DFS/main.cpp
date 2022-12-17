@@ -22,19 +22,23 @@ class DFS{
     
     void dfs(){
         if(stack.empty() == false){
-            // cout<<"stack: "<<&stack<<endl;
-            cout<<*stack[theIndexOfTheLastElement]->data<<endl;
-            
-            // FirstSearchUtil::shouldAppendLeafTo(stack[theIndexOfTheLastElement]->left, stack);
-            // FirstSearchUtil::shouldAppendLeafTo(stack[theIndexOfTheLastElement]->right, stack);
-            // shouldAppendLeafToStack(stack[theIndexOfTheLastElement]->right);
-            // shouldAppendLeafToStack(stack[theIndexOfTheLastElement]->left);
+            // cout<<*stack.back()->data<<endl;
+            T data = stack.back();
+            cout<<*data->data<<endl;
+            stack.pop_back();
+
+
+            shouldAppendLeafToStack(data->right);
+            shouldAppendLeafToStack(data->left);
 
             if(stack.empty() == false){
-                stack.erase(stack.begin()+theIndexOfTheLastElement);
-                // dfs();
+                dfs();
             }
-            cout<<*stack[theIndexOfTheLastElement]->data<<endl;
+
+            // for(auto i: stack){
+            //     cout<<*i->data<<endl;
+            // }
+
         }
         
         
@@ -62,7 +66,5 @@ int main(){
     
     DFS<Leaf<int*>*>* dfs = new DFS(tree->rootLeaf);
     dfs->dfs();
-
-
 
 }

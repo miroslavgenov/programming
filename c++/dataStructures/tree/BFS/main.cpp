@@ -22,27 +22,17 @@ class BFS{
 		if(queueForBfs.empty() == false){
 			cout<<*queueForBfs.front()->data<<endl;
 			
-			// FirstSearchUtil::shouldAppendLeafTo(queueForBfs.front()->left,queueForBfs);
-			// FirstSearchUtil::shouldAppendLeafTo(queueForBfs.front()->right, queueForBfs);
-			// cout<<*queueForBfs.front()->data<<endl;
-			queueForBfs.push(queueForBfs.front()->right);
-			queueForBfs.pop();
-			queueForBfs.push(queueForBfs.front()->left);
-			cout<<queueForBfs.size()<<endl;
-			queueForBfs.pop();
-
-			cout<<*queueForBfs.front()->data<<endl;
-			// shouldAppendLeafToQueue(queueForBfs.front()->right);
-			// shouldAppendLeafToQueue(queueForBfs.front()->left);
+			
+			shouldAppendLeafToQueue(queueForBfs.front()->right);
+			shouldAppendLeafToQueue(queueForBfs.front()->left);
 
 			
 
 			if(queueForBfs.empty() == false){
 				queueForBfs.pop();
-				// bfs();
+				bfs();
 			}
 			
-			// cout<<*queueForBfs.front()->data<<endl;
 		}
 	}
 
@@ -58,8 +48,6 @@ class BFS{
 
 
 int main(){
-	
-	
 	Tree<int*>* tree = new Tree(new int{3});
 	
 	tree->appendLeaf(new Leaf(new int{5}));
@@ -68,7 +56,6 @@ int main(){
 	tree->appendLeaf(new Leaf(new int{2}));
 	tree->appendLeaf(new Leaf(new int{7}));
 	tree->appendLeaf(new Leaf(new int{6}));
-
 	
 
 	BFS<Leaf<int*>*>* t = new BFS(tree->rootLeaf);
