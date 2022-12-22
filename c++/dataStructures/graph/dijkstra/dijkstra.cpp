@@ -2,7 +2,17 @@
 #include <vector>
 #include <limits>
 
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/Vertex.h"
+
 using namespace std;
+
+
+class Dijkstra{
+	public:
+	// const int graphSize = 25;//7;
+// int verticiesDistance[graphSize]{0};
+// bool visitedVerticies[graphSize]{0};
+};
 
 const int graphSize = 25;//7;
 int verticiesDistance[graphSize]{0};
@@ -17,10 +27,10 @@ struct stack{
 	stack* prev;
 };
 
-struct vertex{
-	int vertexNumber;
-	vector<int> childs;
-};
+// struct vertex{
+// 	int vertexNumber;
+// 	vector<int> childs;
+// };
 
 stack* stackRoot=nullptr;
 
@@ -92,21 +102,21 @@ stack* popStack(stack* root){
 	return stackRoot;
 }
 
-bool isVertexInStack(int vertexNumber){
-	stack* point = stackRoot;
+// bool isVertexInStack(int vertexNumber){
+// 	stack* point = stackRoot;
 	
-	while(point->vertexNumber != vertexNumber ){
-		if(point->next){
-			point=point->next;
-		}else{
-			return 0;
-		}
-	}
-	if(point->vertexNumber==vertexNumber){
-		return 1;
-	}
-	return 0;
-}
+// 	while(point->vertexNumber != vertexNumber ){
+// 		if(point->next){
+// 			point=point->next;
+// 		}else{
+// 			return 0;
+// 		}
+// 	}
+// 	if(point->vertexNumber==vertexNumber){
+// 		return 1;
+// 	}
+// 	return 0;
+// }
 
 stack* findMinWeight(stack* stackRoot){
 	stack* point = nullptr;
@@ -184,14 +194,6 @@ void removeFromStack(int vertexNumber, int edgeWeight){
 	}
 }
 
-bool isVerticiesDistanceEmpty(){
-	for(int i=0;i<graphSize;i++){
-		if(verticiesDistance[i] != 0){
-			return false;
-		}
-	}
-	return true;
-}
 
 template <typename T>
 void print(T array[], size_t size){
@@ -223,8 +225,15 @@ void printMinEdgeInfo(stack* mv){
 
 vector<stack*> path;
 
+//findMinimumStackValue
+//removeValueFromStack
+
 void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
-	
+	/*functions: findMinWeight(stackRoot),
+		removeFromStack(mv->vertexNumber,mv->edgeWeight),
+		printMinEdgeInfo(mv);
+		appendStack(stackRoot, new stack{mv->vertexNumber, i, verticiesDistance[mv->vertexNumber] + graph[mv->vertexNumber][i]});
+	*/
 	
 	if(stackRoot){
 		cout<<"stack is not empty"<<endl;
@@ -294,6 +303,7 @@ void dijkstra(int graph[][graphSize], int startVertex, int targetVertex) {
 
 
 int main(){
+	//is it worth to make this into graph class ?
 	int graph[graphSize][graphSize]={
 		// {0,	1,	4,	0,	0,	0,	0,},
 		// {1,	0,	1,	2,	1,	0,	0,},
@@ -355,7 +365,7 @@ int main(){
 	// 	cout<<path[i]->prevVertex<<" "<<path[i]->vertexNumber<<endl;
  //  	}
 
-	
+	// class Dijkstra for path
   	vector<stack*> reversePath;
   	for(int i=path.size()-1; i>=0; i--){
   		reversePath.push_back(path[i]);

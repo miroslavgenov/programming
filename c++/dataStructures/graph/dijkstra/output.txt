@@ -1,0 +1,503 @@
+stack is not empty
+0 2147483647
+the min Edge is from parent: -1 to child: 0 distance: 2147483647
+vertex: 0 is not visited
+you can look all of his child's
+vertext: 0 to child : 1 distance is: 20
+
+stack is not empty
+1 20
+the min Edge is from parent: 0 to child: 1 distance: 20
+vertex: 1 is not visited
+you can look all of his child's
+vertext: 1 to child : 0 distance is: 40
+vertext: 1 to child : 2 distance is: 73
+vertext: 1 to child : 3 distance is: 58
+vertext: 1 to child : 4 distance is: 75
+
+stack is not empty
+0 40
+the min Edge is from parent: 1 to child: 0 distance: 40
+vertex: 0 is visited check if the distance is less than current distance!
+current weight distance to: 0 is: 0 new weight distance is: 40
+check if new distance is less than current weight distance!
+current edge weight: 0 on: 0 is lesser than new: 40 from vertex: 1 don't update
+stack is not empty
+3 58
+the min Edge is from parent: 1 to child: 3 distance: 58
+vertex: 3 is not visited
+you can look all of his child's
+vertext: 3 to child : 1 distance is: 96
+vertext: 3 to child : 5 distance is: 110
+
+stack is not empty
+2 73
+the min Edge is from parent: 1 to child: 2 distance: 73
+vertex: 2 is not visited
+you can look all of his child's
+vertext: 2 to child : 1 distance is: 126
+vertext: 2 to child : 6 distance is: 121
+
+stack is not empty
+4 75
+the min Edge is from parent: 1 to child: 4 distance: 75
+vertex: 4 is not visited
+you can look all of his child's
+vertext: 4 to child : 1 distance is: 130
+vertext: 4 to child : 5 distance is: 129
+vertext: 4 to child : 6 distance is: 122
+
+stack is not empty
+1 96
+the min Edge is from parent: 3 to child: 1 distance: 96
+vertex: 1 is visited check if the distance is less than current distance!
+current weight distance to: 1 is: 20 new weight distance is: 96
+check if new distance is less than current weight distance!
+current edge weight: 20 on: 1 is lesser than new: 96 from vertex: 3 don't update
+stack is not empty
+5 110
+the min Edge is from parent: 3 to child: 5 distance: 110
+vertex: 5 is not visited
+you can look all of his child's
+vertext: 5 to child : 3 distance is: 162
+vertext: 5 to child : 4 distance is: 164
+vertext: 5 to child : 7 distance is: 143
+
+stack is not empty
+6 121
+the min Edge is from parent: 2 to child: 6 distance: 121
+vertex: 6 is not visited
+you can look all of his child's
+vertext: 6 to child : 2 distance is: 169
+vertext: 6 to child : 4 distance is: 168
+vertext: 6 to child : 8 distance is: 167
+
+stack is not empty
+6 122
+the min Edge is from parent: 4 to child: 6 distance: 122
+vertex: 6 is visited check if the distance is less than current distance!
+current weight distance to: 6 is: 121 new weight distance is: 122
+check if new distance is less than current weight distance!
+current edge weight: 121 on: 6 is lesser than new: 122 from vertex: 4 don't update
+stack is not empty
+1 126
+the min Edge is from parent: 2 to child: 1 distance: 126
+vertex: 1 is visited check if the distance is less than current distance!
+current weight distance to: 1 is: 20 new weight distance is: 126
+check if new distance is less than current weight distance!
+current edge weight: 20 on: 1 is lesser than new: 126 from vertex: 2 don't update
+stack is not empty
+5 129
+the min Edge is from parent: 4 to child: 5 distance: 129
+vertex: 5 is visited check if the distance is less than current distance!
+current weight distance to: 5 is: 110 new weight distance is: 129
+check if new distance is less than current weight distance!
+current edge weight: 110 on: 5 is lesser than new: 129 from vertex: 4 don't update
+stack is not empty
+1 130
+the min Edge is from parent: 4 to child: 1 distance: 130
+vertex: 1 is visited check if the distance is less than current distance!
+current weight distance to: 1 is: 20 new weight distance is: 130
+check if new distance is less than current weight distance!
+current edge weight: 20 on: 1 is lesser than new: 130 from vertex: 4 don't update
+stack is not empty
+7 143
+the min Edge is from parent: 5 to child: 7 distance: 143
+vertex: 7 is not visited
+you can look all of his child's
+vertext: 7 to child : 5 distance is: 176
+vertext: 7 to child : 10 distance is: 215
+vertext: 7 to child : 12 distance is: 235
+
+stack is not empty
+3 162
+the min Edge is from parent: 5 to child: 3 distance: 162
+vertex: 3 is visited check if the distance is less than current distance!
+current weight distance to: 3 is: 58 new weight distance is: 162
+check if new distance is less than current weight distance!
+current edge weight: 58 on: 3 is lesser than new: 162 from vertex: 5 don't update
+stack is not empty
+4 164
+the min Edge is from parent: 5 to child: 4 distance: 164
+vertex: 4 is visited check if the distance is less than current distance!
+current weight distance to: 4 is: 75 new weight distance is: 164
+check if new distance is less than current weight distance!
+current edge weight: 75 on: 4 is lesser than new: 164 from vertex: 5 don't update
+stack is not empty
+8 167
+the min Edge is from parent: 6 to child: 8 distance: 167
+vertex: 8 is not visited
+you can look all of his child's
+vertext: 8 to child : 6 distance is: 213
+vertext: 8 to child : 9 distance is: 209
+
+stack is not empty
+4 168
+the min Edge is from parent: 6 to child: 4 distance: 168
+vertex: 4 is visited check if the distance is less than current distance!
+current weight distance to: 4 is: 75 new weight distance is: 168
+check if new distance is less than current weight distance!
+current edge weight: 75 on: 4 is lesser than new: 168 from vertex: 6 don't update
+stack is not empty
+2 169
+the min Edge is from parent: 6 to child: 2 distance: 169
+vertex: 2 is visited check if the distance is less than current distance!
+current weight distance to: 2 is: 73 new weight distance is: 169
+check if new distance is less than current weight distance!
+current edge weight: 73 on: 2 is lesser than new: 169 from vertex: 6 don't update
+stack is not empty
+5 176
+the min Edge is from parent: 7 to child: 5 distance: 176
+vertex: 5 is visited check if the distance is less than current distance!
+current weight distance to: 5 is: 110 new weight distance is: 176
+check if new distance is less than current weight distance!
+current edge weight: 110 on: 5 is lesser than new: 176 from vertex: 7 don't update
+stack is not empty
+9 209
+the min Edge is from parent: 8 to child: 9 distance: 209
+vertex: 9 is not visited
+you can look all of his child's
+vertext: 9 to child : 8 distance is: 255
+vertext: 9 to child : 10 distance is: 276
+vertext: 9 to child : 11 distance is: 233
+
+stack is not empty
+6 213
+the min Edge is from parent: 8 to child: 6 distance: 213
+vertex: 6 is visited check if the distance is less than current distance!
+current weight distance to: 6 is: 121 new weight distance is: 213
+check if new distance is less than current weight distance!
+current edge weight: 121 on: 6 is lesser than new: 213 from vertex: 8 don't update
+stack is not empty
+10 215
+the min Edge is from parent: 7 to child: 10 distance: 215
+vertex: 10 is not visited
+you can look all of his child's
+vertext: 10 to child : 7 distance is: 287
+vertext: 10 to child : 9 distance is: 282
+vertext: 10 to child : 12 distance is: 261
+
+stack is not empty
+11 233
+the min Edge is from parent: 9 to child: 11 distance: 233
+vertex: 11 is not visited
+you can look all of his child's
+vertext: 11 to child : 9 distance is: 257
+vertext: 11 to child : 12 distance is: 307
+
+stack is not empty
+12 235
+the min Edge is from parent: 7 to child: 12 distance: 235
+vertex: 12 is not visited
+you can look all of his child's
+vertext: 12 to child : 7 distance is: 327
+vertext: 12 to child : 10 distance is: 281
+vertext: 12 to child : 11 distance is: 309
+vertext: 12 to child : 13 distance is: 289
+
+stack is not empty
+8 255
+the min Edge is from parent: 9 to child: 8 distance: 255
+vertex: 8 is visited check if the distance is less than current distance!
+current weight distance to: 8 is: 167 new weight distance is: 255
+check if new distance is less than current weight distance!
+current edge weight: 167 on: 8 is lesser than new: 255 from vertex: 9 don't update
+stack is not empty
+9 257
+the min Edge is from parent: 11 to child: 9 distance: 257
+vertex: 9 is visited check if the distance is less than current distance!
+current weight distance to: 9 is: 209 new weight distance is: 257
+check if new distance is less than current weight distance!
+current edge weight: 209 on: 9 is lesser than new: 257 from vertex: 11 don't update
+stack is not empty
+12 261
+the min Edge is from parent: 10 to child: 12 distance: 261
+vertex: 12 is visited check if the distance is less than current distance!
+current weight distance to: 12 is: 235 new weight distance is: 261
+check if new distance is less than current weight distance!
+current edge weight: 235 on: 12 is lesser than new: 261 from vertex: 10 don't update
+stack is not empty
+10 276
+the min Edge is from parent: 9 to child: 10 distance: 276
+vertex: 10 is visited check if the distance is less than current distance!
+current weight distance to: 10 is: 215 new weight distance is: 276
+check if new distance is less than current weight distance!
+current edge weight: 215 on: 10 is lesser than new: 276 from vertex: 9 don't update
+stack is not empty
+10 281
+the min Edge is from parent: 12 to child: 10 distance: 281
+vertex: 10 is visited check if the distance is less than current distance!
+current weight distance to: 10 is: 215 new weight distance is: 281
+check if new distance is less than current weight distance!
+current edge weight: 215 on: 10 is lesser than new: 281 from vertex: 12 don't update
+stack is not empty
+9 282
+the min Edge is from parent: 10 to child: 9 distance: 282
+vertex: 9 is visited check if the distance is less than current distance!
+current weight distance to: 9 is: 209 new weight distance is: 282
+check if new distance is less than current weight distance!
+current edge weight: 209 on: 9 is lesser than new: 282 from vertex: 10 don't update
+stack is not empty
+7 287
+the min Edge is from parent: 10 to child: 7 distance: 287
+vertex: 7 is visited check if the distance is less than current distance!
+current weight distance to: 7 is: 143 new weight distance is: 287
+check if new distance is less than current weight distance!
+current edge weight: 143 on: 7 is lesser than new: 287 from vertex: 10 don't update
+stack is not empty
+13 289
+the min Edge is from parent: 12 to child: 13 distance: 289
+vertex: 13 is not visited
+you can look all of his child's
+vertext: 13 to child : 12 distance is: 343
+vertext: 13 to child : 14 distance is: 325
+vertext: 13 to child : 15 distance is: 439
+
+stack is not empty
+12 307
+the min Edge is from parent: 11 to child: 12 distance: 307
+vertex: 12 is visited check if the distance is less than current distance!
+current weight distance to: 12 is: 235 new weight distance is: 307
+check if new distance is less than current weight distance!
+current edge weight: 235 on: 12 is lesser than new: 307 from vertex: 11 don't update
+stack is not empty
+11 309
+the min Edge is from parent: 12 to child: 11 distance: 309
+vertex: 11 is visited check if the distance is less than current distance!
+current weight distance to: 11 is: 233 new weight distance is: 309
+check if new distance is less than current weight distance!
+current edge weight: 233 on: 11 is lesser than new: 309 from vertex: 12 don't update
+stack is not empty
+14 325
+the min Edge is from parent: 13 to child: 14 distance: 325
+vertex: 14 is not visited
+you can look all of his child's
+vertext: 14 to child : 13 distance is: 361
+vertext: 14 to child : 16 distance is: 425
+
+stack is not empty
+7 327
+the min Edge is from parent: 12 to child: 7 distance: 327
+vertex: 7 is visited check if the distance is less than current distance!
+current weight distance to: 7 is: 143 new weight distance is: 327
+check if new distance is less than current weight distance!
+current edge weight: 143 on: 7 is lesser than new: 327 from vertex: 12 don't update
+stack is not empty
+12 343
+the min Edge is from parent: 13 to child: 12 distance: 343
+vertex: 12 is visited check if the distance is less than current distance!
+current weight distance to: 12 is: 235 new weight distance is: 343
+check if new distance is less than current weight distance!
+current edge weight: 235 on: 12 is lesser than new: 343 from vertex: 13 don't update
+stack is not empty
+13 361
+the min Edge is from parent: 14 to child: 13 distance: 361
+vertex: 13 is visited check if the distance is less than current distance!
+current weight distance to: 13 is: 289 new weight distance is: 361
+check if new distance is less than current weight distance!
+current edge weight: 289 on: 13 is lesser than new: 361 from vertex: 14 don't update
+stack is not empty
+16 425
+the min Edge is from parent: 14 to child: 16 distance: 425
+vertex: 16 is not visited
+you can look all of his child's
+vertext: 16 to child : 14 distance is: 525
+vertext: 16 to child : 17 distance is: 445
+vertext: 16 to child : 20 distance is: 512
+
+stack is not empty
+15 439
+the min Edge is from parent: 13 to child: 15 distance: 439
+vertex: 15 is not visited
+you can look all of his child's
+vertext: 15 to child : 13 distance is: 589
+vertext: 15 to child : 17 distance is: 473
+vertext: 15 to child : 18 distance is: 527
+
+stack is not empty
+17 445
+the min Edge is from parent: 16 to child: 17 distance: 445
+vertex: 17 is not visited
+you can look all of his child's
+vertext: 17 to child : 15 distance is: 479
+vertext: 17 to child : 16 distance is: 465
+vertext: 17 to child : 19 distance is: 532
+
+stack is not empty
+16 465
+the min Edge is from parent: 17 to child: 16 distance: 465
+vertex: 16 is visited check if the distance is less than current distance!
+current weight distance to: 16 is: 425 new weight distance is: 465
+check if new distance is less than current weight distance!
+current edge weight: 425 on: 16 is lesser than new: 465 from vertex: 17 don't update
+stack is not empty
+17 473
+the min Edge is from parent: 15 to child: 17 distance: 473
+vertex: 17 is visited check if the distance is less than current distance!
+current weight distance to: 17 is: 445 new weight distance is: 473
+check if new distance is less than current weight distance!
+current edge weight: 445 on: 17 is lesser than new: 473 from vertex: 15 don't update
+stack is not empty
+15 479
+the min Edge is from parent: 17 to child: 15 distance: 479
+vertex: 15 is visited check if the distance is less than current distance!
+current weight distance to: 15 is: 439 new weight distance is: 479
+check if new distance is less than current weight distance!
+current edge weight: 439 on: 15 is lesser than new: 479 from vertex: 17 don't update
+stack is not empty
+20 512
+the min Edge is from parent: 16 to child: 20 distance: 512
+vertex: 20 is not visited
+you can look all of his child's
+vertext: 20 to child : 16 distance is: 599
+vertext: 20 to child : 19 distance is: 529
+vertext: 20 to child : 22 distance is: 623
+
+stack is not empty
+14 525
+the min Edge is from parent: 16 to child: 14 distance: 525
+vertex: 14 is visited check if the distance is less than current distance!
+current weight distance to: 14 is: 325 new weight distance is: 525
+check if new distance is less than current weight distance!
+current edge weight: 325 on: 14 is lesser than new: 525 from vertex: 16 don't update
+stack is not empty
+18 527
+the min Edge is from parent: 15 to child: 18 distance: 527
+vertex: 18 is not visited
+you can look all of his child's
+vertext: 18 to child : 15 distance is: 615
+vertext: 18 to child : 19 distance is: 561
+vertext: 18 to child : 21 distance is: 570
+
+stack is not empty
+19 529
+the min Edge is from parent: 20 to child: 19 distance: 529
+vertex: 19 is not visited
+you can look all of his child's
+vertext: 19 to child : 17 distance is: 616
+vertext: 19 to child : 18 distance is: 563
+vertext: 19 to child : 20 distance is: 546
+
+stack is not empty
+19 532
+the min Edge is from parent: 17 to child: 19 distance: 532
+vertex: 19 is visited check if the distance is less than current distance!
+current weight distance to: 19 is: 529 new weight distance is: 532
+check if new distance is less than current weight distance!
+current edge weight: 529 on: 19 is lesser than new: 532 from vertex: 17 don't update
+stack is not empty
+20 546
+the min Edge is from parent: 19 to child: 20 distance: 546
+vertex: 20 is visited check if the distance is less than current distance!
+current weight distance to: 20 is: 512 new weight distance is: 546
+check if new distance is less than current weight distance!
+current edge weight: 512 on: 20 is lesser than new: 546 from vertex: 19 don't update
+stack is not empty
+19 561
+the min Edge is from parent: 18 to child: 19 distance: 561
+vertex: 19 is visited check if the distance is less than current distance!
+current weight distance to: 19 is: 529 new weight distance is: 561
+check if new distance is less than current weight distance!
+current edge weight: 529 on: 19 is lesser than new: 561 from vertex: 18 don't update
+stack is not empty
+18 563
+the min Edge is from parent: 19 to child: 18 distance: 563
+vertex: 18 is visited check if the distance is less than current distance!
+current weight distance to: 18 is: 527 new weight distance is: 563
+check if new distance is less than current weight distance!
+current edge weight: 527 on: 18 is lesser than new: 563 from vertex: 19 don't update
+stack is not empty
+21 570
+the min Edge is from parent: 18 to child: 21 distance: 570
+vertex: 21 is not visited
+you can look all of his child's
+vertext: 21 to child : 18 distance is: 613
+vertext: 21 to child : 22 distance is: 648
+
+stack is not empty
+13 589
+the min Edge is from parent: 15 to child: 13 distance: 589
+vertex: 13 is visited check if the distance is less than current distance!
+current weight distance to: 13 is: 289 new weight distance is: 589
+check if new distance is less than current weight distance!
+current edge weight: 289 on: 13 is lesser than new: 589 from vertex: 15 don't update
+stack is not empty
+16 599
+the min Edge is from parent: 20 to child: 16 distance: 599
+vertex: 16 is visited check if the distance is less than current distance!
+current weight distance to: 16 is: 425 new weight distance is: 599
+check if new distance is less than current weight distance!
+current edge weight: 425 on: 16 is lesser than new: 599 from vertex: 20 don't update
+stack is not empty
+18 613
+the min Edge is from parent: 21 to child: 18 distance: 613
+vertex: 18 is visited check if the distance is less than current distance!
+current weight distance to: 18 is: 527 new weight distance is: 613
+check if new distance is less than current weight distance!
+current edge weight: 527 on: 18 is lesser than new: 613 from vertex: 21 don't update
+stack is not empty
+15 615
+the min Edge is from parent: 18 to child: 15 distance: 615
+vertex: 15 is visited check if the distance is less than current distance!
+current weight distance to: 15 is: 439 new weight distance is: 615
+check if new distance is less than current weight distance!
+current edge weight: 439 on: 15 is lesser than new: 615 from vertex: 18 don't update
+stack is not empty
+17 616
+the min Edge is from parent: 19 to child: 17 distance: 616
+vertex: 17 is visited check if the distance is less than current distance!
+current weight distance to: 17 is: 445 new weight distance is: 616
+check if new distance is less than current weight distance!
+current edge weight: 445 on: 17 is lesser than new: 616 from vertex: 19 don't update
+stack is not empty
+22 623
+the min Edge is from parent: 20 to child: 22 distance: 623
+vertex: 22 is not visited
+you can look all of his child's
+vertext: 22 to child : 20 distance is: 734
+vertext: 22 to child : 21 distance is: 701
+vertext: 22 to child : 23 distance is: 670
+vertext: 22 to child : 24 distance is: 723
+
+stack is not empty
+22 648
+the min Edge is from parent: 21 to child: 22 distance: 648
+vertex: 22 is visited check if the distance is less than current distance!
+current weight distance to: 22 is: 623 new weight distance is: 648
+check if new distance is less than current weight distance!
+current edge weight: 623 on: 22 is lesser than new: 648 from vertex: 21 don't update
+stack is not empty
+23 670
+the min Edge is from parent: 22 to child: 23 distance: 670
+vertex: 23 is not visited
+you can look all of his child's
+vertext: 23 to child : 22 distance is: 717
+vertext: 23 to child : 24 distance is: 762
+
+stack is not empty
+21 701
+the min Edge is from parent: 22 to child: 21 distance: 701
+vertex: 21 is visited check if the distance is less than current distance!
+current weight distance to: 21 is: 570 new weight distance is: 701
+check if new distance is less than current weight distance!
+current edge weight: 570 on: 21 is lesser than new: 701 from vertex: 22 don't update
+stack is not empty
+22 717
+the min Edge is from parent: 23 to child: 22 distance: 717
+vertex: 22 is visited check if the distance is less than current distance!
+current weight distance to: 22 is: 623 new weight distance is: 717
+check if new distance is less than current weight distance!
+current edge weight: 623 on: 22 is lesser than new: 717 from vertex: 23 don't update
+stack is not empty
+24 723
+the min Edge is from parent: 22 to child: 24 distance: 723
+vertex: 24 is not visited
+you can look all of his child's
+vertext: 24 to child : 22 distance is: 823
+vertext: 24 to child : 23 distance is: 815
+
+targetVertex: 24 is found tha min path is: 723
+0 20 73 58 75 110 121 143 167 209 215 233 235 289 325 439 425 445 527 529 512 570 623 670 723 
+
+24 22 20 16 14 13 12 7 5 3 1 0 
+0 1 3 5 7 12 13 14 16 20 22 24 
