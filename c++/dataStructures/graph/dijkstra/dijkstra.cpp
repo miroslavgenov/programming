@@ -3,6 +3,7 @@
 #include <limits>
 
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/Vertex.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/Stack/include/Stack.cpp"
 
 using namespace std;
 

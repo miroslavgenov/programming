@@ -2,6 +2,7 @@
 #include <iostream>
 #include "/home/home/Desktop/programming/c++/dataStructures/LinkedList/include/LinkedListHelper.cpp"
 
+//NOTE: remove from stack by value
 template <typename T>
 class Stack{
 public:

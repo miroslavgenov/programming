@@ -1,3 +1,3 @@
-g++ -o dijkstra dijkstra.cpp
-./dijkstra
+g++ -o main main.cpp
+./main
 
