@@ -4,42 +4,76 @@
 
 using namespace std;
 
-struct connection{
+struct vertexConnection{
     int connectionFromVertex;
     int connectionToVertex;
-    int weight;
+    int connectionWeight;
 };
 
-template <typename T>
-void findTheMinimumConnectionWeight(Stack<T>* stack){
-    // find the element and remove it
-    if(stack->isEmpty() == false){
-        linkedListStruct<T>* point =  stack->linkedListHelper->linkedListRoot;
+// isVertexConnectionMinimum(weight: int): bool
+// setTheMinimumVertexConnection(srcData, dstData: srcVertexConnection,vertexConnection**): void
 
-        int minimumConnectionWeight = point->data->weight; 
-
-        while(point){
-            //finding minimum the element
-            minimumConnectionWeight = minimumConnectionWeight >  point->data->weight ? point->data->weight : minimumConnectionWeight;
-            point = point->next;
-        }
-        cout<<minimumConnectionWeight<<endl;
-    }
+bool isTheNewConnectionWeightLessThan(int currentConnectionWeight, int prevConnectionWeight){
+    return prevConnectionWeight > currentConnectionWeight;
 }
 
 template <typename T>
-void removeFromStackByConnection(Stack<T>* stack, connection* currectConnection){
+vertexConnection* findTheMinimumConnectionWeight(Stack<T>* stack){
+    vertexConnection* minimumConnection = nullptr;
+    
+    if(stack->isEmpty() == false){
+        linkedListStruct<T>* point =  stack->linkedListHelper->linkedListRoot;
+
+        int minimumConnectionWeight = point->data->connectionWeight; 
+
+        while(point){
+            if(minimumConnectionWeight > point->data->connectionWeight ){                
+                // cout<<point->data->connectionFromVertex<<" "<<point->data->connectionToVertex<<" "<<point->data->connectionWeight<<endl;
+                
+                minimumConnection = new vertexConnection{
+                    point->data->connectionFromVertex,
+                    point->data->connectionToVertex,
+                    point->data->connectionWeight
+                };
+            }
+            
+            
+            point = point->next;
+        }
+
+        
+    }
+
+    return minimumConnection;
+}
+
+
+template <typename T>
+void removeFromStackByVertexConnection(Stack<T>* stack, vertexConnection* currectConnection){
     if(stack->isEmpty() == false){
         //search and remove the element
     }
 }
 
-int main(){
-    Stack<connection*> * stack  = new Stack(new connection{1,1,3});
-    stack->push(new connection{4,4,2});
-    stack->push(new connection{1,2,1});
+template <typename T>
+void print(Stack<T>* stack){
+    if(stack->isEmpty() == false){
+        linkedListStruct<T> * point = stack->linkedListHelper->linkedListRoot;
 
-    findTheMinimumConnectionWeight(stack);
-    removeFromStackByConnection(stack, stack->linkedListHelper->linkedListRoot->data);
+        while(point){
+            cout<<point->data->connectionWeight<<endl;
+            point = point->next;
+        }
+    }
+}
+
+int main(){
+    Stack<vertexConnection*> * stack  = new Stack(new vertexConnection{1,1,3});
+    stack->push(new vertexConnection{4,4,2});
+    stack->push(new vertexConnection{1,2,1});
+
+    vertexConnection* t = findTheMinimumConnectionWeight(stack);
+    cout<<"lol hello"<<endl;
+    cout<<t->connectionFromVertex<<" "<<t->connectionToVertex<<" "<<t->connectionWeight<<endl;
     
 }
