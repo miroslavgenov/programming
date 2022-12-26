@@ -28,7 +28,7 @@ vertexConnection* findTheMinimumConnectionWeight(Stack<T>* stack){
 
         while(point){
             if(minimumConnectionWeight > point->data->connectionWeight ){                
-                // cout<<point->data->connectionFromVertex<<" "<<point->data->connectionToVertex<<" "<<point->data->connectionWeight<<endl;
+                // print(point->data);
                 
                 minimumConnection = new vertexConnection{
                     point->data->connectionFromVertex,
@@ -47,11 +47,37 @@ vertexConnection* findTheMinimumConnectionWeight(Stack<T>* stack){
     return minimumConnection;
 }
 
+void print(vertexConnection* connection){
+    cout<<"connectionFromVertex: "<<connection->connectionFromVertex<<"\nConnectionToVertex: "<<connection->connectionToVertex<<"\nConnectionWeight: "<<connection->connectionWeight<<endl;
+}
+
+bool isVertexConnectionsEqual(vertexConnection* first, vertexConnection* sec){
+     if(first->connectionFromVertex == sec->connectionFromVertex & first->connectionToVertex == sec->connectionToVertex & first->connectionWeight == sec->connectionWeight){
+        return true;
+     }
+
+     return false;
+}
 
 template <typename T>
 void removeFromStackByVertexConnection(Stack<T>* stack, vertexConnection* currectConnection){
     if(stack->isEmpty() == false){
-        //search and remove the element
+        linkedListStruct<T>* point = stack->linkedListHelper->linkedListRoot;
+
+        while(point){
+
+            
+            if(isVertexConnectionsEqual(point->data, currectConnection) == true){
+                //remove the element from the stack
+                
+                break;
+
+            }
+
+            point = point->next;
+            
+        }
+
     }
 }
 
@@ -73,7 +99,6 @@ int main(){
     stack->push(new vertexConnection{1,2,1});
 
     vertexConnection* t = findTheMinimumConnectionWeight(stack);
-    cout<<"lol hello"<<endl;
-    cout<<t->connectionFromVertex<<" "<<t->connectionToVertex<<" "<<t->connectionWeight<<endl;
-    
+
+    removeFromStackByVertexConnection(stack,t);
 }
