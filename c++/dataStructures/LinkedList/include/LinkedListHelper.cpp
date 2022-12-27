@@ -9,7 +9,12 @@ LinkedListHelper<T>::LinkedListHelper(T data){
         std::cout<<LinkedListException::CONSTRUCTOR_ERROR<<std::endl;
     }
 }
-        
+
+// template <typename T>
+// void LinkedListHelper<T>::decrementSize(){
+//     LinkedListSizeHelper::decrementSize();
+// }
+
 template <typename T>        
 T LinkedListHelper<T>::top(){
     return LinkedListGetter::getTheLastElementFromTheLinkedList(&linkedListRoot)->data;

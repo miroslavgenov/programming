@@ -25,11 +25,19 @@ public:
     
     LinkedListHelper(T );
     
+    void decrementSize(){
+        if(linkedListSizer != nullptr){
+            linkedListSizer->decrementSize();
+        }
+    }
+
     T top();
 
     int size();
 
     void appendAtEnd(T );
+
+    // void decrementSize();
 
     T deleteAtEnd() noexcept(false);
 
