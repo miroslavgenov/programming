@@ -72,6 +72,7 @@ bool isVertexConnectionsEqual(vertexConnection* first, vertexConnection* sec){
 template <typename T>
 void removeFromStackByVertexConnection(Stack<T>* stack,linkedListStruct<T>** t, vertexConnection* target){
     linkedListStruct<T>* p = *t;
+    // if the target is first in stack
     if(isVertexConnectionsEqual(p->data, target)){
         p->data->connectionFromVertex = p->next->data->connectionFromVertex;
         p->data->connectionToVertex = p->next->data->connectionToVertex;
@@ -79,34 +80,12 @@ void removeFromStackByVertexConnection(Stack<T>* stack,linkedListStruct<T>** t, 
         p->next = p->next->next;
         stack->linkedListHelper->decrementSize();
     }
+    // if target is not first in stack
+    else{
+        cout<<"the target is not first in stack"<<endl;
+    }
 
-    // cout<<*stack<<endl;
-    // Stack<T>& point = stack;
     
-    // if(stack->isEmpty() == false){
-        // print(point->data);
-        // print(target);
-        //if the target is not the first node
-        // if(isVertexConnectionsEqual(point->data, target) == true){
-            // cout<<"true"<<endl;
-            // point = point->next;
-        // }
-
-        // else{}
-        // while(point->next){
-            // if(isVertexConnectionsEqual(point->next->data, target)){
-                // cout<<point->data->connectionWeight<<endl;
-                // break;
-            // }
-
-            
-            // if(point->next){
-                // point = point->next;
-            // }
-            
-        // }
-
-    // }
 }
 
 template <typename T>
@@ -123,7 +102,7 @@ void print(Stack<T>* stack){
 
 int main(){
     Stack<vertexConnection*> * stack  = new Stack(new vertexConnection{1,1,1});
-    stack->push(new vertexConnection{4,4,3});
+    stack->push(new vertexConnection{4,4,0});
     stack->push(new vertexConnection{1,2,2});
 
     vertexConnection* target = findTheMinimumConnectionWeight(stack);
@@ -131,13 +110,13 @@ int main(){
     // print(stack);
     // cout<<endl;
     // cout<<&stack<<endl; 
-    cout<<"stack size: "<<stack->size()<<endl;
+    // cout<<"stack size: "<<stack->size()<<endl;
     removeFromStackByVertexConnection(stack,&stack->linkedListHelper->linkedListRoot,target);
     // stack->linkedListHelper->
     // stack->linkedListHelper->decrementSize();
 
-    cout<<"stack size: "<<stack->size()<<endl;  
+    // cout<<"stack size: "<<stack->size()<<endl;  
     // cout<<endl;
-    print(stack);
+    // print(stack);
 
 }
