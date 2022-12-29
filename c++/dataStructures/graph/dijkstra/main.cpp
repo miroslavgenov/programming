@@ -70,19 +70,42 @@ bool isVertexConnectionsEqual(vertexConnection* first, vertexConnection* sec){
 }
 
 template <typename T>
-void removeFromStackByVertexConnection(Stack<T>* stack,linkedListStruct<T>** t, vertexConnection* target){
-    linkedListStruct<T>* p = *t;
-    // if the target is first in stack
-    if(isVertexConnectionsEqual(p->data, target)){
-        p->data->connectionFromVertex = p->next->data->connectionFromVertex;
-        p->data->connectionToVertex = p->next->data->connectionToVertex;
-        p->data->connectionWeight = p->next->data->connectionWeight;
-        p->next = p->next->next;
-        stack->linkedListHelper->decrementSize();
-    }
-    // if target is not first in stack
-    else{
-        cout<<"the target is not first in stack"<<endl;
+void removeFromStackByVertexConnection(Stack<T>* stack,linkedListStruct<T>** linkedListRoot, vertexConnection* target){
+    if(stack->isEmpty() == false){
+        linkedListStruct<T>* linkedListRootPointer = *linkedListRoot;
+        // if the target is first in stack
+        if(isVertexConnectionsEqual(linkedListRootPointer->data, target)){
+            stack->linkedListHelper->deleteAtBegining();
+        }
+        // if target is not first in stack
+        else{
+            cout<<"the target is not first in stack"<<endl;
+            while(linkedListRootPointer->next){
+                if(isVertexConnectionsEqual(linkedListRootPointer->next->data, target)){
+                    // print(linkedListRootPointer->data);
+                    // print(linkedListRootPointer->next->data);
+
+                    // if next don't have next do this ...
+                    if(linkedListRootPointer->next->next == nullptr){
+                        cout<<"next  dont have next"<<endl;
+                        stack->linkedListHelper->deleteAtEnd();
+                        
+                    }
+                    // if the next have next->next do this ...
+                    else if(linkedListRootPointer->next->next != nullptr){
+                        cout<<"next has next"<<endl;
+                        linkedListRootPointer->next = linkedListRootPointer->next->next;
+                        stack->linkedListHelper->decrementSize();
+
+                    }
+
+                    break;
+                }
+                
+                linkedListRootPointer = linkedListRootPointer->next;
+            }
+
+        }
     }
 
     
@@ -102,21 +125,10 @@ void print(Stack<T>* stack){
 
 int main(){
     Stack<vertexConnection*> * stack  = new Stack(new vertexConnection{1,1,1});
-    stack->push(new vertexConnection{4,4,0});
-    stack->push(new vertexConnection{1,2,2});
+    stack->push(new vertexConnection{4,4,2});
+    stack->push(new vertexConnection{1,2,0});
 
     vertexConnection* target = findTheMinimumConnectionWeight(stack);
-    // print(target);
-    // print(stack);
-    // cout<<endl;
-    // cout<<&stack<<endl; 
-    // cout<<"stack size: "<<stack->size()<<endl;
+    
     removeFromStackByVertexConnection(stack,&stack->linkedListHelper->linkedListRoot,target);
-    // stack->linkedListHelper->
-    // stack->linkedListHelper->decrementSize();
-
-    // cout<<"stack size: "<<stack->size()<<endl;  
-    // cout<<endl;
-    // print(stack);
-
 }
