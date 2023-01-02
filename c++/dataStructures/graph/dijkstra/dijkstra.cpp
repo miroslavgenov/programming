@@ -356,6 +356,7 @@ int main(){
 	appendStack(stackRoot, new stack{-1,0,verticiesDistance[0],nullptr, nullptr});
 	dijkstra(graph,0,24);
 	
+	cout<<"distances"<<endl;
 	for(int i=0;i<graphSize;i++){
 		cout<<verticiesDistance[i]<<" ";
 	}
@@ -368,42 +369,49 @@ int main(){
 
 	// class Dijkstra for path
   	vector<stack*> reversePath;
-  	for(int i=path.size()-1; i>=0; i--){
-  		reversePath.push_back(path[i]);
-  	}cout<<endl;
+  	// for(int i=path.size()-1; i>=0; i--){
+  	// 	reversePath.push_back(path[i]);
+  	// }cout<<endl;
   	
-  	// filter path
-  	int vertexParent ;
-  	vector<int> reverseFilteredPath;
-  	for(int i=0;i<reversePath.size();i++){
-		if(i == 0){
-			vertexParent = reversePath[i]->prevVertex;
-			cout<<reversePath[i]->vertexNumber<<" ";
-			reverseFilteredPath.push_back(reversePath[i]->vertexNumber);
-		}else{
-			if(vertexParent == reversePath[i]->vertexNumber){
-			cout<<reversePath[i]->vertexNumber<<" ";
-			// cout<<reversePath[i]->prevVertex<<" "<<reversePath[i]->vertexNumber<<endl;	
-			vertexParent = reversePath[i]->prevVertex;
-			reverseFilteredPath.push_back(reversePath[i]->vertexNumber);
-			if(vertexParent == -1){
-				break;
-			}
-		}	
-		}	
-	}	
+  	// // filter path
+  	// int vertexParent ;
+  	// vector<int> reverseFilteredPath;
+  	// for(int i=0;i<reversePath.size();i++){
+	// 	if(i == 0){
+	// 		vertexParent = reversePath[i]->prevVertex;
+	// 		cout<<reversePath[i]->vertexNumber<<" ";
+	// 		reverseFilteredPath.push_back(reversePath[i]->vertexNumber);
+	// 	}else{
+	// 		if(vertexParent == reversePath[i]->vertexNumber){
+	// 		cout<<reversePath[i]->vertexNumber<<" ";
+	// 		// cout<<reversePath[i]->prevVertex<<" "<<reversePath[i]->vertexNumber<<endl;	
+	// 		vertexParent = reversePath[i]->prevVertex;
+	// 		reverseFilteredPath.push_back(reversePath[i]->vertexNumber);
+	// 		if(vertexParent == -1){
+	// 			break;
+	// 		}
+	// 	}	
+	// 	}	
+	// }	
 	
-	// final Path
-	vector<int> finalPath;
-	for(int i= reverseFilteredPath.size()-1; i>=0;i--){
-		finalPath.push_back(reverseFilteredPath[i]);
-	}
+	// // final Path
+	// vector<int> finalPath;
+	// for(int i= reverseFilteredPath.size()-1; i>=0;i--){
+	// 	finalPath.push_back(reverseFilteredPath[i]);
+	// }
 
-	cout<<endl;
-  	for(int i=0;i<finalPath.size(); i++){
-  		cout<<finalPath[i]<<" ";
-  	}
+	// cout<<endl;
+  	// for(int i=0;i<finalPath.size(); i++){
+  	// 	cout<<finalPath[i]<<" ";
+  	// }
 
+	// cout<<endl;
+	// cout<<endl;
+	// cout<<"distances"<<endl;
+	// for(int i: verticiesDistance){
+	// 	cout<<i<<", ";
+	// }
+	// cout<<endl;
 
 }
 
