@@ -1,9 +1,6 @@
 #include <iostream>
-#include <vector>
-#include <limits>
 
-#include "/home/home/Desktop/programming/c++/dataStructures/Stack/include/Stack.cpp"
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/dijkstra.h"
 
 using namespace std;
 
@@ -19,186 +16,67 @@ void fillVerticiesDistanceWithInfinity(){
 	}
 }
 
-
-// struct vertexConnection{
-//     int connectionFromVertex;
-//     int connectionToVertex;
-//     int connectionWeight;
-// };
+// void print(vertexConnection* connection){
+//     cout<<"connectionFromVertex: "<<connection->connectionFromVertex<<"\nConnectionToVertex: "<<connection->connectionToVertex<<"\nConnectionWeight: "<<connection->connectionWeight<<endl;
+// }
 
 
-// isVertexConnectionMinimum(weight: int): bool
-// setTheMinimumVertexConnection(srcData, dstData: srcVertexConnection,vertexConnection**): void
+// template <typename T>
+// void print(Stack<T>* stack){
+//     if(stack->isEmpty() == false){
+//         linkedListStruct<T> * point = stack->linkedListHelper->linkedListRoot;
 
-bool isTheNewConnectionWeightLessThan(int currentConnectionWeight, int prevConnectionWeight){
-    return prevConnectionWeight > currentConnectionWeight;
-}
+//         while(point){
+//             cout<<point->data->connectionWeight<<endl;
+//             point = point->next;
+//         }
+//     }
+// }
 
-template <typename T>
-vertexConnection* findTheMinimumConnectionWeight(Stack<T>* stack){
-    vertexConnection* minimumConnection = nullptr;
-    
-    if(stack->isEmpty() == false){
+
+// template <typename T>
+// void dijkstra(Stack<T>* stack, int graph[][graphSize], int endVertexLocation){
+//     if(stack->isEmpty() == false){
+//         // cout<<"dijkstra stack is not empty"<<endl;
         
-        linkedListStruct<T>* point =  stack->linkedListHelper->linkedListRoot;
+//         //get the minvc and remove it
+//         vertexConnection* minvc =DijkstraStackUtil::findTheMinimumConnectionWeight(stack);
+//         DijkstraStackUtil::removeFromStackByVertexConnection(stack,&stack->linkedListHelper->linkedListRoot,minvc);
 
-        int minimumConnectionWeight = point->data->connectionWeight; 
+        
+//         // is the current minvc weight lesser than the stored distance if yes then write the lesser 
+//         if(minvc->connectionWeight < verticiesDistance[minvc->connectionToVertex]){
+//             verticiesDistance[minvc->connectionToVertex] = minvc->connectionWeight;
+//         }
 
-        minimumConnection = new vertexConnection{
-                    point->data->connectionFromVertex,
-                    point->data->connectionToVertex,
-                    point->data->connectionWeight
-                };
+//         //append the other connections if any
+//         int connectionWeight = 0;
+//         int currentVertexConnectionWeight = 0;
 
-        while(point){
-            if(minimumConnectionWeight > point->data->connectionWeight ){                
-                // print(point->data);
-                
-                minimumConnection = new vertexConnection{
-                    point->data->connectionFromVertex,
-                    point->data->connectionToVertex,
-                    point->data->connectionWeight
-                };
-            }
+//         // loop throug the connected verticies
+//         for(int i=0;i<graphSize;i++){
+//             currentVertexConnectionWeight = graph[minvc->connectionToVertex][i];
+//             // if the weight is not 0 and lesser than the written connection append to stack
+//             if(currentVertexConnectionWeight!=0){
+//                 connectionWeight = minvc->connectionWeight + currentVertexConnectionWeight;
+//                 if(verticiesDistance[i] > connectionWeight){
+//                     // cout<<"connection from: "<<minvc->connectionToVertex<<" to: "<<i<<" with weight: "<<connectionWeight<<endl;
+//                     stack->push(new vertexConnection{minvc->connectionToVertex,i,connectionWeight});
+//                 }
+
+//             }
             
-            
-            point = point->next;
-        }
+//         }
 
-        
-    }
+//         if(minvc->connectionToVertex == endVertexLocation){
+//             return;
+//         }else{
+//             dijkstra(stack,graph,endVertexLocation);
+//         }
 
-    return minimumConnection;
-}
+//     }
 
-void print(vertexConnection* connection){
-    cout<<"connectionFromVertex: "<<connection->connectionFromVertex<<"\nConnectionToVertex: "<<connection->connectionToVertex<<"\nConnectionWeight: "<<connection->connectionWeight<<endl;
-}
-
-bool isVertexConnectionsEqual(vertexConnection* first, vertexConnection* sec){
-     if(first != nullptr && sec != nullptr){
-        if(first->connectionFromVertex == sec->connectionFromVertex & first->connectionToVertex == sec->connectionToVertex & first->connectionWeight == sec->connectionWeight){
-            return true;
-        }
-     }
-        
-
-     return false;
-}
-
-template <typename T>
-void removeFromStackByVertexConnection(Stack<T>* stack,linkedListStruct<T>** linkedListRoot, vertexConnection* target){
-    if(stack->isEmpty() == false){
-        linkedListStruct<T>* linkedListRootPointer = *linkedListRoot;
-        // if the target is first in stack
-        if(isVertexConnectionsEqual(linkedListRootPointer->data, target)){
-            stack->linkedListHelper->deleteAtBegining();
-        }
-        // if target is not first in stack
-        else{
-            // cout<<"the target is not first in stack"<<endl;
-            while(linkedListRootPointer->next){
-                if(isVertexConnectionsEqual(linkedListRootPointer->next->data, target)){
-                    // print(linkedListRootPointer->data);
-                    // print(linkedListRootPointer->next->data);
-
-                    // if next don't have next do this ...
-                    if(linkedListRootPointer->next->next == nullptr){
-                        // cout<<"next  dont have next"<<endl;
-                        stack->linkedListHelper->deleteAtEnd();
-                        
-                    }
-                    // if the next have next->next do this ...
-                    else if(linkedListRootPointer->next->next != nullptr){
-                        // cout<<"next has next"<<endl;
-                        linkedListRootPointer->next = linkedListRootPointer->next->next;
-                        stack->linkedListHelper->decrementSize();
-
-                    }
-
-                    break;
-                }
-                
-                linkedListRootPointer = linkedListRootPointer->next;
-            }
-
-        }
-    }
-
-    
-}
-
-template <typename T>
-void print(Stack<T>* stack){
-    if(stack->isEmpty() == false){
-        linkedListStruct<T> * point = stack->linkedListHelper->linkedListRoot;
-
-        while(point){
-            cout<<point->data->connectionWeight<<endl;
-            point = point->next;
-        }
-    }
-}
-
-template <typename T>
-class Dijkstra{
-    int graphSize;// = 25;//7;
-    int *verticiesDistance = nullptr;
-    int **graph = nullptr;
-public:
-    Dijkstra(int **graph, int graphSize){
-
-    }
-
-    // void dijkstra(Stack<T>* stack, int graph[][graphSize], int endVertexLocation){
-
-    // }
-
-};
-
-template <typename T>
-void dijkstra(Stack<T>* stack, int graph[][graphSize], int endVertexLocation){
-    if(stack->isEmpty() == false){
-        // cout<<"dijkstra stack is not empty"<<endl;
-        
-        //get the minvc and remove it
-        vertexConnection* minvc = findTheMinimumConnectionWeight(stack);
-        removeFromStackByVertexConnection(stack,&stack->linkedListHelper->linkedListRoot,minvc);
-
-        
-        // is the current minvc weight lesser than the stored distance if yes then write the lesser 
-        if(minvc->connectionWeight < verticiesDistance[minvc->connectionToVertex]){
-            verticiesDistance[minvc->connectionToVertex] = minvc->connectionWeight;
-        }
-
-        //append the other connections if any
-        int connectionWeight = 0;
-        int currentVertexConnectionWeight = 0;
-
-        // loop throug the connected verticies
-        for(int i=0;i<graphSize;i++){
-            currentVertexConnectionWeight = graph[minvc->connectionToVertex][i];
-            // if the weight is not 0 and lesser than the written connection append to stack
-            if(currentVertexConnectionWeight!=0){
-                connectionWeight = minvc->connectionWeight + currentVertexConnectionWeight;
-                if(verticiesDistance[i] > connectionWeight){
-                    // cout<<"connection from: "<<minvc->connectionToVertex<<" to: "<<i<<" with weight: "<<connectionWeight<<endl;
-                    stack->push(new vertexConnection{minvc->connectionToVertex,i,connectionWeight});
-                }
-
-            }
-            
-        }
-
-        if(minvc->connectionToVertex == endVertexLocation){
-            return;
-        }else{
-            dijkstra(stack,graph,endVertexLocation);
-        }
-
-    }
-
-}
+// }
 
 
 
@@ -252,14 +130,19 @@ int main(){
 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 92, 0}, 
 
 	};
-
-	fillVerticiesDistanceWithInfinity();
+    
+    dijkstra<vertexConnection*>* dijk = new dijkstra(graph, graphSize);
+    
+	// fillVerticiesDistanceWithInfinity();
 
     //init the staring vertex weight
-    vertexConnection* startingVertex = new vertexConnection{-1,0,0};
-    verticiesDistance[startingVertex->connectionToVertex] = 0;
+    // vertexConnection* startingVertex = new vertexConnection{-1,0,0};
+    // verticiesDistance[startingVertex->connectionToVertex] = 0;
 
-    Stack<vertexConnection*> *stack = new Stack(startingVertex);
+    // Stack<vertexConnection*> *stack = new Stack(startingVertex);
     
-    dijkstra(stack, graph, 24);
+    // dijkstra(stack, graph, 24);
+    // for(int i: verticiesDistance){
+    //     cout<<i<<", ";
+    // }
 }
