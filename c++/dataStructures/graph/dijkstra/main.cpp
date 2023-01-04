@@ -1,76 +1,14 @@
 #include <iostream>
 
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/dijkstra.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/dijkstra.cpp"
 
 using namespace std;
 
 const int graphSize = 25;//7;
-int verticiesDistance[graphSize]{0};
-bool visitedVerticies[graphSize]{0};
 
 
 
-// void print(vertexConnection* connection){
-//     cout<<"connectionFromVertex: "<<connection->connectionFromVertex<<"\nConnectionToVertex: "<<connection->connectionToVertex<<"\nConnectionWeight: "<<connection->connectionWeight<<endl;
-// }
 
-
-// template <typename T>
-// void print(Stack<T>* stack){
-//     if(stack->isEmpty() == false){
-//         linkedListStruct<T> * point = stack->linkedListHelper->linkedListRoot;
-
-//         while(point){
-//             cout<<point->data->connectionWeight<<endl;
-//             point = point->next;
-//         }
-//     }
-// }
-
-
-// template <typename T>
-// void dijkstra(Stack<T>* stack, int graph[][graphSize], int endVertexLocation){
-//     if(stack->isEmpty() == false){
-//         // cout<<"dijkstra stack is not empty"<<endl;
-        
-//         //get the minvc and remove it
-//         vertexConnection* minvc =DijkstraStackUtil::findTheMinimumConnectionWeight(stack);
-//         DijkstraStackUtil::removeFromStackByVertexConnection(stack,&stack->linkedListHelper->linkedListRoot,minvc);
-
-        
-//         // is the current minvc weight lesser than the stored distance if yes then write the lesser 
-//         if(minvc->connectionWeight < verticiesDistance[minvc->connectionToVertex]){
-//             verticiesDistance[minvc->connectionToVertex] = minvc->connectionWeight;
-//         }
-
-//         //append the other connections if any
-//         int connectionWeight = 0;
-//         int currentVertexConnectionWeight = 0;
-
-//         // loop throug the connected verticies
-//         for(int i=0;i<graphSize;i++){
-//             currentVertexConnectionWeight = graph[minvc->connectionToVertex][i];
-//             // if the weight is not 0 and lesser than the written connection append to stack
-//             if(currentVertexConnectionWeight!=0){
-//                 connectionWeight = minvc->connectionWeight + currentVertexConnectionWeight;
-//                 if(verticiesDistance[i] > connectionWeight){
-//                     // cout<<"connection from: "<<minvc->connectionToVertex<<" to: "<<i<<" with weight: "<<connectionWeight<<endl;
-//                     stack->push(new vertexConnection{minvc->connectionToVertex,i,connectionWeight});
-//                 }
-
-//             }
-            
-//         }
-
-//         if(minvc->connectionToVertex == endVertexLocation){
-//             return;
-//         }else{
-//             dijkstra(stack,graph,endVertexLocation);
-//         }
-
-//     }
-
-// }
 
 
 
@@ -125,14 +63,7 @@ int main(){
 
 	};
 
-    // for(int i=0;i<graphSize;i++){
-    //     for(int j =0;j<graphSize;j++){
-    //         cout<<graph[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-    // cout<<endl;
-    
+
     // from two dimension to one dimension graph
     int graphInSingleDimension[sizeof(graph)/sizeof(int)]{};
     // cout<<sizeof(graph)/sizeof(int)<<endl;
@@ -145,40 +76,11 @@ int main(){
     }
     
 
-    //algorithm to transform the single dimension into two dimension
-    // int newline = 0;
-    // for(int i=0;i<sizeof(graph)/sizeof(int);i++){
-        
-    //     cout<<graphInSingleDimension[i]<<" ";
-    //     newline++;
-    //     if(newline == 25){
-    //         cout<<endl;
-    //         newline=0;
-    //     }
-    // }
 
     dijkstra* dijk = new dijkstra(graphInSingleDimension, graphSize);
-    dijk->findPathToVertex(24);
-    
-    for(int i=0;i<graphSize;i++){
-        cout<<dijk->verticiesDistance[i]<<" ";
-    }
+    dijk->findTheSortestPathToAllVerticies();
+    cout<<endl;
+    dijk->showDistances();
     
 
-    // int **g = new int*[graphSize];
-    
-    
-
-	// fillVerticiesDistanceWithInfinity();
-
-    //init the staring vertex weight
-    // vertexConnection* startingVertex = new vertexConnection{-1,0,0};
-    // verticiesDistance[startingVertex->connectionToVertex] = 0;
-
-    // Stack<vertexConnection*> *stack = new Stack(startingVertex);
-    
-    // dijkstra(stack, graph, 24);
-    // for(int i: verticiesDistance){
-    //     cout<<i<<", ";
-    // }
 }
