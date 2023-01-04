@@ -8,13 +8,7 @@ const int graphSize = 25;//7;
 int verticiesDistance[graphSize]{0};
 bool visitedVerticies[graphSize]{0};
 
-void fillVerticiesDistanceWithInfinity(){
-	int infinity = std::numeric_limits<int>::max();
-	
-	for(int i= 0;i<graphSize;i++){
-		verticiesDistance[i] = infinity;
-	}
-}
+
 
 // void print(vertexConnection* connection){
 //     cout<<"connectionFromVertex: "<<connection->connectionFromVertex<<"\nConnectionToVertex: "<<connection->connectionToVertex<<"\nConnectionWeight: "<<connection->connectionWeight<<endl;
@@ -130,9 +124,51 @@ int main(){
 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 92, 0}, 
 
 	};
+
+    // for(int i=0;i<graphSize;i++){
+    //     for(int j =0;j<graphSize;j++){
+    //         cout<<graph[i][j]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+    // cout<<endl;
     
-    dijkstra<vertexConnection*>* dijk = new dijkstra(graph, graphSize);
+    // from two dimension to one dimension graph
+    int graphInSingleDimension[sizeof(graph)/sizeof(int)]{};
+    // cout<<sizeof(graph)/sizeof(int)<<endl;
+    int it = 0;
+    for(int i =0;i<graphSize;i++){
+        for(int j=0;j<graphSize;j++){
+            graphInSingleDimension[it++] = graph[i][j];
+                
+        }
+    }
     
+
+    //algorithm to transform the single dimension into two dimension
+    // int newline = 0;
+    // for(int i=0;i<sizeof(graph)/sizeof(int);i++){
+        
+    //     cout<<graphInSingleDimension[i]<<" ";
+    //     newline++;
+    //     if(newline == 25){
+    //         cout<<endl;
+    //         newline=0;
+    //     }
+    // }
+
+    dijkstra* dijk = new dijkstra(graphInSingleDimension, graphSize);
+    dijk->findPathToVertex(24);
+    
+    for(int i=0;i<graphSize;i++){
+        cout<<dijk->verticiesDistance[i]<<" ";
+    }
+    
+
+    // int **g = new int*[graphSize];
+    
+    
+
 	// fillVerticiesDistanceWithInfinity();
 
     //init the staring vertex weight
