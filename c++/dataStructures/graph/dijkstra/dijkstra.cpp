@@ -17,13 +17,15 @@
         // initialize the begining        
         // the graph size must be initialize first to get the verticiesdisnces initialized
         graphSize = twoDimensionGraphSize;
-        verticiesDistance = new int[graphSize];
-        verticiesVisited = new bool[graphSize];
-        fillVerticiesDistanceWithInfinity();
+
+        initializeAndFillVerticiesDistancesWithInfinity();
         
         
+        //initializeTheGraphAndFillTheInnerArrays();
+        //initializeTheGraph();
         graph = new int*[twoDimensionGraphSize];
-        
+
+        //fillTheInnerArrayOfTheGraph();
         // // fill the outer arrays with inner arrays
         for(int i = 0; i < graphSize; i++){
             graph[i] = new int[twoDimensionGraphSize];
@@ -42,6 +44,32 @@
         verticiesDistance[stack->getTop()->connectionToVertex] = 0;
         
         
+        
+    }
+
+
+
+
+    void dijkstra::initializeAndFillVerticiesDistancesWithInfinity(){
+        //NOTE: don't change the order of the function calls
+        initializeVerticiesDistance(); 
+        fillVerticiesDistanceWithInfinity();
+    }
+
+    void dijkstra::initializeVerticiesDistance(){
+        verticiesDistance = new int[graphSize];
+    }
+
+
+    void dijkstra::initializeTheGraphAndFillTheInnerArrays(){
+        
+    }
+
+    void dijkstra::initializeTheGraph(){
+        
+    }
+
+    void dijkstra::fillTheInnerArrayOfTheGraph(){
         
     }
 

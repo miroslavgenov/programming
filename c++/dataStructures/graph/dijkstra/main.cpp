@@ -6,15 +6,6 @@ using namespace std;
 
 const int graphSize = 25;//7;
 
-
-
-
-
-
-
-
-
-
 int main(){
 	//is it worth to make this into graph class ?
 	int graph[graphSize][graphSize]={
@@ -75,12 +66,8 @@ int main(){
         }
     }
     
-
-
     dijkstra* dijk = new dijkstra(graphInSingleDimension, graphSize);
     dijk->findTheSortestPathToAllVerticies();
     cout<<endl;
     dijk->showDistances();
-    
-
 }

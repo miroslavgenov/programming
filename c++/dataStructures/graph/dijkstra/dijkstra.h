@@ -4,7 +4,7 @@
 
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/DijkstraStackUtil.h"
 
-
+//vertical, name refactor
 class dijkstra{
     int **graph=nullptr;
     int graphSize;
@@ -12,12 +12,17 @@ class dijkstra{
 
 public:
     int *verticiesDistance = nullptr;
-    bool* verticiesVisited = nullptr;
 
     dijkstra(int [], int );
 
 private:
+    void initializeAndFillVerticiesDistancesWithInfinity();
+    void initializeVerticiesDistance();
     void fillVerticiesDistanceWithInfinity();
+
+    void initializeTheGraphAndFillTheInnerArrays();
+    void initializeTheGraph();
+    void fillTheInnerArrayOfTheGraph();
 
 public:
     void findTheSortestPathToAllVerticies();
