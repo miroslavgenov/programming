@@ -1,9 +1,5 @@
 #pragma once
 
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
-#include "/home/home/Desktop/programming/c++/dataStructures/Stack/include/Stack.cpp"
-
-
 class DijkstraStackUtil{
     public:
     static bool isVertexConnectionsEqualTo(vertexConnection* first, vertexConnection* sec){

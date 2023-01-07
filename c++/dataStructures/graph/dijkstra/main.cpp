@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/dijkstra.cpp"
-
 using namespace std;
+
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/dijkstra.cpp"
 
 const int graphSize = 25;//7;
 
@@ -50,7 +50,7 @@ int main(){
 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 78, 0, 0}, 
 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 111, 78, 0, 47, 100}, 
 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 47, 0, 92}, 
-{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 92, 0}, 
+{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 92, 0}
 
 	};
 

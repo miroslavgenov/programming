@@ -2,30 +2,33 @@
 #include <iostream>
 #include <limits>
 
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/Stack/include/Stack.cpp"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/DijkstraStackUtil.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/DijkstraUtil.h"
 
-//vertical, name refactor
 class dijkstra{
     int **graph=nullptr;
     int graphSize;
     Stack<vertexConnection*>* stack = nullptr;
+    int *verticiesDistance = nullptr;
+    vertexConnection* minimumVertexConnection = nullptr;
 
 public:
-    int *verticiesDistance = nullptr;
-
     dijkstra(int [], int );
 
 private:
+    void transferTheSingleGraphIntoTwoDimensional(int []);
+
+    void fillTheGraphWithVerticies();
+
     void initializeAndFillVerticiesDistancesWithInfinity();
-    void initializeVerticiesDistance();
+
     void fillVerticiesDistanceWithInfinity();
 
-    void initializeTheGraphAndFillTheInnerArrays();
-    void initializeTheGraph();
-    void fillTheInnerArrayOfTheGraph();
+    bool isThereAConnectionFromAVertexToAVertex(int , int );
 
 public:
-    void findTheSortestPathToAllVerticies();
-
     void showDistances();
+    void findTheSortestPathToAllVerticies();
 };
