@@ -4,10 +4,7 @@
 using namespace std;
 
 const int s = 4;
-
-
 void printGraph(int g[][s]);
-
 
 struct edgeConnection{
 	//TODO: rename fromEdgeNumber to fromVertexNumber
@@ -32,18 +29,15 @@ bool isStackEmpty(){
 void appendStack(stack* stackRoot,stack* value){
 	stack* point = nullptr;
 	if(isStackEmpty()){
-		
-		::stackRoot = new stack{value->edgeConnection,nullptr,nullptr};
-		
+		::stackRoot = new stack{value->edgeConnection,nullptr,nullptr};	
 	}else{
 		point = stackRoot;
-	while(point->next){
-		point=point->next;
+		while(point->next){
+			point=point->next;
+		}
+		point->next = value;
+		value->prev = point;	
 	}
-	point->next = value;
-	value->prev = point;	
-	}
-	
 }
 
 void printStack(stack* root){
@@ -54,16 +48,12 @@ void printStack(stack* root){
 			point=point->next;
 		}	
 	}
-	else
-	{
+	else{
 		cout<<"STACK IS EMPTY"<<endl;	
 	}
-	
-	
 }
 
 stack* popStack(stack* root){
-
 	int fromEdge,toEdge,value;
 
 	if(!root){
@@ -92,16 +82,10 @@ stack* popStack(stack* root){
 	return stackRoot;
 }
 
-
-
-
-
-
 int totalVerticies=0;
 
 int span[s][s]{0}; // contains the minimum path
 int gCon[s][s]{0};
-
 
 stack* createNewStack(int fromEdge, int toEdge, int value){
   return new stack{new edgeConnection{fromEdge,toEdge,value}, nullptr, nullptr};
@@ -120,8 +104,6 @@ stack* getStackElement(int index){
 		point = point->next;
 	}
 	return nullptr;
-	
-	
 }
 
 edgeConnection* getShortesConnectionAndIncrementTotalConnections(int g[][s]){
@@ -130,28 +112,26 @@ edgeConnection* getShortesConnectionAndIncrementTotalConnections(int g[][s]){
 	int *edgeNumber = nullptr;
 	int *fromEdge = nullptr;
   	
-	
-		
-		for(int i = 0; i < s; i++){
-			for(int j=0; j<s; j++){
-				if(g[i][j] != 0){
-					if(min == nullptr){
+	for(int i = 0; i < s; i++){
+		for(int j=0; j<s; j++){
+			if(g[i][j] != 0){
+				if(min == nullptr){
+					min = new int{g[i][j]};
+					edgeNumber = new int{j};
+					fromEdge = new int{i};
+				}else{
+					if(*min > g[i][j]){
 						min = new int{g[i][j]};
-						edgeNumber = new int{j};
 						fromEdge = new int{i};
-					}else{
-						if(*min > g[i][j]){
-							min = new int{g[i][j]};
-							fromEdge = new int{i};
-							edgeNumber = new int{j};
-						}
+						edgeNumber = new int{j};
 					}
 				}
-			} 
-		}
-		::totalVerticies++;
-		appendStack(stackRoot, createNewStack(*fromEdge,*edgeNumber,*min));
-		return new edgeConnection{*fromEdge, *edgeNumber, *min};
+			}
+		} 
+	}
+	::totalVerticies++;
+	appendStack(stackRoot, createNewStack(*fromEdge,*edgeNumber,*min));
+	return new edgeConnection{*fromEdge, *edgeNumber, *min};
 }
 
 void printShortesConnectionInGraph(int g[][s]){
@@ -174,8 +154,7 @@ void printShortesConnectionInGraph(int g[][s]){
         }
       }
     }
-    }
-    
+    }    
   }
   cout<<"from: "<<*fromEdge<<" to: "<<*edgeNumber<<" is: "<<*min<<endl;
   
@@ -196,18 +175,12 @@ bool isSpanEmpty(int span[][s]){
 	return true;
 }
 
-
-
 void appendToSpan(int span[][s], int fromEdge , int toEdge, int value){
 	span[fromEdge][toEdge] = value;
 	span[toEdge][fromEdge] = value;
 }
 
-
-
 void clearConnection(int [][s], edgeConnection*);
-
-
 
 bool visitedEdges[s]{0};
 void clearVisitedEdges(){
@@ -215,7 +188,6 @@ void clearVisitedEdges(){
 		visitedEdges[i]=0;
 	}
 }
-
 
 vector<int> edgeFullPath;
 vector<int> currentEdge;
@@ -228,28 +200,21 @@ void getTheFullPathFromSpecificEdge(int graph[][s],int targetEdge, vector<int> e
     for(int i=0;i<s;i++){
       if(graph[targetEdge][i] != 0){
 				if(visitedEdges[i]==0){
-
 					currentEdge.push_back(i);
 					cout<<targetEdge<<" ednge appended: "<<i<<endl;
 					
 					getTheFullPathFromSpecificEdge(graph,currentEdge[currentEdge.size()-1],edgeFullPath);
 					currentEdge.pop_back();
 				}
-    }
-    
+    }    
   }
 }
 }
-
-
 
 int getGraphTargetedEdgePathLenght(int graph[][s] , int targetEdge){
   getTheFullPathFromSpecificEdge(graph,targetEdge,::edgeFullPath);
   return ::edgeFullPath.size();
 }
-
-
-
 
 vector<int> edgeVisited;
 // stack to implement dfs
@@ -262,24 +227,20 @@ void dfs(int gr[][s],int i){
 
 		vstack.push_back(i);
 		edgeVisited.push_back(i);
-    edgeFullPath.push_back(i);
+		edgeFullPath.push_back(i);
 		
 		for(int j =0; j<s; j++){
 			if(gr[i][j] != 0){
 				if(visitedEdges[j]==0){
-
 					vstack.push_back(j);
 					cout<<i<<" ednge appended: "<<j<<endl;
 					
 					dfs(gr,vstack[vstack.size()-1]);
 					vstack.pop_back();
 				}
-
 			}
 		}
 	}
-	
-	
 }
 
 bool isEdgeInTheSameGraphInSpan(vector<int> edgeVisited,int e){
@@ -289,7 +250,6 @@ bool isEdgeInTheSameGraphInSpan(vector<int> edgeVisited,int e){
 		}
 	}
 	return false;
-	
 }
 
 // TODO EDIT this function
@@ -301,7 +261,6 @@ void kruskal(int g[][s], int span[][s]){
 		cout<<"done"<<endl;
 	}else{
 		if(isSpanEmpty(span)){
-			
 			cout<<"span is empty"<<endl;
 			cout<<"totalVeriticies are: "<<totalVerticies<<endl;
 			ed = getShortesConnectionAndIncrementTotalConnections(::gCon);
@@ -317,8 +276,6 @@ void kruskal(int g[][s], int span[][s]){
 			printGraph(gCon);
 			cout<<"totalVeriticies are: "<<totalVerticies<<endl;
       		kruskal(g,span);
-			
-			
 		}else{
 			cout<<endl<<"span is not empty"<<endl;
 			cout<<"totalVeriticies are: "<<totalVerticies<<endl;
@@ -334,7 +291,6 @@ void kruskal(int g[][s], int span[][s]){
 				appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
 				printGraph(span);
 				printGraph(gCon);
-				
 			}else{
 				cout<<"size> 1"<<endl;
 				cout<<ed->fromEdgeNumber<<" "<<ed->toEdgeNumber<<" "<<ed->value<<endl;
@@ -354,15 +310,10 @@ void kruskal(int g[][s], int span[][s]){
 					clearConnection(gCon,ed);
 					appendToSpan(span,ed->fromEdgeNumber,ed->toEdgeNumber,ed->value);
 				}
-			
 			}
-
-			kruskal(g,span);
-			
-		}
-		
+			kruskal(g,span);	
+		}	
 	}
-	
 }
 
 vector<int> ssteck;
@@ -371,7 +322,6 @@ void dfsPr(int span[][s],int i){
   if(visitedEdges[i] == 0){
     visitedEdges[i] = 1;
     ssteck.push_back(i);
-    
     
     for(int j=0;j<s;j++){
       if(span[i][j] !=0 && visitedEdges[j] == 0)
@@ -383,7 +333,6 @@ void dfsPr(int span[][s],int i){
       ssteck.pop_back();
       }
     }
-    
   }
 }
 
@@ -393,8 +342,6 @@ int main(){
 			{10,0,0,15},
 			{6,0,0,4},
 			{5,15,4,0}
-
-
 	};
 	
   // copyGraph(int src[][s], int dst[][s]);
@@ -405,16 +352,10 @@ int main(){
 		}
 	}
 	
-
 	kruskal(g,span);
 	
-
 	dfsPr(span,0);
 	cout<<spanWeight<<endl;
-	
-	
-	
-	
 }
 
 void clearConnection(int gCon[][s], edgeConnection* ed){
@@ -431,54 +372,3 @@ void printGraph(int g[][s]){
   }
   cout<<endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
