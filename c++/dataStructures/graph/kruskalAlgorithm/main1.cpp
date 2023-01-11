@@ -1,68 +1,78 @@
 #include <iostream>
+#include <vector>
 
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
 
 using namespace std;
 
+bool visitedVerticies[6]{};
+enum GraphFlags : bool {empty = true, notEmpty = false, visited = true, notVisited = false};
+
+
 //find the minimum connection
-// void findTheMinimumVertexConnection
-void findTheMinimumConnection(int **graph, int graphSize){
-    //TO DO: there is some error and can't find the fromVertex,toVertex
-    // if the graph is not empty then you can find the minimum connection
 
-// int    minimumWeight = 0, fromVertex = 0 , toVertex = 0;
-// vertexConnection* m = nullptr;
-//     for(int i = 0; i < graphSize; i++){
-//         for(int j = 0; j < graphSize; j++){
-//             if(graph[i][j] != 0){
-//                 //initialize the minimumconnection
-//                 if(minimumWeight == 0){
-//                     minimumWeight = graph[i][j];
-//                     cout<<minimumWeight<<endl;
-//                 }else{
-                    
-                    
-//                     if(minimumWeight > graph[i][j]){
-//                         //add the wast visited, maybe make structure that store the data
-//                         //about the connected verticies
-//                         minimumWeight = graph[i][j];
-//                         // m = new vertexConnection{i,j,graph[i][j]};
-//                         // cout<<m->connectionWeight<<endl;
-//                         cout<<i<<j<<endl;
-//                         fromVertex = i;
-//                         toVertex = j;
+vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
+    //! only if the graph is not empty !
+    vertexConnection *vt  = nullptr;
 
-//                     }
-//                 }   
-//                 // cout<<"there is a connection ";
-//                 // cout<<"from: "<<i<<" to: "<<j<<" with Weight of: "<<graph[i][j]<<endl;
-//             }
-//         }
-//     }
-//     cout<<"the minimum weight is: "<<minimumWeight<<endl;
-//     cout<<fromVertex<<" "<<toVertex<<" "<<minimumWeight<<endl;
-//     // cout<<m->connectionFromVertex<<" "<<m->connectionToVertex<<" "<<m->connectionWeight<<endl;
-//     // cout<<m->connectionWeight<<endl;
+    int min = 0;
+    for(int i=0;i<graphSize;i++){
+        for(int j=0;j<graphSize;j++){
+            // only check if the weight is different than 0
+            if(graph[i][j] !=0 ){
+                //initialize the minWeight
+                if(min == 0){
+                    min = graph[i][j];
+                    vt = new vertexConnection{i,j,graph[i][j]};
+                }
+                //if the minWeight is initialized
+                else{
+                    // check if the graphWeight is lesser then the min weight
+                    if(min > graph[i][j]){
+                        // store the data
+                        min = graph[i][j];
+                        vt = new vertexConnection{i,j,graph[i][j]};
+                    }
+                }
+            }
+        }
+    }
     
+    return vt;
 }
 
-// check if both verticies are visited
-// bool isBothVerticiesVisited(int firstVertex, int secondVertex){
-    // return isisVertexVisited(firstVertex) && isVertexVisited(secondVertex);
-// }
+bool isVertexVisited(int vertexNumber){
+    return visitedVerticies[vertexNumber] == GraphFlags::visited;
+}
 
-// bool isVertexVisited(int vertexNumber){
-    // return 
-// }
+bool isBothVerticiesVisited(int firstVertex, int secondVertex){
+    return isVertexVisited(firstVertex) && isVertexVisited(secondVertex);
+}
+
 
 // if they are not visited mark them as visited
-// void markVerticiesAsVisited()
+void markVertexAsVisited(int vertexNumber){
+    visitedVerticies[vertexNumber] = 1;
+}
+
+void markBothVerticiesAsVisited(int vertexNumbers[]){
+    markVertexAsVisited(vertexNumbers[0]);
+    markVertexAsVisited(vertexNumbers[1]);
+}
+
 
 // add the connection to a new graph
 // void addTheConnectionToNewGraph()
+void addTheConnectionsToTheNewGraph(int **newGraph, vertexConnection* vt){
+    newGraph[vt->connectionFromVertex][vt->connectionToVertex] = vt->connectionWeight;
+    newGraph[vt->connectionToVertex][vt->connectionFromVertex]  = vt->connectionWeight;
+}
 
 // remove the connection from the old graph
-//void removeTheConnectionFromTheOldGraph()
+void removeTheConnectionsFromTheOldGraph(int **graph, vertexConnection* vt){
+    graph[vt->connectionFromVertex][vt->connectionToVertex] =0;
+    graph[vt->connectionToVertex][vt->connectionFromVertex] =0;
+}
 
 // if only one vertex is visted add the new connection to the new graph
 // if(isBothVerticiesVisited == true) check whether one of them are visited or not
@@ -76,7 +86,6 @@ void findTheMinimumConnection(int **graph, int graphSize){
     // finish
 // }
 
-enum GraphEmpty : bool {empty = true, notEmpty = false};
 
 bool isGraphEmpty(int **graph, int graphSize){
     
@@ -84,17 +93,34 @@ bool isGraphEmpty(int **graph, int graphSize){
         for(int j=0;j<graphSize;j++){
 
             if(graph[i][j] != 0 ){
-                return GraphEmpty::notEmpty;
+                return GraphFlags::notEmpty;
             }
         }
     }
 
 
-    return GraphEmpty::empty;
+    return GraphFlags::empty;
 }
 
+void print(int** graph, int graphSize){
+    for(int i=0;i<graphSize;i++){
+        for(int j=0;j<graphSize;j++){
+            cout<<graph[i][j]<<" ";
+        }cout<<endl;
+    }
+}
 
-bool visitedVerticies[6]{};
+void kruskal(int **graph, int graphSize, int **newGraph){
+    if(isGraphEmpty(graph,graphSize) == false){
+        vertexConnection* vt = findTheMinimumConnection(graph, graphSize);
+        
+        if(isBothVerticiesVisited(vt->connectionFromVertex, vt->connectionToVertex) == false){
+
+        }else{
+
+        }
+    }
+}
 
 int main(){
     int graphSize = 6;
@@ -122,8 +148,16 @@ int main(){
         }
     }
 
+    int **newGraph = new int*[graphSize];
+    for(int i=0;i<graphSize;i++){
+        newGraph[i] = new int[graphSize];
+    }
+
+    kruskal(graph, graphSize, newGraph);
+
     // isGraphEmpty(graph, graphSize);
-    findTheMinimumConnection(graph, graphSize);
+    
+
 
     
     
