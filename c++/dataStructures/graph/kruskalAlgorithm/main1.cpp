@@ -55,9 +55,9 @@ void markVertexAsVisited(int vertexNumber){
     visitedVerticies[vertexNumber] = 1;
 }
 
-void markBothVerticiesAsVisited(int vertexNumbers[]){
-    markVertexAsVisited(vertexNumbers[0]);
-    markVertexAsVisited(vertexNumbers[1]);
+void markBothVerticiesAsVisited(vertexConnection* vt){
+    markVertexAsVisited(vt->connectionFromVertex);
+    markVertexAsVisited(vt->connectionToVertex);
 }
 
 
@@ -110,34 +110,116 @@ void print(int** graph, int graphSize){
     }
 }
 
-void kruskal(int **graph, int graphSize, int **newGraph){
-    if(isGraphEmpty(graph,graphSize) == false){
-        vertexConnection* vt = findTheMinimumConnection(graph, graphSize);
+
+vector<int> stack;
+vector<int> loopS;
+const int graphSize = 4;
+bool vV[graphSize]{};
+
+void dfs(int **graph){
+    while(stack.empty() == false){
+        int cv = stack.back();
+        stack.pop_back();
+
         
-        if(isBothVerticiesVisited(vt->connectionFromVertex, vt->connectionToVertex) == false){
+        cout<<cv<<endl;
 
-        }else{
-
+            for(int i=0;i<graphSize;i++){
+                if(graph[cv][i] !=0){
+                    if(vV[i] == 0){
+                        //no loop
+                        vV[i] = 1;
+                        stack.push_back(i);
+                        cout<<"no loop from: "<<cv<<" to: "<<i<<endl;
+                        loopS.push_back(i);
+                    }else{
+                        //loop
+                        // cout<<"from: "<<cv<<" to: "<<i<<" there will be a loop"<<endl;
+                    }
+                }
+            }
+            
         }
-    }
+
+        
+    
 }
 
-int main(){
-    int graphSize = 6;
+bool isEveryVertexVisited(){
+    for(int i=0;i<graphSize;i++){
+        if(visitedVerticies[i] != 1){
+            return false;
+        }
+    }
+    return true;
+}
+
+void kruskal(int **graph, int graphSize, int **newGraph){
     
+    /**
+     * is every vertex visited
+     * no 
+     * find the minimum vertex to vertex connection
+     * check if you add it to the new graph there will be a loop
+     * store the verticies that doesn't make a loop
+     * if there is no loop then add it to the graph
+     * continue until all verticies are visited
+     * yes end
+     * 
+     */
+    if(isEveryVertexVisited() == false){
+        cout<<"kruskal"<<endl;
+
+        vertexConnection* vt = findTheMinimumConnection(graph,graphSize);
+        cout<<vt->connectionFromVertex<<" "<<vt->connectionToVertex<<" "<<vt->connectionWeight<<endl;
+
+        addTheConnectionsToTheNewGraph(newGraph,vt);
+        
+        for(int i=0;i<graphSize;i++){
+        for(int j=0;j<graphSize;j++){
+            if(newGraph[i][j] !=0){
+                stack.push_back(j);
+                cout<<j<<endl;
+                break;
+            }
+        }
+            break;
+    }
+
+    // vV[stack.back()] = 1;
+    // dfs(newGraph);
+        
+        dfs(newGraph);
+        for(int i: loopS){
+            cout<<i<<" ";
+        }
+        cout<<endl;
+        // check for loop
+    }
+
+    
+}
+
+
+
+
+
+
+int main(){
     int graphCp[graphSize][graphSize] = {
-        //  0 1 2 3 4 5
-        {0,1,2,6,0,0},
-        {1,0,0,1,0,2},
-        {2,0,0,3,0,0},
-        {0,1,3,0,2,3},
-        {0,0,0,2,0,0},
-        {0,2,0,3,0,0}
-	};
+       //0 1 2 3
+        {0,1,2,0}, //0
+        {1,0,2,3}, //1
+        {2,2,0,2}, //2
+        {0,3,2,0}  //3
+	};    
+    
+    
+    
 
     int **graph = new int*[graphSize];
     // make this function
-    for(int i=0;i<graphSize;i++){
+    for(int i=0; i<graphSize;i++){
             graph[i] = new int[graphSize];
     }
     // make this function
@@ -153,9 +235,14 @@ int main(){
         newGraph[i] = new int[graphSize];
     }
 
+    // dfs(graph);
     kruskal(graph, graphSize, newGraph);
 
-    // isGraphEmpty(graph, graphSize);
+    
+    
+
+    
+    
     
 
 
