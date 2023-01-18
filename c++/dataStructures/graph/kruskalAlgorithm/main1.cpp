@@ -6,7 +6,7 @@
 using namespace std;
 
 bool visitedVerticies[6]{};
-enum GraphFlags : bool {empty = true, notEmpty = false, visited = true, notVisited = false};
+enum GraphFlags : bool {empty = true, notEmpty = false, visited = true, notVisited = false, hasACycle = true, noCycle = false};
 
 struct vertexConnections{
     int vertexNumber;
@@ -45,24 +45,7 @@ vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
     return vt;
 }
 
-// bool isVertexVisited(int vertexNumber){
-//     return visitedVerticies[vertexNumber] == GraphFlags::visited;
-// }
 
-// bool isBothVerticiesVisited(int firstVertex, int secondVertex){
-//     return isVertexVisited(firstVertex) && isVertexVisited(secondVertex);
-// }
-
-
-// if they are not visited mark them as visited
-void markVertexAsVisited(int vertexNumber){
-    visitedVerticies[vertexNumber] = 1;
-}
-
-void markBothVerticiesAsVisited(vertexConnection* vt){
-    markVertexAsVisited(vt->connectionFromVertex);
-    markVertexAsVisited(vt->connectionToVertex);
-}
 
 
 // add the connection to a new graph
@@ -78,33 +61,6 @@ void removeTheConnectionsFromTheOldGraph(int **graph, vertexConnection* vt){
     graph[vt->connectionToVertex][vt->connectionFromVertex] =0;
 }
 
-// if only one vertex is visted add the new connection to the new graph
-// if(isBothVerticiesVisited == true) check whether one of them are visited or not
-// remove the connection from the old graph
-
-//if the verticies are visited don't add the connection to the new graph
-//remove the connection
-
-//the algorithm will end if the old graph is empty
-// if(isGraphEmpty(oldGraph) == true){
-    // finish
-// }
-
-
-bool isGraphEmpty(int **graph, int graphSize){
-    
-    for(int i=0;i<graphSize;i++){
-        for(int j=0;j<graphSize;j++){
-
-            if(graph[i][j] != 0 ){
-                return GraphFlags::notEmpty;
-            }
-        }
-    }
-
-
-    return GraphFlags::empty;
-}
 
 void print(int** graph, int graphSize){
     for(int i=0;i<graphSize;i++){
@@ -151,16 +107,6 @@ void dfs(int **graph){
     }
     
 }
-
-bool isEveryVertexVisited(){
-    for(int i=0;i<graphSize;i++){
-        if(visitedVerticies[i] != 1){
-            return false;
-        }
-    }
-    return true;
-}
-
 
 
 
@@ -264,34 +210,48 @@ void clearVisitedVerticies(){
     }
 }
 
+void test(bool cycle){
+    if(cycle = GraphFlags::noCycle){
+        // remove from old graph
+    }else{
+        // remove from old graph
+        // remove from newGrap
+        // nullptr minvertex
+    }
+}
 
+//NOTE: can have error in detecting wheter if all verticies are visited
 void kruskal(int **graph, int graphSize, int **newGraph){
     while(areAllVerticiesVisited() == false){
-        // cout<<__func__<<endl;
-
-        clearVisitedVerticies();
-
         vertexConnection* mv = findTheMinimumConnection(graph, graphSize);
-        
         addTheConnectionsToTheNewGraph(newGraph, mv);
         
-        if(isThereACycle(newGraph,graphSize) == false){
-            // cout<<"no cycle"<<endl;
+        // shouldRemoveOrKeepTheConnection()    
+        if(isThereACycle(newGraph,graphSize) == GraphFlags::noCycle){
+            removeTheConnectionsFromTheOldGraph(graph,mv);
+        }else{
+            //remove both from old and newgraph
+            removeTheConnectionsFromTheOldGraph(newGraph,mv);
             removeTheConnectionsFromTheOldGraph(graph,mv);
             
-            stack.push_back(mv->connectionFromVertex);
-            dfs(newGraph);
-            
-            // print(vv,graphSize);cout<<endl;
-
-        }else{
-            // cout<<"there will be a cycle remove the new connection"<<endl;
-            removeTheConnectionsFromTheOldGraph(newGraph,mv);
+            mv = nullptr;
         }
-        
 
+
+
+        // should store if all verticies are visited
+        if(mv != nullptr){
+            //prepare stack for dfs function
+            stack.clear();
+            stack.push_back(mv->connectionFromVertex);
+            
+            clearVisitedVerticies();
+            
+            dfs(newGraph);
+        }
     }
-    
+
+
     cout<<__func__<<" spanning tree"<<endl;
     print(newGraph,graphSize);
     cout<<endl;
@@ -302,10 +262,10 @@ void kruskal(int **graph, int graphSize, int **newGraph){
 int main(){
     int graphCp[graphSize][graphSize] = {
        //0 1 2 3
-        {0,1,2,6}, //0
-        {1,0,0,1}, //1
-        {2,0,0,3}, //2
-        {6,1,3,0}  //3
+        {0,10,6,5}, //0
+        {10,0,0,15}, //1
+        {6,0,0,4}, //2
+        {5,15,4,0}  //3
 	};    
     
     
@@ -334,5 +294,6 @@ int main(){
     }
 
     kruskal(graph, graphSize, newGraph);
+    
 
 }
