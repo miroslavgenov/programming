@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 
 struct vertexConnection{
     int connectionFromVertex;

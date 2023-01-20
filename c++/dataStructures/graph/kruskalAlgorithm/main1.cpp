@@ -2,19 +2,40 @@
 #include <vector>
 
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
 
 using namespace std;
 
-bool visitedVerticies[6]{};
-enum GraphFlags : bool {empty = true, notEmpty = false, visited = true, notVisited = false, hasACycle = true, noCycle = false};
+class KruskalUtil{
+    public:
 
-struct vertexConnections{
-    int vertexNumber;
-    vector<int> connections;
+    const int cycleDeterminationNumber = 6;
+
+    static void test(){}
 };
 
-//find the minimum connection
+// class variables
+vector<int> stack;
+const int graphSize = 4;
+bool vv[graphSize]{};
 
+template <typename T>
+void print(T array[], int size){
+    for(int i=0;i<size;i++){
+        cout<<array[i]<<" ";
+    }
+}
+
+void print(int** graph, int graphSize){
+    for(int i=0;i<graphSize;i++){
+        for(int j=0;j<graphSize;j++){
+            cout<<graph[i][j]<<" ";
+        }cout<<endl;
+    }
+}
+
+//finder helper class
 vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
     //! only if the graph is not empty !
     vertexConnection *vt  = nullptr;
@@ -22,16 +43,22 @@ vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
     int min = 0;
     for(int i=0;i<graphSize;i++){
         for(int j=0;j<graphSize;j++){
+            
+            //shouldCheckOnlyConnectedVerticies
             // only check if the weight is different than 0
             if(graph[i][j] !=0 ){
+                
                 //initialize the minWeight
+                //shouldInitializeTheMinimumVerticiesConnectionWeight
                 if(min == 0){
                     min = graph[i][j];
                     vt = new vertexConnection{i,j,graph[i][j]};
                 }
+
                 //if the minWeight is initialized
                 else{
                     // check if the graphWeight is lesser then the min weight
+                    //shouldStoreTheLesserConnectionWeight
                     if(min > graph[i][j]){
                         // store the data
                         min = graph[i][j];
@@ -46,49 +73,39 @@ vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
 }
 
 
-
-
+//NOTE: some error ocure while trying to replace both functions with one
+// duplication
 // add the connection to a new graph
 // void addTheConnectionToNewGraph()
-void addTheConnectionsToTheNewGraph(int **newGraph, vertexConnection* vt){
-    newGraph[vt->connectionFromVertex][vt->connectionToVertex] = vt->connectionWeight;
-    newGraph[vt->connectionToVertex][vt->connectionFromVertex]  = vt->connectionWeight;
+void addConnectionToGraph(int **graph, vertexConnection* vertexConnection){
+    int fromVertex = vertexConnection->connectionFromVertex;
+    int toVertex = vertexConnection->connectionToVertex;
+    int connectionWeight = vertexConnection->connectionWeight;
+
+
+    graph[fromVertex][toVertex] = connectionWeight;
+    graph[toVertex][fromVertex]  = connectionWeight;
 }
 
+//duplication
 // remove the connection from the old graph
-void removeTheConnectionsFromTheOldGraph(int **graph, vertexConnection* vt){
-    graph[vt->connectionFromVertex][vt->connectionToVertex] =0;
-    graph[vt->connectionToVertex][vt->connectionFromVertex] =0;
+void removeConnectionFromGraph(int **graph, vertexConnection* vertexConnection){
+    int fromVertex = vertexConnection->connectionFromVertex;
+    int toVertex = vertexConnection->connectionToVertex;
+    int connectionWeight = vertexConnection->connectionWeight;
+
+
+    graph[fromVertex][toVertex] = 0;
+    graph[toVertex][fromVertex]  = 0;
 }
 
-
-void print(int** graph, int graphSize){
-    for(int i=0;i<graphSize;i++){
-        for(int j=0;j<graphSize;j++){
-            cout<<graph[i][j]<<" ";
-        }cout<<endl;
-    }
-}
-
-
-vector<int> stack;
-const int graphSize = 4;
-bool vv[graphSize]{};
-
-template <typename T>
-void print(T array[], int size){
-    for(int i=0;i<size;i++){
-        cout<<array[i]<<" ";
-    }
-}
-
+//custom dfs class
 void dfs(int **graph){
     if(stack.empty() == false && vv[stack.back()] == 0) {
         
         int currentVertex = stack.back();
         stack.pop_back();
         vv[currentVertex] = 1;
-        // cout<<currentVertex<<endl;
         
         for(int i=0;i<graphSize;i++){
             if(graph[currentVertex][i] != 0){
@@ -99,22 +116,20 @@ void dfs(int **graph){
             }
         }
 
-        
-
         if(stack.empty() == false){
             dfs(graph);
         }
-    }
-    
+    }    
 }
 
 
 
-//TO DO: make algorithm that check for loops
 
+//TO DO: make algorithm that check for loops
+// to long function make class or separate into smaller functions
 bool isThereACycle(int **graph, int graphSize){
 
-    //getting the connection in to a stack
+    //get the connections
     vector<vertexConnections*> listWithVertexConnections;
 
     for(int i=0;i<graphSize;i++){
@@ -128,7 +143,7 @@ bool isThereACycle(int **graph, int graphSize){
     //getting the connection in to a stack
     
 
-    //getting only the stack with >= 2 size
+    //get only the stack with >= 2 connections more than 2
     vector<vertexConnections*> potentialLoopVerticies;
 
     for(int i = 0 ;i< listWithVertexConnections.size();i++){
@@ -138,12 +153,7 @@ bool isThereACycle(int **graph, int graphSize){
     }
     //getting only the stack with >= 2 size
 
-    //check if there is 
-    // if every vertex has more than 1 connection there is a loop
-    // or if only one vertex have only one connection there is a loop
-    // if simmilar more thatn 6 than there is loop
-
-
+    
     //loop detector
     int repeatedConnections = 0;
 
@@ -182,22 +192,15 @@ bool isThereACycle(int **graph, int graphSize){
         // cout<<endl;       
     }
     
-    if(repeatedConnections >= 6){
-        // cout<<"there is a loop"<<endl;
-        return true;
-    }else{
-        // cout<<"there is no loop"<<endl;
-        return false;
-    }
-
-    return false;
-
-
+    return cycleAuthentication(repeatedConnections);
 }
 
 bool areAllVerticiesVisited(){
+    bool isCurrentVertexVisited;
+
     for(int i=0;i<graphSize;i++){
-            if(vv[i] == 0){
+        isCurrentVertexVisited = vv[i];
+            if(isCurrentVertexVisited == 0){
                 return false;
             }
     }
@@ -210,54 +213,56 @@ void clearVisitedVerticies(){
     }
 }
 
-void test(bool cycle){
-    if(cycle = GraphFlags::noCycle){
-        // remove from old graph
-    }else{
-        // remove from old graph
-        // remove from newGrap
-        // nullptr minvertex
+void prepareStackForDfs(vertexConnection* mv){
+    stack.clear();
+    stack.push_back(mv->connectionFromVertex);
+}
+
+void prepareStackAndClearTheVisitedVerticiesForDfs(vertexConnection* mv){
+    prepareStackForDfs(mv);
+    clearVisitedVerticies();
+}
+
+void shouldPrepareAndStartDfs(int **graph,vertexConnection* mv){
+    if(mv != nullptr){            
+        prepareStackAndClearTheVisitedVerticiesForDfs(mv);
+        dfs(graph);
     }
 }
 
-//NOTE: can have error in detecting wheter if all verticies are visited
+void shoudClearTheConnectionFromTheOriginGraph(int **graph, bool cycle, vertexConnection* mv){
+    if(cycle == GraphFlags::noCycle){
+        removeConnectionFromGraph(graph,mv);
+    }
+}
+
+void shouldClearTheConnectionThatMakesCycleFromBothGraph(int** oldGraph, int** newGraph, bool cycle, vertexConnection **mv){
+    if(cycle == GraphFlags::hasACycle){
+            removeConnectionFromGraph(newGraph,*mv);
+            removeConnectionFromGraph(oldGraph,*mv);
+            *mv = nullptr;
+        }
+}
+
 void kruskal(int **graph, int graphSize, int **newGraph){
     while(areAllVerticiesVisited() == false){
         vertexConnection* mv = findTheMinimumConnection(graph, graphSize);
-        addTheConnectionsToTheNewGraph(newGraph, mv);
+        addConnectionToGraph(newGraph, mv);
         
-        // shouldRemoveOrKeepTheConnection()    
-        if(isThereACycle(newGraph,graphSize) == GraphFlags::noCycle){
-            removeTheConnectionsFromTheOldGraph(graph,mv);
-        }else{
-            //remove both from old and newgraph
-            removeTheConnectionsFromTheOldGraph(newGraph,mv);
-            removeTheConnectionsFromTheOldGraph(graph,mv);
-            
-            mv = nullptr;
-        }
+        bool cycle = isThereACycle(newGraph,graphSize);
 
+        shoudClearTheConnectionFromTheOriginGraph(graph,cycle,mv);
 
+        shouldClearTheConnectionThatMakesCycleFromBothGraph(graph, newGraph, cycle, &mv);  
 
-        // should store if all verticies are visited
-        if(mv != nullptr){
-            //prepare stack for dfs function
-            stack.clear();
-            stack.push_back(mv->connectionFromVertex);
-            
-            clearVisitedVerticies();
-            
-            dfs(newGraph);
-        }
+        shouldPrepareAndStartDfs(newGraph,mv);
+        
     }
-
 
     cout<<__func__<<" spanning tree"<<endl;
     print(newGraph,graphSize);
     cout<<endl;
-
 }
-
 
 int main(){
     int graphCp[graphSize][graphSize] = {
@@ -266,11 +271,8 @@ int main(){
         {10,0,0,15}, //1
         {6,0,0,4}, //2
         {5,15,4,0}  //3
-	};    
+	};
     
-    
-    
-
     int **graph = new int*[graphSize];
     // make this function
     for(int i=0; i<graphSize;i++){
@@ -286,7 +288,6 @@ int main(){
         }
     }
 
-
     // new graph to store the kruskal path
     int **newGraph = new int*[graphSize];
     for(int i=0;i<graphSize;i++){
@@ -294,6 +295,4 @@ int main(){
     }
 
     kruskal(graph, graphSize, newGraph);
-    
-
 }
