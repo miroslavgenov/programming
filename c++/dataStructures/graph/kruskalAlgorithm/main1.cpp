@@ -10,10 +10,14 @@ using namespace std;
 class KruskalUtil{
     public:
 
-    const int cycleDeterminationNumber = 6;
+    static int cycleDeterminationNumber;
 
-    static void test(){}
+    static bool cycleAuthentication(int repeatedConnections){
+        return repeatedConnections >= cycleDeterminationNumber;
+    }
 };
+
+int KruskalUtil::cycleDeterminationNumber = 6;
 
 // class variables
 vector<int> stack;
@@ -35,12 +39,20 @@ void print(int** graph, int graphSize){
     }
 }
 
+void setTheMinimumConnectionWeight(int &currentWeight, int newWeight){
+    currentWeight = newWeight;
+}
+
+void setTheMinimumVertexConnection(vertexConnection** min, int i , int j , int weight){
+    *min =  new vertexConnection{i,j, weight};
+}
+
 //finder helper class
 vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
     //! only if the graph is not empty !
-    vertexConnection *vt  = nullptr;
+    vertexConnection *minimumVertexConnection  = nullptr;
 
-    int min = 0;
+    int minimumConnectionWeight = 0;
     for(int i=0;i<graphSize;i++){
         for(int j=0;j<graphSize;j++){
             
@@ -50,26 +62,24 @@ vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
                 
                 //initialize the minWeight
                 //shouldInitializeTheMinimumVerticiesConnectionWeight
-                if(min == 0){
-                    min = graph[i][j];
-                    vt = new vertexConnection{i,j,graph[i][j]};
+                if(minimumConnectionWeight == 0){
+                    setTheMinimumConnectionWeight(minimumConnectionWeight, graph[i][j]);
+                    setTheMinimumVertexConnection(&minimumVertexConnection, i,j, minimumConnectionWeight);               
                 }
-
                 //if the minWeight is initialized
                 else{
                     // check if the graphWeight is lesser then the min weight
                     //shouldStoreTheLesserConnectionWeight
-                    if(min > graph[i][j]){
-                        // store the data
-                        min = graph[i][j];
-                        vt = new vertexConnection{i,j,graph[i][j]};
+                    if(minimumConnectionWeight > graph[i][j]){
+                        setTheMinimumConnectionWeight(minimumConnectionWeight, graph[i][j]);
+                        setTheMinimumVertexConnection(&minimumVertexConnection, i,j, minimumConnectionWeight);
                     }
                 }
             }
         }
     }
     
-    return vt;
+    return minimumVertexConnection;
 }
 
 
@@ -192,7 +202,7 @@ bool isThereACycle(int **graph, int graphSize){
         // cout<<endl;       
     }
     
-    return cycleAuthentication(repeatedConnections);
+    return KruskalUtil::cycleAuthentication(repeatedConnections);
 }
 
 bool areAllVerticiesVisited(){
