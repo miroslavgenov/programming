@@ -19,10 +19,63 @@ class KruskalUtil{
 
 int KruskalUtil::cycleDeterminationNumber = 6;
 
+class Kruskal{
+    public:
+    vertexConnection* minimumVertexConnection = nullptr;
+    
+    int graphSize;
+    int **graph = nullptr;
+    int **newGraph = nullptr;
+
+    bool isCycle;
+    bool *visitedVerticies = nullptr;
+    
+    void findMinimumPath(){}
+
+    Kruskal(int **graph, int graphSize){
+        setGraphSize(graphSize);
+        initializeGraph();
+        copyTheWeightsFromSourceGraph(graph);
+        print();
+    }
+
+    void setGraphSize(int sourceGraphSize){
+        this->graphSize = sourceGraphSize;
+    }
+
+    void initializeGraph(){
+        graph = new int*[graphSize];
+
+        for(int i = 0; i < graphSize; i++){
+            graph[i] = new int[graphSize];
+        }
+    }
+
+    void copyTheWeightsFromSourceGraph(int **sourceGraph){
+        for(int i = 0; i < graphSize; i++){
+            for(int j = 0; j < graphSize; j++){
+             this->graph[i][j] = sourceGraph[i][j];
+            }
+        }
+    }
+    
+    void print(int **graph,int graphSize){
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+             cout<<graph[i][j]<<" ";
+            }cout<<endl;
+        }
+    }
+
+    void print(){
+        print(graph,graphSize);
+    }
+};
+
 // class variables
 vector<int> stack;
-const int graphSize = 4;
-bool vv[graphSize]{};
+constexpr int graphSize = 4;
+bool visitedVerticies[graphSize]{};
 
 template <typename T>
 void print(T array[], int size){
@@ -111,15 +164,15 @@ void removeConnectionFromGraph(int **graph, vertexConnection* vertexConnection){
 
 //custom dfs class
 void dfs(int **graph){
-    if(stack.empty() == false && vv[stack.back()] == 0) {
+    if(stack.empty() == false && visitedVerticies[stack.back()] == 0) {
         
         int currentVertex = stack.back();
         stack.pop_back();
-        vv[currentVertex] = 1;
+        visitedVerticies[currentVertex] = 1;
         
         for(int i=0;i<graphSize;i++){
             if(graph[currentVertex][i] != 0){
-                if(vv[i]==0){
+                if(visitedVerticies[i]==0){
 
                     stack.push_back(i);
                 }
@@ -209,7 +262,7 @@ bool areAllVerticiesVisited(){
     bool isCurrentVertexVisited;
 
     for(int i=0;i<graphSize;i++){
-        isCurrentVertexVisited = vv[i];
+        isCurrentVertexVisited = visitedVerticies[i];
             if(isCurrentVertexVisited == 0){
                 return false;
             }
@@ -219,7 +272,7 @@ bool areAllVerticiesVisited(){
 
 void clearVisitedVerticies(){
     for(int i=0;i<graphSize;i++){
-        vv[i] = 0;
+        visitedVerticies[i] = 0;
     }
 }
 
@@ -304,5 +357,6 @@ int main(){
         newGraph[i] = new int[graphSize];
     }
 
-    kruskal(graph, graphSize, newGraph);
+    // kruskal(graph, graphSize, newGraph);
+    Kruskal* k = new Kruskal(graph, graphSize);
 }
