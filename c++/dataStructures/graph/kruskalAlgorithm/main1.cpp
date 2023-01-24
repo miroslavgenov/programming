@@ -15,6 +15,33 @@ class KruskalUtil{
     static bool cycleAuthentication(int repeatedConnections){
         return repeatedConnections >= cycleDeterminationNumber;
     }
+
+    static void initializeGraph(int ***graph, int graphSize){
+        *graph = new int*[graphSize];
+
+        for(int i=0;i<graphSize;i++){
+            *(*graph+i) = new int[graphSize];
+        }
+    }
+
+    static void initializeVisitedVerticies(bool **visitedVerticies, int graphSize){
+        *visitedVerticies = new bool[graphSize];
+    }
+
+    static void setGraphSize(int &destinationGraphSize, int sourceGraphSize){
+        destinationGraphSize = sourceGraphSize;
+    }
+
+    static void copyTheWeightsFromSourceGraph(int ***destinationGraph, int **sourceGraph, int graphSize){
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                *(*(*destinationGraph+j)+i) = sourceGraph[i][j];
+            }
+        }        
+    }
+
+    
+
 };
 
 int KruskalUtil::cycleDeterminationNumber = 6;
@@ -22,6 +49,7 @@ int KruskalUtil::cycleDeterminationNumber = 6;
 class Kruskal{
     public:
     vertexConnection* minimumVertexConnection = nullptr;
+    int minimumConnectionWeight;
     
     int graphSize;
     int **graph = nullptr;
@@ -30,33 +58,83 @@ class Kruskal{
     bool isCycle;
     bool *visitedVerticies = nullptr;
     
-    void findMinimumPath(){}
-
-    Kruskal(int **graph, int graphSize){
-        setGraphSize(graphSize);
-        initializeGraph();
-        copyTheWeightsFromSourceGraph(graph);
-        print();
+    void clearMinimumVertexConnectionAndConnectionWeight(){
+        minimumVertexConnection = nullptr;
+        minimumConnectionWeight = 0;
     }
 
-    void setGraphSize(int sourceGraphSize){
-        this->graphSize = sourceGraphSize;
+    void setMinimumConnectionWeight(int i,int j){
+            minimumConnectionWeight = graph[i][j];
     }
 
-    void initializeGraph(){
-        graph = new int*[graphSize];
+    void setMinimumVertexConnection(int i, int j){
+        minimumVertexConnection = new vertexConnection{i,j,graph[i][j]};
+    }
 
-        for(int i = 0; i < graphSize; i++){
-            graph[i] = new int[graphSize];
+    void setMinimumVertexConnectionAndMinimumConnectionWeight(int i, int j){
+        setMinimumConnectionWeight(i,j);
+            setMinimumVertexConnection(i,j);
+    }
+
+    void shouldInitializeMinimumVertexConnectionAndMinimumConnectionWeight(int i,int j){
+        if(minimumConnectionWeight == 0){
+            setMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
         }
     }
 
-    void copyTheWeightsFromSourceGraph(int **sourceGraph){
-        for(int i = 0; i < graphSize; i++){
-            for(int j = 0; j < graphSize; j++){
-             this->graph[i][j] = sourceGraph[i][j];
+    void shouldSetTheSmallestWeightConnection(int i, int j){
+        if(minimumConnectionWeight !=0){
+            if(minimumConnectionWeight > graph[i][j]){
+                setMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
             }
         }
+    }
+
+    void shouldInitializeOrSetTheSmallestWeightConnectionAndVertexConnection(int i,int j){
+        shouldInitializeMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
+        shouldSetTheSmallestWeightConnection(i,j);
+    }
+
+    void findTheMinimumConnection(){
+        clearMinimumVertexConnectionAndConnectionWeight();
+
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                if(graph[i][j] !=0 ){
+                    shouldInitializeOrSetTheSmallestWeightConnectionAndVertexConnection(i,j);
+                }
+            }
+        }
+
+    }
+
+    void addWeightToGraph(int i, int j, int weight){
+        graph[i][j] = weight;
+        graph[j][i] = weight;
+    }
+
+    void removeWeightFromGraph(int i,int j){
+        addWeightToGraph(i,j,0);
+    }
+    
+
+    void findPath(){
+
+    }
+
+    Kruskal(int **sourceGraph, int sourceGraphSize){
+        KruskalUtil::setGraphSize(graphSize, sourceGraphSize);
+        KruskalUtil::initializeGraph(&graph,graphSize);
+        KruskalUtil::initializeGraph(&newGraph,graphSize);
+        KruskalUtil::initializeVisitedVerticies(&visitedVerticies, graphSize);
+        KruskalUtil::copyTheWeightsFromSourceGraph(&graph, sourceGraph, graphSize);        
+        
+        findTheMinimumConnection();
+        if(minimumVertexConnection != nullptr){
+            this->removeWeightFromGraph(minimumVertexConnection->connectionFromVertex,minimumVertexConnection->connectionToVertex);
+
+        }
+        print();
     }
     
     void print(int **graph,int graphSize){
@@ -100,7 +178,6 @@ void setTheMinimumVertexConnection(vertexConnection** min, int i , int j , int w
     *min =  new vertexConnection{i,j, weight};
 }
 
-//finder helper class
 vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
     //! only if the graph is not empty !
     vertexConnection *minimumVertexConnection  = nullptr;
@@ -257,6 +334,8 @@ bool isThereACycle(int **graph, int graphSize){
     
     return KruskalUtil::cycleAuthentication(repeatedConnections);
 }
+
+//TODO: areAllVerticiesVisited, clearVisitedVerticies
 
 bool areAllVerticiesVisited(){
     bool isCurrentVertexVisited;
