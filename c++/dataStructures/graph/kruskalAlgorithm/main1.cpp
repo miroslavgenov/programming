@@ -40,7 +40,94 @@ class KruskalUtil{
         }        
     }
 
+    static bool areAllVerticiesVisited(bool *visitedVerticies, int graphSize){
+        bool allVerticiesAreVisited = true;
+        bool notAllVerticiesAreVisited = false;
+        bool isCurrentVertexVisited;
+
+        for(int i=0;i<graphSize;i++){
+            isCurrentVertexVisited = visitedVerticies[i];
+                if(isCurrentVertexVisited == 0){
+                    return notAllVerticiesAreVisited;
+                }
+        }
+        return allVerticiesAreVisited;
+    }
+
+    static void clearVisitedVerticies(bool **visitedVerticies, int graphSize){
+        for(int i=0;i<graphSize;i++){
+            *(*visitedVerticies+i) = 0;
+        }
+    }
+
+static bool isThereACycle(int **graph, int graphSize){
+
+    //get the connections
+    vector<vertexConnections*> listWithVertexConnections;
+
+    for(int i=0;i<graphSize;i++){
+        listWithVertexConnections.push_back(new vertexConnections{i});
+        for(int j=0;j<graphSize;j++){
+            if(graph[i][j] != 0){
+                listWithVertexConnections[i]->connections.push_back(j);
+            }
+        }
+    }
+    //getting the connection in to a stack
     
+
+    //get only the stack with >= 2 connections more than 2
+    vector<vertexConnections*> potentialLoopVerticies;
+
+    for(int i = 0 ;i< listWithVertexConnections.size();i++){
+        if(listWithVertexConnections[i]->connections.size()>=2){
+            potentialLoopVerticies.push_back(listWithVertexConnections[i]);
+        }
+    }
+    //getting only the stack with >= 2 size
+
+    
+    //loop detector
+    int repeatedConnections = 0;
+
+    // loop each vertex
+    for(int i=0;i<potentialLoopVerticies.size();i++){
+        // cout<<"current vertex: "<<potentialLoopVerticies[i]->vertexNumber<<endl;
+        
+        // loop each vertex connections
+        // loop and see if the connection from the current vertex occur in the other
+        for(int j=0;j<potentialLoopVerticies[i]->connections.size();j++){
+            // cout<<"connection: "<<potentialLoopVerticies[i]->connections[j]<<endl; // connection from the current vertex
+            // cout<<"checking if that connection occur in the other verticies"<<endl;
+
+            //loop all verticies
+            // loop throug all verticies except the current vertex to check for similar connections
+            for(int z=0;z<potentialLoopVerticies.size();z++){
+                //show all verticies except the current one
+                // all other verticies except the current vertex
+                if(potentialLoopVerticies[i]->vertexNumber != potentialLoopVerticies[z]->vertexNumber){
+                    // cout<<"vertex: "<<potentialLoopVerticies[z]->vertexNumber<<" : ";
+
+                    //loop the connections from the verticies and check for similar
+                    //looping throught the other verticies connections and checking for repeted connections
+                    for(int y =0 ; y< potentialLoopVerticies[z]->connections.size();y++){
+                        // cout<<potentialLoopVerticies[z]->connections[y]<<" ";
+                        if(potentialLoopVerticies[i]->connections[j] == potentialLoopVerticies[z]->connections[y]){
+                            // cout<<"connection : "<<potentialLoopVerticies[i]->connections[j]<<" occur !!"<<endl;
+                            repeatedConnections++;
+                        }
+                    }
+                    // cout<<endl;
+                }
+            }
+
+        }
+        // cout<<endl;       
+    }
+    
+    return cycleAuthentication(repeatedConnections);
+}
+
 
 };
 
@@ -54,6 +141,9 @@ class Kruskal{
     int graphSize;
     int **graph = nullptr;
     int **newGraph = nullptr;
+
+
+
 
     bool isCycle;
     bool *visitedVerticies = nullptr;
@@ -108,17 +198,34 @@ class Kruskal{
 
     }
 
-    void addWeightToGraph(int i, int j, int weight){
-        graph[i][j] = weight;
-        graph[j][i] = weight;
+    void addWeightToGraph(int **graph, vertexConnection* mv){
+        graph[0][0] = 3;
+        // graph[i][j] = weight;
+        // graph[j][i] = weight;
     }
 
-    void removeWeightFromGraph(int i,int j){
-        addWeightToGraph(i,j,0);
-    }
+    // void removeWeightFromGraph(int i,int j){
+        // addWeightToGraph(i,j,0);
+    // }
     
 
     void findPath(){
+        cout<<__func__<<endl;
+        // cout<<KruskalUtil::isThereACycle(graph,graphSize);
+        //while(KruskalUtil::areAllVerticiesVisited(visitedVerticies,graphSize) == false){
+            // findTheMinimumConnection();
+            // this->addCon
+            // cout<<minimumVertexConnection->connectionFromVertex<<" "<<minimumVertexConnection->connectionToVertex<<" "<<minimumVertexConnection->connectionWeight<<endl;
+            // this->addWeightToGraph(minimumVertexConnection->connectionFromVertex,minimumVertexConnection->connectionToVertex,minimumVertexConnection->connectionWeight);
+            
+
+            
+            //bool cycle = isThereACyle();
+            // removeWeightFromGraph();
+            //shouldclear that connection that makes the cycle
+            // should prepare and start dfs
+
+        //}
 
     }
 
@@ -129,12 +236,6 @@ class Kruskal{
         KruskalUtil::initializeVisitedVerticies(&visitedVerticies, graphSize);
         KruskalUtil::copyTheWeightsFromSourceGraph(&graph, sourceGraph, graphSize);        
         
-        findTheMinimumConnection();
-        if(minimumVertexConnection != nullptr){
-            this->removeWeightFromGraph(minimumVertexConnection->connectionFromVertex,minimumVertexConnection->connectionToVertex);
-
-        }
-        print();
     }
     
     void print(int **graph,int graphSize){
@@ -149,6 +250,8 @@ class Kruskal{
         print(graph,graphSize);
     }
 };
+
+
 
 // class variables
 vector<int> stack;
@@ -338,15 +441,17 @@ bool isThereACycle(int **graph, int graphSize){
 //TODO: areAllVerticiesVisited, clearVisitedVerticies
 
 bool areAllVerticiesVisited(){
+    bool allVerticiesAreVisited = true;
+    bool notAllVerticiesAreVisited = false;
     bool isCurrentVertexVisited;
 
     for(int i=0;i<graphSize;i++){
         isCurrentVertexVisited = visitedVerticies[i];
             if(isCurrentVertexVisited == 0){
-                return false;
+                return notAllVerticiesAreVisited;
             }
     }
-    return true;
+    return allVerticiesAreVisited;
 }
 
 void clearVisitedVerticies(){
@@ -438,4 +543,5 @@ int main(){
 
     // kruskal(graph, graphSize, newGraph);
     Kruskal* k = new Kruskal(graph, graphSize);
+    k->findPath();
 }
