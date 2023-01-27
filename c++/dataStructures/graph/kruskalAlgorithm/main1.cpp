@@ -137,7 +137,8 @@ class Kruskal{
     public:
     vertexConnection* minimumVertexConnection = nullptr;
     int minimumConnectionWeight;
-    
+    vector<int> stack;
+
     int graphSize;
     int **graph = nullptr;
     int **newGraph = nullptr;
@@ -199,34 +200,73 @@ class Kruskal{
     }
 
     void addWeightToGraph(int **graph, vertexConnection* mv){
-        graph[0][0] = 3;
-        // graph[i][j] = weight;
-        // graph[j][i] = weight;
+        graph[mv->connectionFromVertex][mv->connectionToVertex] = mv->connectionWeight;
+        graph[mv->connectionToVertex][mv->connectionFromVertex] = mv->connectionWeight;
     }
 
-    // void removeWeightFromGraph(int i,int j){
-        // addWeightToGraph(i,j,0);
-    // }
+    void removeWeightFromGraph(int **graph,vertexConnection* mv){
+        mv->connectionWeight = 0;
+        addWeightToGraph(graph,mv);
+    }
     
 
     void findPath(){
-        cout<<__func__<<endl;
-        // cout<<KruskalUtil::isThereACycle(graph,graphSize);
-        //while(KruskalUtil::areAllVerticiesVisited(visitedVerticies,graphSize) == false){
-            // findTheMinimumConnection();
-            // this->addCon
-            // cout<<minimumVertexConnection->connectionFromVertex<<" "<<minimumVertexConnection->connectionToVertex<<" "<<minimumVertexConnection->connectionWeight<<endl;
-            // this->addWeightToGraph(minimumVertexConnection->connectionFromVertex,minimumVertexConnection->connectionToVertex,minimumVertexConnection->connectionWeight);
+        // cout<<__func__<<endl;
+        
+        bool cycle;
+        while(KruskalUtil::areAllVerticiesVisited(visitedVerticies,graphSize) == false){
+            findTheMinimumConnection();
+            addWeightToGraph(newGraph,minimumVertexConnection);
+
+            cycle = KruskalUtil::isThereACycle(newGraph,graphSize);
             
+            if(cycle == false){
+                // cout<<"no cycle"<<endl;
+                addWeightToGraph(newGraph,minimumVertexConnection);
+                removeWeightFromGraph(graph,minimumVertexConnection);
+            }
 
+            if(cycle == true){
+                // cout<<"cycle"<<endl;
+                removeWeightFromGraph(newGraph,minimumVertexConnection);
+                removeWeightFromGraph(graph,minimumVertexConnection);
+            }
             
-            //bool cycle = isThereACyle();
-            // removeWeightFromGraph();
-            //shouldclear that connection that makes the cycle
-            // should prepare and start dfs
+            prepareStackAndClearVisitedVerticiesForDfs();
+            dfs(newGraph);        
 
-        //}
+        }
+        
+        print(newGraph, graphSize);
 
+    }
+
+    void prepareStackAndClearVisitedVerticiesForDfs(){
+            stack.clear();
+            stack.push_back(minimumVertexConnection->connectionFromVertex);
+            KruskalUtil::clearVisitedVerticies(&visitedVerticies, graphSize);
+    }
+
+    void dfs(int **graph){
+        if(stack.empty() == false && visitedVerticies[stack.back()] == 0) {
+            
+            int currentVertex = stack.back();
+            stack.pop_back();
+            visitedVerticies[currentVertex] = 1;
+            
+            for(int i=0;i<graphSize;i++){
+                if(graph[currentVertex][i] != 0){
+                    if(visitedVerticies[i]==0){
+
+                        stack.push_back(i);
+                    }
+                }
+            }
+
+            if(stack.empty() == false){
+                dfs(graph);
+            }
+        }    
     }
 
     Kruskal(int **sourceGraph, int sourceGraphSize){
@@ -541,7 +581,7 @@ int main(){
         newGraph[i] = new int[graphSize];
     }
 
-    // kruskal(graph, graphSize, newGraph);
+    
     Kruskal* k = new Kruskal(graph, graphSize);
     k->findPath();
 }
