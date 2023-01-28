@@ -1,3 +1,4 @@
+// lenght before 587
 #include <iostream>
 #include <vector>
 
@@ -127,8 +128,28 @@ static bool isThereACycle(int **graph, int graphSize){
     
     return cycleAuthentication(repeatedConnections);
 }
+    static void removeWeightFromGraph(int **graph,vertexConnection* mv){
+        mv->connectionWeight = 0;
+        addWeightToGraph(graph,mv);
+    }
+    
+    static void addWeightToGraph(int **graph, vertexConnection* mv){
+        graph[mv->connectionFromVertex][mv->connectionToVertex] = mv->connectionWeight;
+        graph[mv->connectionToVertex][mv->connectionFromVertex] = mv->connectionWeight;
+    }
 
+    static void clearMinimumVertexConnectionAndConnectionWeight(vertexConnection** mV, int &mCW){
+        *mV = nullptr;
+        mCW = 0;
+    }
 
+    static void setMinimumConnectionWeight(int &minimumConnectionWeight, int sourceValue){
+        minimumConnectionWeight = sourceValue;
+    }
+
+    static void setMinimumVertexConnection(vertexConnection** mv,int i, int j, int weight){
+        *mv = new vertexConnection{i,j,weight};
+    }
 };
 
 int KruskalUtil::cycleDeterminationNumber = 6;
@@ -136,43 +157,30 @@ int KruskalUtil::cycleDeterminationNumber = 6;
 class Kruskal{
     public:
     vertexConnection* minimumVertexConnection = nullptr;
-    int minimumConnectionWeight;
     vector<int> stack;
-
+    int minimumConnectionWeight;
     int graphSize;
     int **graph = nullptr;
     int **newGraph = nullptr;
-
-
-
-
     bool isCycle;
     bool *visitedVerticies = nullptr;
     
-    void clearMinimumVertexConnectionAndConnectionWeight(){
-        minimumVertexConnection = nullptr;
-        minimumConnectionWeight = 0;
-    }
 
-    void setMinimumConnectionWeight(int i,int j){
-            minimumConnectionWeight = graph[i][j];
-    }
 
-    void setMinimumVertexConnection(int i, int j){
-        minimumVertexConnection = new vertexConnection{i,j,graph[i][j]};
-    }
-
+    //move into the util class
     void setMinimumVertexConnectionAndMinimumConnectionWeight(int i, int j){
-        setMinimumConnectionWeight(i,j);
-            setMinimumVertexConnection(i,j);
+        KruskalUtil::setMinimumConnectionWeight(minimumConnectionWeight,graph[i][j]);
+        KruskalUtil::setMinimumVertexConnection(&minimumVertexConnection,i,j,minimumConnectionWeight);
     }
 
+    //move into the util class
     void shouldInitializeMinimumVertexConnectionAndMinimumConnectionWeight(int i,int j){
         if(minimumConnectionWeight == 0){
             setMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
         }
     }
 
+    //move into the util class
     void shouldSetTheSmallestWeightConnection(int i, int j){
         if(minimumConnectionWeight !=0){
             if(minimumConnectionWeight > graph[i][j]){
@@ -181,55 +189,56 @@ class Kruskal{
         }
     }
 
+    bool isMinimumConnectionWeightNotInitialized(){
+        return minimumConnectionWeight == 0;
+    }
+
+    bool isMinimumConnectionWeightGreaterThan(int i, int j){
+        return minimumConnectionWeight > graph[i][j];
+    }
+
+    //move into the util class
     void shouldInitializeOrSetTheSmallestWeightConnectionAndVertexConnection(int i,int j){
         shouldInitializeMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
         shouldSetTheSmallestWeightConnection(i,j);
     }
 
+    //move into the util class
     void findTheMinimumConnection(){
-        clearMinimumVertexConnectionAndConnectionWeight();
+        KruskalUtil::clearMinimumVertexConnectionAndConnectionWeight(&minimumVertexConnection,minimumConnectionWeight);
 
         for(int i=0;i<graphSize;i++){
             for(int j=0;j<graphSize;j++){
                 if(graph[i][j] !=0 ){
-                    shouldInitializeOrSetTheSmallestWeightConnectionAndVertexConnection(i,j);
+                    if(isMinimumConnectionWeightNotInitialized()){
+                        setMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
+                    }
+
+                    if(isMinimumConnectionWeightGreaterThan(i,j)){
+                        setMinimumVertexConnectionAndMinimumConnectionWeight(i,j);
+                    }
+                    
                 }
             }
         }
 
-    }
-
-    void addWeightToGraph(int **graph, vertexConnection* mv){
-        graph[mv->connectionFromVertex][mv->connectionToVertex] = mv->connectionWeight;
-        graph[mv->connectionToVertex][mv->connectionFromVertex] = mv->connectionWeight;
-    }
-
-    void removeWeightFromGraph(int **graph,vertexConnection* mv){
-        mv->connectionWeight = 0;
-        addWeightToGraph(graph,mv);
-    }
-    
+    } 
 
     void findPath(){
-        // cout<<__func__<<endl;
-        
-        bool cycle;
         while(KruskalUtil::areAllVerticiesVisited(visitedVerticies,graphSize) == false){
             findTheMinimumConnection();
-            addWeightToGraph(newGraph,minimumVertexConnection);
+            KruskalUtil::addWeightToGraph(newGraph,minimumVertexConnection);
 
-            cycle = KruskalUtil::isThereACycle(newGraph,graphSize);
+            isCycle = KruskalUtil::isThereACycle(newGraph,graphSize);
             
-            if(cycle == false){
-                // cout<<"no cycle"<<endl;
-                addWeightToGraph(newGraph,minimumVertexConnection);
-                removeWeightFromGraph(graph,minimumVertexConnection);
+            if(isCycle == false){
+                KruskalUtil::addWeightToGraph(newGraph,minimumVertexConnection);
+                KruskalUtil::removeWeightFromGraph(graph,minimumVertexConnection);
             }
 
-            if(cycle == true){
-                // cout<<"cycle"<<endl;
-                removeWeightFromGraph(newGraph,minimumVertexConnection);
-                removeWeightFromGraph(graph,minimumVertexConnection);
+            if(isCycle == true){
+                KruskalUtil::removeWeightFromGraph(newGraph,minimumVertexConnection);
+                KruskalUtil::removeWeightFromGraph(graph,minimumVertexConnection);
             }
             
             prepareStackAndClearVisitedVerticiesForDfs();
@@ -241,12 +250,14 @@ class Kruskal{
 
     }
 
+    //move into the util class
     void prepareStackAndClearVisitedVerticiesForDfs(){
             stack.clear();
             stack.push_back(minimumVertexConnection->connectionFromVertex);
             KruskalUtil::clearVisitedVerticies(&visitedVerticies, graphSize);
     }
 
+    //move in to the util class
     void dfs(int **graph){
         if(stack.empty() == false && visitedVerticies[stack.back()] == 0) {
             
@@ -269,13 +280,16 @@ class Kruskal{
         }    
     }
 
-    Kruskal(int **sourceGraph, int sourceGraphSize){
+    void prepareForKruskalAlgorithm(int **sourceGraph, int sourceGraphSize){
         KruskalUtil::setGraphSize(graphSize, sourceGraphSize);
         KruskalUtil::initializeGraph(&graph,graphSize);
         KruskalUtil::initializeGraph(&newGraph,graphSize);
         KruskalUtil::initializeVisitedVerticies(&visitedVerticies, graphSize);
         KruskalUtil::copyTheWeightsFromSourceGraph(&graph, sourceGraph, graphSize);        
-        
+    }
+
+    Kruskal(int **sourceGraph, int sourceGraphSize){
+        prepareForKruskalAlgorithm(sourceGraph, sourceGraphSize);
     }
     
     void print(int **graph,int graphSize){
@@ -291,267 +305,8 @@ class Kruskal{
     }
 };
 
-
-
-// class variables
-vector<int> stack;
-constexpr int graphSize = 4;
-bool visitedVerticies[graphSize]{};
-
-template <typename T>
-void print(T array[], int size){
-    for(int i=0;i<size;i++){
-        cout<<array[i]<<" ";
-    }
-}
-
-void print(int** graph, int graphSize){
-    for(int i=0;i<graphSize;i++){
-        for(int j=0;j<graphSize;j++){
-            cout<<graph[i][j]<<" ";
-        }cout<<endl;
-    }
-}
-
-void setTheMinimumConnectionWeight(int &currentWeight, int newWeight){
-    currentWeight = newWeight;
-}
-
-void setTheMinimumVertexConnection(vertexConnection** min, int i , int j , int weight){
-    *min =  new vertexConnection{i,j, weight};
-}
-
-vertexConnection* findTheMinimumConnection(int **graph, int graphSize){
-    //! only if the graph is not empty !
-    vertexConnection *minimumVertexConnection  = nullptr;
-
-    int minimumConnectionWeight = 0;
-    for(int i=0;i<graphSize;i++){
-        for(int j=0;j<graphSize;j++){
-            
-            //shouldCheckOnlyConnectedVerticies
-            // only check if the weight is different than 0
-            if(graph[i][j] !=0 ){
-                
-                //initialize the minWeight
-                //shouldInitializeTheMinimumVerticiesConnectionWeight
-                if(minimumConnectionWeight == 0){
-                    setTheMinimumConnectionWeight(minimumConnectionWeight, graph[i][j]);
-                    setTheMinimumVertexConnection(&minimumVertexConnection, i,j, minimumConnectionWeight);               
-                }
-                //if the minWeight is initialized
-                else{
-                    // check if the graphWeight is lesser then the min weight
-                    //shouldStoreTheLesserConnectionWeight
-                    if(minimumConnectionWeight > graph[i][j]){
-                        setTheMinimumConnectionWeight(minimumConnectionWeight, graph[i][j]);
-                        setTheMinimumVertexConnection(&minimumVertexConnection, i,j, minimumConnectionWeight);
-                    }
-                }
-            }
-        }
-    }
-    
-    return minimumVertexConnection;
-}
-
-
-//NOTE: some error ocure while trying to replace both functions with one
-// duplication
-// add the connection to a new graph
-// void addTheConnectionToNewGraph()
-void addConnectionToGraph(int **graph, vertexConnection* vertexConnection){
-    int fromVertex = vertexConnection->connectionFromVertex;
-    int toVertex = vertexConnection->connectionToVertex;
-    int connectionWeight = vertexConnection->connectionWeight;
-
-
-    graph[fromVertex][toVertex] = connectionWeight;
-    graph[toVertex][fromVertex]  = connectionWeight;
-}
-
-//duplication
-// remove the connection from the old graph
-void removeConnectionFromGraph(int **graph, vertexConnection* vertexConnection){
-    int fromVertex = vertexConnection->connectionFromVertex;
-    int toVertex = vertexConnection->connectionToVertex;
-    int connectionWeight = vertexConnection->connectionWeight;
-
-
-    graph[fromVertex][toVertex] = 0;
-    graph[toVertex][fromVertex]  = 0;
-}
-
-//custom dfs class
-void dfs(int **graph){
-    if(stack.empty() == false && visitedVerticies[stack.back()] == 0) {
-        
-        int currentVertex = stack.back();
-        stack.pop_back();
-        visitedVerticies[currentVertex] = 1;
-        
-        for(int i=0;i<graphSize;i++){
-            if(graph[currentVertex][i] != 0){
-                if(visitedVerticies[i]==0){
-
-                    stack.push_back(i);
-                }
-            }
-        }
-
-        if(stack.empty() == false){
-            dfs(graph);
-        }
-    }    
-}
-
-
-
-
-//TO DO: make algorithm that check for loops
-// to long function make class or separate into smaller functions
-bool isThereACycle(int **graph, int graphSize){
-
-    //get the connections
-    vector<vertexConnections*> listWithVertexConnections;
-
-    for(int i=0;i<graphSize;i++){
-        listWithVertexConnections.push_back(new vertexConnections{i});
-        for(int j=0;j<graphSize;j++){
-            if(graph[i][j] != 0){
-                listWithVertexConnections[i]->connections.push_back(j);
-            }
-        }
-    }
-    //getting the connection in to a stack
-    
-
-    //get only the stack with >= 2 connections more than 2
-    vector<vertexConnections*> potentialLoopVerticies;
-
-    for(int i = 0 ;i< listWithVertexConnections.size();i++){
-        if(listWithVertexConnections[i]->connections.size()>=2){
-            potentialLoopVerticies.push_back(listWithVertexConnections[i]);
-        }
-    }
-    //getting only the stack with >= 2 size
-
-    
-    //loop detector
-    int repeatedConnections = 0;
-
-    // loop each vertex
-    for(int i=0;i<potentialLoopVerticies.size();i++){
-        // cout<<"current vertex: "<<potentialLoopVerticies[i]->vertexNumber<<endl;
-        
-        // loop each vertex connections
-        // loop and see if the connection from the current vertex occur in the other
-        for(int j=0;j<potentialLoopVerticies[i]->connections.size();j++){
-            // cout<<"connection: "<<potentialLoopVerticies[i]->connections[j]<<endl; // connection from the current vertex
-            // cout<<"checking if that connection occur in the other verticies"<<endl;
-
-            //loop all verticies
-            // loop throug all verticies except the current vertex to check for similar connections
-            for(int z=0;z<potentialLoopVerticies.size();z++){
-                //show all verticies except the current one
-                // all other verticies except the current vertex
-                if(potentialLoopVerticies[i]->vertexNumber != potentialLoopVerticies[z]->vertexNumber){
-                    // cout<<"vertex: "<<potentialLoopVerticies[z]->vertexNumber<<" : ";
-
-                    //loop the connections from the verticies and check for similar
-                    //looping throught the other verticies connections and checking for repeted connections
-                    for(int y =0 ; y< potentialLoopVerticies[z]->connections.size();y++){
-                        // cout<<potentialLoopVerticies[z]->connections[y]<<" ";
-                        if(potentialLoopVerticies[i]->connections[j] == potentialLoopVerticies[z]->connections[y]){
-                            // cout<<"connection : "<<potentialLoopVerticies[i]->connections[j]<<" occur !!"<<endl;
-                            repeatedConnections++;
-                        }
-                    }
-                    // cout<<endl;
-                }
-            }
-
-        }
-        // cout<<endl;       
-    }
-    
-    return KruskalUtil::cycleAuthentication(repeatedConnections);
-}
-
-//TODO: areAllVerticiesVisited, clearVisitedVerticies
-
-bool areAllVerticiesVisited(){
-    bool allVerticiesAreVisited = true;
-    bool notAllVerticiesAreVisited = false;
-    bool isCurrentVertexVisited;
-
-    for(int i=0;i<graphSize;i++){
-        isCurrentVertexVisited = visitedVerticies[i];
-            if(isCurrentVertexVisited == 0){
-                return notAllVerticiesAreVisited;
-            }
-    }
-    return allVerticiesAreVisited;
-}
-
-void clearVisitedVerticies(){
-    for(int i=0;i<graphSize;i++){
-        visitedVerticies[i] = 0;
-    }
-}
-
-void prepareStackForDfs(vertexConnection* mv){
-    stack.clear();
-    stack.push_back(mv->connectionFromVertex);
-}
-
-void prepareStackAndClearTheVisitedVerticiesForDfs(vertexConnection* mv){
-    prepareStackForDfs(mv);
-    clearVisitedVerticies();
-}
-
-void shouldPrepareAndStartDfs(int **graph,vertexConnection* mv){
-    if(mv != nullptr){            
-        prepareStackAndClearTheVisitedVerticiesForDfs(mv);
-        dfs(graph);
-    }
-}
-
-void shoudClearTheConnectionFromTheOriginGraph(int **graph, bool cycle, vertexConnection* mv){
-    if(cycle == GraphFlags::noCycle){
-        removeConnectionFromGraph(graph,mv);
-    }
-}
-
-void shouldClearTheConnectionThatMakesCycleFromBothGraph(int** oldGraph, int** newGraph, bool cycle, vertexConnection **mv){
-    if(cycle == GraphFlags::hasACycle){
-            removeConnectionFromGraph(newGraph,*mv);
-            removeConnectionFromGraph(oldGraph,*mv);
-            *mv = nullptr;
-        }
-}
-
-void kruskal(int **graph, int graphSize, int **newGraph){
-    while(areAllVerticiesVisited() == false){
-        vertexConnection* mv = findTheMinimumConnection(graph, graphSize);
-        addConnectionToGraph(newGraph, mv);
-        
-        bool cycle = isThereACycle(newGraph,graphSize);
-
-        shoudClearTheConnectionFromTheOriginGraph(graph,cycle,mv);
-
-        shouldClearTheConnectionThatMakesCycleFromBothGraph(graph, newGraph, cycle, &mv);  
-
-        shouldPrepareAndStartDfs(newGraph,mv);
-        
-    }
-
-    cout<<__func__<<" spanning tree"<<endl;
-    print(newGraph,graphSize);
-    cout<<endl;
-}
-
 int main(){
+    int  graphSize = 4;
     int graphCp[graphSize][graphSize] = {
        //0 1 2 3
         {0,10,6,5}, //0
@@ -563,7 +318,7 @@ int main(){
     int **graph = new int*[graphSize];
     // make this function
     for(int i=0; i<graphSize;i++){
-            graph[i] = new int[graphSize];
+        graph[i] = new int[graphSize];
     }
 
     //graph converted to int** graph
