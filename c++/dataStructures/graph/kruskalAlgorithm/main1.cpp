@@ -6,6 +6,7 @@
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/KruskalUtil.h"
+#include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/Kruskal.h"
 
 using namespace std;
@@ -43,6 +44,7 @@ int main(){
     }
 
     
+
     Kruskal* k = new Kruskal(graph, graphSize);
     k->findPath();
 }

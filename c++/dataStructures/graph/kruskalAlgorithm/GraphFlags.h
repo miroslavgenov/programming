@@ -6,5 +6,5 @@ enum GraphFlags : bool {
     visited = true,
     notVisited = false,
     hasACycle = true,
-    noCycle = false
+    hasNoCycle = false
 };
