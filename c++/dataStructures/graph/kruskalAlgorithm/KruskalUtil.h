@@ -33,18 +33,21 @@ class KruskalUtil{
         }        
     }
 
-    static bool areAllVerticiesVisited(bool *visitedVerticies, int graphSize){
-        bool allVerticiesAreVisited = true;
-        bool notAllVerticiesAreVisited = false;
-        bool isCurrentVertexVisited;
+    static bool isCurrentVertexVisited(bool currentVertexStatus){
+        return currentVertexStatus == 1;
+    }
 
+    static bool isCurrentVertexNotVisited(bool currentVertexStatus){
+        return !isCurrentVertexVisited(currentVertexStatus);
+    }
+    
+    static bool areAllVerticiesVisited(bool *visitedVerticies, int graphSize){
         for(int i=0;i<graphSize;i++){
-            isCurrentVertexVisited = visitedVerticies[i];
-                if(isCurrentVertexVisited == 0){
-                    return notAllVerticiesAreVisited;
+                if(isCurrentVertexNotVisited(visitedVerticies[i])){
+                    return GraphFlags::allVerticiesAreNotVisited;
                 }
         }
-        return allVerticiesAreVisited;
+        return GraphFlags::allVerticiesAreVisited;
     }
 
     static void clearVisitedVerticies(bool **visitedVerticies, int graphSize){
