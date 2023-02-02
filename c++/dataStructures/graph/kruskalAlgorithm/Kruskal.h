@@ -10,6 +10,7 @@ class Kruskal{
     int **newGraph = nullptr;
     bool isCycle;
     bool *visitedVerticies = nullptr;
+    CycleDetector *c = nullptr;
 
     Kruskal(int **sourceGraph, int sourceGraphSize){
         prepareForKruskalAlgorithm(sourceGraph, sourceGraphSize);
@@ -22,13 +23,26 @@ class Kruskal{
         KruskalUtil::initializeVisitedVerticies(&visitedVerticies, graphSize);
         KruskalUtil::copyTheWeightsFromSourceGraph(&graph, sourceGraph, graphSize);        
     }
-    
+	
+	bool 	isThereACycle(){
+		// TODO: instead of using the constructur
+		// try to use example: 
+		// in the constructur of Kruskal
+		//CycleDetector* c = new CycleDetector();
+		//
+		//in this function
+		//c->detectCycle(newGraph,graphSize)
+		// return c->isThereACycle();
+		c = new CycleDetector(newGraph,graphSize);
+		return c->isThereACycle();
+	}
+	    
     void findPath(){
         while(KruskalUtil::areAllVerticiesVisited(visitedVerticies,graphSize) == GraphFlags::notVisited){
             findTheMinimumConnection();
             KruskalUtil::addWeightToGraph(newGraph,minimumVertexConnection);
 
-            isCycle = KruskalUtil::isThereACycle(newGraph,graphSize);
+            isCycle = isThereACycle();
             
             shouldAddWeightToTheNewGraphAndRemoveWeightFromTheOldGraph(isCycle);        
          
