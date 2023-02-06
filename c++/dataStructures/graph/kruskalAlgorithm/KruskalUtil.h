@@ -1,5 +1,8 @@
 #pragma once
 
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+
 class KruskalUtil{
     public:
 
@@ -26,6 +29,16 @@ class KruskalUtil{
             }
         }        
     }
+
+    static void copyTheWeightsFromSourceGraph(int ***destinationGraph,int *sourceGraph,int graphSize){
+    int iterator =0;
+    for(int i=0;i<graphSize;i++){
+        for(int j=0;j<graphSize;j++){
+            *(*(*destinationGraph+j)+i) = *(sourceGraph+iterator);
+            iterator++;
+        }
+    }
+}
 
     static bool isCurrentVertexVisited(bool currentVertexStatus){
         return currentVertexStatus == 1;

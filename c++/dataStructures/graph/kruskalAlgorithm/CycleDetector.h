@@ -18,8 +18,18 @@ class CycleDetector{
             pushNewVertexNumber(vertexNumber);
         }
     }
-
+		
     void pushAllValidVertexConnections(){
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                if(graph[i][j] !=0){
+                    listWithVertexConnections[i]->connections.push_back(j);
+                }
+            }
+        }
+    }
+    
+    void pushAllValidVertexConnections(int **graph){
         for(int i=0;i<graphSize;i++){
             for(int j=0;j<graphSize;j++){
                 if(graph[i][j] !=0){
@@ -36,7 +46,7 @@ class CycleDetector{
             }
         }
     }
-	CycleDetector(){}
+
 	
     CycleDetector(int **sourceGraph, int sourceGraphSize){
         KruskalUtil::setGraphSize(graphSize,sourceGraphSize);
@@ -49,7 +59,9 @@ class CycleDetector{
 
         countForConnectionRepetitions();
     }   
+	
 
+	
     void countHowMuchTimeAVertexNumberAppearsInVertexConnections(int vertexNumber, std::vector<int> connections){
         for(int i=0;i<connections.size();i++){
             if(vertexNumber == connections[i]){
