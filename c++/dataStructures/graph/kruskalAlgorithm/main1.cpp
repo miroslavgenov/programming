@@ -1,8 +1,5 @@
-// lenght before 587
 #include <iostream>
-#include <vector>
 
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/KruskalUtil.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/Kruskal.cpp"
 
 using namespace std;

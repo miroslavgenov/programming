@@ -1,7 +1,11 @@
 #pragma once
 
+#include <vector>
+
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
+#include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 
 class KruskalUtil{
     public:
@@ -31,23 +35,16 @@ class KruskalUtil{
     }
 
     static void copyTheWeightsFromSourceGraph(int ***destinationGraph,int *sourceGraph,int graphSize){
-    int iterator =0;
-    for(int i=0;i<graphSize;i++){
-        for(int j=0;j<graphSize;j++){
-            *(*(*destinationGraph+j)+i) = *(sourceGraph+iterator);
-            iterator++;
+        int iterator =0;
+    
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                *(*(*destinationGraph+j)+i) = *(sourceGraph+iterator);
+                iterator++;
+            }
         }
     }
-}
 
-    static bool isCurrentVertexVisited(bool currentVertexStatus){
-        return currentVertexStatus == 1;
-    }
-
-    static bool isCurrentVertexNotVisited(bool currentVertexStatus){
-        return !isCurrentVertexVisited(currentVertexStatus);
-    }
-    
     static bool areAllVerticiesVisited(bool *visitedVerticies, int graphSize){
         for(int i=0;i<graphSize;i++){
                 if(isCurrentVertexNotVisited(visitedVerticies[i])){
@@ -57,20 +54,17 @@ class KruskalUtil{
         return GraphFlags::allVerticiesAreVisited;
     }
 
-    static void clearVisitedVerticies(bool **visitedVerticies, int graphSize){
-        for(int i=0;i<graphSize;i++){
-            *(*visitedVerticies+i) = 0;
-        }
+    static bool isCurrentVertexNotVisited(bool currentVertexStatus){
+        return !isCurrentVertexVisited(currentVertexStatus);
     }
 
+    static bool isCurrentVertexVisited(bool currentVertexStatus){
+        return currentVertexStatus == 1;
+    }
     
-
     static bool isConnectionValid(int weight){
         return weight != 0;
     }
-
-
-     
 
     static void removeWeightFromGraph(int **graph,vertexConnection* mv){
         mv->connectionWeight = 0;
@@ -99,5 +93,11 @@ class KruskalUtil{
         stack.clear();
         stack.push_back(minimumVertexConnection->connectionFromVertex);
         clearVisitedVerticies(&visitedVerticies, graphSize);
+    }
+
+    static void clearVisitedVerticies(bool **visitedVerticies, int graphSize){
+        for(int i=0;i<graphSize;i++){
+            *(*visitedVerticies+i) = 0;
+        }
     }
 };
