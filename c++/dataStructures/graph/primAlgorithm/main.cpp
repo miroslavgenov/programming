@@ -1,26 +1,30 @@
 #include <iostream>
 #include <vector>
 
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/GraphUtil.h"
+
 using namespace std;
 
 const int graphSize=5;
 bool visitedVerticies[graphSize]{0};
 int totalEdges = 0;
 
-struct edge{
-    int fromVertex;
-    int toVertex;
-    int weight;
-};
+
+// struct edge{...}; can be replaced by struct VertexConnection{...}; 
+// struct edge{
+//     int fromVertex;
+//     int toVertex;
+//     int weight;
+// };
 
 void clearVisitedEdgesArray();
-void clearEdgesFromGraph(int [][graphSize], edge* );
+void clearEdgesFromGraph(int [][graphSize], vertexConnection* );
 
 template <typename T>
 void printOneDimArray(T [],int );
 void copySrcGraphIntoDstGraph(int [][graphSize], int [][graphSize]);
-void printGraph(int [][graphSize]);
-void appendEdgesToGraph(int [][graphSize], edge*);
+// void printGraph(int [][graphSize]);
+void appendEdgesToGraph(int [][graphSize], vertexConnection*);
 
 void printVertexNeighbours(int graph[][graphSize], int e){
     for(int i=0;i<graphSize;i++){
@@ -29,19 +33,6 @@ void printVertexNeighbours(int graph[][graphSize], int e){
         }
     }
 }
-
-
-
-bool isAllVerticiesNotVisited(){
-	for(int i=0;i<graphSize;i++){
-        if(visitedVerticies[i] == 1){
-            return false;
-        }
-    }
-    return true;
-}
-
-
 
 vector<int> getVisitedVerticies(bool visitedVerticies[graphSize]){
     std::vector<int> verticiesVisited;
@@ -54,7 +45,8 @@ vector<int> getVisitedVerticies(bool visitedVerticies[graphSize]){
     return verticiesVisited;
 }
 
-edge* getShortestEdge(int graph[][graphSize]){
+
+vertexConnection* getShortestEdge(int **graph){
     cout<<endl<<"getShortestEdge"<<endl;
     
     int *minWeight = nullptr;
@@ -87,7 +79,7 @@ for(int i=0; i<verticiesVisited.size(); i++){
     }
 }    
     
-	return new edge{fromVertex, toVertex, *minWeight};
+	return new vertexConnection{fromVertex, toVertex, *minWeight};
     
 
 }
@@ -124,7 +116,7 @@ vector<int> currentVertextForSkeleton;
 vector<int> graphSkeleton;
 
 void clearSkeleton(){
-    clearVisitedVerticiesArray(visitedVerticiesForVertexSkeleton);
+    GraphUtil::clearVisitedVerticies(visitedVerticiesForVertexSkeleton,graphSize);
     currentVertextForSkeleton.clear();
     graphSkeleton.clear();
 }
@@ -167,14 +159,14 @@ void printOneDimArray(T array[],int size){
 
 
 
-void markVerticiesAsVisied(edge* e){
-    visitedVerticies[e->fromVertex] = 1;
-    visitedVerticies[e->toVertex] = 1;
+void markVerticiesAsVisied(vertexConnection* e){
+    visitedVerticies[e->connectionFromVertex] = 1;
+    visitedVerticies[e->connectionToVertex] = 1;
 }
 
-void prim(int graph[][graphSize], int spanningTree[][graphSize], int startingVertex){
+void prim(int **graph, int *spanningTree, int startingVertex){
     
-    edge* shortestEdge = nullptr;
+    vertexConnection* shortestEdge = nullptr;
     
     if(totalEdges == graphSize-1){
     	cout<<"done"<<endl;
@@ -184,22 +176,25 @@ void prim(int graph[][graphSize], int spanningTree[][graphSize], int startingVer
 	
 		cout<<"primAlgorithm"<<endl;
 		
-		if(isAllVerticiesNotVisited()){
+		if(GraphUtil::areAllVerticiesNotVisited(visitedVerticies,graphSize)){
             cout<<"all verticies are not visited"<<endl;
             visitedVerticies[startingVertex] = 1;
 			shortestEdge = getShortestEdge(graph);
 			markVerticiesAsVisied(shortestEdge);
            	totalEdges++;
-           	appendEdgesToGraph(spanningTree,shortestEdge);
-           	clearEdgesFromGraph(graph,shortestEdge);
-           	printGraph(graph);
+            // GraphUtil::addWeightToGraph(spanningTree,shortestEdge);
+           	GraphUtil::addWeightToGraph(&spanningTree,shortestEdge);
+            // appendEdgesToGraph(spanningTree,shortestEdge);
+           	GraphUtil::removeWeightFromGraph(&graph,shortestEdge);
+            // clearEdgesFromGraph(graph,shortestEdge);
+           	// printGraph(graph);
             prim(graph, spanningTree, startingVertex);
 			  
         }else{
 			cout<<"you have visited verticies "<<endl;
 			shortestEdge = getShortestEdge(graph);
-           cout<<shortestEdge->fromVertex<<" "<<shortestEdge->toVertex<<" "<<shortestEdge->weight<<endl;
-           setGraphSkeleton(spanningTree,shortestEdge->fromVertex);
+           cout<<shortestEdge->connectionFromVertex<<" "<<shortestEdge->connectionToVertex<<" "<<shortestEdge->connectionWeight<<endl;
+           setGraphSkeleton(spanningTree,shortestEdge->connectionFromVertex);
            if(graphSkeleton.size()<2){
                 cout<<"graphSkeleton.size()<2 you can add"<<endl;
                 totalEdges++;
@@ -213,7 +208,7 @@ void prim(int graph[][graphSize], int spanningTree[][graphSize], int startingVer
             cout<<"then add the verticies as visited"<<endl;
 
 
-			if(isVertexInGraphSkeleton(graphSkeleton,shortestEdge->fromVertex) && isVertexInGraphSkeleton(graphSkeleton,shortestEdge->toVertex)){
+			if(isVertexInGraphSkeleton(graphSkeleton,shortestEdge->connectionFromVertex) && isVertexInGraphSkeleton(graphSkeleton,shortestEdge->connectionToVertex)){
                 cout<<"there is a  loop"<<endl;
                 clearEdgesFromGraph(graph,shortestEdge);
                 clearSkeleton();
@@ -222,7 +217,7 @@ void prim(int graph[][graphSize], int spanningTree[][graphSize], int startingVer
 	                cout<<"there is no loop"<<endl;
 	                totalEdges++;
 	                markVerticiesAsVisied(shortestEdge);
-	                appendEdgesToGraph(spanningTree,shortestEdge);
+                    appendEdgesToGraph(spanningTree,shortestEdge);
 	                clearEdgesFromGraph(graph,shortestEdge);
 	                clearSkeleton();
 	            
@@ -255,51 +250,63 @@ int main(){
   {0, 42, 66, 31, 0}
     };
 
-    int graphCopy[graphSize][graphSize]{0};
-    int spanningTree[graphSize][graphSize]{0};
-
-    copySrcGraphIntoDstGraph(graph,graphCopy);
+    int **graphCopy = nullptr;
+    GraphUtil::initializeGraph(&graphCopy,graphSize);
     
-   prim(graphCopy, spanningTree, 0);
-prim(graphCopy, spanningTree, 0);
-prim(graphCopy, spanningTree, 0);
-prim(graphCopy, spanningTree, 0);
-prim(graphCopy, spanningTree, 0);
-prim(graphCopy, spanningTree, 0);
+
+    int **spanningTree = nullptr;
+    GraphUtil::initializeGraph(&spanningTree,graphSize);
+    
+
+    // replaced
+    // GraphUtil::copy
+    GraphUtil::copyTheWeightsFromSourceGraph(&graphCopy,(int*)graph,graphSize);
+    // copySrcGraphIntoDstGraph(graph,graphCopy);
+    
+    prim(graphCopy, spanningTree, 0);
+    // prim(graphCopy, spanningTree, 0);
+    // prim(graphCopy, spanningTree, 0);
+    // prim(graphCopy, spanningTree, 0);
+    // prim(graphCopy, spanningTree, 0);
+    // prim(graphCopy, spanningTree, 0);
    
    
-   printGraph(spanningTree);
-   setGraphSkeleton(spanningTree,0);
-   clearSkeleton();
+    // //printGraph(spanningTree);
+    // setGraphSkeleton(spanningTree,0);
+    // clearSkeleton();
 
 
    
 
 }
 
-void appendEdgesToGraph(int graph[][graphSize], edge * e){
-    graph[e->fromVertex][e->toVertex] = e->weight;
-    graph[e->toVertex][e->fromVertex] = e->weight;
+//can be replaced by addWeightToGraph
+void appendEdgesToGraph(int graph[][graphSize], vertexConnection * e){
+    graph[e->connectionFromVertex][e->connectionToVertex] = e->connectionWeight;
+    graph[e->connectionToVertex][e->connectionFromVertex] = e->connectionWeight;
     
 }
 
-void clearEdgesFromGraph(int graph[][graphSize], edge* e){
-    graph[e->fromVertex][e->toVertex] = 0;
-    graph[e->toVertex][e->fromVertex] = 0;
-}
-
-void printGraph(int graph[][graphSize]){
-  cout<<endl;
-  for(int i=0;i<graphSize;i++){
-    for(int j=0;j<graphSize;j++){
-        cout<<graph[i][j]<<" ";
-    }cout<<endl;
-  }
-  cout<<endl;
+//can by replaced by removeWeightFromGraph
+void clearEdgesFromGraph(int graph[][graphSize], vertexConnection* e){
+    graph[e->connectionFromVertex][e->connectionToVertex] = 0;
+    graph[e->connectionToVertex][e->connectionFromVertex] = 0;
 }
 
 
+// can be replaced by printer::printGraph
+// void printGraph(int graph[][graphSize]){
+//   cout<<endl;
+//   for(int i=0;i<graphSize;i++){
+    // for(int j=0;j<graphSize;j++){
+        // cout<<graph[i][j]<<" ";
+    // }cout<<endl;
+//   }
+//   cout<<endl;
+// }
 
+
+//can be replaced by copyTheWeightsFromSourceGraph
 void copySrcGraphIntoDstGraph(int srcGraph[][graphSize], int dstGraph[][graphSize]){
   for(int i=0;i<graphSize;i++){
     for(int j=0; j<graphSize; j++){
@@ -308,39 +315,3 @@ void copySrcGraphIntoDstGraph(int srcGraph[][graphSize], int dstGraph[][graphSiz
   }
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
