@@ -3,9 +3,9 @@
 int CycleDetector::cycleDeterminationNumber = 6;
 
 CycleDetector::CycleDetector(int **sourceGraph, int sourceGraphSize){
-    KruskalUtil::setGraphSize(graphSize,sourceGraphSize);
-    KruskalUtil::initializeGraph(&graph,graphSize);
-    KruskalUtil::copyTheWeightsFromSourceGraph(&graph,sourceGraph,graphSize);
+    GraphUtil::setGraphSize(graphSize,sourceGraphSize);
+    GraphUtil::initializeGraph(&graph,graphSize);
+    GraphUtil::copyTheWeightsFromSourceGraph(&graph,sourceGraph,graphSize);
 
     pushAllVerticiesNumber();
     pushAllValidVertexConnections();

@@ -17,7 +17,7 @@ int totalEdges = 0;
 //     int weight;
 // };
 
-void clearVisitedEdgesArray();
+// void clearVisitedEdgesArray();
 void clearEdgesFromGraph(int [][graphSize], vertexConnection* );
 
 template <typename T>
@@ -167,7 +167,8 @@ void markVerticiesAsVisied(vertexConnection* e){
 void prim(int **graph, int *spanningTree, int startingVertex){
     
     vertexConnection* shortestEdge = nullptr;
-    
+    bool areAllVerticiesNotVisited;
+
     if(totalEdges == graphSize-1){
     	cout<<"done"<<endl;
 	}else{
@@ -176,7 +177,9 @@ void prim(int **graph, int *spanningTree, int startingVertex){
 	
 		cout<<"primAlgorithm"<<endl;
 		
-		if(GraphUtil::areAllVerticiesNotVisited(visitedVerticies,graphSize)){
+        areAllVerticiesNotVisited = GraphUtil::areAllVerticiesNotVisited(visitedVerticies,graphSize); 
+
+		if(areAllVerticiesNotVisited){
             cout<<"all verticies are not visited"<<endl;
             visitedVerticies[startingVertex] = 1;
 			shortestEdge = getShortestEdge(graph);
@@ -263,7 +266,7 @@ int main(){
     GraphUtil::copyTheWeightsFromSourceGraph(&graphCopy,(int*)graph,graphSize);
     // copySrcGraphIntoDstGraph(graph,graphCopy);
     
-    prim(graphCopy, spanningTree, 0);
+    // prim(graphCopy, spanningTree, 0);
     // prim(graphCopy, spanningTree, 0);
     // prim(graphCopy, spanningTree, 0);
     // prim(graphCopy, spanningTree, 0);

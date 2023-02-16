@@ -43,6 +43,37 @@ class GraphUtil{
         }        
     }
 
+    static vertexConnection* getFirstValidConnection(int **graph, int graphSize){
+        vertexConnection* firstValidConnection = nullptr;
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                if(graph[i][j] !=0 ){
+                    return firstValidConnection = new vertexConnection{i,j,graph[i][j]};
+                }
+            }
+        }
+        return firstValidConnection;
+    } 
+
+    // maybe MinimumConnectionFinder
+    static vertexConnection* findMinimumVertexConnection(int **graph,int graphSize){
+        vertexConnection* minimumVertexConnection = getFirstValidConnection(graph,graphSize);
+
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                if(graph[i][j] !=0){
+                    if(minimumVertexConnection->connectionWeight > graph[i][j]){
+                        minimumVertexConnection = new vertexConnection{i,j,graph[i][j]};
+                    }
+                }
+            }
+        }
+        
+
+
+        return minimumVertexConnection;
+    }
+
     static void copyTheWeightsFromSourceGraph(int ***destinationGraph,int *sourceGraph,int graphSize){
         int iterator =0;
     
