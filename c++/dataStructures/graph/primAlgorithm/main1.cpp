@@ -10,13 +10,14 @@ class Graph{
     public:
     int **graph = nullptr;
     int graphSize;
-    bool *verticiesVisited = nullptr;
+
+    Graph(int *sourceGraph,int sourceGraphSize){
+        GraphUtil::setGraphSize(graphSize,sourceGraphSize);
+        GraphUtil::initializeGraph(&graph,graphSize);
+        GraphUtil::copyTheWeightsFromSourceGraph(&graph,(int* )sourceGraph,graphSize);
+    }
 };
 
-class MDFS : Graph{
-
-    
-};
 
 
 class DFS{
@@ -26,6 +27,8 @@ class DFS{
     bool *visitedVerticies = nullptr;
     vector<int> stack;
     vector<int> path;
+    int notValidVertex = -1;
+    int validVertex;
 
     public:
 
@@ -43,7 +46,6 @@ class DFS{
             int currentVertex = stack.back();
             stack.pop_back();
             visitedVerticies[currentVertex] = 1;
-            // cout<<currentVertex<<' ';
             path.push_back(currentVertex);
 
             for(int i=0;i<graphSize;i++){
@@ -63,7 +65,6 @@ class DFS{
 
 
     int getFirstValidVertex(){
-        int notValidVertex = -1;
         for(int i=0;i<graphSize;i++){
             for(int j=0;j<graphSize;j++){
                 if(graph[i][j] !=0){
@@ -76,105 +77,110 @@ class DFS{
     }
 
     vector<int> getPath(){
+
         GraphUtil::clearVisitedVerticies(&visitedVerticies,graphSize);
         stack.clear();
         path.clear();
-        stack.push_back(getFirstValidVertex());
-        dfs();
+        validVertex = getFirstValidVertex();
 
+        if(validVertex == notValidVertex){
+            return path;
+        }else{
+            stack.push_back(validVertex);
+            dfs();
+        }
         return path;
     }
 };
 
 
-class Prim{
+class Prim:Graph{
     public:
-    int graphSize;
-    int **graph = nullptr;
+    
     int **spanningTree = nullptr;
-    int totalVerticies = 0;
-    vector<int> stack;
+    int totalNumberOfVerticies;
+    int numberOfConnectedVerticies;
     DFS* dfs  = nullptr;
     vertexConnection* minimumVertexConnection = nullptr;
+    CycleDetector* cd = nullptr;
 
-
-    //TODO: find minimum connection weight in GraphUtil
-
-    Prim(int *g, int graphSize){
-        GraphUtil::initializeGraph(&graph,graphSize);
-        GraphUtil::setGraphSize(this->graphSize,graphSize);
-
+    Prim(int *sourceGraph, int sourceGraphSize):Graph(sourceGraph,sourceGraphSize){
+        totalNumberOfVerticies = graphSize;
+    
         GraphUtil::initializeGraph(&spanningTree,graphSize);
-        Printer::printGraph(spanningTree,graphSize);
 
-        GraphUtil::copyTheWeightsFromSourceGraph(&graph,(int* )g,graphSize);
+        
         dfs = new DFS(graph,graphSize);
+        cd = new CycleDetector(spanningTree,graphSize);
+
 
         if(dfs->getPath().size() != graphSize){
             cout<<" not all verticies are connected"<<endl;
             cout<<"call destructur"<<endl;
             delete this;
+        }else{
+            this->skelet();
         }
-
-        minimumVertexConnection = GraphUtil::findMinimumVertexConnection(graph,graphSize);
-
-        GraphUtil::addWeightToGraph(spanningTree,minimumVertexConnection);
-        cout<<endl;
-        Printer::printGraph(spanningTree,graphSize);
-
-        CycleDetector* cd  = new CycleDetector(spanningTree,graphSize);
-        // cout<<boolalpha<<cd->isThereACycle()<<endl;
-
-
     }
 
+    private:
 
+    bool allVerticiesAreReachable(){
+        dfs = new DFS(spanningTree,graphSize);
+        numberOfConnectedVerticies = dfs->getPath().size();
+        return numberOfConnectedVerticies == totalNumberOfVerticies;
+    }
 
-    // class DFS vector getPath 
+    bool thereIsACycle(){
+        cd =  new CycleDetector(spanningTree,graphSize);
+        return cd->isThereACycle();
+    }
 
+    void skelet(){
+        if(allVerticiesAreReachable() == false){
+            minimumVertexConnection = GraphUtil::findMinimumVertexConnection(graph, graphSize);
 
+            GraphUtil::addWeightToGraph(spanningTree, minimumVertexConnection);
+            GraphUtil::removeWeightFromGraph(graph, minimumVertexConnection);
+
+            if(thereIsACycle()){
+                GraphUtil::removeWeightFromGraph(spanningTree, minimumVertexConnection);
+            }
+
+            skelet();
+            
+        }
+    }
+
+    public:
+    int** getSpanningTree(){
+        return spanningTree;
+    }
 
 };
 
 
 
+class Test:Graph{
+    public:
+    Test(int *g, int gs):Graph(g,gs){
+        Printer::printGraph(graph,graphSize);
+    }
+    
+};
+
 
 int main(){
     int graphSize = 5;
-    int graph[graphSize][graphSize] = {
-        // {0,1,1,1,1},
-        // {1,0,1,1,1},
-        // {1,1,0,1,1},
-        // {0,0,0,1,0},
-        // {1,1,1,1,0}
-        
-
-        
+    int graph[graphSize][graphSize] = {      
         {0, 9, 75, 0, 0},
         {9, 0, 95, 19, 42},
         {75, 95, 0, 51, 66},
         {0, 19, 51, 0, 31},
         {0, 42, 66, 31, 0}
-        
     };
 
-    // for(int i=0;i<graphSize;i++){
-    //     for(int j=0;j<graphSize;j++){
-    //         cout<<graph[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-
     Prim* p = new Prim((int*)graph, graphSize);
-    // p->span();
-    // p->path();
-    // int **graphCopy = nullptr;
-    // GraphUtil::initializeGraph(&graphCopy,graphSize);
-    // GraphUtil::copyTheWeightsFromSourceGraph(&graphCopy, (int* ) graph, graphSize);
-
-    // int **spanningTree = nullptr;
-    // GraphUtil::initializeGraph(&spanningTree,graphSize);
-
-    // prim();
-
+    
+    Printer::printGraph(p->getSpanningTree(),graphSize);
 }
