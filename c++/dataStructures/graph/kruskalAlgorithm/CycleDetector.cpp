@@ -2,11 +2,7 @@
 
 int CycleDetector::cycleDeterminationNumber = 6;
 
-CycleDetector::CycleDetector(int **sourceGraph, int sourceGraphSize){
-    GraphUtil::setGraphSize(graphSize,sourceGraphSize);
-    GraphUtil::initializeGraph(&graph,graphSize);
-    GraphUtil::copyTheWeightsFromSourceGraph(&graph,sourceGraph,graphSize);
-
+CycleDetector::CycleDetector(int **sourceGraph, int sourceGraphSize):Graph(sourceGraph,sourceGraphSize){
     pushAllVerticiesNumber();
     pushAllValidVertexConnections();
     setOnlyTheVerticiesWithMoreThanOneConnection();

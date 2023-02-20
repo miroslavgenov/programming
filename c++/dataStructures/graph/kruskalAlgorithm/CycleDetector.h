@@ -1,10 +1,8 @@
 #pragma once
 
-class CycleDetector{
+class CycleDetector:Graph{
     public:
     static int cycleDeterminationNumber;
-    int **graph = nullptr;
-    int graphSize;
     std::vector<vertexConnections*> listWithVertexConnections;
     std::vector<vertexConnections*> verticiesWithMoreThanOneConnection;
     int repeatedConnections = 0;

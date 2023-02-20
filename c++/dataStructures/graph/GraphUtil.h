@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
