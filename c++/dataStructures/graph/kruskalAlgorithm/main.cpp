@@ -1,6 +1,19 @@
 #include <iostream>
+#include <vector>
+
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/GraphUtil.h"
+
+
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/CycleDetector.cpp"
+
+#include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/Kruskal.cpp"
+
 
 using namespace std;
 
@@ -17,11 +30,11 @@ int main(){
 
 
     int **graph = nullptr; 
-    KruskalUtil::initializeGraph(&graph,graphSize);
-    KruskalUtil::copyTheWeightsFromSourceGraph(&graph,(int *) sourceGraph, graphSize);
+    GraphUtil::initializeGraph(&graph,graphSize);
+    GraphUtil::copyTheWeightsFromSourceGraph(&graph,(int *) sourceGraph, graphSize);
     
     int **newGraph = nullptr;
-    KruskalUtil::initializeGraph(&newGraph, graphSize);
+    GraphUtil::initializeGraph(&newGraph, graphSize);
     
     Kruskal* k = new Kruskal(graph, graphSize);
     k->findPath();

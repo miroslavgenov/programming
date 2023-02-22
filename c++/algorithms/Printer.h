@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "/home/home/Desktop/programming/c++/dataStructures/tree/Leaf.h"
 
+#include "/home/home/Desktop/programming/c++/dataStructures/tree/Leaf.h"
+#include "/home/home/Desktop/programming/c++/algorithms/greedyAlgorithms/activity/activity.h"
 
 class Printer{
 public:
@@ -38,6 +39,12 @@ public:
 		}std::cout<<std::endl;
 	}
 	
+	static void printActivities(std::vector<activity*> array){
+		for(int i = 0; i < array.size(); i++){
+			std::cout<<array[i]->startAt<<" "<<array[i]->endAt<<std::endl;
+		}
+	}
+
 	static void printBooleans(bool booleans[], size_t SIZE){
 		for(int i = 0; i < SIZE; i++){
 			std::cout<<booleans[i]<<" ";

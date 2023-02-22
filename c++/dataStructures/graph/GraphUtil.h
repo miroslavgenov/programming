@@ -1,9 +1,9 @@
 #pragma once
 
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
-#include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
+// #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/GraphFlags.h"
+// #include "/home/home/Desktop/programming/c++/dataStructures/graph/dijkstra/vertexConnection.h"
+// #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
+// #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"
 
 class GraphUtil{
     public:
