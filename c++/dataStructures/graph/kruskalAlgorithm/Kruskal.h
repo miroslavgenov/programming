@@ -1,30 +1,23 @@
 #pragma once
 
-class Kruskal{
+class Kruskal:Graph{
     public:
         vertexConnection* minimumVertexConnection = nullptr;
-        
-        //remove
-        std::vector<int> stack;
-        //remove
-        bool *visitedVerticies = nullptr;
-        
-        //remove use Graph class
-        int graphSize;
-        int **graph = nullptr;
+        int totalNumberOfVerticies;
 
+        std::vector<int> connectedVerticies;
+        
         int **newGraph = nullptr;
         bool isCycle;
         CycleDetector *c = nullptr;
+        DFS* dfsObj = nullptr;
 
         Kruskal(int **, int );
-        void prepareForKruskalAlgorithm(int **, int );
         
         void findPath();
         bool isThereACycle();
         void shouldAddWeightToTheNewGraphAndRemoveWeightFromTheOldGraph(bool );
         void shouldRemoveWeightFromBothGraphs(bool );
 
-        //remove use DFS class
-        void dfs(int **);        
+        std::vector<int> initializeDfsAndGetThePath();
 };

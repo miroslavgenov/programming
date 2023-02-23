@@ -8,6 +8,7 @@
 
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/vertexConnections.h"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph.cpp"
+#include "/home/home/Desktop/programming/c++/dataStructures/graph/DFS.cpp"
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/CycleDetector.cpp"
 
 #include "/home/home/Desktop/programming/c++/algorithms/Printer.h"

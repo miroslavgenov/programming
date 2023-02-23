@@ -1,27 +1,17 @@
 #include "/home/home/Desktop/programming/c++/dataStructures/graph/kruskalAlgorithm/Kruskal.h"
 
-Kruskal::Kruskal(int **sourceGraph, int sourceGraphSize){
-    prepareForKruskalAlgorithm(sourceGraph, sourceGraphSize);
-
-}
-
-void Kruskal::prepareForKruskalAlgorithm(int **sourceGraph, int sourceGraphSize){
-    GraphUtil::setGraphSize(graphSize, sourceGraphSize);
-    GraphUtil::initializeGraph(&graph,graphSize);
+Kruskal::Kruskal(int **sourceGraph, int sourceGraphSize):Graph(sourceGraph,sourceGraphSize){
     GraphUtil::initializeGraph(&newGraph,graphSize);
-    GraphUtil::initializeVisitedVerticies(&visitedVerticies, graphSize);
-    GraphUtil::copyTheWeightsFromSourceGraph(&graph, sourceGraph, graphSize);        
+    totalNumberOfVerticies = graphSize;
+    connectedVerticies = initializeDfsAndGetThePath();
 }
 
 void Kruskal::findPath(){
-    // get the path from DFS class. Then check if the path.size() == graphSize( the graphSize is == total number of verticies)
-    while(
-        GraphUtil::areAllVerticiesVisited(visitedVerticies,graphSize) == GraphFlags::notVisited
-        ){
+    while(connectedVerticies.size() != totalNumberOfVerticies){
 
-        minimumVertexConnection = GraphUtil::findMinimumVertexConnection(graph,graphSize);
+        minimumVertexConnection = GraphUtil::findMinimumVertexConnection(graph, graphSize);
 
-        GraphUtil::addWeightToGraph(newGraph,minimumVertexConnection);
+        GraphUtil::addWeightToGraph(newGraph, minimumVertexConnection);
 
         isCycle = isThereACycle();
         
@@ -29,13 +19,16 @@ void Kruskal::findPath(){
         
         shouldRemoveWeightFromBothGraphs(isCycle);
         
-        GraphUtil::prepareStackAndClearVisitedVerticiesForDfs(stack,minimumVertexConnection,visitedVerticies,graphSize);
-        dfs(newGraph);        
-
+        connectedVerticies = initializeDfsAndGetThePath();
     }
+
     Printer::printGraph(newGraph,graphSize);
 }
 
+std::vector<int> Kruskal::initializeDfsAndGetThePath(){
+    dfsObj = new DFS(newGraph,graphSize);
+    return dfsObj->getPath();
+}
 
 bool Kruskal::isThereACycle(){
     c = new CycleDetector(newGraph,graphSize);
@@ -54,27 +47,4 @@ void Kruskal::shouldRemoveWeightFromBothGraphs(bool isCycle){
         GraphUtil::removeWeightFromGraph(newGraph,minimumVertexConnection);
         GraphUtil::removeWeightFromGraph(graph,minimumVertexConnection);
     }
-}
-
-//move in to the util class
-void Kruskal::dfs(int **graph){
-    if(stack.empty() == GraphFlags::notEmpty && visitedVerticies[stack.back()] == 0) {
-        
-        int currentVertex = stack.back();
-        stack.pop_back();
-        visitedVerticies[currentVertex] = 1;
-        
-        for(int i=0;i<graphSize;i++){
-            if(graph[currentVertex][i] != 0){
-                if(visitedVerticies[i]==0){
-
-                    stack.push_back(i);
-                }
-            }
-        }
-
-        if(stack.empty() == GraphFlags::notEmpty){
-            dfs(graph);
-        }
-    }    
 }
