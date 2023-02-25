@@ -5,6 +5,33 @@
 
 using namespace std;
 
+class ChessBoardUtil{
+	public:
+
+	static bool isThereAQueenOnTheChessBoard(int* chessBoard, int CHESS_BOARD_SIZE){
+		for(int i = 0;i<CHESS_BOARD_SIZE*CHESS_BOARD_SIZE;i++){
+			if(chessBoard[i] == 1){
+				return 1;
+			}
+		}
+		return 0;
+	}
+
+	// static chessSquare* getTheFirstQueenCoordinatesThatComeIntoView(int *board,int size){
+
+	// 	for(int i=0;i<size;i++){
+	// 		for(int j=0;j<size;j++){
+	// 			if(board[i*size+j] == 1){
+	// 				return new chessSquare{i,j};
+	// 			}
+	// 		}
+	// 	}
+
+	// 	return nullptr;
+	// }
+
+};
+
 struct chessSquare{
 	int rowNumber;
 	int columnNumber;
@@ -25,43 +52,43 @@ int chessBoard[CHESS_BOARD_SIZE][CHESS_BOARD_SIZE] = {
 	{0,0,0,0,0,0,0,0}
 };
 
-bool isThereAQueenOnTheChessBoard(){
-	for(int i = 0;i<CHESS_BOARD_SIZE;i++){
-		for(int j= 0;j<CHESS_BOARD_SIZE;j++){
-			if(chessBoard[i][j] == 1){
-				return 1;
-			}
-		}
-	}
-	return 0;
-}
+// bool isThereAQueenOnTheChessBoard(){
+// 	for(int i = 0;i<CHESS_BOARD_SIZE;i++){
+// 		for(int j= 0;j<CHESS_BOARD_SIZE;j++){
+// 			if(chessBoard[i][j] == 1){
+// 				return 1;
+// 			}
+// 		}
+// 	}
+// 	return 0;
+// }
 
-chessSquare* getTheFirstQueenCoordinatesThatComeIntoView(){
-	chessSquare* firstQueenThatComeIntoView = nullptr;
-	if(isThereAQueenOnTheChessBoard()){
-		for(int i=0;i<CHESS_BOARD_SIZE;i++){
-			for(int j=0;j<CHESS_BOARD_SIZE;j++){
-				if(chessBoard[i][j] == 1){
-					firstQueenThatComeIntoView = new chessSquare{i,j};
-					return firstQueenThatComeIntoView;
-				}
-			}
-		}	
-	}
-	return firstQueenThatComeIntoView;
-}
+// chessSquare* getTheFirstQueenCoordinatesThatComeIntoView(){
+// 	chessSquare* firstQueenThatComeIntoView = nullptr;
+// 	if(ChessBoardUtil::isThereAQueenOnTheChessBoard((int* )chessBoard,CHESS_BOARD_SIZE)){
+// 		for(int i=0;i<CHESS_BOARD_SIZE;i++){
+// 			for(int j=0;j<CHESS_BOARD_SIZE;j++){
+// 				if(chessBoard[i][j] == 1){
+// 					firstQueenThatComeIntoView = new chessSquare{i,j};
+// 					return firstQueenThatComeIntoView;
+// 				}
+// 			}
+// 		}	
+// 	}
+// 	return firstQueenThatComeIntoView;
+// }
 
-int getTheTotalNumberOfQueensThatAreOnTheChessBoard(){
-	int totalNumberOfQueens = 0;
-	for(int i=0;i<CHESS_BOARD_SIZE;i++){
-		for(int j=0;j<CHESS_BOARD_SIZE;j++){
-			if(chessBoard[i][j] == 1){
-				totalNumberOfQueens++;
-			}
-		}
-	}
-	return totalNumberOfQueens;
-}
+// int getTheTotalNumberOfQueensThatAreOnTheChessBoard(){
+// 	int totalNumberOfQueens = 0;
+// 	for(int i=0;i<CHESS_BOARD_SIZE;i++){
+// 		for(int j=0;j<CHESS_BOARD_SIZE;j++){
+// 			if(chessBoard[i][j] == 1){
+// 				totalNumberOfQueens++;
+// 			}
+// 		}
+// 	}
+// 	return totalNumberOfQueens;
+// }
 
 
 void printChessBoard(){
@@ -80,13 +107,14 @@ void printChessBoard(){
 	cout<<endl;
 }
 
-void printChessSquareCoordinates(chessSquare* chessSquare){
-	if(chessSquare){
-		cout<<"rowNumber: "<<chessSquare->rowNumber<<" columnNumber: "<<chessSquare->columnNumber<<endl;
-	}else{
-		cout<<"chessSquare is nullptr !!"<<endl;
-	}
-}
+// void printChessSquareCoordinates(chessSquare* chessSquare){
+// 	if(chessSquare){
+// 		cout<<"rowNumber: "<<chessSquare->rowNumber<<" columnNumber: "<<chessSquare->columnNumber<<endl;
+// 	}else{
+// 		cout<<"chessSquare is nullptr !!"<<endl;
+// 	}
+// }
+
 
 vector<chessSquare*> getAllQueensCoordinatesWhichAreOnTheChessBoard(){
 	vector<chessSquare*> queensCoordinates;
@@ -147,7 +175,16 @@ void markAllChessSquaresInConflictWithCurrentQueenByRightDiagona(chessSquare* cu
 	}
 }
 
+// void clearAllMarkedChessSquaresInConflict(int *chessBoard, int CHESS_BOARD_SIZE){
+// 	for(int i=0;i<CHESS_BOARD_SIZE;i++){
+// 		if(chessBoard[i] == MARKED_SYMBOL){
+// 			chessBoard[i] =0;
+// 		}
+// 	}
+// }
+
 void clearAllMarkedChessSquaresInConflict(){
+
 	for(int i=0;i<CHESS_BOARD_SIZE;i++){
 		for(int j=0;j<CHESS_BOARD_SIZE;j++){
 			if(chessBoard[i][j] == MARKED_SYMBOL){
@@ -192,6 +229,12 @@ vector<chessSquare*> getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen(){
 	return freeChessSquaresCoordinates;
 }
 
+void clearTheChessBoard(int* chessBoard,int CHESS_BOARD_SIZE){
+	for(int i = 0; i < CHESS_BOARD_SIZE*CHESS_BOARD_SIZE; i++){
+		chessBoard[i] = 0;
+	}
+}
+
 void clearTheChessBoard(){
 	for(int i = 0; i < CHESS_BOARD_SIZE; i++){
 		for(int j = 0; j < CHESS_BOARD_SIZE; j++){
@@ -213,7 +256,8 @@ void lasVegas(){
 	
 	vector<chessSquare*> freeToPlaceCoordinates = getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen();
 	int choosenFreeToPlaceCoordinatesIndex ;
-	
+	chessSquare* freeCoordinate = nullptr;
+
 	// while(queenPlaced < 8){
 		while(freeToPlaceCoordinates.size()>0){
 			// cout<<"freeToPlaceCoordinates size: "<<freeToPlaceCoordinates.size()<<endl;
@@ -222,11 +266,18 @@ void lasVegas(){
 			// cout<<"total free chessSquare's: "<<freeToPlaceCoordinates.size()<<endl;
 			// cout<<"the choosedCoordinaes are at index: "<<choosenFreeToPlaceCoordinatesIndex<<" the chessSquare is: "<<endl;
 			// printChessSquareCoordinates(freeToPlaceCoordinates[choosenFreeToPlaceCoordinatesIndex]);
-			chessBoard[freeToPlaceCoordinates[choosenFreeToPlaceCoordinatesIndex]->rowNumber][freeToPlaceCoordinates[choosenFreeToPlaceCoordinatesIndex]->columnNumber] = 1;
+			 freeCoordinate = new chessSquare{
+				freeToPlaceCoordinates[choosenFreeToPlaceCoordinatesIndex]->rowNumber,
+			 	freeToPlaceCoordinates[choosenFreeToPlaceCoordinatesIndex]->columnNumber
+			 };
+
+			chessBoard[freeCoordinate->rowNumber][freeCoordinate->columnNumber] = 1;
 			queenPlaced++;
+
 			for(int i=0;i<freeToPlaceCoordinates.size();i++){
 				delete freeToPlaceCoordinates[i];
 			}
+			delete freeCoordinate;
 			freeToPlaceCoordinates = getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen();
 			
 		}	
@@ -247,9 +298,22 @@ void lasVegas(){
 	
 
 
+void test(int *board){
+	int iterator = 0;
+	for(int i=0;i<CHESS_BOARD_SIZE;i++){
+		for(int j=0;j<CHESS_BOARD_SIZE;j++){
+			cout<<board[iterator++]<<" ";
+		}
+		cout<<endl;
+	}
+}
+
+
+
 int main(){
-	cout<<"Searching for solution! ..."<<endl;
-	
+
+	// cout<<chessBoard[a->rowNumber][a->columnNumber]<<endl;
+	cout<<"finding solutions ..."<<endl;
 	while(queenPlaced < 8){
 		lasVegas();	
 	}
@@ -257,13 +321,4 @@ int main(){
 	cout<<"Solution found"<<endl;
 
 	printChessBoard();
-
-
-
-	
-
-	
-
-	
-
 }
