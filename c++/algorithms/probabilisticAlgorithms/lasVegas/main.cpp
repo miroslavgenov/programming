@@ -132,11 +132,14 @@ void markAllChessSquaresInConflictWithCurrentQueenByLeftDiagona(chessSquare* cur
 }
 
 void markAllChessSquaresInConflictWithCurrentQueenByRightDiagona(chessSquare* currentQueen){
+	//rith diagonal up
+	//right diagonal down
 	for(int i = currentQueen->rowNumber, j = currentQueen->columnNumber; j >= 0 && i<CHESS_BOARD_SIZE; i++, j--){
 		if(chessBoard[i][j] != 1){
 				chessBoard[i][j] = MARKED_SYMBOL;	
 		}
 	}
+
 	for(int i = currentQueen->rowNumber, j = currentQueen->columnNumber; i>=0 && j<CHESS_BOARD_SIZE ; i--, j++){
 		if(chessBoard[i][j] != 1){
 			chessBoard[i][j] = MARKED_SYMBOL;
@@ -227,16 +230,50 @@ void lasVegas(){
 
 
 
+//move into ChessTableUtil
+void markTheChessSquaresInConflictWithCurrentQueenByBottomLeftDiagonal(int *chessBoard, int CHESS_BOARD_SIZE, chessSquare* currentQueen){
+	for(int i = currentQueen->rowNumber, j = currentQueen->columnNumber; j >= 0 && i<CHESS_BOARD_SIZE; i++, j--){
+		if(chessBoard[i*CHESS_BOARD_SIZE+j] != 1){
+				chessBoard[i*CHESS_BOARD_SIZE+j] = MARKED_SYMBOL;	
+		}
+	}
+}
+
+//move into ChessTableUtil
+void markTheChessSquaresInConflictWithCurrentQueenByTopRightDiagonal(int *chessBoard, int CHESS_BOARD_SIZE, chessSquare* currentQueen){
+	for(int i = currentQueen->rowNumber, j = currentQueen->columnNumber; i>=0 && j<CHESS_BOARD_SIZE ; i--, j++){
+		if(chessBoard[i*CHESS_BOARD_SIZE + j] != 1){
+			chessBoard[i*CHESS_BOARD_SIZE + j] = MARKED_SYMBOL;
+		}
+	}
+}
+
+
+
+//move into ChessTableUtil
+void markAllCHessSquaresInConflictWithCurrentQueenByTHeFullTopRightAndBottolLeftDiagonal(int *chessBoard, int CHESS_BOARD_SIZE, chessSquare* currentQueen){
+
+	markTheChessSquaresInConflictWithCurrentQueenByBottomLeftDiagonal(chessBoard,CHESS_BOARD_SIZE,currentQueen);
+	markTheChessSquaresInConflictWithCurrentQueenByTopRightDiagonal(chessBoard,CHESS_BOARD_SIZE,currentQueen);
+}
+
+
+
 
 int main(){
 	
+	chessSquare* sq = new chessSquare{3,3};
 
-	cout<<"finding solutions ..."<<endl;
-	while(queenPlaced < 8){
-		lasVegas();	
-	}
+	markAllCHessSquaresInConflictWithCurrentQueenByTHeFullTopRightAndBottolLeftDiagonal((int*)chessBoard,CHESS_BOARD_SIZE,sq);
 	
-	cout<<"Solution found"<<endl;
-
 	printChessBoard();
+
+	// cout<<"finding solutions ..."<<endl;
+	// while(queenPlaced < 8){
+	// 	lasVegas();	
+	// }
+	
+	// cout<<"Solution found"<<endl;
+
+	// printChessBoard();
 }
