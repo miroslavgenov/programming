@@ -5,8 +5,15 @@
 
 using namespace std;
 
+
+struct chessSquare{
+	int rowNumber;
+	int columnNumber;
+};
+
 class ChessBoardUtil{
 	public:
+	static int MARKED_SYMBOL;
 
 	static bool isThereAQueenOnTheChessBoard(int* chessBoard, int CHESS_BOARD_SIZE){
 		for(int i = 0;i<CHESS_BOARD_SIZE*CHESS_BOARD_SIZE;i++){
@@ -17,25 +24,38 @@ class ChessBoardUtil{
 		return 0;
 	}
 
-	// static chessSquare* getTheFirstQueenCoordinatesThatComeIntoView(int *board,int size){
+	static void clearAllMarkedChessSquaresInConflict(int *chessBoard, int CHESS_BOARD_SIZE){
+		for(int i=0;i<CHESS_BOARD_SIZE*CHESS_BOARD_SIZE;i++){
+			if(chessBoard[i] == MARKED_SYMBOL){
+				chessBoard[i] =0;
+			}
+		}
+	}
 
-	// 	for(int i=0;i<size;i++){
-	// 		for(int j=0;j<size;j++){
-	// 			if(board[i*size+j] == 1){
-	// 				return new chessSquare{i,j};
-	// 			}
-	// 		}
-	// 	}
+	static void clearTheChessBoard(int* chessBoard, int CHESS_BOARD_SIZE){
+		for(int i = 0; i < CHESS_BOARD_SIZE*CHESS_BOARD_SIZE; i++){
+			chessBoard[i] = 0;
+		}
+	}
 
-	// 	return nullptr;
-	// }
+	static vector<chessSquare*> getAllQueensCoordinatesWhichAreOnTheChessBoard(int* chessBoard, int CHESS_BOARD_SIZE){
+		vector<chessSquare*> queensCoordinates;
+
+		for(int i = 0; i < CHESS_BOARD_SIZE; i++){
+			for(int j = 0; j < CHESS_BOARD_SIZE; j++){
+				if(chessBoard[i*CHESS_BOARD_SIZE + j] == 1){
+					queensCoordinates.push_back(new chessSquare{i,j});
+				}
+			}
+		}
+		return queensCoordinates;
+	}
 
 };
 
-struct chessSquare{
-	int rowNumber;
-	int columnNumber;
-};
+int ChessBoardUtil::MARKED_SYMBOL = 2;
+
+
 
 int QUEENS = 8;
 int queenPlaced = 0;
@@ -52,43 +72,6 @@ int chessBoard[CHESS_BOARD_SIZE][CHESS_BOARD_SIZE] = {
 	{0,0,0,0,0,0,0,0}
 };
 
-// bool isThereAQueenOnTheChessBoard(){
-// 	for(int i = 0;i<CHESS_BOARD_SIZE;i++){
-// 		for(int j= 0;j<CHESS_BOARD_SIZE;j++){
-// 			if(chessBoard[i][j] == 1){
-// 				return 1;
-// 			}
-// 		}
-// 	}
-// 	return 0;
-// }
-
-// chessSquare* getTheFirstQueenCoordinatesThatComeIntoView(){
-// 	chessSquare* firstQueenThatComeIntoView = nullptr;
-// 	if(ChessBoardUtil::isThereAQueenOnTheChessBoard((int* )chessBoard,CHESS_BOARD_SIZE)){
-// 		for(int i=0;i<CHESS_BOARD_SIZE;i++){
-// 			for(int j=0;j<CHESS_BOARD_SIZE;j++){
-// 				if(chessBoard[i][j] == 1){
-// 					firstQueenThatComeIntoView = new chessSquare{i,j};
-// 					return firstQueenThatComeIntoView;
-// 				}
-// 			}
-// 		}	
-// 	}
-// 	return firstQueenThatComeIntoView;
-// }
-
-// int getTheTotalNumberOfQueensThatAreOnTheChessBoard(){
-// 	int totalNumberOfQueens = 0;
-// 	for(int i=0;i<CHESS_BOARD_SIZE;i++){
-// 		for(int j=0;j<CHESS_BOARD_SIZE;j++){
-// 			if(chessBoard[i][j] == 1){
-// 				totalNumberOfQueens++;
-// 			}
-// 		}
-// 	}
-// 	return totalNumberOfQueens;
-// }
 
 
 void printChessBoard(){
@@ -107,26 +90,12 @@ void printChessBoard(){
 	cout<<endl;
 }
 
-// void printChessSquareCoordinates(chessSquare* chessSquare){
-// 	if(chessSquare){
-// 		cout<<"rowNumber: "<<chessSquare->rowNumber<<" columnNumber: "<<chessSquare->columnNumber<<endl;
-// 	}else{
-// 		cout<<"chessSquare is nullptr !!"<<endl;
-// 	}
-// }
-
-
-vector<chessSquare*> getAllQueensCoordinatesWhichAreOnTheChessBoard(){
-	vector<chessSquare*> queensCoordinates;
-
-	for(int i = 0; i < CHESS_BOARD_SIZE; i++){
-		for(int j = 0; j < CHESS_BOARD_SIZE; j++){
-			if(chessBoard[i][j] == 1){
-				queensCoordinates.push_back(new chessSquare{i,j});
-			}
-		}
+void printChessSquareCoordinates(chessSquare* chessSquare){
+	if(chessSquare){
+		cout<<"rowNumber: "<<chessSquare->rowNumber<<" columnNumber: "<<chessSquare->columnNumber<<endl;
+	}else{
+		cout<<"chessSquare is nullptr !!"<<endl;
 	}
-	return queensCoordinates;
 }
 
 void markAllChessSquaresInConflictWithTheCurrentQueenRowNumber(chessSquare* currentQueen){
@@ -175,25 +144,6 @@ void markAllChessSquaresInConflictWithCurrentQueenByRightDiagona(chessSquare* cu
 	}
 }
 
-// void clearAllMarkedChessSquaresInConflict(int *chessBoard, int CHESS_BOARD_SIZE){
-// 	for(int i=0;i<CHESS_BOARD_SIZE;i++){
-// 		if(chessBoard[i] == MARKED_SYMBOL){
-// 			chessBoard[i] =0;
-// 		}
-// 	}
-// }
-
-void clearAllMarkedChessSquaresInConflict(){
-
-	for(int i=0;i<CHESS_BOARD_SIZE;i++){
-		for(int j=0;j<CHESS_BOARD_SIZE;j++){
-			if(chessBoard[i][j] == MARKED_SYMBOL){
-				chessBoard[i][j] = 0;
-			}
-		}
-	}
-}
-
 //toto pass the queen
 void markAllChessSquearesThatAreInConflictWithCurrentQueen(chessSquare* currentQueen){
 	// cout<<"markAllChessSquearesThatAreInConflictWithCurrentQueen"<<endl;
@@ -208,10 +158,11 @@ void markAllChessSquearesThatAreInConflictWithCurrentQueen(chessSquare* currentQ
 	
 }
 
+//ChessBoardUtil
 vector<chessSquare*> getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen(){
 	vector<chessSquare*> freeChessSquaresCoordinates;
 
-	vector<chessSquare*> queensCoordinates = getAllQueensCoordinatesWhichAreOnTheChessBoard();
+	vector<chessSquare*> queensCoordinates = ChessBoardUtil::getAllQueensCoordinatesWhichAreOnTheChessBoard((int*)chessBoard,CHESS_BOARD_SIZE);
 	
 	for(int i=0;i<queensCoordinates.size();i++){
 		markAllChessSquearesThatAreInConflictWithCurrentQueen(queensCoordinates[i]);
@@ -229,27 +180,6 @@ vector<chessSquare*> getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen(){
 	return freeChessSquaresCoordinates;
 }
 
-void clearTheChessBoard(int* chessBoard,int CHESS_BOARD_SIZE){
-	for(int i = 0; i < CHESS_BOARD_SIZE*CHESS_BOARD_SIZE; i++){
-		chessBoard[i] = 0;
-	}
-}
-
-void clearTheChessBoard(){
-	for(int i = 0; i < CHESS_BOARD_SIZE; i++){
-		for(int j = 0; j < CHESS_BOARD_SIZE; j++){
-			chessBoard[i][j] = 0;
-		}
-	}
-}
-
-void fillChessBoardWithSpecificNumber(int number){
-	for(int i = 0; i < CHESS_BOARD_SIZE; i++){
-		for(int j = 0; j < CHESS_BOARD_SIZE; j++){
-			chessBoard[i][j] = number;
-		}
-	}
-}
 
 void lasVegas(){
 	srand(time(0));
@@ -282,37 +212,25 @@ void lasVegas(){
 			
 		}	
 			if(freeToPlaceCoordinates.size() == 0 && queenPlaced != 8){
-				clearAllMarkedChessSquaresInConflict();
+				ChessBoardUtil::clearAllMarkedChessSquaresInConflict((int*)chessBoard, CHESS_BOARD_SIZE);
 				// printChessBoard();
 				// cout<<"queenPlaced: "<<queenPlaced<<endl;
-				clearTheChessBoard();
+				ChessBoardUtil::clearTheChessBoard((int*)chessBoard, CHESS_BOARD_SIZE);
 				queenPlaced=0;
 			}else if(queenPlaced == 8){
-				clearAllMarkedChessSquaresInConflict();
+				ChessBoardUtil::clearAllMarkedChessSquaresInConflict((int*)chessBoard, CHESS_BOARD_SIZE);
 			}
 		// }
 			
 }
 	
 
-	
-
-
-void test(int *board){
-	int iterator = 0;
-	for(int i=0;i<CHESS_BOARD_SIZE;i++){
-		for(int j=0;j<CHESS_BOARD_SIZE;j++){
-			cout<<board[iterator++]<<" ";
-		}
-		cout<<endl;
-	}
-}
 
 
 
 int main(){
+	
 
-	// cout<<chessBoard[a->rowNumber][a->columnNumber]<<endl;
 	cout<<"finding solutions ..."<<endl;
 	while(queenPlaced < 8){
 		lasVegas();	
