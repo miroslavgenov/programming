@@ -124,20 +124,28 @@ class LassVegas{
 	vector<chessSquare*> queensCoordinatesThatAreOnChessBoard;
 	vector<chessSquare*> freeChessSquaresCoordinate;
 
+	int placedQueens;
+
 	LassVegas(){
+
 		chessBoard = new int*[size];
 
 		for(int i=0;i<size;i++){
 			chessBoard[i] = new int[size];
 		} 
 
+		placedQueens = 0;
+
 		// printChessBoard();
 		// lassVegas();
 
-		chessBoard[4][4] = 1;
-		chessBoard[3][2] = 1;
+		// chessBoard[4][4] = 1;
+		// chessBoard[3][2] = 1;
 
-		getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen();
+		// getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen();
+		// printChessBoard();
+		this->lassVegas();
+		// this->lassVegas();
 		printChessBoard();
 		
 
@@ -199,10 +207,7 @@ class LassVegas{
 		storeAllFreeCoordinates();
 	}
 
-	void lassVegas(){
-
-
-	}
+	void lassVegas();
 
 	void printChessBoard(){
 		for(int i=0;i<size;i++){
@@ -279,6 +284,18 @@ class LassVegas{
 			cout<<"\t THERE IS NO QUEEN ON THE CHESS BOARD"<<endl;
 		}
 		
+	}
+	
+	 
+	/**
+	THIS FUNCTIONS FIRST GET THE free chessSquare coordinates and save them into
+		vector and then checs if the vector.size is > 0 
+	
+	*/
+	bool isThereFreeChessSquare(){
+			
+		getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen();
+		return freeChessSquaresCoordinate.size() > 0;
 	}
 
 
@@ -393,6 +410,44 @@ vector<chessSquare*> getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen(){
 	return freeChessSquaresCoordinates;
 }
 
+void LassVegas::lassVegas(){
+	//NEED TO FIX THE ALGORITHM
+	cout<<__func__<<endl;
+
+	srand(time(0));
+
+	int chooseFreeToPlaceCoordinatesIndex;
+	chessSquare* freeCoordinatesToPlaceAQueen = nullptr;
+
+	while(placedQueens<=8 && isThereFreeChessSquare() ){
+	chooseFreeToPlaceCoordinatesIndex = rand() % (freeChessSquaresCoordinate.size());
+
+
+	freeCoordinatesToPlaceAQueen = new chessSquare{
+		freeChessSquaresCoordinate[chooseFreeToPlaceCoordinatesIndex]->rowNumber,
+		freeChessSquaresCoordinate[chooseFreeToPlaceCoordinatesIndex]->columnNumber
+	};
+
+	chessBoard[freeCoordinatesToPlaceAQueen->rowNumber][freeCoordinatesToPlaceAQueen->columnNumber] = 1;
+
+	placedQueens++;
+	
+	for(int i=0;i<freeChessSquaresCoordinate.size();i++){
+		delete freeChessSquaresCoordinate[i];
+	}
+
+	
+	freeChessSquaresCoordinate.clear();
+	delete freeCoordinatesToPlaceAQueen;
+	}
+
+	
+
+	// printChessBoard();
+
+
+	
+}
 
 void lasVegas(){
 	srand(time(0));
@@ -420,7 +475,10 @@ void lasVegas(){
 			for(int i=0;i<freeToPlaceCoordinates.size();i++){
 				delete freeToPlaceCoordinates[i];
 			}
+			freeToPlaceCoordinates.clear();
+
 			delete freeCoordinate;
+			
 			freeToPlaceCoordinates = getAllChessSquaresCoordinatesWhereYouCanPlaceAQueen();
 			
 		}	
@@ -443,6 +501,7 @@ void lasVegas(){
 int main(){
 
 	LassVegas* lg = new LassVegas();
+
 		
 	// cout<<"finding solutions ..."<<endl;
 	// while(queenPlaced < 8){
