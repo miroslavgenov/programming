@@ -27,6 +27,7 @@ cout<<endl;
 		}cout<<endl;
 	}cout<<endl;
 }
+
 void knapsack(int i){
 	if(i == ITEMS_SIZE){
 		return;
