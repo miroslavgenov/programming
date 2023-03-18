@@ -1,115 +1,18 @@
 #include <iostream>
 
+#include "/home/user/Desktop/programming/c++/algorithms/greedyAlgorithms/knapsack/item.h"
+#include "/home/user/Desktop/programming/c++/algorithms/greedyAlgorithms/knapsack/tableCellCoordinates.h"
+#include "/home/user/Desktop/programming/c++/algorithms/greedyAlgorithms/knapsack/itemPointer.h"
+#include "/home/user/Desktop/programming/c++/algorithms/greedyAlgorithms/knapsack/ItemHelper.cpp"
+#include "/home/user/Desktop/programming/c++/algorithms/greedyAlgorithms/knapsack/KnapSackHelper.h"
+
 using namespace std;
 
-struct item{
-    int weight;
-    int price;
-};
-
-struct tableCellCoordinates{
-    int row;
-    int column;
-};
-
-struct itemPointer{
-    item *itemData = nullptr;
-    tableCellCoordinates* cellData = nullptr;
-};
-
-class ItemHelper{
-    public:
-
-    int size;
-    item** items = nullptr;
-
-    ItemHelper(item** srcItems, int size){
-        items = new item*[size];
-        this->size = size;
-
-        for(int i=0;i<size;i++){
-            items[i] = new item{srcItems[i]->weight, srcItems[i]->price};
-        }
-    }
-
-    int getPrice(int index){
-        return items[index]->price;
-    }
-
-    int getWeight(int index){
-        return items[index]->weight;
-    }
-
-    int getSize(){
-        return size;
-    }
-
-};
-
-class KnapSackHelper{
-    public:
-    ItemHelper* ith = nullptr;
-    itemPointer* currentItem = nullptr;
-    itemPointer** itemPointerHelper = nullptr;
-
-    KnapSackHelper(item** srcItems, int size, itemPointer** srcCurrentItem){
-        ith = new ItemHelper(srcItems,size);
-
-        itemPointer* currentItem = *srcCurrentItem;
-
-    }
-
-    void setItemPointerWeightAndPrice(itemPointer** p, int itemIndex){
-        itemPointer* itemP = *p;
-        itemP->itemData->weight = ith->getWeight(itemIndex);
-        itemP->itemData->price = ith->getPrice(itemIndex);
-    }
-
-    void setItemPointerWeightAndPrice(itemPointer** p, int **table){
-        itemPointer* i = *p;
-        i->itemData->weight = i->cellData->column;
-        i->itemData->price = table[i->cellData->row][i->cellData->column];
-
-    }
-
-    static int getSumOfWeight(itemPointer* fitem, itemPointer* sitem){
-        return fitem->itemData->weight + sitem->itemData->weight;
-    }
-
-    static int getSumOfPrice(itemPointer* fitem, itemPointer* sitem){
-        return fitem->itemData->price + sitem->itemData->price;
-    }
-
-    static void incrementColumns(itemPointer** fitem, itemPointer** sitem){
-        incrementColumn(fitem);
-        incrementColumn(sitem);
-    }
-
-    static void incrementColumn(itemPointer** item){
-        itemPointer* p = *item;
-        p->cellData->column = p->cellData->column + 1;
-    }
-
-    void setRowAndColumn(itemPointer** item, int row, itemPointer* itemColumnData){
-        itemPointer* p = *item;
-        p->cellData->row = row;
-        setColumn(item,itemColumnData);
-    }
-
-    void setColumn(itemPointer** item, itemPointer* itemIndex){
-        itemPointer* p = *item;
-
-        p->cellData->column = ith->getWeight(itemIndex->cellData->row);
-    }
-
-
-};
 
 class KnapSack{
     public:
 
     int bagSize;
-    int itemSize;
     int** table = nullptr;
 
     itemPointer* prevItemPointerIt = nullptr;
@@ -119,70 +22,32 @@ class KnapSack{
     itemPointer* itemPointerHelper = nullptr;
 
     KnapSackHelper* knpsh = nullptr;
+	
 
-
-    //util
-    void initializeItemPointer(itemPointer** p){
-        *p = new itemPointer;
-
-        itemPointerHelper = *p;
-        itemPointerHelper->itemData = new item;
-
-        itemPointerHelper->cellData = new tableCellCoordinates;
-
-
-        itemPointerHelper = nullptr;
-    }
-
-    KnapSack(item** srcItems,int srcItemSize,int srcBagSize):itemSize(srcItemSize),bagSize(srcBagSize){
+    KnapSack(item** srcItems,int srcItemSize,int srcBagSize):bagSize(srcBagSize){
                 
         knpsh = new KnapSackHelper(srcItems, srcItemSize, &currentItem);
-        
-        int itemSize = knpsh->ith->getSize(); 
+         
 
-        table = new int*[itemSize];
+        table = new int*[srcItemSize];
         
-        for(int i=0;i<itemSize;i++){
-            table[i] = new int[bagSize];
+        for(int i=0;i<srcItemSize;i++){
+            table[i] = new int[srcBagSize];
         }
-
-        initializeItemPointer(&prevItemPointerIt);
-        initializeItemPointer(&prevItem);
-        initializeItemPointer(&currentItem);
-
+        
+        initializeItemPointers();
+	
         this->knapsack();
     }
 
-
-    void printTable(){
-        for(int i=0;i<bagSize;i++){
-            if(i == 0){
-                cout<<"   ";
-            }
-            cout<<i<<" ";
-        }
-        cout<<endl;
-
-        for(int i=0;i<knpsh->ith->getSize();i++){
-            cout<<i<<": ";
-            for(int j=0;j<bagSize;j++){
-                cout<<table[i][j]<<" ";
-            }
-            cout<<endl;
-        }
-    }
-
+	void initializeItemPointers(){
+		KnapSackHelper::initializeItemPointer(&prevItemPointerIt);
+		KnapSackHelper::initializeItemPointer(&prevItem);
+		KnapSackHelper::initializeItemPointer(&currentItem);
+	}
 
     void setTableCellPrice(tableCellCoordinates* coordinates, int price){
         table[coordinates->row][coordinates->column] = price;
-    }
-
-    int getItemPointerPrice(itemPointer *p){
-        return p->itemData->price;
-    }
-
-    int getItemPointerColumn(itemPointer* p){
-        return p->cellData->column;
     }
 
     bool isTheCellWeightCompatableWithTheItem(int currentWeight, int thatWeight){
@@ -192,22 +57,6 @@ class KnapSack{
     bool isCurrentPriceGreaterOrEqualToThatPrice(int currentPrice, int thatPrice){
         return isTheCellWeightCompatableWithTheItem(currentPrice, thatPrice);
     }
-
-    int getColumn(itemPointer* p){
-        return p->cellData->column;
-    }
-    int getRow(itemPointer* p){
-        return p->cellData->row;
-    }
-
-    int getPrice(itemPointer* p){
-        return p->itemData->price;
-    }
-
-    int getWeight(itemPointer* p){
-        return p->itemData->weight;
-    }
-
 
     /// @brief NOTE each element of the array must be initialized with parameters. Example p[0] = new itemPointer{new item{3,3}, new tableCellCoordinates{1,1}};
     // else will give you arror
@@ -232,7 +81,7 @@ class KnapSack{
     int sum = 0;
         // cout<<size<<endl;
         for(int i=0;i<size;i++){
-            sum+=getWeight(p[i]);
+            sum+=KnapSackHelper::getWeight(p[i]);
         }
         // cout<<sum<<endl;
         return sum;
@@ -262,16 +111,10 @@ class KnapSack{
     int sum = 0;
         // cout<<size<<endl;
         for(int i=0;i<size;i++){
-            sum+=getPrice(p[i]);
+            sum+=KnapSackHelper::getPrice(p[i]);
         }
         // cout<<sum<<endl;
         return sum;
-    }
-
-
-    void initializeKnapSackTable(){
-        initializeTheFirstRowOfTheTable();
-        initializeTheRowsThatAreNotInitialized();
     }
 
     void knapsack(){
@@ -287,7 +130,7 @@ class KnapSack{
 
             knpsh->setRowAndColumn(&prevItem, row-1, prevItem);
 
-            for(int j = getWeight(currentItem) + 1; j < bagSize; j++){
+            for(int j = KnapSackHelper::getWeight(currentItem) + 1; j < bagSize; j++){
                 
                 knpsh->setItemPointerWeightAndPrice(&prevItemPointerIt,table);
 
@@ -296,7 +139,7 @@ class KnapSack{
                 if(isTheCellWeightCompatableWithTheItem(j, KnapSackHelper::getSumOfWeight(currentItem,prevItem))){
 
                     sumOfPrice = KnapSackHelper::getSumOfPrice(currentItem,prevItem);
-                    if(isCurrentPriceGreaterOrEqualToThatPrice(sumOfPrice, getPrice(prevItemPointerIt))){
+                    if(isCurrentPriceGreaterOrEqualToThatPrice(sumOfPrice, KnapSackHelper::getPrice(prevItemPointerIt))){
                         
                         setTableCellPrice(new tableCellCoordinates{row,j}, (sumOfPrice));
 
@@ -304,14 +147,19 @@ class KnapSack{
                     }
 
                 }else{
-                    setTableCellPrice(new tableCellCoordinates{row,j}, getPrice(prevItemPointerIt));
+                    setTableCellPrice(new tableCellCoordinates{row,j}, KnapSackHelper::getPrice(prevItemPointerIt));
                     KnapSackHelper::incrementColumn(&prevItemPointerIt);
                 }
             }
         }
     }
 
+    void initializeKnapSackTable(){
+        initializeTheFirstRowOfTheTable();
+        initializeTheRowsThatAreNotInitialized();
+    }
 
+    //TODO: in the util class
     void initializeTheFirstRowOfTheTable(){
         constexpr int firstItem = 0;
 
@@ -324,6 +172,7 @@ class KnapSack{
         }
     } 
 
+//todo: in util class
     void initializeTheRowsThatAreNotInitialized(){
         int currentItemWeight;
         
@@ -354,5 +203,5 @@ int main(){
 
     KnapSack *kp = new KnapSack(items,itemSize,bagSize);
 
-    kp->printTable();
+	KnapSackHelper::printTable(kp->table,bagSize,itemSize);
 }
