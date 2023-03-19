@@ -34,17 +34,12 @@ class KnapSack{
         for(int i=0;i<srcItemSize;i++){
             table[i] = new int[srcBagSize];
         }
-        
-        initializeItemPointers();
+
+        //TODO: pass them ass array        
+        KnapSackHelper::initializeItemPointers(&prevItemPointerIt,&prevItem,&currentItem);
 	
         this->knapsack();
     }
-
-	void initializeItemPointers(){
-		KnapSackHelper::initializeItemPointer(&prevItemPointerIt);
-		KnapSackHelper::initializeItemPointer(&prevItem);
-		KnapSackHelper::initializeItemPointer(&currentItem);
-	}
 
     void setTableCellPrice(tableCellCoordinates* coordinates, int price){
         table[coordinates->row][coordinates->column] = price;
@@ -87,38 +82,67 @@ class KnapSack{
         return sum;
     }
 
+    int getPointersSize(itemPointer** p){
 
+        int size = 0;
+
+        for(int i=0;;i++){
+            if(p[i] == nullptr && p[i]->itemData == nullptr){
+                return size;
+            }else{
+                cout<<p[i]->itemData->price<<endl;
+                size++;
+            }
+        }
+
+        return size;
+
+    }
     /// @brief NOTE each element of the array must be initialized with parameters. Example p[0] = new itemPointer{new item{3,3}, new tableCellCoordinates{1,1}};
     // else will give you arror
     //  MAKE CLASS FOR EXCEPTIONS
     // HOW TO CALL:  getSumOfPrice(new itemPointer*[]{currentItem,prevItem});
     /// @param array with itemPointer 
     int getSumOfPrice(itemPointer** p){
-        int size = 0;
 
-        for(int i=0;;i++){
-            if(p[i] == nullptr){
-                break;
-            }
-            // if you don't want error pass fully initialized variables or
-            // make else if( p[i]->cellData == nullptr) break;
-            // else if(p[i]->itemData == nullptr) break; 
-            // etc
+        // int size = 0;
 
-            size++;
-        }
+        // for(int i=0;;i++){
+        //     if(p[i] == nullptr){
+        //         break;
+        //     }
+        //     cout<<p[i]->itemData->price<<endl;
+        //     // size++;
+        // }
+        // cout<<size<<endl;
+
+        // int size = 0;
+
+        // for(int i=0;;i++){
+        //     if(p[i] == nullptr){
+        //         break;
+        //     }
+        //     // if you don't want error pass fully initialized variables or
+        //     // make else if( p[i]->cellData == nullptr) break;
+        //     // else if(p[i]->itemData == nullptr) break; 
+        //     // etc
+
+        //     size++;
+        // }
+
+    cout<<getPointersSize(p)<<endl;
 
     int sum = 0;
-        // cout<<size<<endl;
-        for(int i=0;i<size;i++){
-            sum+=KnapSackHelper::getPrice(p[i]);
-        }
-        // cout<<sum<<endl;
+    //     // cout<<size<<endl;
+    //     for(int i=0;i<size;i++){
+    //         sum+=KnapSackHelper::getPrice(p[i]);
+    //     }
+    //     // cout<<sum<<endl;
         return sum;
     }
 
     void knapsack(){
-        initializeKnapSackTable();
+        knpsh->initializeKnapSackTable(&table,bagSize);
 
         int sumOfPrice;
 
@@ -153,39 +177,6 @@ class KnapSack{
             }
         }
     }
-
-    void initializeKnapSackTable(){
-        initializeTheFirstRowOfTheTable();
-        initializeTheRowsThatAreNotInitialized();
-    }
-
-    //TODO: in the util class
-    void initializeTheFirstRowOfTheTable(){
-        constexpr int firstItem = 0;
-
-        for(int i = 0; i <= firstItem; i++){
-            for(int currentCapacityWeight = 0; currentCapacityWeight < bagSize; currentCapacityWeight++){
-                if(currentCapacityWeight >= knpsh->ith->getWeight(firstItem)){
-                    table[firstItem][currentCapacityWeight] = knpsh->ith->getPrice(firstItem);
-                }
-            }
-        }
-    } 
-
-//todo: in util class
-    void initializeTheRowsThatAreNotInitialized(){
-        int currentItemWeight;
-        
-        for(int i = 1; i < knpsh->ith->getSize(); i++){
-            for(int currentCapacityWeight = 0; currentCapacityWeight < bagSize; currentCapacityWeight++){
-                currentItemWeight = knpsh->ith->getWeight(i);
-                if(currentCapacityWeight == currentItemWeight){
-                    table[i][currentCapacityWeight] =knpsh->ith->getPrice(i);
-                }
-            }
-        }
-    }
-
 };
 
 int main(){
@@ -204,4 +195,14 @@ int main(){
     KnapSack *kp = new KnapSack(items,itemSize,bagSize);
 
 	KnapSackHelper::printTable(kp->table,bagSize,itemSize);
+
+    kp->getSumOfPrice(new itemPointer*[]{
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}},
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}},
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}},
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}},
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}},
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}},
+        new itemPointer{new item{1,2}, new tableCellCoordinates{1,2}}
+    });
 }

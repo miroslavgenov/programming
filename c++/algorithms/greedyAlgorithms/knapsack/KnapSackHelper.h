@@ -90,6 +90,45 @@ class KnapSackHelper{
         return p->itemData->weight;
     }
 
+	static void initializeItemPointers(itemPointer** fItem,itemPointer** sItem, itemPointer** tItem ){
+		KnapSackHelper::initializeItemPointer(fItem);
+		KnapSackHelper::initializeItemPointer(sItem);
+		KnapSackHelper::initializeItemPointer(tItem);
+	}
+
+
+    void initializeKnapSackTable(int ***table, int bagSize){
+        initializeTheFirstRowOfTheTable(table, bagSize);
+        initializeTheRowsThatAreNotInitialized(table,bagSize);
+    }
+
+
+    void initializeTheFirstRowOfTheTable(int ***table, int bagSize){
+        constexpr int firstItem = 0;
+        
+        for(int itemRow=0;itemRow<=firstItem;itemRow++){
+            for(int currentCapacityWeight=0;currentCapacityWeight<bagSize;currentCapacityWeight++){
+                if(currentCapacityWeight >= ith->getWeight(firstItem)){
+                    *(*(*table+itemRow)+currentCapacityWeight) = ith->getPrice(firstItem);
+                }
+            }
+        }
+    } 
+
+    void initializeTheRowsThatAreNotInitialized(int ***table, int bagSize){
+        int currentItemWeight;
+        
+        for(int i = 1; i < ith->getSize(); i++){
+            for(int currentCapacityWeight = 0; currentCapacityWeight < bagSize; currentCapacityWeight++){
+                currentItemWeight = ith->getWeight(i);
+
+                if(currentCapacityWeight == currentItemWeight){
+                    *(*(*table+i)+currentCapacityWeight) = ith->getPrice(i);
+                }
+            }
+        }
+    }
+
     // static void initializeTheFirstRowOfTheTable(int ***table, int bagSize,int itemWeight){
     //     constexpr int firstItem = 0;
 
