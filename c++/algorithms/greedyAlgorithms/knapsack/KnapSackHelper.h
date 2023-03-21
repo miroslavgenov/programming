@@ -6,24 +6,37 @@ class KnapSackHelper{
     itemPointer* currentItem = nullptr;
     itemPointer** itemPointerHelper = nullptr;
 
-    KnapSackHelper(item** srcItems, int size, itemPointer** srcCurrentItem){
-        ith = new ItemHelper(srcItems,size);
+    KnapSackHelper(item** , int , itemPointer** );
 
-        itemPointer* currentItem = *srcCurrentItem;
+    void initializeKnapSackTable(int ***, int );
+
+    void initializeTheFirstRowOfTheTable(int ***, int );
+
+    void initializeTheRowsThatAreNotInitialized(int ***, int );
+
+    void setItemPointersWeightAndPrice(std::vector<itemPointer**> , int **);
+
+    void setRowAndColumn(itemPointer** , int );
+
+    void setColumn(itemPointer** , int );
+
+    void setColumn(itemPointer** , itemPointer* );
+
+    void setRowAndColumn(itemPointer** , int , itemPointer* );
+
+    void setTheSameRowButDifferentColumnToItemPointers(std::vector<itemPointer**> , int );
+
+    void setItemPointerWeightAndPrice(itemPointer** , int );
+
+    void setItemPointerWeightAndPrice(itemPointer** , int **);
+    
+    static bool isTheCellWeightCompatableWithTheItemWeight(int currentWeight, int thatWeight){
+        return currentWeight >= thatWeight;
     }
 
-    void setItemPointerWeightAndPrice(itemPointer** p, int itemIndex){
-        itemPointer* itemP = *p;
-        itemP->itemData->weight = ith->getWeight(itemIndex);
-        itemP->itemData->price = ith->getPrice(itemIndex);
-    }
-
-    void setItemPointerWeightAndPrice(itemPointer** p, int **table){
-        itemPointer* i = *p;
-        i->itemData->weight = i->cellData->column;
-        i->itemData->price = table[i->cellData->row][i->cellData->column];
-
-    }
+    static bool isCurrentPriceGreaterOrEqualToThatPrice(int currentPrice, int thatPrice){
+        return currentPrice >= thatPrice;
+    }    
 
     static int getSumOfWeight(itemPointer* fitem, itemPointer* sitem){
         return fitem->itemData->weight + sitem->itemData->weight;
@@ -33,9 +46,10 @@ class KnapSackHelper{
         return fitem->itemData->price + sitem->itemData->price;
     }
 
-    static void incrementColumns(itemPointer** fitem, itemPointer** sitem){
-        incrementColumn(fitem);
-        incrementColumn(sitem);
+    static void incrementColumn(std::vector<itemPointer**> list){
+        for(int i=0;i<list.size();i++){
+            incrementColumn(list[i]);
+        }
     }
 
     static void incrementColumn(itemPointer** item){
@@ -43,16 +57,9 @@ class KnapSackHelper{
         p->cellData->column = p->cellData->column + 1;
     }
 
-    void setRowAndColumn(itemPointer** item, int row, itemPointer* itemColumnData){
-        itemPointer* p = *item;
-        p->cellData->row = row;
-        setColumn(item,itemColumnData);
-    }
-
-    void setColumn(itemPointer** item, itemPointer* itemIndex){
-        itemPointer* p = *item;
-
-        p->cellData->column = ith->getWeight(itemIndex->cellData->row);
+    static void setTableCellPriceAndIncrementItemPointerColumn(int*** table, tableCellCoordinates* coordinates, itemPointer** item){
+        KnapSackHelper::setTableCellPrice(table,coordinates, KnapSackHelper::getPrice(*item));
+        KnapSackHelper::incrementColumn(item);
     }
 
 	static void initializeItemPointer(itemPointer** p){
@@ -90,55 +97,41 @@ class KnapSackHelper{
         return p->itemData->weight;
     }
 
-	static void initializeItemPointers(itemPointer** fItem,itemPointer** sItem, itemPointer** tItem ){
-		KnapSackHelper::initializeItemPointer(fItem);
-		KnapSackHelper::initializeItemPointer(sItem);
-		KnapSackHelper::initializeItemPointer(tItem);
+	static void initializeItemPointers(std::vector<itemPointer**> list){
+		for(int i=0;i<list.size();i++){
+            KnapSackHelper::initializeItemPointer(list[i]);
+        }
 	}
 
-
-    void initializeKnapSackTable(int ***table, int bagSize){
-        initializeTheFirstRowOfTheTable(table, bagSize);
-        initializeTheRowsThatAreNotInitialized(table,bagSize);
+    static void setTableCellPrice(int ***table,tableCellCoordinates* coordinates, int price){
+        // table[coordinates->row][coordinates->column] = price;
+        *(*(*table+coordinates->row)+coordinates->column) = price;
     }
 
+    static int getSumOfPrice(std::vector<itemPointer*> list){
+        int sum = 0;
 
-    void initializeTheFirstRowOfTheTable(int ***table, int bagSize){
-        constexpr int firstItem = 0;
-        
-        for(int itemRow=0;itemRow<=firstItem;itemRow++){
-            for(int currentCapacityWeight=0;currentCapacityWeight<bagSize;currentCapacityWeight++){
-                if(currentCapacityWeight >= ith->getWeight(firstItem)){
-                    *(*(*table+itemRow)+currentCapacityWeight) = ith->getPrice(firstItem);
+        for(int i=0;i<list.size();i++){
+            if(list[i] != nullptr){
+                if(list[i]->itemData != nullptr){
+                    sum += list[i]->itemData->price;
                 }
             }
         }
-    } 
+        return sum;
+    }
 
-    void initializeTheRowsThatAreNotInitialized(int ***table, int bagSize){
-        int currentItemWeight;
+    static int getSumOfWeight(std::vector<itemPointer*> list){
+        int sum = 0;
         
-        for(int i = 1; i < ith->getSize(); i++){
-            for(int currentCapacityWeight = 0; currentCapacityWeight < bagSize; currentCapacityWeight++){
-                currentItemWeight = ith->getWeight(i);
-
-                if(currentCapacityWeight == currentItemWeight){
-                    *(*(*table+i)+currentCapacityWeight) = ith->getPrice(i);
+        for(int i=0;i<list.size();i++){
+            if(list[i] != nullptr){
+                if(list[i]->itemData != nullptr){
+                    sum += list[i]->itemData->weight;
                 }
             }
         }
+        return sum;
     }
-
-    // static void initializeTheFirstRowOfTheTable(int ***table, int bagSize,int itemWeight){
-    //     constexpr int firstItem = 0;
-
-    //     for(int i = 0; i <= firstItem; i++){
-    //         for(int currentCapacityWeight = 0; currentCapacityWeight < bagSize; currentCapacityWeight++){
-    //             if(currentCapacityWeight >= itemWeight){
-    //                 table[firstItem][currentCapacityWeight] = knpsh->ith->getPrice(firstItem);
-    //             }
-    //         }
-    //     }
-    // }
 
 };
