@@ -1,244 +1,242 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+
+#include "/home/user/Desktop/programming/c++/dataStructures/graph/vertexConnection.h"
+#include "/home/user/Desktop/programming/c++/dataStructures/graph/GraphFlags.h"
+#include "/home/user/Desktop/programming/c++/dataStructures/graph/GraphUtil.h"
+#include "/home/user/Desktop/programming/c++/dataStructures/graph/Graph.cpp"
 
 using namespace std;
 
-const int graphSize = 8;
-bool visitedVerticies[graphSize]{0};
+struct vertexAndChild{
+	int vertexParent;
+	std::vector<int> child;
+};
+
+// main BFS basic bfs function and advanced bfs funtion that shows the shortes path
+class BFS:Graph{
+	public:
+	
+	// int *graphSize = nullptr;
+	// int **graph = nullptr;
+	// bool *visitedVerticies = nullptr;
+	// queue<int> qw;
+	// int targetVertex;
+	// std::vector<int> path;
+
+	BFS(int *srcGraph, int srcGraphSize):Graph(srcGraph,srcGraphSize){
+
+	}
+
+	std::vector<int> bfs(int sv){
+		std::queue<int> bfsQueue = std::queue<int>();
+		std::vector<int> path = std::vector<int>();
+		bool visitedVerticies[graphSize]{};
+		int currentVertex;
 
 
-bool isTargetFound = false;
+		bfsQueue.push(sv);
 
+		while(bfsQueue.empty() == false){
+			currentVertex = bfsQueue.front();
 
-struct queue{
-	int edge;
-	queue* next;
-	queue *prev;
+			if(visitedVerticies[currentVertex] == 0){
+
+				path.push_back(currentVertex);
+				visitedVerticies[currentVertex] = 1;
+
+				for(int i=0;i<graphSize;i++){
+					if(graph[currentVertex][i] != 0 && visitedVerticies[i] == 0){
+						bfsQueue.push(i);
+					}
+				}
+			}
+
+			bfsQueue.pop();
+		}
+		return path;
+	}
+
+	//TODO: 
+	void bfs(int st, int tg){	
+		std::queue<int> qw;
+		int cv;
+		bool vs[graphSize]{0};
+
+		vertexAndChild** hs =new vertexAndChild*[graphSize];
+
+		for(int i=0;i<graphSize;i++){
+			hs[i] = new vertexAndChild{i,{}}; 
+		}
+
+		qw.push(st);
+
+		while(qw.empty() == false){
+			cv = qw.front();
+
+			if(vs[cv] == 0){
+				for(int i=0;i<graphSize;i++){
+					if(graph[cv][i] != 0 & vs[i] == 0 ){
+
+						for(int j=0;j<graphSize;j++){
+							// if(hs[j]->)
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+	void printPath(std::vector<int> path){
+		for(int i=0;i<path.size();i++){
+			cout<<path[i]<<" ";
+		}
+	}
 };
 
 
-queue *firstInQueue=nullptr;
-queue *lastInQueue= nullptr;
 
-queue *popQueue(){
-	queue* poped=nullptr;
-	
-	if(!firstInQueue->prev){
-		poped = new queue{firstInQueue->edge,nullptr,nullptr};
-		firstInQueue=nullptr;
-		lastInQueue=nullptr;
-		return poped;
-	}else{
-		poped = new queue{firstInQueue->edge,nullptr,nullptr};
-		firstInQueue=firstInQueue->prev;
-		firstInQueue->next=nullptr;
-		return poped;
-	}
-}
+const int graphSize = 8;
+bool visitedVerticies[graphSize]{};
+queue<int> mq;
 
-void initQueue(queue *root){
-	lastInQueue=root;
-	firstInQueue=root;
-}
+int graph[graphSize][graphSize] = {
+//	0	1	2	3	4	5	6	7
+	{0,	1,	1,	0,	0,	0,	0,	0}, //0
+	{1,	0,	1,	1,	0,	0,	0,	0}, //1
+	{1,	1,	0,	0,	1,	0,	0,	1}, //2
+	{0,	1,	0,	0,	1,	0,	0,	0}, //3
+	{0,	0,	1,	1,	0,	1,	0,	0}, //4
+	{0,	0,	0,	0,	1,	0,	1,	0}, //5
+	{0,	0,	0,	0,	0,	1,	0,	1}, //6
+	{0,	0,	1,	0,	0,	0,	1,	0}  //7
+};
 
-void appendQueue(queue *value){
-	if(!firstInQueue && !lastInQueue){
-		initQueue(value);
-	}else{
-		value->next=lastInQueue;
-		lastInQueue->prev=value;
-		value->prev=nullptr;
-		lastInQueue=value;	
-	}
-}
 
-void printQueue(){
-	queue * point = lastInQueue;
-	
-	while(point){
-		cout<<point->edge<<"  ";
-		point=point->next;
-	}
-}
+vertexAndChild **history = nullptr ;
+int vertexThatAppendTheTargetVertex;
 
-bool isVertexInQueue(int vertextNumber){
-	queue* point = lastInQueue;
-
-	if(point){
-		while(point){
-			if(point->edge==vertextNumber){		
+bool isChildVertexNumberAlreadyInParenstList(int childNumber){
+	for(int i=0;i<graphSize;i++){
+		for(int j=0;j<history[i]->child.size();j++){
+			if(history[i]->child[j] == childNumber){
 				return true;
 			}
-			point = point->next;
 		}
 	}
+
 	return false;
 }
 
+void bfs(int targetVertex){
+	int currentVertex;
 
-struct parentVertex{
-	int parentVertexNumber;
-	vector<int> childs;
-};
+	if(mq.empty() == false){
+		currentVertex = mq.front();
 
-vector<parentVertex*> parentVerticiesUsedToVindTarget;
-void bfs(int graph[][graphSize] ,int vertex,int target){
-	
-	if(visitedVerticies[vertex] == 0){
-		visitedVerticies[vertex] = 1;
-	
-	
-		parentVerticiesUsedToVindTarget.push_back(new parentVertex{vertex});
-		cout<<"!!! parentVertex: "<<parentVerticiesUsedToVindTarget[parentVerticiesUsedToVindTarget.size()-1]->parentVertexNumber<<endl;
-	
-		for(int i=0;i<graphSize;i++){
-			if(graph[vertex][i] !=0 && visitedVerticies[i] == 0){
-				cout<<"parentVertex: "<<vertex<<" will append: "<<endl;
-				if(lastInQueue){
-					cout<<"queue is not empty"<<endl;
-					cout<<"edge to be appende: "<<i<<endl;
-					cout<<"check if: "<<i<<" is in the queue"<<endl;
-					if(isVertexInQueue(i)){
-						cout<<"edge: "<<i<<" is in the queue! Don't add it"<<endl;
+		if(visitedVerticies[currentVertex] == 0){
+
+			visitedVerticies[currentVertex] = 1;
+
+			for(int i=0;i<graphSize;i++){
+				if( graph[currentVertex][i] != 0 && visitedVerticies[i] == 0){
+
+
+					if(isChildVertexNumberAlreadyInParenstList(i)  == false){
+						history[currentVertex]->child.push_back(i);
+						mq.push(i);
 					}
-					else{
-						cout<<"edge: "<<i<<" is not in the queue"<<endl;
-						parentVerticiesUsedToVindTarget[parentVerticiesUsedToVindTarget.size()-1]->childs.push_back(i);
-						appendQueue(new queue{i,nullptr,nullptr});
+					
+
+
+					if(targetVertex == i){
+						vertexThatAppendTheTargetVertex = targetVertex;
+						return;
 					}
-				}else if(!lastInQueue){
-					cout<<"queue is empty"<<endl;
-					cout<<"appende edge is: "<<i<<endl;
-					parentVerticiesUsedToVindTarget[parentVerticiesUsedToVindTarget.size()-1]->childs.push_back(i);
-					appendQueue(new queue{i,nullptr,nullptr});
+					
 				}
-				
 			}
-		}		
-	}
-	
-	if(lastInQueue){
-		bfs(graph,popQueue()->edge,target);		
-	}
-}
-
-
-bool isThisVertextChildInThatParent(int thisVertext,vector<int> parentChilds){
-	for(int i=0;i<parentChilds.size();i++){
-		if(thisVertext == parentChilds[i]){
-			return true;
+		
+			
 		}
+		
+		mq.pop();
+		bfs(targetVertex);
+		
+
 	}
-	return false;
 }
 
 
+void printHistory(){
+	for(int i=0;i<graphSize;i++){
+		if(history[i]->child.size()!=0){
+			cout<<"vertex: "<<history[i]->vertexParent<<" : ";
 
-void showParentChilds(vector<parentVertex*> list){
-	for(int i=0;i<list.size();i++){
-		cout<<"parentVertex: "<<list[i]->parentVertexNumber<<" childs: ";
-		if(list[i]->childs.size()>0){
-			for(int j=0;j<list[i]->childs.size();j++){
-				cout<<list[i]->childs[j]<<" ";
-			}cout<<endl;	
-		}else{
-			cout<<" don't have childs."<<endl;
-		}
-	}
-	cout<<endl;
-}
-
-void filterPathAndPrint(vector<parentVertex*> list){
-	vector<int> newPath;
-	int childVertexIndex = 0;
-	int parentVertexIndex = 1;
-	int currentChildVertext;
-	showParentChilds(list);
-	
-	while(parentVertexIndex<list.size()){
-		currentChildVertext = list[childVertexIndex]->parentVertexNumber;
-		if(isThisVertextChildInThatParent(currentChildVertext,list[parentVertexIndex]->childs)){
-			cout<<"currentChildVertex:"<<list[childVertexIndex]->parentVertexNumber<<" is in parentVertex: "<<list[parentVertexIndex]->parentVertexNumber<<endl;
-			newPath.push_back(list[childVertexIndex]->parentVertexNumber);
-			if(parentVertexIndex == list.size()-1){
-				newPath.push_back(list[parentVertexIndex]->parentVertexNumber);
+			for(int j=0;j<history[i]->child.size();j++){
+				cout<<history[i]->child[j]<<" ";
 			}
-			childVertexIndex = parentVertexIndex;
-			parentVertexIndex++;	
-		}else{
-			cout<<"child:"<<list[childVertexIndex]->parentVertexNumber<<" is not in parentVertex: "<<list[parentVertexIndex]->parentVertexNumber<<endl;
-			parentVertexIndex++;	
+			cout<<endl;
+		}
+	}
+}
+
+int getTheVertexNumberWhichAppendedThatVertex(int thatVertex){
+	
+	for(int i=0;i<graphSize;i++){
+		for(int j=0;j<history[i]->child.size();j++){
+			if(history[i]->child[j] == thatVertex){
+				return history[i]->vertexParent;		
+			}
 		}
 	}
 
-	vector<int> reversPath;
-	for(int i = newPath.size()-1; i>=0; i--) reversPath.push_back(newPath[i])		;	
-	for (int i = 0; i < reversPath.size(); ++i)	cout<<reversPath[i]<<" "			;
+	return -1;
 }
 
-int main(){
-	int graph[graphSize][graphSize] = {
-		{0,	1,	1,	0,	0,	0,	0,	0},
-		{1,	0,	1,	1,	0,	0,	0,	0},
-		{1,	1,	0,	0,	1,	0,	0,	1},
-		{0,	1,	0,	0,	1,	0,	0,	0},
-		{0,	0,	1,	1,	0,	1,	0,	0},
-		{0,	0,	0,	0,	1,	0,	1,	0},
-		{0,	0,	0,	0,	0,	1,	0,	1},
-		{0,	0,	1,	0,	0,	0,	1,	0}
-	};
+vector<int>reversePath;
 
-	
-	bfs(graph, 0,6);
-	
-	//PATH MUST BE REVERSED !!
-	vector<parentVertex*> reverseparentVerticiesUsedToVindTarget;
-	for(int i=parentVerticiesUsedToVindTarget.size()-1;i>=0;i--){
-		reverseparentVerticiesUsedToVindTarget.push_back(parentVerticiesUsedToVindTarget[i]);
+void printThePath(int vertexNumber){
+	int targetVertex = vertexNumber;
+	while((vertexNumber = getTheVertexNumberWhichAppendedThatVertex(vertexNumber)) != -1){
+		reversePath.push_back(vertexNumber);
 	}
-	filterPathAndPrint(reverseparentVerticiesUsedToVindTarget);
+
+	for(int i = reversePath.size()-1;i>=0;i--){
+		cout<<reversePath[i]<<' ';
+	}
+	cout<<targetVertex<<endl;
+
+}
+
+int main(){    
+
+	// history = new vertexAndChild*[graphSize];
+
+	// for(int i=0;i<graphSize;i++){
+	// 	history[i] = new vertexAndChild{i,{}};
+	// }
+
+	// mq.push(0);
 	
-	
-	
+	// int targetVertex = 6;
+
+    // bfs(targetVertex);
+
+	// printHistory();
+
+	// printThePath(targetVertex);
 
 
-	
-	
+	BFS* bfs = new BFS((int *)graph,graphSize);
+
+	// bfs->printPath(bfs->bfs(0));
+	// cout<<endl;
+	// bfs->printPath(bfs->bfs(7));
 
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

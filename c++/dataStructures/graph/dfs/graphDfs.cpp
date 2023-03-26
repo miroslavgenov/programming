@@ -22,7 +22,6 @@ void dfs(int graph[][GRAPH_SIZE], int vertex){
 	}
 }
 
-
 int main(){
 	int size = 4;
 	
@@ -39,59 +38,3 @@ int main(){
 	Printer::printGraph(g->getGraph(),size);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

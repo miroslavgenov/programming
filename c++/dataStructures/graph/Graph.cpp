@@ -1,4 +1,4 @@
-#include "/home/home/Desktop/programming/c++/dataStructures/graph/Graph.h"
+#include "/home/user/Desktop/programming/c++/dataStructures/graph/Graph.h"
 
 Graph::Graph(int *sourceGraph,int sourceGraphSize){
     setGraphSizeAndInitializeTheGraph(sourceGraphSize);

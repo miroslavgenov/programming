@@ -1,13 +1,19 @@
 #!/bin/bash/env bash
 
+#NOTE !!! if you use fresh Ubuntu you will need to download:
+# plocate 
+# and change the "locate "/home/..../../../" " command #here
+
 fileToStoreThePathsToTheAllCppAndHeaderFiles="fileWithCppAndHeaderPaths.txt"
 currentDate=$(date +%F)
 fileToStoreTheTotalNumberOfCppAndHeaderFiles="totalNumberOfCppAndHeaderFiles-$currentDate.txt"
 
 fileToStoreCppAndHeaderData="cppAndHeaderData-$currentDate.csv"
 
-locate "/home/home/Desktop/programming/c++/*.cpp" > $fileToStoreThePathsToTheAllCppAndHeaderFiles
-locate "/home/home/Desktop/programming/c++/*.h" >> $fileToStoreThePathsToTheAllCppAndHeaderFiles
+#here
+locate "/home/user/Desktop/programming/c++/*.cpp" > $fileToStoreThePathsToTheAllCppAndHeaderFiles
+locate "/home/user/Desktop/programming/c++/*.h" >> $fileToStoreThePathsToTheAllCppAndHeaderFiles
+
 
 totalNumberOfFiles=$(wc -l $fileToStoreThePathsToTheAllCppAndHeaderFiles | cut -d ' ' -f 1)
 echo "totalNumberOfFiles,$totalNumberOfFiles" > $fileToStoreTheTotalNumberOfCppAndHeaderFiles

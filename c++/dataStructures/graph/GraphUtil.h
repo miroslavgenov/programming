@@ -142,4 +142,13 @@ class GraphUtil{
             *(*visitedVerticies+i) = 0;
         }
     }
+
+    static void printGraph(int **graph, int graphSize){
+        for(int i=0;i<graphSize;i++){
+            for(int j=0;j<graphSize;j++){
+                std::cout<<graph[i][j]<<" ";
+            }
+            std::cout<<std::endl;
+        }
+    }
 };
