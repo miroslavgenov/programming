@@ -6,60 +6,32 @@
 #include "/home/user/Desktop/programming/c++/dataStructures/graph/GraphFlags.h"
 #include "/home/user/Desktop/programming/c++/dataStructures/graph/GraphUtil.h"
 #include "/home/user/Desktop/programming/c++/dataStructures/graph/Graph.cpp"
+#include "/home/user/Desktop/programming/c++/dataStructures/graph/bfsPath/vertexAndChilds.h"
 
 using namespace std;
 
-struct vertexAndChild{
-	int vertexParent;
-	std::vector<int> child;
-};
-
-// main BFS basic bfs function and advanced bfs funtion that shows the shortes path
 class BFS:Graph{
 	public:
 
 	std::queue<int> bfsQueue;
 	std::vector<int> path;
+	vertexAndChilds** history = nullptr;
 	bool *visitedVerticies = nullptr;
-	int currentVertex;
-	int targetVertex;
+	int *currentVertex = nullptr;
 
 	BFS(int *srcGraph, int srcGraphSize):Graph(srcGraph,srcGraphSize){
 		visitedVerticies  = new bool[graphSize];
 	}
 
-	void emptyQueueStackAndVisitedVerticies(){
+	void clearTheBasicVariables(){
 		bfsQueue = std::queue<int>();
 		path = std::vector<int>();
 		visitedVerticies = new bool[graphSize];
+		history = new vertexAndChilds*[graphSize];
+		currentVertex = new int;
 	}
 
-	std::vector<int> bfs(int sv){
-		emptyQueueStackAndVisitedVerticies();
-
-		bfsQueue.push(sv);
-
-		while(bfsQueue.empty() == false){
-			currentVertex = bfsQueue.front();
-
-			if(visitedVerticies[currentVertex] == 0){
-				
-				path.push_back(currentVertex);
-				visitedVerticies[currentVertex] = 1;
-
-				for(int i=0;i<graphSize;i++){
-					if(graph[currentVertex][i] != 0 && visitedVerticies[i] == 0){
-						bfsQueue.push(i);
-					}
-				}
-			}
-
-			bfsQueue.pop();
-		}
-		return path;
-	}
-
-	bool isChildVertexAlreadyInParentChilds(int childVertexNumber, vertexAndChild** hs){
+	bool isChildVertexAlreadyInParentChilds(int childVertexNumber, vertexAndChilds** hs){
 		for(int i=0;i<graphSize;i++){
 			for(int j=0;j<hs[i]->child.size();j++){
 				if(hs[i]->child[j] == childVertexNumber){
@@ -70,52 +42,62 @@ class BFS:Graph{
 		return false;
 	}
 
-	void bfs(int st, int tg){	
-		std::queue<int> qw;
-		int cv;
-		bool vs[graphSize]{0};
-		vertexAndChild** hst =new vertexAndChild*[graphSize]; 
+	void initializeHistory(){
+		for(int i=0;i<graphSize;i++){
+			history[i] = new vertexAndChilds{i,{}};
+		}
+	}
+
+	std::vector<int> bfs(int startVertex, int *targetVertex = nullptr){	
 		int vertexAppendedTheTg;
 
+		clearTheBasicVariables();
+		initializeHistory();	
 
-		for(int i=0;i<graphSize;i++){
-			hst[i] = new vertexAndChild{i,{}};
-		}
+		bfsQueue.push(startVertex);
 
+		while(bfsQueue.empty() == false){
 
-		qw.push(st);
+			*currentVertex = bfsQueue.front();
 
-		while(qw.empty() == false){
+			if(visitedVerticies[*currentVertex] == 0){
+				
+				path.push_back(*currentVertex);
 
-			cv = qw.front();
-
-			if(vs[cv] == 0){
-
-				vs[cv] = 1;
+				visitedVerticies[*currentVertex] = 1;
 
 				for(int i=0;i<graphSize;i++){
-					if(graph[cv][i] != 0 && vs[i] == 0){
-						if(isChildVertexAlreadyInParentChilds(i,hst) == false){
-							hst[cv]->child.push_back(i);
-							qw.push(i);
 
-							if(i == tg){
-								vertexAppendedTheTg=cv;
-								makeStartVertexPathToTargetVertexPathReadable(tg,vertexAppendedTheTg,hst);
-								return;
+					if(graph[*currentVertex][i] != 0 && visitedVerticies[i] == 0){
+
+						if(isChildVertexAlreadyInParentChilds(i,history) == false && targetVertex != nullptr){
+							
+							history[*currentVertex]->child.push_back(i);
+
+							bfsQueue.push(i);
+
+							if(i == *targetVertex ){
+								
+								path.push_back(i);
+
+								vertexAppendedTheTg=*currentVertex;
+								makeStartVertexPathToTargetVertexPathReadable(*targetVertex,history);
+								return path;
 							}
+						}else{
+							bfsQueue.push(i);							
 						}
 
 					}
 				}
 			}
-
-			qw.pop();
-
+			bfsQueue.pop();
 		}
+
+		return path;
 	}
 
-	int getTheParrentOfThatChildVertex(int childVertex, vertexAndChild** hst){
+	int getTheParrentOfThatChildVertex(int childVertex, vertexAndChilds** hst){
 		for(int i=0;i<graphSize;i++){
 			for(int j=0;j<hst[i]->child.size();j++){
 				if(childVertex == hst[i]->child[j]){
@@ -127,7 +109,7 @@ class BFS:Graph{
 		return -1;
 	}
 
-	std::vector<int> getThePath(int tg, vertexAndChild** hst){
+	std::vector<int> getTheChildernsAndTheStartingParent(int tg, vertexAndChilds** hst){
 		std::vector<int> pathBackwards;
 
 		int tgv = tg;
@@ -138,12 +120,11 @@ class BFS:Graph{
 		}
 
 		return pathBackwards;
-
 	}
 
-	std::vector<int> getTheReversePath(std::vector<int> path){
-
+	std::vector<int> getThePathReversed(){
 		vector<int> p;
+
 		for(int i=path.size()-1;i>=0;i--){
 			p.push_back(path[i]);
 		}
@@ -151,12 +132,11 @@ class BFS:Graph{
 		return p;
 	}
 
-	void makeStartVertexPathToTargetVertexPathReadable(int targetVertex, int vertexThatAppendedTargetVertex, vertexAndChild** hst){		
-		std::vector<int> pathBackwards = getThePath(targetVertex,hst);
+	void makeStartVertexPathToTargetVertexPathReadable(int targetVertex, vertexAndChilds** hst){		
+		path = getTheChildernsAndTheStartingParent(targetVertex,hst);
 
-		pathBackwards = getTheReversePath(pathBackwards);
+		path = getThePathReversed();
 
-		printPath(pathBackwards);
 	}
 
 	void printPath(std::vector<int> path){
@@ -183,5 +163,5 @@ int main(){
 
 	BFS* bfs = new BFS((int *)graph,graphSize);
 
-	bfs->printPath(bfs->bfs(0)); 
+	bfs->printPath(bfs->bfs(0));
 }
