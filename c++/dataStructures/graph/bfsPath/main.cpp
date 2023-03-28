@@ -10,23 +10,34 @@
 
 using namespace std;
 
-class BFS:Graph{
+class GraphSearch: public Graph{
 	public:
-
-	std::queue<int> bfsQueue;
 	std::vector<int> path;
-	vertexAndChilds** history = nullptr;
 	bool *visitedVerticies = nullptr;
-	int *currentVertex = nullptr;
 
-	BFS(int *srcGraph, int srcGraphSize):Graph(srcGraph,srcGraphSize){
+	GraphSearch(int *srcGraph, int srcGraphSize):Graph(srcGraph, srcGraphSize){
 		visitedVerticies  = new bool[graphSize];
 	}
 
 	void clearTheBasicVariables(){
-		bfsQueue = std::queue<int>();
 		path = std::vector<int>();
 		visitedVerticies = new bool[graphSize];
+	}
+};
+
+class BFS:GraphSearch{
+	public:
+	std::queue<int> bfsQueue;
+	vertexAndChilds** history = nullptr;
+	int *currentVertex = nullptr;
+
+	BFS(int *srcGraph, int srcGraphSize):GraphSearch(srcGraph,srcGraphSize){
+	}
+
+	void clearTheBasicVariables(){
+		GraphSearch::clearTheBasicVariables();
+
+		bfsQueue = std::queue<int>();
 		history = new vertexAndChilds*[graphSize];
 		currentVertex = new int;
 	}
